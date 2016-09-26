@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>图解HTTP-6 – Michael – Developer</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="HTTP首部" />
+    <meta property="og:description" content="HTTP首部" />
+    
+    <meta name="author" content="Michael" />
+
+    
+    <meta property="og:title" content="图解HTTP-6" />
+    <meta property="twitter:title" content="图解HTTP-6" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Michael - Developer" href="/feed.xml" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/images/favicon.ico" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Michael</a></h1>
+            <p class="site-description">Developer</p>
+          </div>
+
+          <nav>
+            <a href="/"><i class="fa fa-home fa-2x"></i></a>
+            <a href="/about"><i class="fa fa-user-secret fa-2x"></i></a>
+            <a href="/feed.xml" target="_blank"><i class="fa fa-feed fa-2x"></i></a>
+          </nav>
+
+          <a href="https://github.com/MichaelYgZhang" target="_blank">
+            <img class="fork-me-on-github" src="/images/fork-me-on-github.png" alt="Fork me on GitHub">
+          </a>
+        </header>
+
+        <div id="search-container">
+          <input type="text" id="search-input" placeholder="search...">
+          <ul id="results-container"></ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <div class="post">
+    <h1 class="post-title">图解HTTP-6</h1>
+    <span class="post-date">25 Sep 2016</span>
+     |
+    
+    
+    <article>
+      <h5 id="http">6 HTTP首部</h5>
+
+<h6 id="http-1">当HTTP首部中出现两个或者两个以上具有相同首部字段名时会怎样？这种情况在规范中尚未明确，根据浏览器内部处理逻辑的不同，结果可能并不一致。</h6>
+
+<h5 id="section">通用首部字段</h5>
+<ul>
+  <li>
+    <p>Cache-Control: no-cache/no-store
+⚠️区别是:<code class="highlighter-rouge">no-cache</code>代表不缓存过期的资源，缓存会向源服务器进行有效期确认后处理资源。<code class="highlighter-rouge">no-store</code>才是真正地不进行缓存，注意区分！</p>
+  </li>
+  <li>
+    <p>Connection 首部字段具备如下两个作用。1、控制不再转发给代理的首部字段2、管理持久连接。</p>
+    <blockquote>
+      <ol>
+        <li>Connection: 不再转发的首部字段名</li>
+        <li>Connection: close</li>
+      </ol>
+    </blockquote>
+  </li>
+</ul>
+
+<p>HTTP/1.1版本默认的连接都是持久连接，为此，客户端会在持久连接上连续发送请求，当服务器端想明确断开连接时，则指定Connection:close、而在HTTP/1.1之前想要维持持续连接，则需要指定Connection首部字段的值为Keep-Alive。</p>
+<ul>
+  <li>首部字段Date表示生成报文的日起和时间</li>
+  <li>通用首部字段Pragma:no-cahce 只用在客户端发送的请求中，客户端要求所有的中间服务器不返回缓存的资源。这个字段时HTTP/1.1之前版本的历史遗留字段，所有中间服务器如果都以HTTP/1.1为基准，则可以直接采用Cache-Control:no-cache指定缓存的处理方式最为理想。但要掌握全部中间服务器使用的HTTP版本是不现实的，所以为了兼容发送的请求会同时含有以下两个首部字段。
+    <blockquote>
+      <ol>
+        <li>Cache-Control: no-cache</li>
+        <li>Pragma: no-cache</li>
+      </ol>
+    </blockquote>
+  </li>
+  <li>Trailer</li>
+  <li>Transfer-Encoding</li>
+  <li>Upgrade</li>
+  <li>Via:追踪客户端与服务器之间的请求和响应报文的传输路径。</li>
+  <li>Warning</li>
+</ul>
+
+<h5 id="section-1">请求首部字段</h5>
+<ul>
+  <li>Accept:可通知服务器，用户代理能够处理的媒体类型及媒体类型的相对优先级。常见的有:text/html,text/plain,application/xml,image/jpeg,image/gif,video/mpeg,application/zip…..添加优先级时可以使用:q=表示权重用分号分隔，q范围是0～1，可以精确到小数点后3位。q默认大小为1.</li>
+</ul>
+
+<blockquote>
+  <ul>
+    <li>Accept: text/plain; q=0.5, text/html, text/x-dvi; q=0.8, text/x-c</li>
+    <li>可接受的类型优先级如下:
+      <ol>
+        <li>text/html text/x-c</li>
+        <li>text/x-dvi</li>
+        <li>text/plain</li>
+      </ol>
+    </li>
+  </ul>
+</blockquote>
+
+<ul>
+  <li>Accept-Charset:iso-8859-5,unicode-1-1;q=0.8
+通知服务器用户客户端支持的字符集以及字符集的优先级。</li>
+  <li>Accept-Encoding:gzip,deflate 通知服务器用户代理支持的内容编码及优先级顺序。不同的编码对应了不同的算法。比如gzip:Lempel-Ziv算法以及32位循环冗余校验(Cyclic Redundancy Check通称CRC)。</li>
+  <li>Accept-Language: zh-cn,zh;q=0.7,en-us,en;q=0.3 告知服务器用户代理能够处理的自然语言集及优先级，例子中表示客户端在服务器有中文版资源的情况下，会请求返回中文版对应的响应，没有中文版时则返回英文版响应。</li>
+  <li>Authorization: Basic dfdaurerNdfjaduYA== 告知服务器用户代理的认证信息</li>
+  <li>Expect</li>
+  <li>From: info@hackr.jp 通常就是告知服务器用户代理的用户的电子邮件地址。</li>
+  <li>Host: www.hackr.jp 告知服务器请求的资源所处的互联网主机名和端口号。唯一一个必须被包含在请求首部的字段，因为它和以单台服务器分配多个域名的虚拟主机的工作机制有很密切的关联，这就是首部字段Host必须存在的意义。</li>
+  <li>If-Match</li>
+  <li>If-Modified-Since</li>
+  <li>If-None-Match</li>
+  <li>If-Range</li>
+  <li>If-Unmodified-Since</li>
+  <li>Max-Forwards:2 表示只能往下个服务器转发2次，既经历2个代理服务器就返回。没经过一个服务器就减一做重新计算。可以通过这个字段的灵活应用掌握通信失败时由那个服务器造成的失败。</li>
+  <li>Proxy-Authorization</li>
+  <li>Range: bytes=500-1000 只获取部分资源的范围请求。若无法处理该范围的请求时，则返回状态码200 OK的响应及全部资源。</li>
+  <li>Referer:正确的拼写应该是Referrer <code class="highlighter-rouge">http://www.hackr.jp/index.html</code> 告知服务器请求的原始资源的URI</li>
+  <li>TE</li>
+  <li>User-Agent 将创建请求的浏览器和用户代理名称等信息传达给服务器</li>
+</ul>
+
+<h5 id="section-2">响应首部字段</h5>
+<ul>
+  <li>Accept-Ranges 告知客户端是否能够处理范围请求，以指定获取服务器端某个部分的资源。当可处理范围请求时指定为bytes反之none。</li>
+  <li>Age 告知源服务器在多久前创建了响应，字段值的单位为秒</li>
+  <li>ETag</li>
+  <li>Location:将响应接收方引导至某个与请求URI位置不同的资源。基本该字段会配合3xx:Redirection的响应，提供重定向的URI</li>
+  <li>Proxy-Authenticate</li>
+  <li>Retry-After 告知客户端应该在多久之后再次发送请求。</li>
+  <li>Server 告知客户端当前服务器上安装的HTTP服务器应用程序信息。</li>
+  <li>Vary 源服务器告知代理服务器传达关于本地缓存使用方法的命令。比如需要有相同的请求首部字段。</li>
+</ul>
+
+<h5 id="section-3">实体首部字段</h5>
+<ul>
+  <li>Allow：通知客户端支持Request-URI指定资源的所有HTTP方法，当服务器收到不支持HTTP方法时，会以状态码405 Method Not Allowed作为响应返回。于此同时还会将把所有能支持HTTP方法写入首部字段Allow后返回。</li>
+  <li>Content-Encoding 告知客户端报文使用了某种方式进行了压缩。</li>
+  <li>Content-Language: zh-CN</li>
+  <li>Content-Length 资源大小</li>
+  <li>Content-Location 报文主体返回资源对应的URI</li>
+  <li>Content-MD5 主要是检查报文传输过程中是否保持了完整及确认传输到达</li>
+  <li>Content-Range: bytes 100-3000针对范围请求，返回响应时使用的首部字段</li>
+  <li>Content-Type: text/html;charset=UTF-8</li>
+  <li>Expires:将资源实效的日期告知客户端</li>
+  <li>Last-Modified 指明资源最终修改的时间。一般就是Request-URI指定资源被修改的时间</li>
+</ul>
+
+<h5 id="cookie">Cookie服务的首部字段</h5>
+<ul>
+  <li>Set-Cookie
+字段的属性如下</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>属性</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>NAME=VALUE</td>
+      <td>赋予Cookie的名称和值</td>
+    </tr>
+    <tr>
+      <td>expires=DATE</td>
+      <td>Cookie的有效期,若不指定则为浏览器关闭为止</td>
+    </tr>
+    <tr>
+      <td>path=PATH</td>
+      <td>将服务器上的文件目录作为Cookie的适用对象</td>
+    </tr>
+    <tr>
+      <td>domain=域名</td>
+      <td>作为Cookie适用对象的域名</td>
+    </tr>
+    <tr>
+      <td>Secure</td>
+      <td>仅HTTPS安全通信时才会发送Cookie;<code class="highlighter-rouge">Set-Cookie:name=value; secure</code></td>
+    </tr>
+    <tr>
+      <td>HttpOnly</td>
+      <td>加以限制，使Cookie不能被JavaScript脚本访问,此属性可以防止跨站脚本攻击XSS;<code class="highlighter-rouge">Set-Cookie:name=value; HttpOnly</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="section-4">其他首部字段</h5>
+<ul>
+  <li>X-Frame-Options: DENY/SAMEORIGIN(同源)</li>
+  <li>X-XSS-Protection:1/0 ,0将XSS过滤设置成无效状态，1将XSS过滤设置成有效状态</li>
+  <li>DNT:1/0  Do Not Track 拒绝个人信息被收集，0同意被追踪，1拒绝追踪</li>
+  <li>P3P 用于保护用户隐私<a href="http://www.w3.org/TR/P3P">P3P</a></li>
+</ul>
+
+    </article>
+  </div>
+
+  <div class="related">
+    <h2>最新文章</h2>
+    <ul class="related-posts">
+      
+        <li>
+          <h3>
+            <a href="/cs/2016/09/25/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6%E7%AC%94%E8%AE%B0.html">
+              黑客与画家-读书笔记
+              <small>25 Sep 2016</small>
+            </a>
+          </h3>
+        </li>
+      
+        <li>
+          <h3>
+            <a href="/mysql/2016/09/25/%E9%AB%98%E6%80%A7%E8%83%BDmysql-4.html">
+              高性能mysql读书笔记
+              <small>25 Sep 2016</small>
+            </a>
+          </h3>
+        </li>
+      
+        <li>
+          <h3>
+            <a href="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-9-10.html">
+              图解HTTP-9-10
+              <small>25 Sep 2016</small>
+            </a>
+          </h3>
+        </li>
+      
+    </ul>
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'michaelygzhangblog';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:g.zhangyg@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/MichaelYgZhang"><i class="svg-icon github"></i></a>
+
+
+
+
+<a href="https://www.twitter.com/michaelygzhang"><i class="svg-icon twitter"></i></a>
+
+
+<a href="https://plus.google.com/115646538142388831563"><i class="svg-icon googleplus"></i></a>
+
+        </footer>
+      </div>
+    </div>
+
+    <div id="backToTop" class="backtoTop">
+    	<i class="fa fa-hand-o-up fa-2x"></i>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-84531968-1', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-6.html',
+		  'title': '图解HTTP-6'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-jekyll-search/1.1.5/jekyll-search.js" type="text/javascript"></script>
+    <script src="/js/blog.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+          SimpleJekyllSearch({
+            searchInput: document.getElementById('search-input'),
+            resultsContainer: document.getElementById('results-container'),
+            json: '/search.json',
+            searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+            noResultsText: 'No results found',
+            limit: 10,
+            fuzzy: false,
+            exclude: ['Welcome']
+          })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>图解HTTP-7-8 – Michael – Developer</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="确保Web安全的HTTPS，确认访问用户身份的认证" />
+    <meta property="og:description" content="确保Web安全的HTTPS，确认访问用户身份的认证" />
+    
+    <meta name="author" content="Michael" />
+
+    
+    <meta property="og:title" content="图解HTTP-7-8" />
+    <meta property="twitter:title" content="图解HTTP-7-8" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Michael - Developer" href="/feed.xml" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/images/favicon.ico" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Michael</a></h1>
+            <p class="site-description">Developer</p>
+          </div>
+
+          <nav>
+            <a href="/"><i class="fa fa-home fa-2x"></i></a>
+            <a href="/about"><i class="fa fa-user-secret fa-2x"></i></a>
+            <a href="/feed.xml" target="_blank"><i class="fa fa-feed fa-2x"></i></a>
+          </nav>
+
+          <a href="https://github.com/MichaelYgZhang" target="_blank">
+            <img class="fork-me-on-github" src="/images/fork-me-on-github.png" alt="Fork me on GitHub">
+          </a>
+        </header>
+
+        <div id="search-container">
+          <input type="text" id="search-input" placeholder="search...">
+          <ul id="results-container"></ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <div class="post">
+    <h1 class="post-title">图解HTTP-7-8</h1>
+    <span class="post-date">25 Sep 2016</span>
+     |
+    
+    
+    <article>
+      <h4 id="webhttps">7 确保Web安全的HTTPS</h4>
+
+<h5 id="http">1－HTTP的缺点</h5>
+
+<h6 id="section">通信使用明文可能会被窃听</h6>
+<ul>
+  <li>TCP/IP 是可能被窃听的网络</li>
+  <li>加密处理防止被窃听</li>
+  <li>内容加密</li>
+  <li>不验证通信方的身份就可能遭遇伪装</li>
+  <li>任何人都可以发起请求</li>
+  <li>查明对手的证书</li>
+  <li>无法证明报文完整性，可能已遭篡改</li>
+</ul>
+
+<h5 id="httphttps">2－HTTP＋加密＋认证＋完整性保护＝HTTPS</h5>
+
+<h6 id="sslsecure-socket-layer-tlstransport-layer-security">SSL(Secure Socket Layer) TLS(Transport Layer Security)</h6>
+
+<p>HTTPS就是在HTTP协议的基础上加上SSL和TLS</p>
+
+<h5 id="section-1">8 确认访问用户身份的认证</h5>
+
+<h6 id="section-2">认证方式</h6>
+<ul>
+  <li>密码</li>
+  <li>动态令牌</li>
+  <li>数字证书</li>
+  <li>生物认证</li>
+  <li>IC卡等</li>
+</ul>
+
+<h6 id="http11">HTTP/1.1认证方式</h6>
+<ul>
+  <li>BASIC认证</li>
+  <li>DIGEST认证</li>
+  <li>SSL客户端认证</li>
+  <li>FormBase认证</li>
+</ul>
+
+<h6 id="basic">BASIC认证</h6>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:发送请求</span>
+<span class="nx">S</span><span class="o">-&gt;&gt;</span><span class="nx">C</span><span class="err">:返回状态吗</span><span class="mi">401</span><span class="err">告知</span><span class="nx">C</span><span class="err">需要认证</span>
+<span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:用户</span><span class="nx">ID</span><span class="err">和</span><span class="nx">PWD</span><span class="err">以</span><span class="nx">Base64</span><span class="err">方式编码</span><span class="p">(</span><span class="err">并不是加密处理</span><span class="p">)</span><span class="err">后发送</span>
+<span class="nx">S</span><span class="o">-&gt;&gt;</span><span class="nx">C</span><span class="err">:认证成功返回</span><span class="mi">200</span><span class="err">，失败则</span><span class="mi">401</span>
+</code></pre>
+</div>
+
+<h5 id="digest">DIGEST认证</h5>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:</span> <span class="err">发送请求</span>
+<span class="nx">S</span><span class="o">-&gt;&gt;</span><span class="nx">C</span><span class="err">:</span> <span class="err">发送临时的质询码</span><span class="p">(</span><span class="err">随机数</span><span class="p">,</span><span class="nx">nonce</span><span class="p">)</span><span class="err">以告知需要认证的状态吗</span><span class="mi">401</span>
+<span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:</span> <span class="err">发送摘要以及由质询码计算出的响应码</span>
+<span class="nx">S</span><span class="o">-&gt;&gt;</span><span class="nx">C</span><span class="err">:</span> <span class="err">认证成功返回</span><span class="mi">200</span><span class="err">失败</span><span class="mi">401</span>
+</code></pre>
+</div>
+
+<h5 id="ssl">SSL认证</h5>
+
+<p>客户端证书收费</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:请求某一需要认证的资源，比如登陆</span>
+<span class="nx">S</span><span class="o">-&gt;&gt;</span><span class="nx">C</span><span class="err">:发送</span><span class="nx">Certificate</span> <span class="nx">Request</span><span class="err">报文，要求提供客户端证书</span>
+<span class="nx">C</span><span class="o">--&gt;</span><span class="nx">S</span><span class="err">:将</span><span class="nx">Certicicate</span><span class="err">信息以</span><span class="nx">Client</span> <span class="nx">Certificate</span><span class="err">报文方式发送给</span><span class="nx">S</span>
+<span class="nx">S</span><span class="o">-&gt;&gt;</span><span class="nx">C</span><span class="err">:验证证书</span><span class="p">,</span><span class="err">通过后领取客户端的公开密钥进行</span><span class="nx">HTTPS</span><span class="err">加密通信</span>
+</code></pre>
+</div>
+
+<h5 id="section-3">基于表单认证</h5>
+
+<p>大多认证采用表单认证，涉及Session管理Cookie应用，即Cookie来管理Session,弥补HTTP协议为无状态的缺点。</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:发送登陆信息</span><span class="nx">ID</span><span class="p">,</span><span class="nx">PWD</span>
+<span class="nx">S</span><span class="o">-&gt;&gt;</span><span class="nx">C</span><span class="err">:返回包含</span><span class="nx">Session</span> <span class="nx">ID</span><span class="err">的</span><span class="nx">Cookie</span><span class="p">,</span><span class="err">以纪录认证状态</span>
+<span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:发送包含</span><span class="nx">Session</span> <span class="nx">ID</span><span class="err">的</span><span class="nx">Cookie</span><span class="err">的请求</span>
+</code></pre>
+</div>
+
+<p>⚠️为减轻跨域站脚本攻击(XSS)造成的损失，建议事先在Cookie内加上<code class="highlighter-rouge">httponly</code>属性。</p>
+
+    </article>
+  </div>
+
+  <div class="related">
+    <h2>最新文章</h2>
+    <ul class="related-posts">
+      
+        <li>
+          <h3>
+            <a href="/cs/2016/09/25/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6%E7%AC%94%E8%AE%B0.html">
+              黑客与画家-读书笔记
+              <small>25 Sep 2016</small>
+            </a>
+          </h3>
+        </li>
+      
+        <li>
+          <h3>
+            <a href="/mysql/2016/09/25/%E9%AB%98%E6%80%A7%E8%83%BDmysql-4.html">
+              高性能mysql读书笔记
+              <small>25 Sep 2016</small>
+            </a>
+          </h3>
+        </li>
+      
+        <li>
+          <h3>
+            <a href="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-9-10.html">
+              图解HTTP-9-10
+              <small>25 Sep 2016</small>
+            </a>
+          </h3>
+        </li>
+      
+    </ul>
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'michaelygzhangblog';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:g.zhangyg@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/MichaelYgZhang"><i class="svg-icon github"></i></a>
+
+
+
+
+<a href="https://www.twitter.com/michaelygzhang"><i class="svg-icon twitter"></i></a>
+
+
+<a href="https://plus.google.com/115646538142388831563"><i class="svg-icon googleplus"></i></a>
+
+        </footer>
+      </div>
+    </div>
+
+    <div id="backToTop" class="backtoTop">
+    	<i class="fa fa-hand-o-up fa-2x"></i>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-84531968-1', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-7-8.html',
+		  'title': '图解HTTP-7-8'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-jekyll-search/1.1.5/jekyll-search.js" type="text/javascript"></script>
+    <script src="/js/blog.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+          SimpleJekyllSearch({
+            searchInput: document.getElementById('search-input'),
+            resultsContainer: document.getElementById('results-container'),
+            json: '/search.json',
+            searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+            noResultsText: 'No results found',
+            limit: 10,
+            fuzzy: false,
+            exclude: ['Welcome']
+          })
+    </script>
+  </body>
+</html>

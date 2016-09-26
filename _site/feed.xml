@@ -1,0 +1,1025 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2016-09-26T23:47:28+08:00</updated><id>/</id><title>Michael</title><subtitle>Developer</subtitle><entry><title>黑客与画家-读书笔记</title><link href="/cs/2016/09/25/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6%E7%AC%94%E8%AE%B0.html" rel="alternate" type="text/html" title="黑客与画家-读书笔记" /><published>2016-09-25T00:00:00+08:00</published><updated>2016-09-25T00:00:00+08:00</updated><id>/cs/2016/09/25/黑客与画家笔记</id><content type="html" xml:base="/cs/2016/09/25/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6%E7%AC%94%E8%AE%B0.html">&lt;p&gt;这是一本13年读过的书，时至今日已过去近3年，古人说&lt;code class=&quot;highlighter-rouge&quot;&gt;温故而知新&lt;/code&gt;，虽然中间的间隔比较久，由于最近在学Clojure，而它是一个Lisp方言，而我第一次接触的Lisp就是黑客与画家，如今在此捧起这本书，为的是去思考去发现其中的精髓。&lt;/p&gt;
+
+&lt;p&gt;保罗•格雷厄姆创业哲学，他的创业公式是:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;搭建原型&lt;/li&gt;
+  &lt;li&gt;上线运营(别管bug)&lt;/li&gt;
+  &lt;li&gt;收集反馈&lt;/li&gt;
+  &lt;li&gt;调整产品&lt;/li&gt;
+  &lt;li&gt;成长壮大&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;创业时创始人数控制在2～3人&lt;/li&gt;
+  &lt;li&gt;出于兴趣而解决某个难题，不管它有没有用，这就是黑客&lt;/li&gt;
+  &lt;li&gt;黑客三个特性:&lt;code class=&quot;highlighter-rouge&quot;&gt;好玩&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;高智商&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;探索精神&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id=&quot;section&quot;&gt;黑客伦理&lt;/h6&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;使用计算机以及所有有助于了解这个世界本质的事务都不应接到任何限制，任何事情都应亲手尝试。&lt;/li&gt;
+  &lt;li&gt;所有信息应该都是自由的。&lt;/li&gt;
+  &lt;li&gt;不信任权威，提倡去中心化。&lt;/li&gt;
+  &lt;li&gt;判断一名黑客的水平应该看他的技术水平，而不是看他的学历、年龄或地位等其他标准。&lt;/li&gt;
+  &lt;li&gt;你可以用计算机创造美和艺术。&lt;/li&gt;
+  &lt;li&gt;计算机使生活更美好。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;总结:分享、开放、民主、计算机的自由使、进步&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h5 id=&quot;section-1&quot;&gt;第十章:编程语言解析&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;证明编程语言的一个重要特点:一个操作所需的代码越多，就越难避免bug，也越难发现它们。&lt;/li&gt;
+&lt;/ul&gt;</content><category term="CS" /><summary>黑客与画家读书笔记</summary></entry><entry><title>高性能mysql读书笔记</title><link href="/mysql/2016/09/25/%E9%AB%98%E6%80%A7%E8%83%BDmysql-4.html" rel="alternate" type="text/html" title="高性能mysql读书笔记" /><published>2016-09-25T00:00:00+08:00</published><updated>2016-09-25T00:00:00+08:00</updated><id>/mysql/2016/09/25/高性能mysql-4</id><content type="html" xml:base="/mysql/2016/09/25/%E9%AB%98%E6%80%A7%E8%83%BDmysql-4.html">&lt;h3 id=&quot;schema&quot;&gt;Schema与数据类型优化&lt;/h3&gt;
+
+&lt;h5 id=&quot;section&quot;&gt;数据库的设计军规&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;更小的通常更好&lt;/li&gt;
+  &lt;li&gt;简单就好&lt;/li&gt;
+  &lt;li&gt;尽量避免&lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;整数类型:&lt;code class=&quot;highlighter-rouge&quot;&gt;TINYINT&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;SMALLINT&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;MEDIUMINT&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;INT&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;BIGINT&lt;/code&gt;分别使用8，16，24，32，64位存储空间。它们可以存储的值的范围从-2^(N-1) 到-2^(N-1) - 1，其中N是存储空间的位数。有可选的&lt;code class=&quot;highlighter-rouge&quot;&gt;UNSIGNED&lt;/code&gt;属性，表示不允许负值，例如:&lt;code class=&quot;highlighter-rouge&quot;&gt;UNSIGNED&lt;/code&gt;可以存储的范围是0 ~ 255,而&lt;code class=&quot;highlighter-rouge&quot;&gt;TINYINT&lt;/code&gt;的存储范围是-128 ~ 127。&lt;/li&gt;
+  &lt;li&gt;实数类型:指带有小数部分的数字。对于&lt;code class=&quot;highlighter-rouge&quot;&gt;DECIMAL&lt;/code&gt;列，可以指定小数点前后所允许的最大位数，这会影响列的空间消耗。MySQL 5.0和更高的版本将数字打包保存到一个二进制字符串中(每4格字节存储9格数字)。例如: &lt;code class=&quot;highlighter-rouge&quot;&gt;DECIMAL(18,9)&lt;/code&gt;小数点两边将个存储9格数字，一共使用9格字节，小数点前后各4各字节，小数点本身占用一个字节。浮点类型在存储同样范围的值时，通常比&lt;code class=&quot;highlighter-rouge&quot;&gt;DECIMAL&lt;/code&gt;使用更少的空间。&lt;code class=&quot;highlighter-rouge&quot;&gt;FLOAT&lt;/code&gt;使用4个字节存储，&lt;code class=&quot;highlighter-rouge&quot;&gt;DOUBLE&lt;/code&gt;占用8个字节，相比&lt;code class=&quot;highlighter-rouge&quot;&gt;FLOAT&lt;/code&gt;有更高的精度和更大的范围，&lt;code class=&quot;highlighter-rouge&quot;&gt;MySQL&lt;/code&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;DOUBLE&lt;/code&gt;作为内部浮点计算的类型。因为需要额外的空间和计算开销，所以应该尽量只在对小数进行精确计算时才使用&lt;code class=&quot;highlighter-rouge&quot;&gt;DECIMAL&lt;/code&gt;，例如存储财务数据，但在数据量比较大的时候，可以考虑使用&lt;code class=&quot;highlighter-rouge&quot;&gt;BIGINT&lt;/code&gt;代替&lt;code class=&quot;highlighter-rouge&quot;&gt;DECIMAL&lt;/code&gt;，将需要存储的值乘以小数点后面相应的倍数即可，这样同时避免浮点存储计算的不精确和&lt;code class=&quot;highlighter-rouge&quot;&gt;DECIMAL&lt;/code&gt;精确计算代价高的问题。&lt;/li&gt;
+  &lt;li&gt;字符串。&lt;/li&gt;
+&lt;/ol&gt;</content><category term="MySQL" /><summary>第四章</summary></entry><entry><title>图解HTTP-9-10</title><link href="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-9-10.html" rel="alternate" type="text/html" title="图解HTTP-9-10" /><published>2016-09-25T00:00:00+08:00</published><updated>2016-09-25T00:00:00+08:00</updated><id>/cs/2016/09/25/图解HTTP-9-10</id><content type="html" xml:base="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-9-10.html">&lt;h4 id=&quot;http&quot;&gt;9 基于HTTP的功能追加协议&lt;/h4&gt;
+
+&lt;h5 id=&quot;spdy&quot;&gt;SPDY的涉及与功能&lt;/h5&gt;
+
+&lt;h5 id=&quot;spdy-1&quot;&gt;SPDY设计&lt;/h5&gt;
+
+&lt;p&gt;SPDY是Google在2010年发布的取自SPeeDY，发音同speedy，开发目标旨在解决HTTP的新能瓶颈，缩短Web页面的家在时间(50%)&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;HTTP&lt;/th&gt;
+      &lt;th&gt;应用层&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SPDY&lt;/td&gt;
+      &lt;td&gt;会话层&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SSL&lt;/td&gt;
+      &lt;td&gt;表示层&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;TCP&lt;/td&gt;
+      &lt;td&gt;传输层&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;使用SPDY后，HTTP协议额外获得以下功能:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;多路复用流:通过单一的TCP连接，可以无限制处理多个HTTP请求，所有请求的处理都在一条TCP连接上完成，因此TCP的处理效率得到提高。&lt;/li&gt;
+  &lt;li&gt;赋予请求优先级:SPDY不仅可以无限制地并发处理请求，还可给请求逐个分配优先级顺序，主要为了在发送多个请求时，解决因宽带低而导致响应变慢的问题。&lt;/li&gt;
+  &lt;li&gt;压缩HTTP首部:压缩HTTP请求和响应的首部，通过过程产生的数量包和发送的字节数就少了。&lt;/li&gt;
+  &lt;li&gt;推送功能:支持服务器主动向客户端推送数据功能。这样，服务器可直接发送数据，而不必等待客户端的请求。&lt;/li&gt;
+  &lt;li&gt;服务器提示功能:服务器可以主动提示客户端请求所需资源，由于在客户端发现资源之前就可以获知资源的存在，因此在资源已经缓存的情况下，可以避免发送不必要的请求。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;spdy-2&quot;&gt;SPDY目前的缺陷&lt;/h5&gt;
+
+&lt;p&gt;SPDY基本上只是将单个域名(IP地址)的通信多路复用，所以当一个Web网站上使用多个域名下的资源，改善效就会受到限制。SPDY的确是一种可以有效消除HTTP瓶颈的技术，但很多Web网站存在的问题并非仅仅由HTTP瓶颈导致的，对Web本身的所读提升，还应该从其它可细致钻研的地方入手，比如改善Web内容的编写方式等。&lt;/p&gt;
+
+&lt;h5 id=&quot;websocket&quot;&gt;使用浏览器进行全双工通信的WebSocket&lt;/h5&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;WebSocket&lt;/code&gt;为了解决Ajax和Comet里XMLHttpRequest附带的缺陷问题。一旦Web服务器与客户端之间建立起WebSocket协议的通信连接，之后所有的通信都依靠这个专用协议进行，通信过程中可互相发送JSON、XML、HTML或者图片等任意格式数据。由于是建立在HTTP基础上的协议，因此连接的发送方仍是客户端，而一旦确立WebSocket通信连接，不论服务器还是客户端，任意一方都可以直接向对方发送报文。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;推送功能&lt;/li&gt;
+  &lt;li&gt;减少通信量:只要建立起WebSocket连接，就希望一直保持连接状态，和HTTP相比不但每次连接的总开销减少，而且由于WebSocket的首部信息很少，通信量也响应减少了。为了实现WebScoket通信，在建立HTTP连接后，需要完成一次”握手(Handshaking)”步骤。&lt;/li&gt;
+  &lt;li&gt;握手•请求:为了实现WebScoket通信，需要用到HTTP的Upgrade首部字段，告知服务器通信协议发生改变，以达到握手目的。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;GET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;chat&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;Host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;com&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;Upgrade&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;websocket&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;Connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Upgrade&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Sec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;WebScoket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Key&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dGEJKFLJDdfjl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Origin&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//example.com&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Sec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Protocol&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;chat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;superchat&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Sec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Version&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;握手•响应:对于之前的请求返回101(Switching Proctocols)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;Http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;101&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Switching&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Protocols&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;Upgrade&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;websocket&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;Connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Upgrade&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Sec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Accept&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dGEJKFLJDdfjl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Sec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Protocol&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;chat&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;websocket-api&quot;&gt;WebSocket API&lt;/h5&gt;
+
+&lt;p&gt;JS可以调用&lt;a href=&quot;http://www.w3.org/TR/websockets/&quot;&gt;TheWebSocketAPI&lt;/a&gt;
+内部提供的程序API，实现WebSocket协议下全双工通信。
+举例:每50ms发送一次数据实例！&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebScoket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ws:/game.example.com:12010/updates'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;scoket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onopen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;setInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bufferedAmount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getUpdateDate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;http20&quot;&gt;HTTP2.0&lt;/h5&gt;
+
+&lt;p&gt;设计的的7项技术,2.0的基础协议包括以下3项:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;SPDY&lt;/li&gt;
+  &lt;li&gt;HTTP Speed + Mobility 由微软公司起草用于改善提高移动端痛通信时通信速度和性能的标准，建立在Google的SPDY和WebSocket之上&lt;/li&gt;
+  &lt;li&gt;Network-Friendly HTTP Upgrade主要是移动端通信时改善HTTP性能标准&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;压缩&lt;/th&gt;
+      &lt;th&gt;SPDY,Friendly&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;多路复用&lt;/td&gt;
+      &lt;td&gt;SPDY&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;TLS义务化&lt;/td&gt;
+      &lt;td&gt;Speed+Mobility&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;协商&lt;/td&gt;
+      &lt;td&gt;Speed+Mobility,Friendly&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;客户端拉拽(Client Pull)／服务器推送(Server Push)&lt;/td&gt;
+      &lt;td&gt;Speed+Mobility&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;流量控制&lt;/td&gt;
+      &lt;td&gt;SPDY&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;WebSocket&lt;/td&gt;
+      &lt;td&gt;Speed+Mobility&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;HTTP Speed + Mobility 简写Speed + Mobility, Network-Friendly HTTP Upgrade简写Friendly&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;webwebdav&quot;&gt;Web服务器管理文件的WebDAV&lt;/h4&gt;
+
+&lt;p&gt;WebDAV(web-based Distributed Authoring and Versioning, 基于万维网的分布式创作和版本控制)是一个可以对Web服务器上的内容直接进行文件复制、编辑等操作的分布式文件系统。&lt;/p&gt;
+
+&lt;p&gt;针对服务器的资源WebDAV增加了一些概念:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;集合(Collection):是一种统一管理过个资源的概念，以集合为单位可进行各种操作，也可实现类似集合的集合这样的叠加。&lt;/li&gt;
+  &lt;li&gt;资源(Resource):把文件货集合称为资源&lt;/li&gt;
+  &lt;li&gt;属性(Propertry):定义资源的属性。定义以”名称=值”的格式执行。&lt;/li&gt;
+  &lt;li&gt;锁(Lock):把文件设置成无状态编辑状态。多人同时编辑时，可防止在同一时间进行内容写入。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;webdav&quot;&gt;WebDAV内新增的方法及状态&lt;/h5&gt;
+
+&lt;p&gt;为实现远程文件管理，向HTTP/1.1中追加了以下方法及状态码&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;PROPFIND:获取属性&lt;/li&gt;
+  &lt;li&gt;PROPPATCH:修改属性&lt;/li&gt;
+  &lt;li&gt;MKCOL:创建集合&lt;/li&gt;
+  &lt;li&gt;COPY:复制资源及属性&lt;/li&gt;
+  &lt;li&gt;MOVE:移动资源&lt;/li&gt;
+  &lt;li&gt;LOCK:资源加锁&lt;/li&gt;
+  &lt;li&gt;UNLOCK:资源解锁&lt;/li&gt;
+  &lt;li&gt;102 Processing:可正常处理请求，目前处理中状态&lt;/li&gt;
+  &lt;li&gt;207 Multi-Status:存在多种状态&lt;/li&gt;
+  &lt;li&gt;422 Unprocessible Entity:格式正确，内容错误&lt;/li&gt;
+  &lt;li&gt;423 Locked:资源已经加锁&lt;/li&gt;
+  &lt;li&gt;424 Failed Dependency:处理与某请求关联的请求失败，因此不再维持依赖关系&lt;/li&gt;
+  &lt;li&gt;507 Insufficient Storage:保存空间不足&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;web&quot;&gt;10 构建Web内容技术&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;HTML(HyperText Markup Language,超文本标记语言)&lt;/li&gt;
+  &lt;li&gt;CSS(Cascading Style Shets,层叠样式表)&lt;/li&gt;
+  &lt;li&gt;动态HTML(Dynamic HTML)即使用客户端脚本语言将静态HTML内容编程动态技术的总称。使用js实现对HTML的Web页面动态改造，利用DOM(Document Object Model,文档对象模型)可以指定欲发送动态变化的HTML元素。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;web-1&quot;&gt;Web应用&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CGI(Common Gateway Interface,通用网关接口),每次请求都启动新的CGI程序，当访问比较大时服务器负载大&lt;/li&gt;
+  &lt;li&gt;Servelt 取自Server + Applet&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section&quot;&gt;数据发布的格式及语言&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;XML(eXtensible Markup Language,可扩展标记语言)&lt;/li&gt;
+  &lt;li&gt;RSS／Atom&lt;/li&gt;
+  &lt;li&gt;JSON(JavaScript Object Notatin)能够处理数据类型有7种:
+    &lt;blockquote&gt;
+      &lt;p&gt;fasle/null/true/对象/数组/数字/字符串&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>michael</name></author><category term="CS" /><summary>基于HTTP的功能追加协议，构建Web内容的技术</summary></entry><entry><title>图解HTTP-7-8</title><link href="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-7-8.html" rel="alternate" type="text/html" title="图解HTTP-7-8" /><published>2016-09-25T00:00:00+08:00</published><updated>2016-09-25T00:00:00+08:00</updated><id>/cs/2016/09/25/图解HTTP-7-8</id><content type="html" xml:base="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-7-8.html">&lt;h4 id=&quot;webhttps&quot;&gt;7 确保Web安全的HTTPS&lt;/h4&gt;
+
+&lt;h5 id=&quot;http&quot;&gt;1－HTTP的缺点&lt;/h5&gt;
+
+&lt;h6 id=&quot;section&quot;&gt;通信使用明文可能会被窃听&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;TCP/IP 是可能被窃听的网络&lt;/li&gt;
+  &lt;li&gt;加密处理防止被窃听&lt;/li&gt;
+  &lt;li&gt;内容加密&lt;/li&gt;
+  &lt;li&gt;不验证通信方的身份就可能遭遇伪装&lt;/li&gt;
+  &lt;li&gt;任何人都可以发起请求&lt;/li&gt;
+  &lt;li&gt;查明对手的证书&lt;/li&gt;
+  &lt;li&gt;无法证明报文完整性，可能已遭篡改&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;httphttps&quot;&gt;2－HTTP＋加密＋认证＋完整性保护＝HTTPS&lt;/h5&gt;
+
+&lt;h6 id=&quot;sslsecure-socket-layer-tlstransport-layer-security&quot;&gt;SSL(Secure Socket Layer) TLS(Transport Layer Security)&lt;/h6&gt;
+
+&lt;p&gt;HTTPS就是在HTTP协议的基础上加上SSL和TLS&lt;/p&gt;
+
+&lt;h5 id=&quot;section-1&quot;&gt;8 确认访问用户身份的认证&lt;/h5&gt;
+
+&lt;h6 id=&quot;section-2&quot;&gt;认证方式&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;密码&lt;/li&gt;
+  &lt;li&gt;动态令牌&lt;/li&gt;
+  &lt;li&gt;数字证书&lt;/li&gt;
+  &lt;li&gt;生物认证&lt;/li&gt;
+  &lt;li&gt;IC卡等&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id=&quot;http11&quot;&gt;HTTP/1.1认证方式&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;BASIC认证&lt;/li&gt;
+  &lt;li&gt;DIGEST认证&lt;/li&gt;
+  &lt;li&gt;SSL客户端认证&lt;/li&gt;
+  &lt;li&gt;FormBase认证&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id=&quot;basic&quot;&gt;BASIC认证&lt;/h6&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:发送请求&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:返回状态吗&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;401&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;告知&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;需要认证&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:用户&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ID&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;和&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;PWD&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;以&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Base64&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;方式编码&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;并不是加密处理&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;后发送&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:认证成功返回&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，失败则&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;401&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;digest&quot;&gt;DIGEST认证&lt;/h5&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;发送请求&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;发送临时的质询码&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;随机数&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nonce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;以告知需要认证的状态吗&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;401&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;发送摘要以及由质询码计算出的响应码&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;认证成功返回&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;失败&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;401&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;ssl&quot;&gt;SSL认证&lt;/h5&gt;
+
+&lt;p&gt;客户端证书收费&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:请求某一需要认证的资源，比如登陆&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:发送&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Certificate&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Request&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;报文，要求提供客户端证书&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:将&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Certicicate&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;信息以&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Client&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Certificate&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;报文方式发送给&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:验证证书&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;通过后领取客户端的公开密钥进行&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;HTTPS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;加密通信&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;section-3&quot;&gt;基于表单认证&lt;/h5&gt;
+
+&lt;p&gt;大多认证采用表单认证，涉及Session管理Cookie应用，即Cookie来管理Session,弥补HTTP协议为无状态的缺点。&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:发送登陆信息&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;PWD&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:返回包含&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Session&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ID&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;的&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Cookie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;以纪录认证状态&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:发送包含&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Session&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ID&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;的&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Cookie&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;的请求&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;⚠️为减轻跨域站脚本攻击(XSS)造成的损失，建议事先在Cookie内加上&lt;code class=&quot;highlighter-rouge&quot;&gt;httponly&lt;/code&gt;属性。&lt;/p&gt;</content><author><name>michael</name></author><category term="CS" /><summary>确保Web安全的HTTPS，确认访问用户身份的认证</summary></entry><entry><title>图解HTTP-6</title><link href="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-6.html" rel="alternate" type="text/html" title="图解HTTP-6" /><published>2016-09-25T00:00:00+08:00</published><updated>2016-09-25T00:00:00+08:00</updated><id>/cs/2016/09/25/图解HTTP-6</id><content type="html" xml:base="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-6.html">&lt;h5 id=&quot;http&quot;&gt;6 HTTP首部&lt;/h5&gt;
+
+&lt;h6 id=&quot;http-1&quot;&gt;当HTTP首部中出现两个或者两个以上具有相同首部字段名时会怎样？这种情况在规范中尚未明确，根据浏览器内部处理逻辑的不同，结果可能并不一致。&lt;/h6&gt;
+
+&lt;h5 id=&quot;section&quot;&gt;通用首部字段&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Cache-Control: no-cache/no-store
+⚠️区别是:&lt;code class=&quot;highlighter-rouge&quot;&gt;no-cache&lt;/code&gt;代表不缓存过期的资源，缓存会向源服务器进行有效期确认后处理资源。&lt;code class=&quot;highlighter-rouge&quot;&gt;no-store&lt;/code&gt;才是真正地不进行缓存，注意区分！&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connection 首部字段具备如下两个作用。1、控制不再转发给代理的首部字段2、管理持久连接。&lt;/p&gt;
+    &lt;blockquote&gt;
+      &lt;ol&gt;
+        &lt;li&gt;Connection: 不再转发的首部字段名&lt;/li&gt;
+        &lt;li&gt;Connection: close&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;HTTP/1.1版本默认的连接都是持久连接，为此，客户端会在持久连接上连续发送请求，当服务器端想明确断开连接时，则指定Connection:close、而在HTTP/1.1之前想要维持持续连接，则需要指定Connection首部字段的值为Keep-Alive。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;首部字段Date表示生成报文的日起和时间&lt;/li&gt;
+  &lt;li&gt;通用首部字段Pragma:no-cahce 只用在客户端发送的请求中，客户端要求所有的中间服务器不返回缓存的资源。这个字段时HTTP/1.1之前版本的历史遗留字段，所有中间服务器如果都以HTTP/1.1为基准，则可以直接采用Cache-Control:no-cache指定缓存的处理方式最为理想。但要掌握全部中间服务器使用的HTTP版本是不现实的，所以为了兼容发送的请求会同时含有以下两个首部字段。
+    &lt;blockquote&gt;
+      &lt;ol&gt;
+        &lt;li&gt;Cache-Control: no-cache&lt;/li&gt;
+        &lt;li&gt;Pragma: no-cache&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Trailer&lt;/li&gt;
+  &lt;li&gt;Transfer-Encoding&lt;/li&gt;
+  &lt;li&gt;Upgrade&lt;/li&gt;
+  &lt;li&gt;Via:追踪客户端与服务器之间的请求和响应报文的传输路径。&lt;/li&gt;
+  &lt;li&gt;Warning&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section-1&quot;&gt;请求首部字段&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;Accept:可通知服务器，用户代理能够处理的媒体类型及媒体类型的相对优先级。常见的有:text/html,text/plain,application/xml,image/jpeg,image/gif,video/mpeg,application/zip…..添加优先级时可以使用:q=表示权重用分号分隔，q范围是0～1，可以精确到小数点后3位。q默认大小为1.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Accept: text/plain; q=0.5, text/html, text/x-dvi; q=0.8, text/x-c&lt;/li&gt;
+    &lt;li&gt;可接受的类型优先级如下:
+      &lt;ol&gt;
+        &lt;li&gt;text/html text/x-c&lt;/li&gt;
+        &lt;li&gt;text/x-dvi&lt;/li&gt;
+        &lt;li&gt;text/plain&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Accept-Charset:iso-8859-5,unicode-1-1;q=0.8
+通知服务器用户客户端支持的字符集以及字符集的优先级。&lt;/li&gt;
+  &lt;li&gt;Accept-Encoding:gzip,deflate 通知服务器用户代理支持的内容编码及优先级顺序。不同的编码对应了不同的算法。比如gzip:Lempel-Ziv算法以及32位循环冗余校验(Cyclic Redundancy Check通称CRC)。&lt;/li&gt;
+  &lt;li&gt;Accept-Language: zh-cn,zh;q=0.7,en-us,en;q=0.3 告知服务器用户代理能够处理的自然语言集及优先级，例子中表示客户端在服务器有中文版资源的情况下，会请求返回中文版对应的响应，没有中文版时则返回英文版响应。&lt;/li&gt;
+  &lt;li&gt;Authorization: Basic dfdaurerNdfjaduYA== 告知服务器用户代理的认证信息&lt;/li&gt;
+  &lt;li&gt;Expect&lt;/li&gt;
+  &lt;li&gt;From: info@hackr.jp 通常就是告知服务器用户代理的用户的电子邮件地址。&lt;/li&gt;
+  &lt;li&gt;Host: www.hackr.jp 告知服务器请求的资源所处的互联网主机名和端口号。唯一一个必须被包含在请求首部的字段，因为它和以单台服务器分配多个域名的虚拟主机的工作机制有很密切的关联，这就是首部字段Host必须存在的意义。&lt;/li&gt;
+  &lt;li&gt;If-Match&lt;/li&gt;
+  &lt;li&gt;If-Modified-Since&lt;/li&gt;
+  &lt;li&gt;If-None-Match&lt;/li&gt;
+  &lt;li&gt;If-Range&lt;/li&gt;
+  &lt;li&gt;If-Unmodified-Since&lt;/li&gt;
+  &lt;li&gt;Max-Forwards:2 表示只能往下个服务器转发2次，既经历2个代理服务器就返回。没经过一个服务器就减一做重新计算。可以通过这个字段的灵活应用掌握通信失败时由那个服务器造成的失败。&lt;/li&gt;
+  &lt;li&gt;Proxy-Authorization&lt;/li&gt;
+  &lt;li&gt;Range: bytes=500-1000 只获取部分资源的范围请求。若无法处理该范围的请求时，则返回状态码200 OK的响应及全部资源。&lt;/li&gt;
+  &lt;li&gt;Referer:正确的拼写应该是Referrer &lt;code class=&quot;highlighter-rouge&quot;&gt;http://www.hackr.jp/index.html&lt;/code&gt; 告知服务器请求的原始资源的URI&lt;/li&gt;
+  &lt;li&gt;TE&lt;/li&gt;
+  &lt;li&gt;User-Agent 将创建请求的浏览器和用户代理名称等信息传达给服务器&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section-2&quot;&gt;响应首部字段&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;Accept-Ranges 告知客户端是否能够处理范围请求，以指定获取服务器端某个部分的资源。当可处理范围请求时指定为bytes反之none。&lt;/li&gt;
+  &lt;li&gt;Age 告知源服务器在多久前创建了响应，字段值的单位为秒&lt;/li&gt;
+  &lt;li&gt;ETag&lt;/li&gt;
+  &lt;li&gt;Location:将响应接收方引导至某个与请求URI位置不同的资源。基本该字段会配合3xx:Redirection的响应，提供重定向的URI&lt;/li&gt;
+  &lt;li&gt;Proxy-Authenticate&lt;/li&gt;
+  &lt;li&gt;Retry-After 告知客户端应该在多久之后再次发送请求。&lt;/li&gt;
+  &lt;li&gt;Server 告知客户端当前服务器上安装的HTTP服务器应用程序信息。&lt;/li&gt;
+  &lt;li&gt;Vary 源服务器告知代理服务器传达关于本地缓存使用方法的命令。比如需要有相同的请求首部字段。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section-3&quot;&gt;实体首部字段&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;Allow：通知客户端支持Request-URI指定资源的所有HTTP方法，当服务器收到不支持HTTP方法时，会以状态码405 Method Not Allowed作为响应返回。于此同时还会将把所有能支持HTTP方法写入首部字段Allow后返回。&lt;/li&gt;
+  &lt;li&gt;Content-Encoding 告知客户端报文使用了某种方式进行了压缩。&lt;/li&gt;
+  &lt;li&gt;Content-Language: zh-CN&lt;/li&gt;
+  &lt;li&gt;Content-Length 资源大小&lt;/li&gt;
+  &lt;li&gt;Content-Location 报文主体返回资源对应的URI&lt;/li&gt;
+  &lt;li&gt;Content-MD5 主要是检查报文传输过程中是否保持了完整及确认传输到达&lt;/li&gt;
+  &lt;li&gt;Content-Range: bytes 100-3000针对范围请求，返回响应时使用的首部字段&lt;/li&gt;
+  &lt;li&gt;Content-Type: text/html;charset=UTF-8&lt;/li&gt;
+  &lt;li&gt;Expires:将资源实效的日期告知客户端&lt;/li&gt;
+  &lt;li&gt;Last-Modified 指明资源最终修改的时间。一般就是Request-URI指定资源被修改的时间&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;cookie&quot;&gt;Cookie服务的首部字段&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;Set-Cookie
+字段的属性如下&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;属性&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;NAME=VALUE&lt;/td&gt;
+      &lt;td&gt;赋予Cookie的名称和值&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;expires=DATE&lt;/td&gt;
+      &lt;td&gt;Cookie的有效期,若不指定则为浏览器关闭为止&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;path=PATH&lt;/td&gt;
+      &lt;td&gt;将服务器上的文件目录作为Cookie的适用对象&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;domain=域名&lt;/td&gt;
+      &lt;td&gt;作为Cookie适用对象的域名&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Secure&lt;/td&gt;
+      &lt;td&gt;仅HTTPS安全通信时才会发送Cookie;&lt;code class=&quot;highlighter-rouge&quot;&gt;Set-Cookie:name=value; secure&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;HttpOnly&lt;/td&gt;
+      &lt;td&gt;加以限制，使Cookie不能被JavaScript脚本访问,此属性可以防止跨站脚本攻击XSS;&lt;code class=&quot;highlighter-rouge&quot;&gt;Set-Cookie:name=value; HttpOnly&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h5 id=&quot;section-4&quot;&gt;其他首部字段&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;X-Frame-Options: DENY/SAMEORIGIN(同源)&lt;/li&gt;
+  &lt;li&gt;X-XSS-Protection:1/0 ,0将XSS过滤设置成无效状态，1将XSS过滤设置成有效状态&lt;/li&gt;
+  &lt;li&gt;DNT:1/0  Do Not Track 拒绝个人信息被收集，0同意被追踪，1拒绝追踪&lt;/li&gt;
+  &lt;li&gt;P3P 用于保护用户隐私&lt;a href=&quot;http://www.w3.org/TR/P3P&quot;&gt;P3P&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>michael</name></author><category term="CS" /><summary>HTTP首部</summary></entry><entry><title>图解HTTP-4-5</title><link href="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-4-5.html" rel="alternate" type="text/html" title="图解HTTP-4-5" /><published>2016-09-25T00:00:00+08:00</published><updated>2016-09-25T00:00:00+08:00</updated><id>/cs/2016/09/25/图解HTTP-4-5</id><content type="html" xml:base="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-4-5.html">&lt;h4 id=&quot;http&quot;&gt;4 返回解构的HTTP状态码&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;状态码&lt;/th&gt;
+      &lt;th&gt;类别&lt;/th&gt;
+      &lt;th&gt;原因短语&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1XX&lt;/td&gt;
+      &lt;td&gt;Informational信息性状态码&lt;/td&gt;
+      &lt;td&gt;接收的请求正在处理&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2XX&lt;/td&gt;
+      &lt;td&gt;Success成功状态码&lt;/td&gt;
+      &lt;td&gt;请求正常处理完毕&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3XX&lt;/td&gt;
+      &lt;td&gt;Redirection重定向&lt;/td&gt;
+      &lt;td&gt;需要进行附加操作以完成请求&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4XX&lt;/td&gt;
+      &lt;td&gt;Client Error&lt;/td&gt;
+      &lt;td&gt;服务器无法处理请求&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;5XX&lt;/td&gt;
+      &lt;td&gt;Server Error&lt;/td&gt;
+      &lt;td&gt;服务器处理请求出错&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;状态码&lt;/th&gt;
+      &lt;th&gt;描述&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;200&lt;/td&gt;
+      &lt;td&gt;OK&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;204&lt;/td&gt;
+      &lt;td&gt;No Content&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;206&lt;/td&gt;
+      &lt;td&gt;Partial Content&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;301&lt;/td&gt;
+      &lt;td&gt;Moved Permanently&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;302&lt;/td&gt;
+      &lt;td&gt;Found 临时重定向&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;303&lt;/td&gt;
+      &lt;td&gt;See Other&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;304&lt;/td&gt;
+      &lt;td&gt;Not Modified&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;307&lt;/td&gt;
+      &lt;td&gt;Temporary Redirect与302相同含义&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;400&lt;/td&gt;
+      &lt;td&gt;Bad Request&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;401&lt;/td&gt;
+      &lt;td&gt;Unauthorized&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;403&lt;/td&gt;
+      &lt;td&gt;Forbidden&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;404&lt;/td&gt;
+      &lt;td&gt;Not Found&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;500&lt;/td&gt;
+      &lt;td&gt;Internal Server Error&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;503&lt;/td&gt;
+      &lt;td&gt;Service Unavailable&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;⚠️状态码与状况不一致的情况，比如Web应用程序内部发生错误，状态码依然是200 OK&lt;/p&gt;
+
+&lt;h5 id=&quot;httpweb&quot;&gt;与HTTP协作的Web服务器&lt;/h5&gt;
+
+&lt;p&gt;一台Web服务器可搭建多个独立域名的Web网站，也可作为通信路径上的中转站服务器提升传输效率。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;在相同IP地址下，由于虚拟主机可以寄存多个不同主机名和域名的Web网站，因此在发送HTTP请求时，必须在Host首部内完整指定主机名或域名URI&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;代理&lt;/code&gt;:一种有转发功能的应用程序，扮演处于C和S的”中间人”的角色，接收C发送的请求并转发给S，同时也接收S的响应转发给C。
+    &lt;blockquote&gt;
+      &lt;ol&gt;
+        &lt;li&gt;缓存代理:Caching Proxy预先将资源的副本保存在代理服务器上，当下次对相同资源的请求时，就可以不从源服务器获取资源，而是将之前缓存的资源作为响应返回&lt;/li&gt;
+        &lt;li&gt;透明代理:转发请求或响应时，不对报文做任何加工的代理类型被称为透明代理Transparent Proxy,反之称非透明代理&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;网关&lt;/code&gt;:转发其它服务器通信数据的服务器，接收从客户端发送来的请求时，它就像自己拥有资源的源服务器一样对请求进行处理，有时客户端都不会察觉，自己的通信目标是一个网关。
+    &lt;blockquote&gt;
+      &lt;ol&gt;
+        &lt;li&gt;可以使通信线路上的服务器提供非HTTP协议服务，利用网关可以在客户端与网关之间的通信心路上加密以确保连接的安全。&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;隧道&lt;/code&gt;:在相隔甚远的客户端和服务器两者之间进行中转，并保持双发通信连接的应用程序。
+    &lt;blockquote&gt;
+      &lt;ol&gt;
+        &lt;li&gt;隧道可以按要求建立起一条与其它服务器的通信线路，可以利用SSL等加密手段进行通信，确保客户端与服务器进行安全性通信，不会解析HTTP请求&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;⚠️代理不会改变请求URI，只做转发处理。持有资源实体的服务器称源服务器&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;保存资源的缓存，可以在客户端或者代理服务器上保存资源副本，以达到减少对源服务器访问减少通信流量和通信时间的目的。&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>michael</name></author><category term="CS" /><summary>返回结果的HTTP状态码，与HTTP协作的Web服务器</summary></entry><entry><title>图解HTTP-11</title><link href="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-11.html" rel="alternate" type="text/html" title="图解HTTP-11" /><published>2016-09-25T00:00:00+08:00</published><updated>2016-09-25T00:00:00+08:00</updated><id>/cs/2016/09/25/图解HTTP-11</id><content type="html" xml:base="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-11.html">&lt;h4 id=&quot;web&quot;&gt;11 Web攻击技术&lt;/h4&gt;
+
+&lt;h5 id=&quot;web-1&quot;&gt;针对Web应用的攻击模式&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;主动攻击&lt;/li&gt;
+  &lt;li&gt;被动攻击&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;实施Web应用的安全对策可大致分为以下两部分&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;客户端验证&lt;/li&gt;
+  &lt;li&gt;Web应用端(server)的验证&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;输入值验证&lt;/li&gt;
+    &lt;li&gt;输出值转义&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;XSS (Cross-Site Scripting)跨站脚本攻击&lt;/li&gt;
+  &lt;li&gt;SQL注入攻击(SQL Injection)&lt;/li&gt;
+  &lt;li&gt;OS注入命令攻击(OS Command Injection)&lt;/li&gt;
+  &lt;li&gt;HTTP Header Injection&lt;/li&gt;
+  &lt;li&gt;Mail Header Injection&lt;/li&gt;
+  &lt;li&gt;Directory Traversal&lt;/li&gt;
+  &lt;li&gt;Remote File Inclusion&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section&quot;&gt;因设置或设计上的缺陷引发的安全漏洞&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;强制浏览&lt;/li&gt;
+  &lt;li&gt;不正确的错误消息处理&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;常见的比如登陆时邮箱是没有注册的，如果提示邮箱未注册，则攻击者就可以输入不同的邮件根据提示确认邮件是否已注册,这种情况，为了不让错误消息给攻击者启发，建议将提示消息修改为”认证错误”这种程度即可。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;数据库等系统抛出错误消息，即直接将错误消息显示在页面种。&lt;/li&gt;
+  &lt;li&gt;开放重定向&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section-1&quot;&gt;因会话管理疏忽引发的安全漏洞&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;会话劫持 Session Hijack&lt;/li&gt;
+  &lt;li&gt;会话固定攻击 Session Fixation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section-2&quot;&gt;跨站点请求伪造&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CSRF Cross-Site Request Forgeries&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section-3&quot;&gt;其它安全漏洞&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;密码破解&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;穷举法&lt;/li&gt;
+    &lt;li&gt;字典法&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;彩虹表:由明文密码以及与之对应的散列值构成的一张数据库表，是一种事先制作庞大的彩虹表&lt;/li&gt;
+  &lt;li&gt;拿到密钥&lt;/li&gt;
+  &lt;li&gt;加密算法的漏洞&lt;/li&gt;
+  &lt;li&gt;点击劫持 Clickjacking&lt;/li&gt;
+  &lt;li&gt;DoS攻击 Denial of Service attack&lt;/li&gt;
+  &lt;li&gt;后门程序 Backdoor&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>michael</name></author><category term="CS" /><summary>Web的攻击技术</summary></entry><entry><title>图解HTTP-1-2-3</title><link href="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-1-2-3.html" rel="alternate" type="text/html" title="图解HTTP-1-2-3" /><published>2016-09-25T00:00:00+08:00</published><updated>2016-09-25T00:00:00+08:00</updated><id>/cs/2016/09/25/图解HTTP-1-2-3</id><content type="html" xml:base="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-1-2-3.html">&lt;h5 id=&quot;web&quot;&gt;了解Web及网络基础&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;CERN 欧洲核子研究组织的蒂姆•伯纳斯提出一种能让远隔两地的研究者们共享知识的设想&lt;/li&gt;
+  &lt;li&gt;WWW World Wide Web 万维网&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;3项WWW的构建技术&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;把SGML(Standard Generalized Markup Language, 标准通用标记语言)作为页面的文本标记语言的HTML(HyperText Markup Language,超文本标记语言)&lt;/li&gt;
+  &lt;li&gt;文档传输协议HTTP&lt;/li&gt;
+  &lt;li&gt;指定文档所在地址URL(Uniform Resource Locator,统一资源定位符)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&quot;tcpip&quot;&gt;TCP/IP&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;应用层，各类通用的应用服务，FTP(File Transfer Protocol,文本传输协议),DNS(Domain Name System,域名系统),HTTP&lt;/li&gt;
+  &lt;li&gt;传输层，提供处于网络连接中的两台计算机之间的数据传输,TCP(Transmission Control Protocol,传输控制协议),UDP(User Data Protocol,用户数据报协议)&lt;/li&gt;
+  &lt;li&gt;网络层(网络互连层),处理网络上的数据包，数据包是网络传输的最小单位，该层规定通过怎样的路径(传输线路)到达对方计算机&lt;/li&gt;
+  &lt;li&gt;链路层(数据链路层，网络接口层)，处理连接网络的硬件部分，包括操作系统、硬件的设备驱动NIC，光纤等硬件上的范畴均在次层处理&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;应用层&lt;/th&gt;
+      &lt;th&gt;HTTP&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;传输层&lt;/td&gt;
+      &lt;td&gt;TCP&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;网络层&lt;/td&gt;
+      &lt;td&gt;IP&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;链路层&lt;/td&gt;
+      &lt;td&gt;以太网&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;⚠️IP协议位于网络层，要区分与IP地址的区别;IP协议:作用是把各种数据包传送给对方，而要传送到对方最重要的2个条件就是IP地址和MAC地址，IP地址:指明节点被分配到的地址，MAC地址指网卡所属的固定地址，IP地址可变，MAC地址基本不会改变&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;为了确保数据可靠性的传达TCP协议在通信前会先进行三次(three-way handshaking)握手策略。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;C-&amp;gt;&amp;gt;S: 标有SYN(synchronize)的数据包
+S-&amp;gt;&amp;gt;C: 收到SYN后,返回SYN/ACK的数据包
+C-&amp;gt;&amp;gt;S: 发送ACK数据包确认
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;DNS :提供域名到IP地址之间的解析服务&lt;/li&gt;
+  &lt;li&gt;URI(Uniform Resource Identifier 统一资源标识符)标识某一互联网资源&lt;/li&gt;
+  &lt;li&gt;URL(Uniform Resource Locator,统一资源定位符)表示资源地点互联网上所处的位置，URL是URI的子集&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;http&quot;&gt;简单HTTP协议&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;C与S通过请求和响应的交换达成通信&lt;/li&gt;
+  &lt;li&gt;HTTP 无状态stateless协议&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;HTTP 1.0、1.1 支持的方法&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;方法&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+      &lt;th&gt;版本&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;GET&lt;/td&gt;
+      &lt;td&gt;获取资源&lt;/td&gt;
+      &lt;td&gt;1.0、1.1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;POST&lt;/td&gt;
+      &lt;td&gt;传输实体主体&lt;/td&gt;
+      &lt;td&gt;1.0、1.1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PUT&lt;/td&gt;
+      &lt;td&gt;传输文件&lt;/td&gt;
+      &lt;td&gt;1.0、1.1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;HEAD&lt;/td&gt;
+      &lt;td&gt;获得报文首部&lt;/td&gt;
+      &lt;td&gt;1.0、1.1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DELETE&lt;/td&gt;
+      &lt;td&gt;删除文件&lt;/td&gt;
+      &lt;td&gt;1.0、1.1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;OPTIONS&lt;/td&gt;
+      &lt;td&gt;询问支持的方法&lt;/td&gt;
+      &lt;td&gt;1.1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;TRACE&lt;/td&gt;
+      &lt;td&gt;追踪路径&lt;/td&gt;
+      &lt;td&gt;1.1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CONNECT&lt;/td&gt;
+      &lt;td&gt;追踪路径&lt;/td&gt;
+      &lt;td&gt;1.1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;LINK&lt;/td&gt;
+      &lt;td&gt;建立和资源之间的联系&lt;/td&gt;
+      &lt;td&gt;1.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;UNLINE&lt;/td&gt;
+      &lt;td&gt;断开连接关系&lt;/td&gt;
+      &lt;td&gt;1.0&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;HTTP keep-alive&lt;/li&gt;
+  &lt;li&gt;pipelining&lt;/li&gt;
+  &lt;li&gt;Cookie状态管理&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;httphttp&quot;&gt;HTTP报文内的HTTP信息&lt;/h5&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;报文首部&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;空行(CR+LF)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;报文主体&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;⚠️CR:Carriage Return 回车 16进制&lt;code class=&quot;highlighter-rouge&quot;&gt;0x0d&lt;/code&gt;; LF:Line Feed 换行 16进制&lt;code class=&quot;highlighter-rouge&quot;&gt;0x0a&lt;/code&gt;;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;编码提升传输速率&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;gzip : GNU zip&lt;/li&gt;
+    &lt;li&gt;compress : UNIX系统标准压缩&lt;/li&gt;
+    &lt;li&gt;deflate  : zlib&lt;/li&gt;
+    &lt;li&gt;identity : 不进行压缩&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;分隔发送的分块传输编码&lt;/li&gt;
+  &lt;li&gt;获取部分内容的范围请求&lt;/li&gt;
+  &lt;li&gt;内容协商返回最合适的内容&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>michael</name></author><category term="CS" /><summary>了解Web及网络基础，简单的HTTP协议，HTTP报文内的HTTP信息</summary></entry><entry><title>MySQL Transaction</title><link href="/mysql/2016/09/25/mysql-transaction.html" rel="alternate" type="text/html" title="MySQL Transaction" /><published>2016-09-25T00:00:00+08:00</published><updated>2016-09-25T00:00:00+08:00</updated><id>/mysql/2016/09/25/mysql－transaction</id><content type="html" xml:base="/mysql/2016/09/25/mysql-transaction.html">&lt;h5 id=&quot;acid&quot;&gt;事务基本要素 &lt;code class=&quot;highlighter-rouge&quot;&gt;ACID&lt;/code&gt;&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Atomicity&lt;/code&gt;原子性:一个事务必须被视为一个不可分割的最小工作单元，整个事务中的所有操作要么全部提交成功，要么全部失败回滚，对一个事务来说，不可能只执行其中的一部分操作，这就是事务的原子性。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Consistency&lt;/code&gt;一致性:事务开始前和结束后，数据库的完整性没有遭到破坏。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Isolation&lt;/code&gt;隔离性:在同一时间，只允许一个事务请求同一数据。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Durability&lt;/code&gt;持久性:事务完成以后，该事务对数据库所做的操作持久化在数据库中，并不会被会滚。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;transaction-isolation-level&quot;&gt;事务隔离级别&lt;code class=&quot;highlighter-rouge&quot;&gt;Transaction Isolation Level&lt;/code&gt;&lt;/h5&gt;
+&lt;ol&gt;
+  &lt;li&gt;READ_UNCOMMITTED(未提交读)
+    &lt;blockquote&gt;
+      &lt;p&gt;事务中的修改，即使没有提交，对其他事务也都是可见的。事务可以读取未提交的数据，这也被称为脏读(Dirty Read)。这个级别会导致很多问题，从性能上来说，READ_UNCOMMITTED不会比其他级别好太多，但却会缺乏其他级别的很多好处，除非真的非常有必要的理由，在实际应用中一般很少使用&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;READ_COMMITTED(提交读)
+    &lt;blockquote&gt;
+      &lt;p&gt;大多数据库系统的默认隔离级别都是READ_COMMITTED(但MySQL不是)。READ_COMMITTED满足前面提到的隔离性的简单定义:一个事务开始时，只能”看见”已经提交的事务所做的修改。话句话说，一个事物从开始直到提交之前，所做的任何修改对其他事务都是不可见的。这个级别有时候也叫做不可重复读(nonrepeatable read)，因为两次执行同样的查询，可能会得到不一样的结果。&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;REPEATABLE_READ(可重复读)
+    &lt;blockquote&gt;
+      &lt;p&gt;解决了脏读的问题，该级别保证了在同一个事务中多次读取同样记录的结果是一致的。但是理论上，可重复读隔离级别还是无法解决另一个幻读(Phantom Read)的问题。所谓幻读，指的是某个事务在读取某个范围内的记录时，另一个事务又在该范围内插入了新的记录，当之前的事务再次读取该范围的记录时，会产生幻行(Phantom Row)。InnoDB和XtraDB存储引擎通过多版本并发控制(MVCC, Multiversion Concurrency Control)解决了幻读的问题。可重复读是MySQL的默认事务隔离级别。&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;SERIALIZABLE(可串行化)
+    &lt;blockquote&gt;
+      &lt;p&gt;最高的隔离级别。通过强制事务串行执行，避免了前面说的幻读的问题。简单来说SERIALIZABLE会在读取的每一行数据上都加锁，所以可能导致大量的超时和锁的竞争问题，实际应用中也很少用到这个隔离级别，只有在非常需要确保数据的一致性而且可以接受没有并发的情况下，才考虑该级别&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;⚠️
+&lt;em&gt;REPEATABLE READ:在mysql中，不会出现幻读。mysql的实现和标准定义的RR隔离级别有差别。&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;⚠️&lt;em&gt;由上往下，级别越来越高，并发性越来越差，安全性越来越高，反之则反。&lt;/em&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;——–隔离级别——–&lt;/th&gt;
+      &lt;th&gt;脏读可能性&lt;/th&gt;
+      &lt;th&gt;不可重复读可能性&lt;/th&gt;
+      &lt;th&gt;幻读可能性&lt;/th&gt;
+      &lt;th&gt;加锁读&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;READ_UNCOMMITTED&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;READ_COMMITTED&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;REPEATABLE_READ&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SERIALIZABLE&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h5 id=&quot;section&quot;&gt;事务中常出现的并发问题&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;脏读:一个事务读取了另一个事务操作但未提交的数据。&lt;/li&gt;
+  &lt;li&gt;可重复读:一个事务中的多个相同的查询返回了不同数据。&lt;/li&gt;
+  &lt;li&gt;幻读:事务并发执行时，其中一个事务对另一个事务中操作的结果集&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section-1&quot;&gt;死锁问题&lt;/h5&gt;
+
+&lt;p&gt;T1&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;transaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;update&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;update&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;T2&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;transaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;update&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;update&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;如果T1,T2都执行了第一条update语句，更新了一行，同时也锁定了该行数据，接着每个事务都尝试去执行第二条update语句，却发现改行已经被对方锁定，然后两个事务都等待对方释放锁，同时又持有对方需要的锁，则陷入死循环，除非由外部因素介入才可能解除死锁。&lt;/p&gt;
+
+&lt;p&gt;为了解决这个问题，数据库系统引入了各种死锁检测和死锁超时机制。&lt;/p&gt;
+
+&lt;h5 id=&quot;section-2&quot;&gt;设置事务级别&lt;/h5&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;session&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;transaction&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;isolation&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;level&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;committed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;section-3&quot;&gt;查看事务级别&lt;/h5&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tx_isolation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;section-4&quot;&gt;查看是否自动提交&lt;/h5&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;autocommit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;@@autocommit&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;结果1表示自动提交，设置为禁用自动提交&lt;code class=&quot;highlighter-rouge&quot;&gt;set autocommit=0;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://static.oschina.net/uploads/space/2013/0909/011829_pKHp_223750.png&quot; alt=&quot;事务管理&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;section-5&quot;&gt;原文&lt;/h5&gt;
+&lt;p&gt;&lt;a href=&quot;http://blog.jobbole.com/99774/&quot;&gt;探索数据库的事务隔离级别&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://blog.jobbole.com/103211/&quot;&gt;Transaction&lt;/a&gt;&lt;/p&gt;</content><category term="MySQL" /><summary>MySQL 事务</summary></entry><entry><title>Javascript Closure</title><link href="/javascript/2016/09/25/javascript-closure.html" rel="alternate" type="text/html" title="Javascript Closure" /><published>2016-09-25T00:00:00+08:00</published><updated>2016-09-25T00:00:00+08:00</updated><id>/javascript/2016/09/25/javascript-closure</id><content type="html" xml:base="/javascript/2016/09/25/javascript-closure.html">&lt;h5 id=&quot;js&quot;&gt;关于js的闭包&lt;/h5&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/xing901022/p/4282503.html&quot;&gt;JavaScript-Closure&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html&quot;&gt;js-closure&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://bonsaiden.github.io/JavaScript-Garden/zh/#function.closures&quot;&gt;closures&lt;/a&gt;&lt;/p&gt;</content><category term="JavaScript" /><summary>JavaScript-Closure</summary></entry></feed>
