@@ -1,22 +1,18 @@
 ---
 layout: default
 ---
-<div class="category">
-<span class="tag">CATEGORY:</span>
-{% for category in site.categories %}
-<span class="name">{{ category | first }}</span>
-<span class="size">({{ category | last | size }})</span>
-<!-- <ul class="arc-list">
-    {% for post in category.last %}
-        <li>{{ post.date | date:"%d/%m/%Y"}}&nbsp;&nbsp;
-          <a href="{{ post.url }}">{{ post.title }}</a>
-        </li>
-    {% endfor %}
-</ul> -->
-{% endfor %}
+<div class="posts">
+  {% for post in paginator.posts %}
+    <article class="post">
+      <h4><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
+      <div class="entry">
+         摘录: {{ post.excerpt }}.....
+        <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">{{ post.date | date: "%Y-%m-%d" }}》Read More</a>
+      </div>
+    </article>
+  {% endfor %}
 </div>
 
-<!-- Pagination links -->
 <div class="pagination">
   {% if paginator.previous_page %}
     <a href="{{ paginator.previous_page_path }}" class="previous"><i class="fa fa-step-backward fa-1x" aria-hidden="true"></i></a>
@@ -29,19 +25,4 @@ layout: default
   {% else %}
     <span class="next "><i class="fa fa-hourglass-end fa-1x" aria-hidden="true"></i></span>
   {% endif %}
-</div>
-
-<div class="posts">
-  {% for post in paginator.posts %}
-    <article class="post">
-
-      <h4><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
-
-      <div class="entry">
-         摘录: {{ post.excerpt }}.....
-        <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">》Read More</a>
-      </div>
-
-    </article>
-  {% endfor %}
 </div>

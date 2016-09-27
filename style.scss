@@ -60,6 +60,8 @@ h2 {
 
 h3 {
   font-size: 20px;
+  font-weight: bold;
+  color: #f3ac8e;
 }
 
 h4 {
@@ -390,7 +392,6 @@ code.highlighter-rouge{
 
 .category {
   font-size: 15px;
-  opacity: 0.45;
 }
 
 .category .tag{
@@ -405,6 +406,9 @@ code.highlighter-rouge{
   color: red;
 }
 
+small {
+  color: #0894a7;
+}
 
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
