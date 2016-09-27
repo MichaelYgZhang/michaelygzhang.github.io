@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OAuth2.0笔记 – Michael – Developer</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="OAuth2.0笔记" />
+    <meta property="og:description" content="OAuth2.0笔记" />
+    
+    <meta name="author" content="Michael" />
+
+    
+    <meta property="og:title" content="OAuth2.0笔记" />
+    <meta property="twitter:title" content="OAuth2.0笔记" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Michael - Developer" href="/feed.xml" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/images/favicon.ico" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Michael</a></h1>
+            <p class="site-description">Developer</p>
+          </div>
+
+          <nav>
+            <a href="/"><i class="fa fa-home fa-2x"></i></a>
+            <a href="/category/cs"><i class="fa fa-tags fa-2x" aria-hidden="true"></i></a>
+            <a href="/feed.xml" target="_blank"><i class="fa fa-feed fa-2x"></i></a>
+            <a href="/about"><i class="fa fa-user-secret fa-2x"></i></a>
+            <a href="/task"><i class="fa fa-book fa-2x" aria-hidden="true"></i></a>
+          </nav>
+
+          <a href="https://github.com/MichaelYgZhang" target="_blank">
+            <img class="fork-me-on-github" src="/images/fork-me-on-github.png" alt="Fork me on GitHub">
+          </a>
+        </header>
+
+        <div id="search-container">
+          <input type="text" id="search-input" placeholder="search...">
+          <ul id="results-container"></ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <div class="post">
+    <h1 class="post-title">OAuth2.0笔记</h1>
+    <!--
+    <span class="post-date">25 Sep 2016</span>
+     |
+    
+    
+    -->
+    <article>
+      <h5 id="oauth20">OAuth2.0笔记</h5>
+
+<ol>
+  <li>Third-party application：第三方应用程序，本文中又称”客户端”（client），即上一节例子中的”云冲印”。</li>
+  <li>HTTP service：HTTP服务提供商，本文中简称”服务提供商”，即上一节例子中的Google。</li>
+  <li>Resource Owner：资源所有者，本文中又称”用户”（user）。</li>
+  <li>User Agent：用户代理，本文中就是指浏览器。</li>
+  <li>Authorization server：认证服务器，即服务提供商专门用来处理认证的服务器。</li>
+  <li>Resource server：资源服务器，即服务提供商存放用户生成的资源的服务器。它与认证服务器，可以是同一台服务器，也可以是不同的服务器。</li>
+</ol>
+
+<h6 id="oauth">OAuth的作用就是让”客户端”安全可控地获取”用户”的授权，与”服务商提供商”进行互动。</h6>
+
+<p><img src="http://image.beekka.com/blog/2014/bg2014051203.png" alt="OAuth2.0流程图" /></p>
+
+<ol>
+  <li>用户打开客户端以后，客户端要求用户给予授权。</li>
+  <li>用户同意给予客户端授权。</li>
+  <li>客户端使用上一步获得的授权，向认证服务器申请令牌。</li>
+  <li>认证服务器对客户端进行认证以后，确认无误，同意发放令牌。</li>
+  <li>客户端使用令牌，向资源服务器申请获取资源。</li>
+  <li>资源服务器确认令牌无误，同意向客户端开放资源。</li>
+</ol>
+
+<p>新浪微博就是你的家。偶尔你会想让一些人（第三方应用）去你的家里帮你做一些事，或取点东西。你可以复制一把钥匙（用户名和密码）给他们，但这里有三个问题：</p>
+
+<ol>
+  <li>别人拿了钥匙后可以去所有的房间</li>
+  <li>别人拿到你的钥匙后也许会不小心丢到，甚至故Third-party application：第三方应用程序，本文中又称”客户端”（client），即上一节例子中的”云冲印”。</li>
+  <li>过一段时间你也许会想要回自己的钥匙，但别人不还怎么办？</li>
+</ol>
+
+<p>OAuth 是高级钥匙:</p>
+
+<ol>
+  <li>你可以配置不同权限的钥匙。有些只能进大厅（读取你的微博流）。有些钥匙可以进储藏柜（读取你的相片)</li>
+  <li>钥匙上带着指纹验证的（指纹 = appkey)。 收到钥匙的人只能自己用，不能转让</li>
+  <li>你可以远程废除之前发出的钥匙</li>
+</ol>
+
+<p>相对来说, OAuth比给出用户名密码安全</p>
+
+<h6 id="oauth-1">OAuth是让第三方应用不需要用户名密码读取用户数据的一个认证过程。</h6>
+
+<p><em>OpenID是Authentication</em></p>
+
+<p><em>OAuth是Authorization</em></p>
+
+<p>前者是网站对用户进行认证，让网站知道“你是你所声称的URL的属主”
+后者其实并不包括认证，只不过“只有认证成功的人才能进行授权”，结果类似于“认证+授权”了。OAuth相当于：A网站给B网站一个令牌，然后告诉B网站说根据这个令牌你可以获取到某用户在A网站上允许你访问的所有信息</p>
+
+<p>如果A网站需要用B网站的用户系统进行登录（学名好像叫federated login），它可以
+选择OpenID认证，然后通过attribute exchange获取用户的昵称或其他通过OpenID暴露出来的用户属性，或者
+选择OAuth认证，获取到token后再用token获取用户昵称或其他允许被访问的信息</p>
+
+<p>关于OAuth的授权，不能说是滥用，是OAuth Service Provider对OAuth的权限没有细分。好比我只需要用户的昵称性别，你却把修改昵称性别的权限也授权给我了（虽然我不一定会去用）。这个错在OAuth Service Provider</p>
+
+<p><a href="https://en.wikipedia.org/wiki/OAuth">OAuth2.0</a>
+<a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html">理解OAuth2.0</a>
+<a href="https://www.zhihu.com/question/19781476/answer/13158282">知乎链接1</a>
+<a href="https://www.zhihu.com/question/19628327/answer/12591409">知乎链接2</a></p>
+
+    </article>
+  </div>
+
+  <div class="related">
+    <h4>最新文章</h4>
+    <ul class="related-posts">
+      
+        <li>
+          <h5>
+            <a href="/cs/2016/09/27/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-3.html">
+              HTTP权威指南-3
+              <small>2016-09-27</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/cs/2016/09/25/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6%E7%AC%94%E8%AE%B0.html">
+              黑客与画家-读书笔记
+              <small>2016-09-25</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/mysql/2016/09/25/%E9%AB%98%E6%80%A7%E8%83%BDmysql-4.html">
+              高性能mysql读书笔记
+              <small>2016-09-25</small>
+            </a>
+          </h5>
+        </li>
+      
+    </ul>
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'michaelygzhangblog';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:g.zhangyg@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/MichaelYgZhang"><i class="svg-icon github"></i></a>
+
+
+
+
+<a href="https://www.twitter.com/michaelygzhang"><i class="svg-icon twitter"></i></a>
+
+
+<a href="https://plus.google.com/115646538142388831563"><i class="svg-icon googleplus"></i></a>
+
+        </footer>
+      </div>
+    </div>
+
+    <div id="backToTop" class="backtoTop">
+    	<i class="fa fa-hand-o-up fa-2x"></i>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-84531968-1', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/cs/2016/09/25/CS-OAuth-note.html',
+		  'title': 'OAuth2.0笔记'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-jekyll-search/1.1.5/jekyll-search.js" type="text/javascript"></script>
+    <script src="/js/blog.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+          SimpleJekyllSearch({
+            searchInput: document.getElementById('search-input'),
+            resultsContainer: document.getElementById('results-container'),
+            json: '/search.json',
+            searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+            noResultsText: 'No results found',
+            limit: 10,
+            fuzzy: false,
+            exclude: ['Welcome']
+          })
+    </script>
+  </body>
+</html>

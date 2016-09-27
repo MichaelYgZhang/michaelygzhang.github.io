@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Java work note – Michael – Developer</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Java work note" />
+    <meta property="og:description" content="Java work note" />
+    
+    <meta name="author" content="Michael" />
+
+    
+    <meta property="og:title" content="Java work note" />
+    <meta property="twitter:title" content="Java work note" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Michael - Developer" href="/feed.xml" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/images/favicon.ico" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Michael</a></h1>
+            <p class="site-description">Developer</p>
+          </div>
+
+          <nav>
+            <a href="/"><i class="fa fa-home fa-2x"></i></a>
+            <a href="/category/cs"><i class="fa fa-tags fa-2x" aria-hidden="true"></i></a>
+            <a href="/feed.xml" target="_blank"><i class="fa fa-feed fa-2x"></i></a>
+            <a href="/about"><i class="fa fa-user-secret fa-2x"></i></a>
+            <a href="/task"><i class="fa fa-book fa-2x" aria-hidden="true"></i></a>
+          </nav>
+
+          <a href="https://github.com/MichaelYgZhang" target="_blank">
+            <img class="fork-me-on-github" src="/images/fork-me-on-github.png" alt="Fork me on GitHub">
+          </a>
+        </header>
+
+        <div id="search-container">
+          <input type="text" id="search-input" placeholder="search...">
+          <ul id="results-container"></ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <div class="post">
+    <h1 class="post-title">Java work note</h1>
+    <!--
+    <span class="post-date">25 Sep 2016</span>
+     |
+    
+    
+    -->
+    <article>
+      <h6 id="java">Java单测注意事项</h6>
+
+<p><strong>SQL:</strong></p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">update</span> <span class="k">user</span> <span class="k">set</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">'a'</span> <span class="k">where</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p><strong>数据库-user</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>name</th>
+      <th>age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>a</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>b</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="highlighter-rouge">以上SQL执行结果是:
+Query OK, 1 row affected (0.00 sec)
+Rows matched:2 Changed:1 Warnings:0</code></p>
+
+<p>⚠️ matched:2,changed:1</p>
+
+<p>而在代码做单测时若测试如下接口:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserMapper</span><span class="o">{</span>
+    <span class="nd">@Update</span><span class="o">(</span><span class="s">"update user set name = 'a' where age = 1"</span><span class="o">)</span>
+    <span class="kt">int</span> <span class="nf">updateUser</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>⚠️ 结果返回2,指的是matched结果,而不是实际changed的数量
+⚠️使用mock做单测时，serviceImpl的实现类使不允许有<code class="highlighter-rouge">@Transactional</code>注释的，否则无法通过测试，事务控制应该在Dao层处理。</p>
+
+    </article>
+  </div>
+
+  <div class="related">
+    <h4>最新文章</h4>
+    <ul class="related-posts">
+      
+        <li>
+          <h5>
+            <a href="/cs/2016/09/27/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-3.html">
+              HTTP权威指南-3
+              <small>2016-09-27</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/cs/2016/09/25/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6%E7%AC%94%E8%AE%B0.html">
+              黑客与画家-读书笔记
+              <small>2016-09-25</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/mysql/2016/09/25/%E9%AB%98%E6%80%A7%E8%83%BDmysql-4.html">
+              高性能mysql读书笔记
+              <small>2016-09-25</small>
+            </a>
+          </h5>
+        </li>
+      
+    </ul>
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'michaelygzhangblog';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:g.zhangyg@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/MichaelYgZhang"><i class="svg-icon github"></i></a>
+
+
+
+
+<a href="https://www.twitter.com/michaelygzhang"><i class="svg-icon twitter"></i></a>
+
+
+<a href="https://plus.google.com/115646538142388831563"><i class="svg-icon googleplus"></i></a>
+
+        </footer>
+      </div>
+    </div>
+
+    <div id="backToTop" class="backtoTop">
+    	<i class="fa fa-hand-o-up fa-2x"></i>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-84531968-1', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/java/2016/09/25/Java-note.html',
+		  'title': 'Java work note'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-jekyll-search/1.1.5/jekyll-search.js" type="text/javascript"></script>
+    <script src="/js/blog.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+          SimpleJekyllSearch({
+            searchInput: document.getElementById('search-input'),
+            resultsContainer: document.getElementById('results-container'),
+            json: '/search.json',
+            searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+            noResultsText: 'No results found',
+            limit: 10,
+            fuzzy: false,
+            exclude: ['Welcome']
+          })
+    </script>
+  </body>
+</html>
