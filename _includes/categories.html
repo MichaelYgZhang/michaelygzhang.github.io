@@ -1,11 +1,14 @@
 <div class="tags-expo">
   <div class="category">
     {% for tag in site.categories %}
-    <a href="#{{ tag[0] | slugify }}" class="post-tag">{{ tag[0] }}</a>
-    <span class="size">({{ tag | last | size }})</span>
+    <ul>
+      <li>
+        <a href="#{{ tag[0] | slugify }}" class="post-tag">{{ tag[0] }}</a>
+        <span class="size">({{ tag | last | size }})</span>
+      </li>
+    </ul>
     {% endfor %}
   </div>
-  <hr/>
   <div class="tags-expo-section">
     {% for tag in site.categories %}
     <h2 id="{{ tag[0] | slugify }}">{{ tag[0] }}</h2>

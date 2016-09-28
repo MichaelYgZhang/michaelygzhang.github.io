@@ -43,9 +43,6 @@ google_analytics: UA-84531968-1
 # Used for Sitemap.xml and your RSS feed
 url:
 
-category_archive:
-  path: /category
-
 # If you're hosting your site at a Project repository on GitHub pages
 # (http://yourusername.github.io/repository-name)
 # and NOT your User repository (http://yourusername.github.io)
@@ -88,4 +85,4 @@ exclude:
   - README.md
   - CNAME
 
-paginate: 10
+# paginate: 10

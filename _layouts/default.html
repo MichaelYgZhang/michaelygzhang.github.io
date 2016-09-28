@@ -16,6 +16,7 @@
   </head>
 
   <body>
+
     <div class="wrapper-masthead">
       <div class="container">
         <header class="masthead clearfix">
@@ -28,10 +29,20 @@
 
           <nav>
             <a href="{{ site.baseurl }}/"><i class="fa fa-home fa-2x"></i></a>
-            <a href="{{ site.baseurl }}/category/cs"><i class="fa fa-tags fa-2x" aria-hidden="true"></i></a>
-            <a href="{{ site.baseurl }}/feed.xml" target="_blank"><i class="fa fa-feed fa-2x"></i></a>
+            <a href="{{ site.baseurl }}/category"><i class="fa fa-tags fa-2x" aria-hidden="true"></i></a>
             <a href="{{ site.baseurl }}/about"><i class="fa fa-user-secret fa-2x"></i></a>
+            <a href="{{ site.baseurl }}/blog"><i class="fa fa-university fa-2x"></i></a>
             <a href="{{ site.baseurl }}/task"><i class="fa fa-book fa-2x" aria-hidden="true"></i></a>
+            <a href="{{ site.baseurl }}/feed.xml" target="_blank"><i class="fa fa-feed fa-2x"></i></a>
+
+            <!-- {% assign navigation_pages = site.html_pages | sort: 'navigation_weight' %}
+            {% for p in navigation_pages %}
+              {% if p.navigation_weight %}
+              <a href="{{ p.url }}" {% if p.url == page.url %}class="active"{% endif %}>
+                {{ p.title }}
+              </a>
+              {% endif %}
+            {% endfor %} -->
           </nav>
 
           <a href="https://github.com/{{ site.footer-links.github }}" target="_blank">

@@ -1,0 +1,17 @@
+---
+layout: default
+title: Blog
+navigation_weight: 2
+---
+
+<div class="posts">
+  {% for post in site.posts %}
+    <article class="post">
+      <h4><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
+      <div class="entry">
+         摘录: {{ post.excerpt }}.....
+        <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">{{ post.date | date: "%Y-%m-%d" }}》Read More</a>
+      </div>
+    </article>
+  {% endfor %}
+</div>
