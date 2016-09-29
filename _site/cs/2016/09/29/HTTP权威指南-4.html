@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HTTP权威指南-4 – Michael – Developer</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="第四章－连接管理" />
+    <meta property="og:description" content="第四章－连接管理" />
+    
+    <meta name="author" content="Michael" />
+
+    
+    <meta property="og:title" content="HTTP权威指南-4" />
+    <meta property="twitter:title" content="HTTP权威指南-4" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Michael - Developer" href="/feed.xml" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+  </head>
+
+  <body>
+
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/images/favicon.ico" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Michael</a></h1>
+            <p class="site-description">Developer</p>
+          </div>
+
+          <nav>
+            <a href="/"><i class="fa fa-home fa-2x"></i></a>
+            <a href="/category"><i class="fa fa-tags fa-2x" aria-hidden="true"></i></a>
+            <a href="/about"><i class="fa fa-user-secret fa-2x"></i></a>
+            <a href="/blog"><i class="fa fa-university fa-2x"></i></a>
+            <!-- <a href="/task"><i class="fa fa-book fa-2x" aria-hidden="true"></i></a> -->
+            <a href="/feed.xml" target="_blank"><i class="fa fa-feed fa-2x"></i></a>
+
+            <!-- 
+            
+              
+            
+              
+            
+              
+              <a href="/" >
+                Home
+              </a>
+              
+            
+              
+              <a href="/blog" >
+                Blog
+              </a>
+              
+            
+              
+              <a href="/category" >
+                Category
+              </a>
+              
+             -->
+          </nav>
+
+          <a href="https://github.com/MichaelYgZhang" target="_blank">
+            <img class="fork-me-on-github" src="/images/fork-me-on-github.png" alt="Fork me on GitHub">
+          </a>
+        </header>
+
+        <div id="search-container">
+          <input type="text" id="search-input" placeholder="search...">
+          <ul id="results-container"></ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <div class="post">
+    <h1 class="post-title">HTTP权威指南-4</h1>
+    <span class="post-date">2016-09-29</span>
+    <!--  |
+    
+     -->
+    <article>
+      <ul id="markdown-toc">
+  <li><a href="#tcp" id="markdown-toc-tcp">TCP连接</a></li>
+  <li><a href="#tcp-1" id="markdown-toc-tcp-1">对TCP性能的考虑</a></li>
+  <li><a href="#http" id="markdown-toc-http">HTTP连接的处理</a></li>
+  <li><a href="#section" id="markdown-toc-section">并行连接</a></li>
+  <li><a href="#section-1" id="markdown-toc-section-1">持久连接</a></li>
+</ul>
+
+<h4 id="tcp">TCP连接</h4>
+<ul>
+  <li>TCP的可靠数据管道</li>
+  <li>TCP流是分段的、由IP分组传送。(TCP的数据是通过名为IP分组或者IP数据报的小数据块来发送的)</li>
+</ul>
+
+<p><strong>HTTP与HTTPS</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>HTTP</th>
+      <th>应用层</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TCP</td>
+      <td>传输层</td>
+    </tr>
+    <tr>
+      <td>IP</td>
+      <td>网络层</td>
+    </tr>
+    <tr>
+      <td>网络接口</td>
+      <td>数据链路层</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>HTTP</th>
+      <th>应用层</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TSL or SSL</td>
+      <td>安全层</td>
+    </tr>
+    <tr>
+      <td>TCP</td>
+      <td>传输层</td>
+    </tr>
+    <tr>
+      <td>IP</td>
+      <td>网络层</td>
+    </tr>
+    <tr>
+      <td>网络接口层</td>
+      <td>数据链路层</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>保持TCP连接持续不断地运行(TCP通过端口号保持所有持续运行的TCP连接)，TCP连接通过4个值来识别<code class="highlighter-rouge">&lt;源IP地址、源端口号、目的IP地址、目的端口号&gt;</code>进而一起定义唯一的一条连接。</li>
+  <li>使用TCP套接字编程</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>套接字API调用</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>s = socket(<code class="highlighter-rouge">&lt;parameters&gt;</code>)</td>
+      <td>创建一个新的、未命名、未关联的套接字</td>
+    </tr>
+    <tr>
+      <td>bind(s,<code class="highlighter-rouge">&lt;local IP:port&gt;</code>)</td>
+      <td>向套接字赋一个本地端口号和接口</td>
+    </tr>
+    <tr>
+      <td>connect(s, <code class="highlighter-rouge">&lt;remote IP:port&gt;</code>)</td>
+      <td>创建一条连接本地套接字与远程主机及端口的连接</td>
+    </tr>
+    <tr>
+      <td>listen(s,….)</td>
+      <td>标识一个本地套接字，使其可以合法接受连接</td>
+    </tr>
+    <tr>
+      <td>s2 = accept(s)</td>
+      <td>等待某人建立一条到本地端口的连接</td>
+    </tr>
+    <tr>
+      <td>n = read(s, buffer, n)</td>
+      <td>尝试从套接字向缓冲区读取n个字节</td>
+    </tr>
+    <tr>
+      <td>n = write(s, buffer, n)</td>
+      <td>尝试从缓冲区中向套接字写入n个字节</td>
+    </tr>
+    <tr>
+      <td>close(s)</td>
+      <td>完全关闭TCP连接</td>
+    </tr>
+    <tr>
+      <td>shutdown(s, <code class="highlighter-rouge">&lt;side&gt;</code>)</td>
+      <td>只关闭TCP连接的输入或输出端</td>
+    </tr>
+    <tr>
+      <td>getsockopt(s,…)</td>
+      <td>读取某个内部套接字配置选项值</td>
+    </tr>
+    <tr>
+      <td>setsockopt(s,…)</td>
+      <td>修改某个内部套接字配置选项值</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="tcp-1">对TCP性能的考虑</h4>
+<ul>
+  <li>HTTP事务的时延
+    <blockquote>
+      <ol>
+        <li>客户端首选需要根据URL确定Web服务器的IP地址和端口号，如果最近没有对URL中的主机名进行访问，通过DNS解析系统将URL中的主机名转换成一个IP地址可能需要花费数十秒的时间</li>
+        <li>客户端会向服务器发送一条TCP连接请求，并等待服务器回送一个请求接受应答，每条新的TCP连接都会有连接时延，这个值通常最多只有一两秒钟，但如果数百个HTTP事务的话，这个值会快速地叠加上去。</li>
+        <li>一旦连接建立起来了，客户端就会通过新建立的TCP管道来发送HTTP请求，数据到达时，Web服务器会从TCP连接中读取请求报文，并对请求进行处理，网络传输请求报文以及服务器处理请求报文都需要时间。</li>
+        <li>Web服务器会会送HTTP响应，这也需要花费时间。</li>
+      </ol>
+    </blockquote>
+  </li>
+</ul>
+
+<p>总结:这些TCP网络时延的大小取决于硬件速度，网络和服务器的负载，请求和响应报文的尺寸，以及客户端和服务器之间的距离。TCP协议技术的复杂性也会对时延产生巨大对影响。</p>
+<ul>
+  <li>性能聚集区域
+    <blockquote>
+      <ol>
+        <li>TCP连接建立握手</li>
+        <li>TCP慢启动拥塞控制</li>
+        <li>数据聚集的Nagle算法</li>
+        <li>用于捎带确认的TCP延迟确认算法</li>
+        <li>TIME_WAIT时延和端口耗尽</li>
+      </ol>
+    </blockquote>
+  </li>
+  <li>TCP连接的握手时延(SYN/SYN+ACK三次握手)SYN是一种标记，表明是连接请求</li>
+  <li>延迟确认</li>
+  <li>TCP慢启动‘自动调谐’</li>
+  <li>Nagle算法与TCP_NODELAY(每个TCP段至少装载40个字节的标记和首部，如果TCP发送了大量包含少量数据的分组，网络性能就会严重下降，这种行为称为”发送端傻窗口综合症”;Nagle算法就是试图在发送一个分组之前，将大量TCP数据绑定在一起，以提高效率。可以在栈中设置参数TCP_NODELAY来禁用Nagle算法，如果需要这么做一定要确保会向TCP写入大块的数据，这样就不会产生一堆小分组了)</li>
+  <li>TIME_WAIT累积与端口耗尽</li>
+</ul>
+
+<h4 id="http">HTTP连接的处理</h4>
+<ul>
+  <li>常被误解的Connection首部
+    <blockquote>
+      <ol>
+        <li>HTTP首部字段名，列出了只与此链接有关的首部</li>
+        <li>任意标签值，用于描述此连接的非标准选项</li>
+        <li>值close，说明操作完成之后需关闭这条持久连接</li>
+        <li>⚠️如果报文中包含连接相关的信息，不能将其转发出去，在转发之前，必须删除Connection首部列出的所有首部字段。进而可以防止无意中对本地首部的转发。被称为对首部的保护。</li>
+      </ol>
+    </blockquote>
+  </li>
+</ul>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="nx">OK</span>
+<span class="nx">Cache</span><span class="o">-</span><span class="nx">control</span><span class="err">:</span> <span class="nx">max</span><span class="o">-</span><span class="nx">age</span><span class="o">=</span><span class="mi">3600</span>
+<span class="nl">Connection</span><span class="p">:</span> <span class="nx">meter</span><span class="p">,</span> <span class="nx">close</span><span class="p">,</span> <span class="nx">bill</span><span class="o">-</span><span class="nx">my</span><span class="o">-</span><span class="nx">credit</span><span class="o">-</span><span class="nx">card</span>
+<span class="nl">Meter</span><span class="p">:</span> <span class="nx">max</span><span class="o">-</span><span class="nx">users</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="nx">max</span><span class="o">-</span><span class="nx">refuses</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="nx">dont</span><span class="o">-</span><span class="nx">report</span>
+</code></pre>
+</div>
+
+<p>首部说明: 不应该转发Meter首部，要应用假象的bill-my-credit-card选项，且本次事务结束之后应关闭持久连接。</p>
+
+<ul>
+  <li>串行事务处理时延</li>
+</ul>
+
+<p>四类提高HTTP的连接性能的方法</p>
+<ol>
+  <li>并行连接(通过多条TCP连接发起并发的HTTP请求)</li>
+  <li>持久连接(重用TCP连接，以消除连接及关闭时延)</li>
+  <li>管道化连接(通过共享的TCP连接发起并发的HTTP请求)</li>
+  <li>复用的连接(交替传送请求和响应报文)</li>
+</ol>
+
+<h4 id="section">并行连接</h4>
+<ul>
+  <li>并行连接可能会提高页面的加载速度</li>
+  <li>并行的连接不一定更快</li>
+  <li>并行连接可能让人“感觉”更快一些</li>
+</ul>
+
+<h4 id="section-1">持久连接</h4>
+<ul>
+  <li>在HTTP事务处理结束之后仍然保持在打开状态的TCP连接被称为持久连接。重用已对目标服务器打开的空闲持久连接，就可以避开缓慢的连接建立阶段，并且已经打开的连接还可以避免慢启动的拥塞适应阶段，以便更快速地进行数据的传输。</li>
+  <li>持久及并行连接，缺点:每个事务都会打开/关闭一条新的连接，会耗费时间和带宽，由于TCP慢启动特性的村子啊，每条新连接的性能都会有所降低，可打开的并行连接数量实际上是有限的。所以持久连接与并行连接配合使用是最高效的方式。</li>
+  <li>HTTP/1.0 + keep-alive连接</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Connection: Keep-Alive
+Keep-Alive: max=5, timeout=120
+</code></pre>
+</div>
+
+<p>响应报文表明服务器最多还会为另外5个事务保持连接的打开状态，或者将打开状态保持到连接空闲了2分钟之后。</p>
+
+<p>⚠️HTTP/1.0中keep-alive并不是默认使用的，在需要保持持久连接的请求报文中添加请求首部Connection: Keep-Alive的请求首部来激活keep-alive本次TCP的持久连接。</p>
+
+<p><a href="https://en.wikipedia.org/wiki/TCP">TCP-wiki</a></p>
+
+    </article>
+  </div>
+
+  <div class="related">
+    <h4>最新文章</h4>
+    <ul class="related-posts">
+      
+        <li>
+          <h5>
+            <a href="/cs/2016/09/27/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-3.html">
+              HTTP权威指南-3
+              <small>2016-09-27</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/cs/2016/09/25/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6%E7%AC%94%E8%AE%B0.html">
+              黑客与画家-读书笔记
+              <small>2016-09-25</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/mysql/2016/09/25/%E9%AB%98%E6%80%A7%E8%83%BDmysql-4.html">
+              高性能mysql读书笔记
+              <small>2016-09-25</small>
+            </a>
+          </h5>
+        </li>
+      
+    </ul>
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'michaelygzhangblog';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:g.zhangyg@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/MichaelYgZhang"><i class="svg-icon github"></i></a>
+
+
+
+
+<a href="https://www.twitter.com/michaelygzhang"><i class="svg-icon twitter"></i></a>
+
+
+<a href="https://plus.google.com/115646538142388831563"><i class="svg-icon googleplus"></i></a>
+
+        </footer>
+      </div>
+    </div>
+
+    <div id="backToTop" class="backtoTop">
+    	<i class="fa fa-hand-o-up fa-2x"></i>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-84531968-1', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/cs/2016/09/29/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-4.html',
+		  'title': 'HTTP权威指南-4'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-jekyll-search/1.1.5/jekyll-search.js" type="text/javascript"></script>
+    <script src="/js/blog.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+          SimpleJekyllSearch({
+            searchInput: document.getElementById('search-input'),
+            resultsContainer: document.getElementById('results-container'),
+            json: '/search.json',
+            searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+            noResultsText: 'No results found',
+            limit: 10,
+            fuzzy: false,
+            exclude: ['Welcome']
+          })
+    </script>
+  </body>
+</html>
