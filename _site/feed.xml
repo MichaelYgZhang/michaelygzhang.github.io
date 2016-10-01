@@ -1,9 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2016-09-30T01:50:59+08:00</updated><id>/</id><title>Michael</title><subtitle>Developer</subtitle><entry><title>HTTP权威指南-4</title><link href="/cs/2016/09/29/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-4.html" rel="alternate" type="text/html" title="HTTP权威指南-4" /><published>2016-09-29T00:00:00+08:00</published><updated>2016-09-29T00:00:00+08:00</updated><id>/cs/2016/09/29/HTTP权威指南-4</id><content type="html" xml:base="/cs/2016/09/29/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-4.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2016-10-01T19:11:39+08:00</updated><id>/</id><title>Michael</title><subtitle>Developer</subtitle><entry><title>HTTP权威指南-4</title><link href="/cs/2016/09/29/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-4.html" rel="alternate" type="text/html" title="HTTP权威指南-4" /><published>2016-09-29T00:00:00+08:00</published><updated>2016-09-29T00:00:00+08:00</updated><id>/cs/2016/09/29/HTTP权威指南-4</id><content type="html" xml:base="/cs/2016/09/29/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-4.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#tcp&quot; id=&quot;markdown-toc-tcp&quot;&gt;TCP连接&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#tcp-1&quot; id=&quot;markdown-toc-tcp-1&quot;&gt;对TCP性能的考虑&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#http&quot; id=&quot;markdown-toc-http&quot;&gt;HTTP连接的处理&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;并行连接&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;持久连接&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;管道化连接&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;关闭连接的奥秘&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;tcp&quot;&gt;TCP连接&lt;/h4&gt;
@@ -126,31 +128,35 @@
 
 &lt;h4 id=&quot;tcp-1&quot;&gt;对TCP性能的考虑&lt;/h4&gt;
 &lt;ul&gt;
-  &lt;li&gt;HTTP事务的时延
-    &lt;blockquote&gt;
-      &lt;ol&gt;
-        &lt;li&gt;客户端首选需要根据URL确定Web服务器的IP地址和端口号，如果最近没有对URL中的主机名进行访问，通过DNS解析系统将URL中的主机名转换成一个IP地址可能需要花费数十秒的时间&lt;/li&gt;
-        &lt;li&gt;客户端会向服务器发送一条TCP连接请求，并等待服务器回送一个请求接受应答，每条新的TCP连接都会有连接时延，这个值通常最多只有一两秒钟，但如果数百个HTTP事务的话，这个值会快速地叠加上去。&lt;/li&gt;
-        &lt;li&gt;一旦连接建立起来了，客户端就会通过新建立的TCP管道来发送HTTP请求，数据到达时，Web服务器会从TCP连接中读取请求报文，并对请求进行处理，网络传输请求报文以及服务器处理请求报文都需要时间。&lt;/li&gt;
-        &lt;li&gt;Web服务器会会送HTTP响应，这也需要花费时间。&lt;/li&gt;
-      &lt;/ol&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
+  &lt;li&gt;HTTP事务的时延&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;客户端首选需要根据URL确定Web服务器的IP地址和端口号，如果最近没有对URL中的主机名进行访问，通过DNS解析系统将URL中的主机名转换成一个IP地址可能需要花费数十秒的时间&lt;/li&gt;
+    &lt;li&gt;客户端会向服务器发送一条TCP连接请求，并等待服务器回送一个请求接受应答，每条新的TCP连接都会有连接时延，这个值通常最多只有一两秒钟，但如果数百个HTTP事务的话，这个值会快速地叠加上去。&lt;/li&gt;
+    &lt;li&gt;一旦连接建立起来了，客户端就会通过新建立的TCP管道来发送HTTP请求，数据到达时，Web服务器会从TCP连接中读取请求报文，并对请求进行处理，网络传输请求报文以及服务器处理请求报文都需要时间。&lt;/li&gt;
+    &lt;li&gt;Web服务器会会送HTTP响应，这也需要花费时间。&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
 &lt;p&gt;总结:这些TCP网络时延的大小取决于硬件速度，网络和服务器的负载，请求和响应报文的尺寸，以及客户端和服务器之间的距离。TCP协议技术的复杂性也会对时延产生巨大对影响。&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;性能聚集区域
-    &lt;blockquote&gt;
-      &lt;ol&gt;
-        &lt;li&gt;TCP连接建立握手&lt;/li&gt;
-        &lt;li&gt;TCP慢启动拥塞控制&lt;/li&gt;
-        &lt;li&gt;数据聚集的Nagle算法&lt;/li&gt;
-        &lt;li&gt;用于捎带确认的TCP延迟确认算法&lt;/li&gt;
-        &lt;li&gt;TIME_WAIT时延和端口耗尽&lt;/li&gt;
-      &lt;/ol&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
+  &lt;li&gt;性能聚集区域&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;TCP连接建立握手&lt;/li&gt;
+    &lt;li&gt;TCP慢启动拥塞控制&lt;/li&gt;
+    &lt;li&gt;数据聚集的Nagle算法&lt;/li&gt;
+    &lt;li&gt;用于捎带确认的TCP延迟确认算法&lt;/li&gt;
+    &lt;li&gt;TIME_WAIT时延和端口耗尽&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
   &lt;li&gt;TCP连接的握手时延(SYN/SYN+ACK三次握手)SYN是一种标记，表明是连接请求&lt;/li&gt;
   &lt;li&gt;延迟确认&lt;/li&gt;
   &lt;li&gt;TCP慢启动‘自动调谐’&lt;/li&gt;
@@ -160,17 +166,17 @@
 
 &lt;h4 id=&quot;http&quot;&gt;HTTP连接的处理&lt;/h4&gt;
 &lt;ul&gt;
-  &lt;li&gt;常被误解的Connection首部
-    &lt;blockquote&gt;
-      &lt;ol&gt;
-        &lt;li&gt;HTTP首部字段名，列出了只与此链接有关的首部&lt;/li&gt;
-        &lt;li&gt;任意标签值，用于描述此连接的非标准选项&lt;/li&gt;
-        &lt;li&gt;值close，说明操作完成之后需关闭这条持久连接&lt;/li&gt;
-        &lt;li&gt;⚠️如果报文中包含连接相关的信息，不能将其转发出去，在转发之前，必须删除Connection首部列出的所有首部字段。进而可以防止无意中对本地首部的转发。被称为对首部的保护。&lt;/li&gt;
-      &lt;/ol&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
+  &lt;li&gt;常被误解的Connection首部&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;HTTP首部字段名，列出了只与此链接有关的首部&lt;/li&gt;
+    &lt;li&gt;任意标签值，用于描述此连接的非标准选项&lt;/li&gt;
+    &lt;li&gt;值close，说明操作完成之后需关闭这条持久连接&lt;/li&gt;
+    &lt;li&gt;⚠️如果报文中包含连接相关的信息，不能将其转发出去，在转发之前，必须删除Connection首部列出的所有首部字段。进而可以防止无意中对本地首部的转发。被称为对首部的保护。&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
 
 &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OK&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;Cache&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;control&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3600&lt;/span&gt;
@@ -214,9 +220,53 @@ Keep-Alive: max=5, timeout=120
 
 &lt;p&gt;响应报文表明服务器最多还会为另外5个事务保持连接的打开状态，或者将打开状态保持到连接空闲了2分钟之后。&lt;/p&gt;
 
-&lt;p&gt;⚠️HTTP/1.0中keep-alive并不是默认使用的，在需要保持持久连接的请求报文中添加请求首部Connection: Keep-Alive的请求首部来激活keep-alive本次TCP的持久连接。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Keep-Alive连接的限制和规则
+    &lt;ol&gt;
+      &lt;li&gt;HTTP/1.0中keep-alive并不是默认使用的，在需要保持持久连接的请求报文中添加请求首部Connection: Keep-Alive的请求首部来激活keep-alive本次TCP的持久连接。&lt;/li&gt;
+      &lt;li&gt;TODO note page: 100&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Keep-Alive哑代理&lt;/li&gt;
+  &lt;li&gt;插入Proxy-Connection&lt;/li&gt;
+  &lt;li&gt;HTTP/1.1持久连接(默认激活，HTTP1.1客户端假定在收到响应后，除非响应中包含了Connection:close首部，否则HTTP/1.1连接就仍然维持打开状态。如果需要在事务结束之后将连接关闭，HTTP/1.1必须向报文中显示地添加一个Connection:close首部，不发送Connection: close并不意味值服务器承若永远连接保持在打开状态)&lt;/li&gt;
+  &lt;li&gt;持久连接的限制和规则
+    &lt;ol&gt;
+      &lt;li&gt;如果客户端不想在连接上发送请求了就在最后一条请求报文中发送一个Connection: close首部。&lt;/li&gt;
+      &lt;li&gt;只有连接上所有的报文都是正确的、自定义报文长度时，连接才能持久保持，也就是说异常时可能会关闭。&lt;/li&gt;
+      &lt;li&gt;HTTP/1.1的代理必须能够分别管理与客户端和服务器的持久连接–每个持久连接都只适用于一跳传输。&lt;/li&gt;
+      &lt;li&gt;(由于较老的代理会转发Connection首部)所以HTTP/1.1的代理服务器不应该与HTTP/1.0客户端建立持久连接，会造成哑代理&lt;/li&gt;
+      &lt;li&gt;HTTP/1.1要求应用程序能够从异步的关闭中恢复出来，只要不村子啊可能累积起来的副作用，客户端都应该重复这条请求。&lt;/li&gt;
+      &lt;li&gt;除非重复发起请求会产生副作用，否则如果在客户端收到整条响应之前连接关闭了，客户端就必须要重新发起请求。&lt;/li&gt;
+      &lt;li&gt;一个用户客户端对任何服务器或代理最多只能维护两条持久连接，以防服务器过载，代理可能需要更多到服务器的连接来支持并发用户的通信，所以，如果有N个用户试图访问服务器的话，代理最多要维持2N条到任意服务器或父代理的连接。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/TCP&quot;&gt;TCP-wiki&lt;/a&gt;&lt;/p&gt;</content><category term="CS" /><summary>第四章－连接管理</summary></entry><entry><title>HTTP权威指南-3</title><link href="/cs/2016/09/27/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-3.html" rel="alternate" type="text/html" title="HTTP权威指南-3" /><published>2016-09-27T00:00:00+08:00</published><updated>2016-09-27T00:00:00+08:00</updated><id>/cs/2016/09/27/HTTP权威指南-3</id><content type="html" xml:base="/cs/2016/09/27/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-3.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
+&lt;h4 id=&quot;section-2&quot;&gt;管道化连接&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;HTTP/1.1允许持久连接上可选地使用请求管道，管道化:客户端在响应到达之前，可以将多条请求放入队列，当第一条请求通过网络流向地球另一端的服务器时，第二条，第三条也可以开始发送了，在高时延网络条件下，这样可以降低网络的环回时间，提高性能。&lt;/li&gt;
+  &lt;li&gt;对管道化连接有几条限制
+    &lt;ol&gt;
+      &lt;li&gt;如果HTTP客户端无法确认连接是持久的，就不应该使用管道。&lt;/li&gt;
+      &lt;li&gt;必须按照与请求相同的顺序回送HTTP响应，HTTP报文中没有序号标签，因此如果收到的响应失序了，就没有办法将其与请求匹配起来了。&lt;/li&gt;
+      &lt;li&gt;HTTP客户端必须做好连接会随时关闭的准备，并准备好重发所未完成的管道化请求。&lt;/li&gt;
+      &lt;li&gt;HTTP客户端不应该使用管道化的方式发送会产生副作用的请求(比如POST)。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;section-3&quot;&gt;关闭连接的奥秘&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;所有HTTP客户端、服务器端可以在任意时刻关闭一条TCP传输连接。&lt;/li&gt;
+  &lt;li&gt;管道连接必须是幂等操作如GET、HEAD、PUT、DELETE、TRACE、OPTIONS，客户端不应该使用非幂等请求如POST，否则在传输连接的过程中连接过早终止就会造成一些不确定的后果，要发送一条非幂等请求，就需要等待来自前一条请求的响应状态。&lt;/li&gt;
+  &lt;li&gt;TCP连接是双向的，TCP连接的每一个端都有一个输入队列和一个输出队列对于数据的读或写，放入一端输出队列中的数据最终会出现在另一端的输入队列中。应用程序可以关闭TCP输入和输出信道中的任意一个，或者将两者都关闭了，套接字调用close()会将TCP连接的输入和输出信道都关闭调，这种方式称为”完全关闭”，可以用套接字调用shutdown()单独关闭输入或输出信道，被称为”半关闭”。
+⚠️关闭连接的输入信道比较危险，因为当另一端向你关闭输入信道时，操作系统会向请求方发送一条TCP”连接被对端重置”的报文，大部分操作系统会将这种情况作为很严重的错误来处理，比如你的连接中有部分数据在缓存中还未读取，这时返回的”连接被对端重置”信息会讲你的缓冲区清空，所以慎重！关闭连接的输出信道总是安全的。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/TCP&quot;&gt;TCP-wiki&lt;/a&gt;
+&lt;a href=&quot;http://www.ietf.org/rfc/rf2626.txt&quot;&gt;HTTP连接&lt;/a&gt;
+&lt;a href=&quot;http://www.w3.org/Protocols/HTTP/Performance/&quot;&gt;HTTP性能问题&lt;/a&gt;&lt;/p&gt;</content><category term="CS" /><summary>第四章－连接管理</summary></entry><entry><title>HTTP权威指南-3</title><link href="/cs/2016/09/27/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-3.html" rel="alternate" type="text/html" title="HTTP权威指南-3" /><published>2016-09-27T00:00:00+08:00</published><updated>2016-09-27T00:00:00+08:00</updated><id>/cs/2016/09/27/HTTP权威指南-3</id><content type="html" xml:base="/cs/2016/09/27/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-3.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;报文流&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;报文的组成部分&lt;/a&gt;    &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;报文的语法&lt;/a&gt;&lt;/li&gt;

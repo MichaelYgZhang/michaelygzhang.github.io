@@ -103,6 +103,8 @@
   <li><a href="#http" id="markdown-toc-http">HTTP连接的处理</a></li>
   <li><a href="#section" id="markdown-toc-section">并行连接</a></li>
   <li><a href="#section-1" id="markdown-toc-section-1">持久连接</a></li>
+  <li><a href="#section-2" id="markdown-toc-section-2">管道化连接</a></li>
+  <li><a href="#section-3" id="markdown-toc-section-3">关闭连接的奥秘</a></li>
 </ul>
 
 <h4 id="tcp">TCP连接</h4>
@@ -225,31 +227,35 @@
 
 <h4 id="tcp-1">对TCP性能的考虑</h4>
 <ul>
-  <li>HTTP事务的时延
-    <blockquote>
-      <ol>
-        <li>客户端首选需要根据URL确定Web服务器的IP地址和端口号，如果最近没有对URL中的主机名进行访问，通过DNS解析系统将URL中的主机名转换成一个IP地址可能需要花费数十秒的时间</li>
-        <li>客户端会向服务器发送一条TCP连接请求，并等待服务器回送一个请求接受应答，每条新的TCP连接都会有连接时延，这个值通常最多只有一两秒钟，但如果数百个HTTP事务的话，这个值会快速地叠加上去。</li>
-        <li>一旦连接建立起来了，客户端就会通过新建立的TCP管道来发送HTTP请求，数据到达时，Web服务器会从TCP连接中读取请求报文，并对请求进行处理，网络传输请求报文以及服务器处理请求报文都需要时间。</li>
-        <li>Web服务器会会送HTTP响应，这也需要花费时间。</li>
-      </ol>
-    </blockquote>
-  </li>
+  <li>HTTP事务的时延</li>
 </ul>
 
+<blockquote>
+  <ol>
+    <li>客户端首选需要根据URL确定Web服务器的IP地址和端口号，如果最近没有对URL中的主机名进行访问，通过DNS解析系统将URL中的主机名转换成一个IP地址可能需要花费数十秒的时间</li>
+    <li>客户端会向服务器发送一条TCP连接请求，并等待服务器回送一个请求接受应答，每条新的TCP连接都会有连接时延，这个值通常最多只有一两秒钟，但如果数百个HTTP事务的话，这个值会快速地叠加上去。</li>
+    <li>一旦连接建立起来了，客户端就会通过新建立的TCP管道来发送HTTP请求，数据到达时，Web服务器会从TCP连接中读取请求报文，并对请求进行处理，网络传输请求报文以及服务器处理请求报文都需要时间。</li>
+    <li>Web服务器会会送HTTP响应，这也需要花费时间。</li>
+  </ol>
+</blockquote>
+
 <p>总结:这些TCP网络时延的大小取决于硬件速度，网络和服务器的负载，请求和响应报文的尺寸，以及客户端和服务器之间的距离。TCP协议技术的复杂性也会对时延产生巨大对影响。</p>
+
 <ul>
-  <li>性能聚集区域
-    <blockquote>
-      <ol>
-        <li>TCP连接建立握手</li>
-        <li>TCP慢启动拥塞控制</li>
-        <li>数据聚集的Nagle算法</li>
-        <li>用于捎带确认的TCP延迟确认算法</li>
-        <li>TIME_WAIT时延和端口耗尽</li>
-      </ol>
-    </blockquote>
-  </li>
+  <li>性能聚集区域</li>
+</ul>
+
+<blockquote>
+  <ol>
+    <li>TCP连接建立握手</li>
+    <li>TCP慢启动拥塞控制</li>
+    <li>数据聚集的Nagle算法</li>
+    <li>用于捎带确认的TCP延迟确认算法</li>
+    <li>TIME_WAIT时延和端口耗尽</li>
+  </ol>
+</blockquote>
+
+<ul>
   <li>TCP连接的握手时延(SYN/SYN+ACK三次握手)SYN是一种标记，表明是连接请求</li>
   <li>延迟确认</li>
   <li>TCP慢启动‘自动调谐’</li>
@@ -259,17 +265,17 @@
 
 <h4 id="http">HTTP连接的处理</h4>
 <ul>
-  <li>常被误解的Connection首部
-    <blockquote>
-      <ol>
-        <li>HTTP首部字段名，列出了只与此链接有关的首部</li>
-        <li>任意标签值，用于描述此连接的非标准选项</li>
-        <li>值close，说明操作完成之后需关闭这条持久连接</li>
-        <li>⚠️如果报文中包含连接相关的信息，不能将其转发出去，在转发之前，必须删除Connection首部列出的所有首部字段。进而可以防止无意中对本地首部的转发。被称为对首部的保护。</li>
-      </ol>
-    </blockquote>
-  </li>
+  <li>常被误解的Connection首部</li>
 </ul>
+
+<blockquote>
+  <ol>
+    <li>HTTP首部字段名，列出了只与此链接有关的首部</li>
+    <li>任意标签值，用于描述此连接的非标准选项</li>
+    <li>值close，说明操作完成之后需关闭这条持久连接</li>
+    <li>⚠️如果报文中包含连接相关的信息，不能将其转发出去，在转发之前，必须删除Connection首部列出的所有首部字段。进而可以防止无意中对本地首部的转发。被称为对首部的保护。</li>
+  </ol>
+</blockquote>
 
 <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="nx">OK</span>
 <span class="nx">Cache</span><span class="o">-</span><span class="nx">control</span><span class="err">:</span> <span class="nx">max</span><span class="o">-</span><span class="nx">age</span><span class="o">=</span><span class="mi">3600</span>
@@ -313,9 +319,53 @@ Keep-Alive: max=5, timeout=120
 
 <p>响应报文表明服务器最多还会为另外5个事务保持连接的打开状态，或者将打开状态保持到连接空闲了2分钟之后。</p>
 
-<p>⚠️HTTP/1.0中keep-alive并不是默认使用的，在需要保持持久连接的请求报文中添加请求首部Connection: Keep-Alive的请求首部来激活keep-alive本次TCP的持久连接。</p>
+<ul>
+  <li>Keep-Alive连接的限制和规则
+    <ol>
+      <li>HTTP/1.0中keep-alive并不是默认使用的，在需要保持持久连接的请求报文中添加请求首部Connection: Keep-Alive的请求首部来激活keep-alive本次TCP的持久连接。</li>
+      <li>TODO note page: 100</li>
+    </ol>
+  </li>
+  <li>Keep-Alive哑代理</li>
+  <li>插入Proxy-Connection</li>
+  <li>HTTP/1.1持久连接(默认激活，HTTP1.1客户端假定在收到响应后，除非响应中包含了Connection:close首部，否则HTTP/1.1连接就仍然维持打开状态。如果需要在事务结束之后将连接关闭，HTTP/1.1必须向报文中显示地添加一个Connection:close首部，不发送Connection: close并不意味值服务器承若永远连接保持在打开状态)</li>
+  <li>持久连接的限制和规则
+    <ol>
+      <li>如果客户端不想在连接上发送请求了就在最后一条请求报文中发送一个Connection: close首部。</li>
+      <li>只有连接上所有的报文都是正确的、自定义报文长度时，连接才能持久保持，也就是说异常时可能会关闭。</li>
+      <li>HTTP/1.1的代理必须能够分别管理与客户端和服务器的持久连接–每个持久连接都只适用于一跳传输。</li>
+      <li>(由于较老的代理会转发Connection首部)所以HTTP/1.1的代理服务器不应该与HTTP/1.0客户端建立持久连接，会造成哑代理</li>
+      <li>HTTP/1.1要求应用程序能够从异步的关闭中恢复出来，只要不村子啊可能累积起来的副作用，客户端都应该重复这条请求。</li>
+      <li>除非重复发起请求会产生副作用，否则如果在客户端收到整条响应之前连接关闭了，客户端就必须要重新发起请求。</li>
+      <li>一个用户客户端对任何服务器或代理最多只能维护两条持久连接，以防服务器过载，代理可能需要更多到服务器的连接来支持并发用户的通信，所以，如果有N个用户试图访问服务器的话，代理最多要维持2N条到任意服务器或父代理的连接。</li>
+    </ol>
+  </li>
+</ul>
 
-<p><a href="https://en.wikipedia.org/wiki/TCP">TCP-wiki</a></p>
+<h4 id="section-2">管道化连接</h4>
+<ul>
+  <li>HTTP/1.1允许持久连接上可选地使用请求管道，管道化:客户端在响应到达之前，可以将多条请求放入队列，当第一条请求通过网络流向地球另一端的服务器时，第二条，第三条也可以开始发送了，在高时延网络条件下，这样可以降低网络的环回时间，提高性能。</li>
+  <li>对管道化连接有几条限制
+    <ol>
+      <li>如果HTTP客户端无法确认连接是持久的，就不应该使用管道。</li>
+      <li>必须按照与请求相同的顺序回送HTTP响应，HTTP报文中没有序号标签，因此如果收到的响应失序了，就没有办法将其与请求匹配起来了。</li>
+      <li>HTTP客户端必须做好连接会随时关闭的准备，并准备好重发所未完成的管道化请求。</li>
+      <li>HTTP客户端不应该使用管道化的方式发送会产生副作用的请求(比如POST)。</li>
+    </ol>
+  </li>
+</ul>
+
+<h4 id="section-3">关闭连接的奥秘</h4>
+<ul>
+  <li>所有HTTP客户端、服务器端可以在任意时刻关闭一条TCP传输连接。</li>
+  <li>管道连接必须是幂等操作如GET、HEAD、PUT、DELETE、TRACE、OPTIONS，客户端不应该使用非幂等请求如POST，否则在传输连接的过程中连接过早终止就会造成一些不确定的后果，要发送一条非幂等请求，就需要等待来自前一条请求的响应状态。</li>
+  <li>TCP连接是双向的，TCP连接的每一个端都有一个输入队列和一个输出队列对于数据的读或写，放入一端输出队列中的数据最终会出现在另一端的输入队列中。应用程序可以关闭TCP输入和输出信道中的任意一个，或者将两者都关闭了，套接字调用close()会将TCP连接的输入和输出信道都关闭调，这种方式称为”完全关闭”，可以用套接字调用shutdown()单独关闭输入或输出信道，被称为”半关闭”。
+⚠️关闭连接的输入信道比较危险，因为当另一端向你关闭输入信道时，操作系统会向请求方发送一条TCP”连接被对端重置”的报文，大部分操作系统会将这种情况作为很严重的错误来处理，比如你的连接中有部分数据在缓存中还未读取，这时返回的”连接被对端重置”信息会讲你的缓冲区清空，所以慎重！关闭连接的输出信道总是安全的。</li>
+</ul>
+
+<p><a href="https://en.wikipedia.org/wiki/TCP">TCP-wiki</a>
+<a href="http://www.ietf.org/rfc/rf2626.txt">HTTP连接</a>
+<a href="http://www.w3.org/Protocols/HTTP/Performance/">HTTP性能问题</a></p>
 
     </article>
   </div>
