@@ -1,4 +1,130 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2016-10-02T09:26:12+08:00</updated><id>/</id><title>Michael</title><subtitle>Developer</subtitle><entry><title>HTTP权威指南-5-6</title><link href="/cs/2016/10/01/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-5-6.html" rel="alternate" type="text/html" title="HTTP权威指南-5-6" /><published>2016-10-01T00:00:00+08:00</published><updated>2016-10-01T00:00:00+08:00</updated><id>/cs/2016/10/01/HTTP权威指南-5-6</id><content type="html" xml:base="/cs/2016/10/01/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-5-6.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2016-10-02T17:01:01+08:00</updated><id>/</id><title>Michael</title><subtitle>Developer</subtitle><entry><title>HTTP权威指南-7</title><link href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-7.html" rel="alternate" type="text/html" title="HTTP权威指南-7" /><published>2016-10-02T00:00:00+08:00</published><updated>2016-10-02T00:00:00+08:00</updated><id>/cs/2016/10/02/HTTP权威指南-7</id><content type="html" xml:base="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-7.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;缓存&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;冗余的数据传输&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;带宽瓶颈&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;瞬间拥塞&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;距离时延&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-5&quot; id=&quot;markdown-toc-section-5&quot;&gt;命中和未命中的&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-6&quot; id=&quot;markdown-toc-section-6&quot;&gt;缓存的拓扑结构&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-7&quot; id=&quot;markdown-toc-section-7&quot;&gt;缓存的处理步骤&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-8&quot; id=&quot;markdown-toc-section-8&quot;&gt;控制缓存的能力&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;section&quot;&gt;缓存&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;使用缓存的优点&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;减少冗余的数据传输，节省了你的网络费用&lt;/li&gt;
+    &lt;li&gt;缓解了网络瓶颈的问题，不需要更多的带宽就能够更快地加载页面&lt;/li&gt;
+    &lt;li&gt;降低了对原始服务器的要求，服务器可以更快地响应，避免过载的出现&lt;/li&gt;
+    &lt;li&gt;降低了距离时延，因为从较远的地方加载页面会更慢一些&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;h5 id=&quot;section-1&quot;&gt;冗余的数据传输&lt;/h5&gt;
+&lt;p&gt;服务器多次传输同一份文档，每次传输给一个客户端，相同的字节在网络中一遍遍地传输，造成冗余，缓存可以很好解决这个问题。&lt;/p&gt;
+&lt;h5 id=&quot;section-2&quot;&gt;带宽瓶颈&lt;/h5&gt;
+&lt;p&gt;缓存可以缓解网络带宽瓶颈问题。&lt;/p&gt;
+&lt;h5 id=&quot;section-3&quot;&gt;瞬间拥塞&lt;/h5&gt;
+&lt;p&gt;缓存在破坏瞬间拥塞时显得非常重要，比如突发事件，使很多人几乎同时访问一个Web文档时，就会出现瞬间拥塞，由此造成Web服务器负载过高甚至崩溃。&lt;/p&gt;
+&lt;h5 id=&quot;section-4&quot;&gt;距离时延&lt;/h5&gt;
+&lt;p&gt;即便带宽不是问题，距离也可能是问题的原因，没太网络路由器都会增加因特网流量的时延，即使没有太多路由器，光速本身也会造成显著的时延。&lt;/p&gt;
+&lt;h5 id=&quot;section-5&quot;&gt;命中和未命中的&lt;/h5&gt;
+&lt;p&gt;可以用已有副本为某些到达缓存的请求提供服务，被称为&lt;code class=&quot;highlighter-rouge&quot;&gt;缓存命中&lt;/code&gt;，亦或请求的资源在缓存服务器上不存在，而将请求转发给原始服务器被称为&lt;code class=&quot;highlighter-rouge&quot;&gt;缓存未命中&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;再验证以保持缓存的”新鲜度”，在缓存服务器向源服务器发送请求的首部加上If-Modified-Since首部，告诉源服务器只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。
+    &lt;ol&gt;
+      &lt;li&gt;再验证命中(如果服务器对象未被修改，服务器想客户端发送一个小的HTTP304Not Modified响应)&lt;/li&gt;
+      &lt;li&gt;再验证未命中(如果服务器对象与已缓存副本不同，则向客户端发送一条普通的，带有完整内容的HTTP 200 OK响应)&lt;/li&gt;
+      &lt;li&gt;对象被删除(如果服务器对象已经被删除了，服务器回送一个404 Not Found响应，缓存也会将其副本删除)&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;命中率&lt;/li&gt;
+  &lt;li&gt;字节命中率&lt;/li&gt;
+  &lt;li&gt;区分命中和未命中的情况(根据Date首部，若响应日期比较早，则为缓存响应)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section-6&quot;&gt;缓存的拓扑结构&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;私有缓存(比如浏览器缓存)&lt;/li&gt;
+  &lt;li&gt;公有代理缓存或者称为代理缓存&lt;/li&gt;
+  &lt;li&gt;代理缓存的层次结构&lt;/li&gt;
+  &lt;li&gt;网状缓存、内容路由以及对等缓存&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section-7&quot;&gt;缓存的处理步骤&lt;/h5&gt;
+&lt;p&gt;对一条HTTP GET报文的基本缓存处理过程包括7个步骤:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;接收－缓存从网络中读取抵达的请求报文。&lt;/li&gt;
+  &lt;li&gt;解析－缓存对报文进行解析，提取出URL和各种首部。&lt;/li&gt;
+  &lt;li&gt;查询－缓存查看是否本地有副本可用，如果没有，就获取一份并缓存本地&lt;/li&gt;
+  &lt;li&gt;新鲜度检测－缓存查看已缓存副本是否足够新鲜，如果不是，就询问源服务器是否有任何更新。&lt;/li&gt;
+  &lt;li&gt;创建响应－缓存会用新的首部和已缓存的主体来构建一条响应报文&lt;/li&gt;
+  &lt;li&gt;发送－缓存通过网络将响应发回给客户端&lt;/li&gt;
+  &lt;li&gt;日志－缓存可选地创建一个日志文件条目来描述这个事务&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;文档过期设置(Cache-Control: max-age=3600&lt;code class=&quot;highlighter-rouge&quot;&gt;指定最大使用期限以秒为单位&lt;/code&gt;; Expires: Fri, 05 Jul 2002, 05:00:00 GMT&lt;code class=&quot;highlighter-rouge&quot;&gt;指定一个绝对的过期日期&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;服务器再验证&lt;/li&gt;
+  &lt;li&gt;在请求报文中添加用条件方法进行再验证
+    &lt;blockquote&gt;
+      &lt;ol&gt;
+        &lt;li&gt;If-Modified-Since:&lt;date&gt;&lt;/date&gt;&lt;/li&gt;
+        &lt;li&gt;If-None-Match:&lt;tags&gt;&lt;/tags&gt;&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section-8&quot;&gt;控制缓存的能力&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;服务器可以通过HTTP定义的几种方式来指定在文档过期之前可以将其缓存多长时间，按照优先级递减的顺序。服务器可以:
+    &lt;ol&gt;
+      &lt;li&gt;附加一个Cache-Control: no-store 首部到响应中去;&lt;/li&gt;
+      &lt;li&gt;附加一个Cache-Control: no-cache 首部到响应中去;&lt;/li&gt;
+      &lt;li&gt;附加一个Cache-Control: must-revalidate 首部到响应中去;&lt;/li&gt;
+      &lt;li&gt;附加一个Cache-Control: max-age 首部到响应中去;&lt;/li&gt;
+      &lt;li&gt;附加一个Expires 日期首部到响应中去;&lt;/li&gt;
+      &lt;li&gt;不附加过期信息，让缓存确定自己的过期日期;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;客户端的新鲜度限制&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;指令&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;目的&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Cache-Control: max-fresh = &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;s&amp;gt;&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;至少在未来&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;s&amp;gt;&lt;/code&gt;秒内文档要保持新鲜。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Cache-Control: max-age = &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;s&amp;gt;&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;缓存无法返回缓存时间长于&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;s&amp;gt;&lt;/code&gt;秒的文档&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Cache-Control: no-cache&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;除非资源进行再验证，否则这个客户端不会接受已缓存的资源&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Cache-Control: no-store&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;缓存应尽快从存储器中删除文档的所有痕迹，因为其中可能会包含敏感信息&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Cache-Control: only-if-cached&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;只有当缓存中有副本存在时，客户端才会获取一份副本&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content><category term="CS" /><summary>第七章 缓存</summary></entry><entry><title>HTTP权威指南-5-6</title><link href="/cs/2016/10/01/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-5-6.html" rel="alternate" type="text/html" title="HTTP权威指南-5-6" /><published>2016-10-01T00:00:00+08:00</published><updated>2016-10-01T00:00:00+08:00</updated><id>/cs/2016/10/01/HTTP权威指南-5-6</id><content type="html" xml:base="/cs/2016/10/01/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-5-6.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#web&quot; id=&quot;markdown-toc-web&quot;&gt;第五章Web服务器&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;第六章代理&lt;/a&gt;    &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#web-1&quot; id=&quot;markdown-toc-web-1&quot;&gt;Web的中间实体&lt;/a&gt;&lt;/li&gt;
@@ -1573,80 +1699,4 @@ Keep-Alive: max=5, timeout=120
 
 &lt;ul&gt;
   &lt;li&gt;保存资源的缓存，可以在客户端或者代理服务器上保存资源副本，以达到减少对源服务器访问减少通信流量和通信时间的目的。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>michael</name></author><category term="CS" /><summary>返回结果的HTTP状态码，与HTTP协作的Web服务器</summary></entry><entry><title>图解HTTP-11</title><link href="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-11.html" rel="alternate" type="text/html" title="图解HTTP-11" /><published>2016-09-25T00:00:00+08:00</published><updated>2016-09-25T00:00:00+08:00</updated><id>/cs/2016/09/25/图解HTTP-11</id><content type="html" xml:base="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-11.html">&lt;h4 id=&quot;web&quot;&gt;11 Web攻击技术&lt;/h4&gt;
-
-&lt;h5 id=&quot;web-1&quot;&gt;针对Web应用的攻击模式&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;主动攻击&lt;/li&gt;
-  &lt;li&gt;被动攻击&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;实施Web应用的安全对策可大致分为以下两部分&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;客户端验证&lt;/li&gt;
-  &lt;li&gt;Web应用端(server)的验证&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;ol&gt;
-    &lt;li&gt;输入值验证&lt;/li&gt;
-    &lt;li&gt;输出值转义&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;XSS (Cross-Site Scripting)跨站脚本攻击&lt;/li&gt;
-  &lt;li&gt;SQL注入攻击(SQL Injection)&lt;/li&gt;
-  &lt;li&gt;OS注入命令攻击(OS Command Injection)&lt;/li&gt;
-  &lt;li&gt;HTTP Header Injection&lt;/li&gt;
-  &lt;li&gt;Mail Header Injection&lt;/li&gt;
-  &lt;li&gt;Directory Traversal&lt;/li&gt;
-  &lt;li&gt;Remote File Inclusion&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section&quot;&gt;因设置或设计上的缺陷引发的安全漏洞&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;强制浏览&lt;/li&gt;
-  &lt;li&gt;不正确的错误消息处理&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;常见的比如登陆时邮箱是没有注册的，如果提示邮箱未注册，则攻击者就可以输入不同的邮件根据提示确认邮件是否已注册,这种情况，为了不让错误消息给攻击者启发，建议将提示消息修改为”认证错误”这种程度即可。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;数据库等系统抛出错误消息，即直接将错误消息显示在页面种。&lt;/li&gt;
-  &lt;li&gt;开放重定向&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section-1&quot;&gt;因会话管理疏忽引发的安全漏洞&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;会话劫持 Session Hijack&lt;/li&gt;
-  &lt;li&gt;会话固定攻击 Session Fixation&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section-2&quot;&gt;跨站点请求伪造&lt;/h5&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;CSRF Cross-Site Request Forgeries&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section-3&quot;&gt;其它安全漏洞&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;密码破解&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;ol&gt;
-    &lt;li&gt;穷举法&lt;/li&gt;
-    &lt;li&gt;字典法&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;彩虹表:由明文密码以及与之对应的散列值构成的一张数据库表，是一种事先制作庞大的彩虹表&lt;/li&gt;
-  &lt;li&gt;拿到密钥&lt;/li&gt;
-  &lt;li&gt;加密算法的漏洞&lt;/li&gt;
-  &lt;li&gt;点击劫持 Clickjacking&lt;/li&gt;
-  &lt;li&gt;DoS攻击 Denial of Service attack&lt;/li&gt;
-  &lt;li&gt;后门程序 Backdoor&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>michael</name></author><category term="CS" /><summary>Web的攻击技术</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>michael</name></author><category term="CS" /><summary>返回结果的HTTP状态码，与HTTP协作的Web服务器</summary></entry></feed>
