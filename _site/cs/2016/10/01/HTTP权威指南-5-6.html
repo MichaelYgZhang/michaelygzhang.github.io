@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HTTP权威指南-5-6 – Michael – Developer</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="第五章-Web服务器;第六章-代理" />
+    <meta property="og:description" content="第五章-Web服务器;第六章-代理" />
+    
+    <meta name="author" content="Michael" />
+
+    
+    <meta property="og:title" content="HTTP权威指南-5-6" />
+    <meta property="twitter:title" content="HTTP权威指南-5-6" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Michael - Developer" href="/feed.xml" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+  </head>
+
+  <body>
+
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/images/favicon.ico" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Michael</a></h1>
+            <p class="site-description">Developer</p>
+          </div>
+
+          <nav>
+            <a href="/"><i class="fa fa-home fa-2x"></i></a>
+            <a href="/category"><i class="fa fa-tags fa-2x" aria-hidden="true"></i></a>
+            <a href="/about"><i class="fa fa-user-secret fa-2x"></i></a>
+            <a href="/blog"><i class="fa fa-university fa-2x"></i></a>
+            <!-- <a href="/task"><i class="fa fa-book fa-2x" aria-hidden="true"></i></a> -->
+            <a href="/feed.xml" target="_blank"><i class="fa fa-feed fa-2x"></i></a>
+
+            <!-- 
+            
+              
+            
+              
+            
+              
+              <a href="/" >
+                Home
+              </a>
+              
+            
+              
+              <a href="/blog" >
+                Blog
+              </a>
+              
+            
+              
+              <a href="/category" >
+                Category
+              </a>
+              
+             -->
+          </nav>
+
+          <a href="https://github.com/MichaelYgZhang" target="_blank">
+            <img class="fork-me-on-github" src="/images/fork-me-on-github.png" alt="Fork me on GitHub">
+          </a>
+        </header>
+
+        <div id="search-container">
+          <input type="text" id="search-input" placeholder="search...">
+          <ul id="results-container"></ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <div class="post">
+    <h1 class="post-title">HTTP权威指南-5-6</h1>
+    <span class="post-date">2016-10-01</span>
+    <!--  |
+    
+     -->
+    <article>
+      <ul id="markdown-toc">
+  <li><a href="#web" id="markdown-toc-web">第五章Web服务器</a></li>
+  <li><a href="#section" id="markdown-toc-section">第六章代理</a>    <ul>
+      <li><a href="#web-1" id="markdown-toc-web-1">Web的中间实体</a></li>
+      <li><a href="#section-1" id="markdown-toc-section-1">为什么使用代理</a></li>
+      <li><a href="#section-2" id="markdown-toc-section-2">代理去往何处</a></li>
+      <li><a href="#section-3" id="markdown-toc-section-3">客户端的代理设置</a></li>
+      <li><a href="#section-4" id="markdown-toc-section-4">与代理请求有关的一些棘手问题</a></li>
+      <li><a href="#section-5" id="markdown-toc-section-5">追踪报文</a></li>
+      <li><a href="#section-6" id="markdown-toc-section-6">代理认证</a></li>
+      <li><a href="#section-7" id="markdown-toc-section-7">代理的互操作性</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="web">第五章Web服务器</h4>
+<ul>
+  <li>Web服务器处理请求的响应步骤
+    <ol>
+      <li>建立连接－接受一个/多个客户端的连接</li>
+      <li>接收请求－从网络中读取一条HTTP请求报文</li>
+      <li>处理请求－对请求报文进行解析，并采取行动</li>
+      <li>访问资源－访问报文中指定的资源</li>
+      <li>构建响应－创建带有正确首部的HTTP响应报文</li>
+      <li>发送响应－将响应回送给客户端</li>
+      <li>记录事务的处理过程－将已完成事务有关的内容记录在一个日志文件中。</li>
+    </ol>
+  </li>
+</ul>
+
+<h4 id="section">第六章代理</h4>
+<ul>
+  <li>Web代理(proxy)服务器是网络的中间实体，位于客户端和服务器之间扮演’中间人’的角色，在各断点之间来回传送HTTP报文。</li>
+</ul>
+
+<h5 id="web-1">Web的中间实体</h5>
+<ul>
+  <li>私有和共享代理</li>
+  <li>代理与网关的比较
+    <blockquote>
+      <ol>
+        <li>代理:连接的是两个或多个使用<code class="highlighter-rouge">相同协议</code>的应用程序</li>
+        <li>网关:连接的则是两个或多个使用<code class="highlighter-rouge">不同协议</code>的端点，网关扮演<code class="highlighter-rouge">协议转换器</code>的角色</li>
+      </ol>
+    </blockquote>
+  </li>
+</ul>
+
+<h5 id="section-1">为什么使用代理</h5>
+<ul>
+  <li>网站访问过滤</li>
+  <li>文档访问权限控制</li>
+  <li>安全防火墙</li>
+  <li>Web缓存</li>
+  <li>反向代理</li>
+  <li>内容路由</li>
+  <li>转码器</li>
+  <li>匿名者</li>
+</ul>
+
+<h5 id="section-2">代理去往何处</h5>
+<ul>
+  <li>代理服务器的部署
+    <ol>
+      <li>出口代理</li>
+      <li>访问(入口)代理</li>
+      <li>反向代理(取代原始服务器的代理服务器)</li>
+      <li>网络交换代理</li>
+    </ol>
+  </li>
+  <li>代理的层次结构(动态选择父子层次结构)
+    <ol>
+      <li>负载均衡</li>
+      <li>地理位置附近的路由</li>
+      <li>协议/类型路由</li>
+      <li>基于订购的路由</li>
+    </ol>
+  </li>
+  <li>代理是如何获取流量的
+    <ol>
+      <li>修改Web客户端</li>
+      <li>修改网络(拦截代理)拦截代理被称为<code class="highlighter-rouge">透明代理</code>因为你会在不知情的情况下连接到这些代理上去，但HTTP规范中已用”透明”来表示那些不会对语义进行修改的功能了，所以标准指定机构建议在流量捕获中使用术语<code class="highlighter-rouge">拦截</code>，这里采纳了这一术语。</li>
+      <li>修改DNS命名空间</li>
+      <li>修改Web服务器</li>
+    </ol>
+  </li>
+</ul>
+
+<h5 id="section-3">客户端的代理设置</h5>
+<ul>
+  <li>手工配置</li>
+  <li>预先配置浏览器</li>
+  <li>代理的自动配置</li>
+  <li>WPAD(Web Proxy Autodiscovery Protocol)的代理发现;⚠️目前只有IE支持这一特性</li>
+</ul>
+
+<h5 id="section-4">与代理请求有关的一些棘手问题</h5>
+<ul>
+  <li>代理URI与服务器URI的不同(没有设置客户端使用代理时，它会发送部分URI。设置客户端使用代理时，它会发送完整URI)</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">a</span><span class="p">.</span> <span class="err">服务器请求</span>
+<span class="nx">GET</span> <span class="o">/</span><span class="nx">index</span><span class="p">.</span><span class="nx">html</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.0</span>
+<span class="nx">User</span><span class="o">-</span><span class="nx">agent</span><span class="err">:</span> <span class="nx">SuperBrowser</span> <span class="nx">v1</span><span class="p">.</span><span class="mi">3</span>
+
+<span class="nx">b</span><span class="p">.</span> <span class="err">显示</span> <span class="err">配置了代理请求</span>
+<span class="nx">GET</span> <span class="nx">http</span><span class="err">:</span><span class="c1">//www.example.com/index.html HTTP/1.0</span>
+<span class="nx">User</span><span class="o">-</span><span class="nx">agent</span><span class="err">:</span> <span class="nx">SuperBrowser</span> <span class="nx">v1</span><span class="p">.</span><span class="mi">3</span>
+
+<span class="nx">c</span><span class="p">.</span> <span class="err">替代物，反向代理</span><span class="p">(</span><span class="err">服务器主机名指向替代物代理</span><span class="p">)</span>
+<span class="nx">GET</span> <span class="o">/</span><span class="nx">index</span><span class="p">.</span><span class="nx">html</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.0</span>
+<span class="nx">User</span><span class="o">-</span><span class="nx">agent</span><span class="err">:</span> <span class="nx">SuperBrowser</span> <span class="nx">v1</span><span class="p">.</span><span class="mi">3</span>
+
+<span class="nx">d</span><span class="p">.</span> <span class="err">拦截代理请求</span>
+<span class="nx">GET</span> <span class="o">/</span><span class="nx">index</span><span class="p">.</span><span class="nx">html</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.0</span>
+<span class="nx">User</span><span class="o">-</span><span class="nx">agent</span><span class="err">:</span> <span class="nx">SuperBrowser</span> <span class="nx">v1</span><span class="p">.</span><span class="mi">3</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>代理既可以处理代理请求，也可以处理服务器请求</li>
+  <li>转发过程中对URI的修改(HTTP规范禁止一般的拦截代理在转发URI时重写其绝对路径，唯一的例外是可以用”/”来取代空路径)</li>
+  <li>URI的客户端自动扩张和主机名解析</li>
+  <li>没有代理时URI的解析，没有提供显示的代理时，浏览器会对部分主机名进行自动扩展。</li>
+  <li>有显示代理时URI的解析，有显示设置代理时浏览器不会对不完整的主机名进行自动扩展，因此当用户在地址栏窗口中输入oreilly时，发给代理的就是http://oreilly/(浏览器添加了默认的方案和路径，但主机名和输入的一样)</li>
+  <li>有拦截代理时URI的解析</li>
+</ul>
+
+<h5 id="section-5">追踪报文</h5>
+<ul>
+  <li>Via首部(它列出了报文途径的每个中间节点(代理或网关)有关的信息，报文每经过一个节点，都必须将这个中间节点添加到Via列表的末尾),比如以下Via字符串告诉我们报文经过两个代理，以及分别实现的协议版本。</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Via: 1.1 proxy-62.irenes-isp.net, 1.0 cacahe.joes-hardware.com
+</code></pre>
+</div>
+
+<ul>
+  <li>响应Via通常与请求Via相反，比如请求是:’Via: 1.1 A, 1.0 B, 1.1 C’则响应是:’Via: 1.1 C, 1.0 B, 1.1 A’</li>
+  <li>Via与网关,有些代理会为使用非HTTP协议的服务器提供网关功能。Via首部会记录这些协议转换。</li>
+  <li>Via的隐私和安全问题</li>
+  <li>TRACE方法，HTTP/1.1的TRACE方法，用户可以追踪经代理链传输的请求报文，观察报文经过了哪些代理，以及每个代理是如果对请求报文进行修改的。</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">TRACE</span><span class="err">请求</span>
+<span class="nx">TRACE</span> <span class="o">/</span><span class="nx">index</span><span class="p">.</span><span class="nx">html</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<span class="nl">Host</span><span class="p">:</span> <span class="nx">www</span><span class="p">.</span><span class="nx">example</span><span class="p">.</span><span class="nx">com</span>
+<span class="nl">Accept</span><span class="p">:</span> <span class="nx">text</span><span class="o">/</span><span class="nx">html</span>
+
+<span class="nx">TRACE</span><span class="err">响应:响应首部</span><span class="nx">Content</span><span class="o">-</span><span class="nx">Type</span><span class="err">为</span><span class="nx">message</span><span class="o">/</span><span class="nx">http</span> <span class="err">状态</span><span class="mi">200</span>
+<span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="nx">OK</span>
+<span class="nx">Content</span><span class="o">-</span><span class="nx">Type</span><span class="err">:</span> <span class="nx">message</span><span class="o">/</span><span class="nx">http</span>
+<span class="nx">Coontent</span><span class="o">-</span><span class="nx">Length</span><span class="err">:</span> <span class="mi">269</span>
+<span class="nl">Via</span><span class="p">:</span> <span class="mf">1.1</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">example</span><span class="p">.</span><span class="nx">com</span><span class="p">,</span> <span class="mf">1.1</span> <span class="nx">p1123</span><span class="p">.</span><span class="nx">att</span><span class="p">.</span><span class="nx">net</span><span class="p">,</span> <span class="mf">1.1</span> <span class="nx">proxy</span><span class="p">.</span><span class="nx">irenes</span><span class="o">-</span><span class="nx">isp</span><span class="p">.</span><span class="nx">net</span>
+
+<span class="nx">TRACE</span> <span class="o">/</span><span class="nx">index</span><span class="p">.</span><span class="nx">html</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<span class="nl">Host</span><span class="p">:</span> <span class="nx">www</span><span class="p">.</span><span class="nx">example</span><span class="p">.</span><span class="nx">com</span>
+<span class="nl">Accept</span><span class="p">:</span> <span class="nx">text</span><span class="o">/</span><span class="nx">html</span>
+<span class="nl">Via</span><span class="p">:</span> <span class="mf">1.1</span> <span class="nx">proxy</span><span class="p">.</span><span class="nx">irenes</span><span class="o">-</span><span class="nx">isp</span><span class="p">.</span><span class="nx">net</span><span class="p">,</span> <span class="mf">1.1</span> <span class="nx">p1123</span><span class="p">.</span><span class="nx">att</span><span class="p">.</span><span class="nx">net</span><span class="p">,</span> <span class="mf">1.1</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">example</span><span class="p">.</span><span class="nx">com</span>
+<span class="p">...</span>
+</code></pre>
+</div>
+<p>可以使用Max-Forwards添加到首部限制最大转发次数</p>
+
+<h5 id="section-6">代理认证</h5>
+<ul>
+  <li>Proxy Authorization
+    <h5 id="section-7">代理的互操作性</h5>
+  </li>
+  <li>OPTIONS: 发现对可选特性的支持</li>
+</ul>
+
+<blockquote>
+  <ol>
+    <li>OPTIONS * HTTP/1.1 表示请求的整个服务器所支持的功能</li>
+    <li>OPTIONS http://www.example.com/index.html HTTP/1.1 表示具体特定资源的可用特性</li>
+  </ol>
+</blockquote>
+
+<ul>
+  <li>Allow首部，列出请求URI标识资源所支持的方法列表。也可以将Allow首部作为请求首部，建议在新建资源上支持某些方法。</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">C</span><span class="o">/</span><span class="nx">Proxy</span> <span class="nx">C</span>  <span class="o">---&gt;</span> <span class="nx">S</span> <span class="err">:</span> <span class="nx">OPTIONS</span> <span class="o">*</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<span class="nx">S</span> <span class="o">---&gt;</span> <span class="nx">C</span><span class="o">/</span><span class="nx">Proxy</span> <span class="nx">C</span> <span class="err">:</span>
+<span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="nx">OK</span>
+<span class="nl">Allow</span><span class="p">:</span> <span class="nx">GET</span><span class="p">,</span> <span class="nx">PUT</span><span class="p">,</span> <span class="nx">POST</span><span class="p">,</span> <span class="nx">HEAD</span><span class="p">,</span> <span class="nx">TRACE</span><span class="p">,</span> <span class="nx">OPTIONS</span>
+</code></pre>
+</div>
+<p><a href="https://en.wikipedia.org/wiki/Proxy_server">Proxy-Server wiki</a></p>
+
+    </article>
+  </div>
+
+  <div class="related">
+    <h4>最新文章</h4>
+    <ul class="related-posts">
+      
+        <li>
+          <h5>
+            <a href="/cs/2016/09/29/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-4.html">
+              HTTP权威指南-4
+              <small>2016-09-29</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/cs/2016/09/27/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-3.html">
+              HTTP权威指南-3
+              <small>2016-09-27</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/cs/2016/09/25/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6%E7%AC%94%E8%AE%B0.html">
+              黑客与画家-读书笔记
+              <small>2016-09-25</small>
+            </a>
+          </h5>
+        </li>
+      
+    </ul>
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'michaelygzhangblog';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:g.zhangyg@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/MichaelYgZhang"><i class="svg-icon github"></i></a>
+
+
+
+
+<a href="https://www.twitter.com/michaelygzhang"><i class="svg-icon twitter"></i></a>
+
+
+<a href="https://plus.google.com/115646538142388831563"><i class="svg-icon googleplus"></i></a>
+
+        </footer>
+      </div>
+    </div>
+
+    <div id="backToTop" class="backtoTop">
+    	<i class="fa fa-hand-o-up fa-2x"></i>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-84531968-1', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/cs/2016/10/01/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-5-6.html',
+		  'title': 'HTTP权威指南-5-6'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-jekyll-search/1.1.5/jekyll-search.js" type="text/javascript"></script>
+    <script src="/js/blog.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+          SimpleJekyllSearch({
+            searchInput: document.getElementById('search-input'),
+            resultsContainer: document.getElementById('results-container'),
+            json: '/search.json',
+            searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+            noResultsText: 'No results found',
+            limit: 10,
+            fuzzy: false,
+            exclude: ['Welcome']
+          })
+    </script>
+  </body>
+</html>

@@ -1,4 +1,193 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2016-10-01T19:11:39+08:00</updated><id>/</id><title>Michael</title><subtitle>Developer</subtitle><entry><title>HTTP权威指南-4</title><link href="/cs/2016/09/29/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-4.html" rel="alternate" type="text/html" title="HTTP权威指南-4" /><published>2016-09-29T00:00:00+08:00</published><updated>2016-09-29T00:00:00+08:00</updated><id>/cs/2016/09/29/HTTP权威指南-4</id><content type="html" xml:base="/cs/2016/09/29/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-4.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2016-10-02T09:26:12+08:00</updated><id>/</id><title>Michael</title><subtitle>Developer</subtitle><entry><title>HTTP权威指南-5-6</title><link href="/cs/2016/10/01/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-5-6.html" rel="alternate" type="text/html" title="HTTP权威指南-5-6" /><published>2016-10-01T00:00:00+08:00</published><updated>2016-10-01T00:00:00+08:00</updated><id>/cs/2016/10/01/HTTP权威指南-5-6</id><content type="html" xml:base="/cs/2016/10/01/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-5-6.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#web&quot; id=&quot;markdown-toc-web&quot;&gt;第五章Web服务器&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;第六章代理&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#web-1&quot; id=&quot;markdown-toc-web-1&quot;&gt;Web的中间实体&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;为什么使用代理&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;代理去往何处&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;客户端的代理设置&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;与代理请求有关的一些棘手问题&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-5&quot; id=&quot;markdown-toc-section-5&quot;&gt;追踪报文&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-6&quot; id=&quot;markdown-toc-section-6&quot;&gt;代理认证&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#section-7&quot; id=&quot;markdown-toc-section-7&quot;&gt;代理的互操作性&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;web&quot;&gt;第五章Web服务器&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Web服务器处理请求的响应步骤
+    &lt;ol&gt;
+      &lt;li&gt;建立连接－接受一个/多个客户端的连接&lt;/li&gt;
+      &lt;li&gt;接收请求－从网络中读取一条HTTP请求报文&lt;/li&gt;
+      &lt;li&gt;处理请求－对请求报文进行解析，并采取行动&lt;/li&gt;
+      &lt;li&gt;访问资源－访问报文中指定的资源&lt;/li&gt;
+      &lt;li&gt;构建响应－创建带有正确首部的HTTP响应报文&lt;/li&gt;
+      &lt;li&gt;发送响应－将响应回送给客户端&lt;/li&gt;
+      &lt;li&gt;记录事务的处理过程－将已完成事务有关的内容记录在一个日志文件中。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;section&quot;&gt;第六章代理&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Web代理(proxy)服务器是网络的中间实体，位于客户端和服务器之间扮演’中间人’的角色，在各断点之间来回传送HTTP报文。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;web-1&quot;&gt;Web的中间实体&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;私有和共享代理&lt;/li&gt;
+  &lt;li&gt;代理与网关的比较
+    &lt;blockquote&gt;
+      &lt;ol&gt;
+        &lt;li&gt;代理:连接的是两个或多个使用&lt;code class=&quot;highlighter-rouge&quot;&gt;相同协议&lt;/code&gt;的应用程序&lt;/li&gt;
+        &lt;li&gt;网关:连接的则是两个或多个使用&lt;code class=&quot;highlighter-rouge&quot;&gt;不同协议&lt;/code&gt;的端点，网关扮演&lt;code class=&quot;highlighter-rouge&quot;&gt;协议转换器&lt;/code&gt;的角色&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section-1&quot;&gt;为什么使用代理&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;网站访问过滤&lt;/li&gt;
+  &lt;li&gt;文档访问权限控制&lt;/li&gt;
+  &lt;li&gt;安全防火墙&lt;/li&gt;
+  &lt;li&gt;Web缓存&lt;/li&gt;
+  &lt;li&gt;反向代理&lt;/li&gt;
+  &lt;li&gt;内容路由&lt;/li&gt;
+  &lt;li&gt;转码器&lt;/li&gt;
+  &lt;li&gt;匿名者&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section-2&quot;&gt;代理去往何处&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;代理服务器的部署
+    &lt;ol&gt;
+      &lt;li&gt;出口代理&lt;/li&gt;
+      &lt;li&gt;访问(入口)代理&lt;/li&gt;
+      &lt;li&gt;反向代理(取代原始服务器的代理服务器)&lt;/li&gt;
+      &lt;li&gt;网络交换代理&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;代理的层次结构(动态选择父子层次结构)
+    &lt;ol&gt;
+      &lt;li&gt;负载均衡&lt;/li&gt;
+      &lt;li&gt;地理位置附近的路由&lt;/li&gt;
+      &lt;li&gt;协议/类型路由&lt;/li&gt;
+      &lt;li&gt;基于订购的路由&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;代理是如何获取流量的
+    &lt;ol&gt;
+      &lt;li&gt;修改Web客户端&lt;/li&gt;
+      &lt;li&gt;修改网络(拦截代理)拦截代理被称为&lt;code class=&quot;highlighter-rouge&quot;&gt;透明代理&lt;/code&gt;因为你会在不知情的情况下连接到这些代理上去，但HTTP规范中已用”透明”来表示那些不会对语义进行修改的功能了，所以标准指定机构建议在流量捕获中使用术语&lt;code class=&quot;highlighter-rouge&quot;&gt;拦截&lt;/code&gt;，这里采纳了这一术语。&lt;/li&gt;
+      &lt;li&gt;修改DNS命名空间&lt;/li&gt;
+      &lt;li&gt;修改Web服务器&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section-3&quot;&gt;客户端的代理设置&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;手工配置&lt;/li&gt;
+  &lt;li&gt;预先配置浏览器&lt;/li&gt;
+  &lt;li&gt;代理的自动配置&lt;/li&gt;
+  &lt;li&gt;WPAD(Web Proxy Autodiscovery Protocol)的代理发现;⚠️目前只有IE支持这一特性&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section-4&quot;&gt;与代理请求有关的一些棘手问题&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;代理URI与服务器URI的不同(没有设置客户端使用代理时，它会发送部分URI。设置客户端使用代理时，它会发送完整URI)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;服务器请求&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;GET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SuperBrowser&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;显示&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;配置了代理请求&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;GET&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//www.example.com/index.html HTTP/1.0&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SuperBrowser&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;替代物，反向代理&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;服务器主机名指向替代物代理&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;GET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SuperBrowser&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;拦截代理请求&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;GET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SuperBrowser&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;代理既可以处理代理请求，也可以处理服务器请求&lt;/li&gt;
+  &lt;li&gt;转发过程中对URI的修改(HTTP规范禁止一般的拦截代理在转发URI时重写其绝对路径，唯一的例外是可以用”/”来取代空路径)&lt;/li&gt;
+  &lt;li&gt;URI的客户端自动扩张和主机名解析&lt;/li&gt;
+  &lt;li&gt;没有代理时URI的解析，没有提供显示的代理时，浏览器会对部分主机名进行自动扩展。&lt;/li&gt;
+  &lt;li&gt;有显示代理时URI的解析，有显示设置代理时浏览器不会对不完整的主机名进行自动扩展，因此当用户在地址栏窗口中输入oreilly时，发给代理的就是http://oreilly/(浏览器添加了默认的方案和路径，但主机名和输入的一样)&lt;/li&gt;
+  &lt;li&gt;有拦截代理时URI的解析&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;section-5&quot;&gt;追踪报文&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;Via首部(它列出了报文途径的每个中间节点(代理或网关)有关的信息，报文每经过一个节点，都必须将这个中间节点添加到Via列表的末尾),比如以下Via字符串告诉我们报文经过两个代理，以及分别实现的协议版本。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Via: 1.1 proxy-62.irenes-isp.net, 1.0 cacahe.joes-hardware.com
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;响应Via通常与请求Via相反，比如请求是:’Via: 1.1 A, 1.0 B, 1.1 C’则响应是:’Via: 1.1 C, 1.0 B, 1.1 A’&lt;/li&gt;
+  &lt;li&gt;Via与网关,有些代理会为使用非HTTP协议的服务器提供网关功能。Via首部会记录这些协议转换。&lt;/li&gt;
+  &lt;li&gt;Via的隐私和安全问题&lt;/li&gt;
+  &lt;li&gt;TRACE方法，HTTP/1.1的TRACE方法，用户可以追踪经代理链传输的请求报文，观察报文经过了哪些代理，以及每个代理是如果对请求报文进行修改的。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;TRACE&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;请求&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;TRACE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;Host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;www&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;com&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;Accept&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;TRACE&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;响应:响应首部&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;为&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;状态&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OK&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Coontent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Length&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;269&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;Via&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p1123&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;att&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;proxy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;irenes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;net&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;TRACE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;Host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;www&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;com&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;Accept&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;Via&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;proxy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;irenes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p1123&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;att&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;com&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;可以使用Max-Forwards添加到首部限制最大转发次数&lt;/p&gt;
+
+&lt;h5 id=&quot;section-6&quot;&gt;代理认证&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;Proxy Authorization
+    &lt;h5 id=&quot;section-7&quot;&gt;代理的互操作性&lt;/h5&gt;
+  &lt;/li&gt;
+  &lt;li&gt;OPTIONS: 发现对可选特性的支持&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;OPTIONS * HTTP/1.1 表示请求的整个服务器所支持的功能&lt;/li&gt;
+    &lt;li&gt;OPTIONS http://www.example.com/index.html HTTP/1.1 表示具体特定资源的可用特性&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Allow首部，列出请求URI标识资源所支持的方法列表。也可以将Allow首部作为请求首部，建议在新建资源上支持某些方法。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Proxy&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;---&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OPTIONS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;---&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Proxy&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OK&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;Allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;PUT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;POST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HEAD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TRACE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OPTIONS&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Proxy_server&quot;&gt;Proxy-Server wiki&lt;/a&gt;&lt;/p&gt;</content><category term="CS" /><summary>第五章-Web服务器;第六章-代理</summary></entry><entry><title>HTTP权威指南-4</title><link href="/cs/2016/09/29/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-4.html" rel="alternate" type="text/html" title="HTTP权威指南-4" /><published>2016-09-29T00:00:00+08:00</published><updated>2016-09-29T00:00:00+08:00</updated><id>/cs/2016/09/29/HTTP权威指南-4</id><content type="html" xml:base="/cs/2016/09/29/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-4.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#tcp&quot; id=&quot;markdown-toc-tcp&quot;&gt;TCP连接&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#tcp-1&quot; id=&quot;markdown-toc-tcp-1&quot;&gt;对TCP性能的考虑&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#http&quot; id=&quot;markdown-toc-http&quot;&gt;HTTP连接的处理&lt;/a&gt;&lt;/li&gt;
@@ -1460,179 +1649,4 @@ Keep-Alive: max=5, timeout=120
   &lt;li&gt;点击劫持 Clickjacking&lt;/li&gt;
   &lt;li&gt;DoS攻击 Denial of Service attack&lt;/li&gt;
   &lt;li&gt;后门程序 Backdoor&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>michael</name></author><category term="CS" /><summary>Web的攻击技术</summary></entry><entry><title>图解HTTP-1-2-3</title><link href="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-1-2-3.html" rel="alternate" type="text/html" title="图解HTTP-1-2-3" /><published>2016-09-25T00:00:00+08:00</published><updated>2016-09-25T00:00:00+08:00</updated><id>/cs/2016/09/25/图解HTTP-1-2-3</id><content type="html" xml:base="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-1-2-3.html">&lt;h5 id=&quot;web&quot;&gt;了解Web及网络基础&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;CERN 欧洲核子研究组织的蒂姆•伯纳斯提出一种能让远隔两地的研究者们共享知识的设想&lt;/li&gt;
-  &lt;li&gt;WWW World Wide Web 万维网&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;3项WWW的构建技术&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;把SGML(Standard Generalized Markup Language, 标准通用标记语言)作为页面的文本标记语言的HTML(HyperText Markup Language,超文本标记语言)&lt;/li&gt;
-  &lt;li&gt;文档传输协议HTTP&lt;/li&gt;
-  &lt;li&gt;指定文档所在地址URL(Uniform Resource Locator,统一资源定位符)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h5 id=&quot;tcpip&quot;&gt;TCP/IP&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;应用层，各类通用的应用服务，FTP(File Transfer Protocol,文本传输协议),DNS(Domain Name System,域名系统),HTTP&lt;/li&gt;
-  &lt;li&gt;传输层，提供处于网络连接中的两台计算机之间的数据传输,TCP(Transmission Control Protocol,传输控制协议),UDP(User Data Protocol,用户数据报协议)&lt;/li&gt;
-  &lt;li&gt;网络层(网络互连层),处理网络上的数据包，数据包是网络传输的最小单位，该层规定通过怎样的路径(传输线路)到达对方计算机&lt;/li&gt;
-  &lt;li&gt;链路层(数据链路层，网络接口层)，处理连接网络的硬件部分，包括操作系统、硬件的设备驱动NIC，光纤等硬件上的范畴均在次层处理&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;应用层&lt;/th&gt;
-      &lt;th&gt;HTTP&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;传输层&lt;/td&gt;
-      &lt;td&gt;TCP&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;网络层&lt;/td&gt;
-      &lt;td&gt;IP&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;链路层&lt;/td&gt;
-      &lt;td&gt;以太网&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;⚠️IP协议位于网络层，要区分与IP地址的区别;IP协议:作用是把各种数据包传送给对方，而要传送到对方最重要的2个条件就是IP地址和MAC地址，IP地址:指明节点被分配到的地址，MAC地址指网卡所属的固定地址，IP地址可变，MAC地址基本不会改变&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;为了确保数据可靠性的传达TCP协议在通信前会先进行三次(three-way handshaking)握手策略。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;C-&amp;gt;&amp;gt;S: 标有SYN(synchronize)的数据包
-S-&amp;gt;&amp;gt;C: 收到SYN后,返回SYN/ACK的数据包
-C-&amp;gt;&amp;gt;S: 发送ACK数据包确认
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;DNS :提供域名到IP地址之间的解析服务&lt;/li&gt;
-  &lt;li&gt;URI(Uniform Resource Identifier 统一资源标识符)标识某一互联网资源&lt;/li&gt;
-  &lt;li&gt;URL(Uniform Resource Locator,统一资源定位符)表示资源地点互联网上所处的位置，URL是URI的子集&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;http&quot;&gt;简单HTTP协议&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;C与S通过请求和响应的交换达成通信&lt;/li&gt;
-  &lt;li&gt;HTTP 无状态stateless协议&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;HTTP 1.0、1.1 支持的方法&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;方法&lt;/th&gt;
-      &lt;th&gt;说明&lt;/th&gt;
-      &lt;th&gt;版本&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;GET&lt;/td&gt;
-      &lt;td&gt;获取资源&lt;/td&gt;
-      &lt;td&gt;1.0、1.1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;POST&lt;/td&gt;
-      &lt;td&gt;传输实体主体&lt;/td&gt;
-      &lt;td&gt;1.0、1.1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;PUT&lt;/td&gt;
-      &lt;td&gt;传输文件&lt;/td&gt;
-      &lt;td&gt;1.0、1.1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;HEAD&lt;/td&gt;
-      &lt;td&gt;获得报文首部&lt;/td&gt;
-      &lt;td&gt;1.0、1.1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;DELETE&lt;/td&gt;
-      &lt;td&gt;删除文件&lt;/td&gt;
-      &lt;td&gt;1.0、1.1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;OPTIONS&lt;/td&gt;
-      &lt;td&gt;询问支持的方法&lt;/td&gt;
-      &lt;td&gt;1.1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;TRACE&lt;/td&gt;
-      &lt;td&gt;追踪路径&lt;/td&gt;
-      &lt;td&gt;1.1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;CONNECT&lt;/td&gt;
-      &lt;td&gt;追踪路径&lt;/td&gt;
-      &lt;td&gt;1.1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;LINK&lt;/td&gt;
-      &lt;td&gt;建立和资源之间的联系&lt;/td&gt;
-      &lt;td&gt;1.0&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;UNLINE&lt;/td&gt;
-      &lt;td&gt;断开连接关系&lt;/td&gt;
-      &lt;td&gt;1.0&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;HTTP keep-alive&lt;/li&gt;
-  &lt;li&gt;pipelining&lt;/li&gt;
-  &lt;li&gt;Cookie状态管理&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;httphttp&quot;&gt;HTTP报文内的HTTP信息&lt;/h5&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;报文首部&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;空行(CR+LF)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;报文主体&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;⚠️CR:Carriage Return 回车 16进制&lt;code class=&quot;highlighter-rouge&quot;&gt;0x0d&lt;/code&gt;; LF:Line Feed 换行 16进制&lt;code class=&quot;highlighter-rouge&quot;&gt;0x0a&lt;/code&gt;;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;编码提升传输速率&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;ol&gt;
-    &lt;li&gt;gzip : GNU zip&lt;/li&gt;
-    &lt;li&gt;compress : UNIX系统标准压缩&lt;/li&gt;
-    &lt;li&gt;deflate  : zlib&lt;/li&gt;
-    &lt;li&gt;identity : 不进行压缩&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;分隔发送的分块传输编码&lt;/li&gt;
-  &lt;li&gt;获取部分内容的范围请求&lt;/li&gt;
-  &lt;li&gt;内容协商返回最合适的内容&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>michael</name></author><category term="CS" /><summary>了解Web及网络基础，简单的HTTP协议，HTTP报文内的HTTP信息</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>michael</name></author><category term="CS" /><summary>Web的攻击技术</summary></entry></feed>
