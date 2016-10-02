@@ -327,7 +327,7 @@ Keep-Alive: max=5, timeout=120
     </ol>
   </li>
   <li>Keep-Alive哑代理</li>
-  <li>插入Proxy-Connection</li>
+  <li>插入Proxy-Connection解决哑代理问题，客户端和服务器之间只有一个代理时可以使用此方式进行解决。如果是多层代理时，则仍然会出现哑代理问题。</li>
   <li>HTTP/1.1持久连接(默认激活，HTTP1.1客户端假定在收到响应后，除非响应中包含了Connection:close首部，否则HTTP/1.1连接就仍然维持打开状态。如果需要在事务结束之后将连接关闭，HTTP/1.1必须向报文中显示地添加一个Connection:close首部，不发送Connection: close并不意味值服务器承若永远连接保持在打开状态)</li>
   <li>持久连接的限制和规则
     <ol>
@@ -376,8 +376,8 @@ Keep-Alive: max=5, timeout=120
       
         <li>
           <h5>
-            <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-7.html">
-              HTTP权威指南-7
+            <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-9-10.html">
+              HTTP权威指南-9-10
               <small>2016-10-02</small>
             </a>
           </h5>
@@ -385,18 +385,18 @@ Keep-Alive: max=5, timeout=120
       
         <li>
           <h5>
-            <a href="/cs/2016/10/01/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-5-6.html">
-              HTTP权威指南-5-6
-              <small>2016-10-01</small>
+            <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-8.html">
+              HTTP权威指南-8
+              <small>2016-10-02</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/09/27/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-3.html">
-              HTTP权威指南-3
-              <small>2016-09-27</small>
+            <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-7.html">
+              HTTP权威指南-7
+              <small>2016-10-02</small>
             </a>
           </h5>
         </li>

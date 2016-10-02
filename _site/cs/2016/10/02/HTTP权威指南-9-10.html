@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>黑客与画家-读书笔记 – Michael – Developer</title>
+    <title>HTTP权威指南-9-10 – Michael – Developer</title>
 
         <meta charset="utf-8" />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
@@ -9,14 +9,14 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="黑客与画家读书笔记" />
-    <meta property="og:description" content="黑客与画家读书笔记" />
+    <meta name="description" content="第九章 Web机器人; 第十章 HTTP-NG" />
+    <meta property="og:description" content="第九章 Web机器人; 第十章 HTTP-NG" />
     
     <meta name="author" content="Michael" />
 
     
-    <meta property="og:title" content="黑客与画家-读书笔记" />
-    <meta property="twitter:title" content="黑客与画家-读书笔记" />
+    <meta property="og:title" content="HTTP权威指南-9-10" />
+    <meta property="twitter:title" content="HTTP权威指南-9-10" />
     
 
     <!--[if lt IE 9]>
@@ -91,50 +91,124 @@
     <div id="main" role="main" class="container">
       <article class="post">
   <div class="post">
-    <h1 class="post-title">黑客与画家-读书笔记</h1>
-    <span class="post-date">2016-09-25</span>
+    <h1 class="post-title">HTTP权威指南-9-10</h1>
+    <span class="post-date">2016-10-02</span>
     <!--  |
     
      -->
     <article>
-      <p>这是一本13年读过的书，时至今日已过去近3年，古人说<code class="highlighter-rouge">温故而知新</code>，虽然中间的间隔比较久，由于最近在学Clojure，而它是一个Lisp方言，而我第一次接触的Lisp就是黑客与画家，如今在此捧起这本书，为的是去思考去发现其中的精髓。</p>
-
-<p>保罗•格雷厄姆创业哲学，他的创业公式是:</p>
-
-<ol>
-  <li>搭建原型</li>
-  <li>上线运营(别管bug)</li>
-  <li>收集反馈</li>
-  <li>调整产品</li>
-  <li>成长壮大</li>
-</ol>
-
-<ul>
-  <li>创业时创始人数控制在2～3人</li>
-  <li>出于兴趣而解决某个难题，不管它有没有用，这就是黑客</li>
-  <li>黑客三个特性:<code class="highlighter-rouge">好玩</code> <code class="highlighter-rouge">高智商</code> <code class="highlighter-rouge">探索精神</code></li>
+      <ul id="markdown-toc">
+  <li><a href="#web" id="markdown-toc-web">第九章 Web机器人</a>    <ul>
+      <li><a href="#section" id="markdown-toc-section">爬虫及爬行方式</a></li>
+      <li><a href="#http" id="markdown-toc-http">机器人的HTTP</a></li>
+      <li><a href="#section-1" id="markdown-toc-section-1">行为不当的机器人</a></li>
+      <li><a href="#section-2" id="markdown-toc-section-2">拒绝机器人访问</a></li>
+      <li><a href="#section-3" id="markdown-toc-section-3">搜索引擎</a></li>
+    </ul>
+  </li>
+  <li><a href="#http-ng-" id="markdown-toc-http-ng-">第十章 HTTP-NG 下一代系统</a>    <ul>
+      <li><a href="#http-1" id="markdown-toc-http-1">HTTP发展中存在的问题</a>        <ul>
+          <li><a href="#modularize-and-enhance" id="markdown-toc-modularize-and-enhance">模块化及功能增强(modularize and enhance)</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
 </ul>
 
-<h6 id="section">黑客伦理</h6>
+<h4 id="web">第九章 Web机器人</h4>
+<h5 id="section">爬虫及爬行方式</h5>
+<ul>
+  <li>从哪儿开始: 根集</li>
+  <li>链接的提取以及相对链接的标准化</li>
+  <li>避免环路出现</li>
+  <li>循环与复制
+    <blockquote>
+      <p>⚠️ 如果爬虫不断地获取相同的页面时，并且爬虫与服务器连接良好，它就可能会阻止其他真实用户的访问，这种拒绝服务是可以作为法律诉讼理由的。</p>
+    </blockquote>
+  </li>
+  <li>面包屑留下的痕迹;大规模Web爬虫对其访问地址进行管理时使用以下相关技术点:
+    <ol>
+      <li>树和散列表(加速URL查找)</li>
+      <li>有损的存在位图(减小空间)</li>
+      <li>检查点(将已访问URL列表存在硬盘上，防止机器人程序崩溃)</li>
+      <li>分类</li>
+    </ol>
+  </li>
+  <li>别名与机器人环路</li>
+  <li>规范化URL
+    <ol>
+      <li>如果没有指定端口的话，就向主机名中添加 ‘80’</li>
+      <li>将所有转义符 %xx 都转换成等价字符</li>
+      <li>删除 # 标签</li>
+    </ol>
+  </li>
+  <li>文件系统连接环路 ‘/’</li>
+  <li>动态虚拟Web空间</li>
+  <li>避免循环和重复
+    <blockquote>
+      <ol>
+        <li>规范化URL</li>
+        <li>广度优先的爬行</li>
+        <li>节流</li>
+        <li>限制URL的大小</li>
+        <li>URL/站点黑名单</li>
+        <li>模式检测</li>
+        <li>内容指纹</li>
+        <li>人工监视</li>
+      </ol>
+    </blockquote>
+  </li>
+</ul>
 
+<h5 id="http">机器人的HTTP</h5>
+<ul>
+  <li>识别请求首部</li>
+  <li>虚拟主机，实现机器人要支持Host首部</li>
+  <li>条件请求</li>
+  <li>对响应的处理;需要识别比如状态码，实体等</li>
+  <li>User-agent导向</li>
+</ul>
+
+<h5 id="section-1">行为不当的机器人</h5>
+<ul>
+  <li>失控机器人</li>
+  <li>实效的URL</li>
+  <li>很长的错误URL</li>
+  <li>爱打听的机器人</li>
+  <li>动态网关访问</li>
+</ul>
+
+<h5 id="section-2">拒绝机器人访问</h5>
+<ul>
+  <li>拒绝机器人访问标准; Dissallow/Allow</li>
+  <li>Web站点和robots.txt文件
+    <blockquote>
+      <ol>
+        <li>User-agent: <robot-name></robot-name></li>
+        <li>Dissallow</li>
+        <li>Allow</li>
+      </ol>
+    </blockquote>
+  </li>
+  <li>缓存和robots.txt的过期</li>
+  <li>HTML的robot-control元标签</li>
+</ul>
+
+<h5 id="section-3">搜索引擎</h5>
+
+<p><a href="http://www.robotstxt.org">Web机器人</a>
+<a href="http://www.searchengineworld.com">搜索引擎世界</a></p>
+
+<h4 id="http-ng-">第十章 HTTP-NG 下一代系统</h4>
+<h5 id="http-1">HTTP发展中存在的问题</h5>
 <ol>
-  <li>使用计算机以及所有有助于了解这个世界本质的事务都不应接到任何限制，任何事情都应亲手尝试。</li>
-  <li>所有信息应该都是自由的。</li>
-  <li>不信任权威，提倡去中心化。</li>
-  <li>判断一名黑客的水平应该看他的技术水平，而不是看他的学历、年龄或地位等其他标准。</li>
-  <li>你可以用计算机创造美和艺术。</li>
-  <li>计算机使生活更美好。</li>
+  <li>复杂性</li>
+  <li>扩展性</li>
+  <li>性能</li>
+  <li>传输依赖性</li>
 </ol>
 
-<blockquote>
-  <p>总结:分享、开放、民主、计算机的自由使、进步</p>
-</blockquote>
-
-<h5 id="section-1">第十章:编程语言解析</h5>
-
-<ul>
-  <li>证明编程语言的一个重要特点:一个操作所需的代码越多，就越难避免bug，也越难发现它们。</li>
-</ul>
+<h6 id="modularize-and-enhance">模块化及功能增强(modularize and enhance)</h6>
 
     </article>
   </div>
@@ -142,15 +216,6 @@
   <div class="related">
     <h4>最新文章</h4>
     <ul class="related-posts">
-      
-        <li>
-          <h5>
-            <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-9-10.html">
-              HTTP权威指南-9-10
-              <small>2016-10-02</small>
-            </a>
-          </h5>
-        </li>
       
         <li>
           <h5>
@@ -165,6 +230,15 @@
           <h5>
             <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-7.html">
               HTTP权威指南-7
+              <small>2016-10-02</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-11.html">
+              HTTP权威指南-11
               <small>2016-10-02</small>
             </a>
           </h5>
@@ -229,8 +303,8 @@
 
 		ga('create', 'UA-84531968-1', 'auto');
 		ga('send', 'pageview', {
-		  'page': '/cs/2016/09/25/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6%E7%AC%94%E8%AE%B0.html',
-		  'title': '黑客与画家-读书笔记'
+		  'page': '/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-9-10.html',
+		  'title': 'HTTP权威指南-9-10'
 		});
 	</script>
 	<!-- End Google Analytics -->

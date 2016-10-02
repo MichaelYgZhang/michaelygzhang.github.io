@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>黑客与画家-读书笔记 – Michael – Developer</title>
+    <title>HTTP权威指南-8 – Michael – Developer</title>
 
         <meta charset="utf-8" />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
@@ -9,14 +9,14 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="黑客与画家读书笔记" />
-    <meta property="og:description" content="黑客与画家读书笔记" />
+    <meta name="description" content="第八章 网关、隧道及中继" />
+    <meta property="og:description" content="第八章 网关、隧道及中继" />
     
     <meta name="author" content="Michael" />
 
     
-    <meta property="og:title" content="黑客与画家-读书笔记" />
-    <meta property="twitter:title" content="黑客与画家-读书笔记" />
+    <meta property="og:title" content="HTTP权威指南-8" />
+    <meta property="twitter:title" content="HTTP权威指南-8" />
     
 
     <!--[if lt IE 9]>
@@ -91,49 +91,63 @@
     <div id="main" role="main" class="container">
       <article class="post">
   <div class="post">
-    <h1 class="post-title">黑客与画家-读书笔记</h1>
-    <span class="post-date">2016-09-25</span>
+    <h1 class="post-title">HTTP权威指南-8</h1>
+    <span class="post-date">2016-10-02</span>
     <!--  |
     
      -->
     <article>
-      <p>这是一本13年读过的书，时至今日已过去近3年，古人说<code class="highlighter-rouge">温故而知新</code>，虽然中间的间隔比较久，由于最近在学Clojure，而它是一个Lisp方言，而我第一次接触的Lisp就是黑客与画家，如今在此捧起这本书，为的是去思考去发现其中的精髓。</p>
-
-<p>保罗•格雷厄姆创业哲学，他的创业公式是:</p>
-
-<ol>
-  <li>搭建原型</li>
-  <li>上线运营(别管bug)</li>
-  <li>收集反馈</li>
-  <li>调整产品</li>
-  <li>成长壮大</li>
-</ol>
-
-<ul>
-  <li>创业时创始人数控制在2～3人</li>
-  <li>出于兴趣而解决某个难题，不管它有没有用，这就是黑客</li>
-  <li>黑客三个特性:<code class="highlighter-rouge">好玩</code> <code class="highlighter-rouge">高智商</code> <code class="highlighter-rouge">探索精神</code></li>
+      <ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">网关</a></li>
+  <li><a href="#section-1" id="markdown-toc-section-1">资源网关</a></li>
+  <li><a href="#web" id="markdown-toc-web">应用程序接口和Web服务</a></li>
+  <li><a href="#section-2" id="markdown-toc-section-2">隧道</a></li>
+  <li><a href="#section-3" id="markdown-toc-section-3">中继</a></li>
 </ul>
 
-<h6 id="section">黑客伦理</h6>
+<h5 id="section">网关</h5>
+<ul>
+  <li>网关:协议转换器</li>
+  <li>客户端和服务器端网关<code class="highlighter-rouge">&lt;客户端协议&gt;/&lt;服务器端协议&gt;</code>;服务器端网关就是:HTTP/<code class="highlighter-rouge">*</code>;客户端网关:<code class="highlighter-rouge">*</code>/HTTP;</li>
+  <li>协议网关</li>
+  <li>HTTPS/HTTP服务器端安全网关</li>
+</ul>
 
-<ol>
-  <li>使用计算机以及所有有助于了解这个世界本质的事务都不应接到任何限制，任何事情都应亲手尝试。</li>
-  <li>所有信息应该都是自由的。</li>
-  <li>不信任权威，提倡去中心化。</li>
-  <li>判断一名黑客的水平应该看他的技术水平，而不是看他的学历、年龄或地位等其他标准。</li>
-  <li>你可以用计算机创造美和艺术。</li>
-  <li>计算机使生活更美好。</li>
-</ol>
+<h5 id="section-1">资源网关</h5>
+<ul>
+  <li>CGI(Common Getway Interface),为每个请求创建一个新进程，开销比较高，服务器负载大。</li>
+  <li>服务器扩展API</li>
+</ul>
 
-<blockquote>
-  <p>总结:分享、开放、民主、计算机的自由使、进步</p>
-</blockquote>
+<h5 id="web">应用程序接口和Web服务</h5>
 
-<h5 id="section-1">第十章:编程语言解析</h5>
+<h5 id="section-2">隧道</h5>
+<ul>
+  <li>Web隧道允许用户通过HTTP连接发送非HTTP流量，这样就可以在HTTP上捎带其他协议数据了，使用Web隧道最常见的原因就是要在HTTP连接中嵌入非HTTP流量，这样，这类流量就可以穿过只允许Web流量通过的防火墙了。</li>
+  <li>使用CONNECT建立HTTP隧道</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="err">请求建立一条</span><span class="nx">SSL</span><span class="err">隧道:</span>
+<span class="nx">CONNECT</span> <span class="nx">www</span><span class="p">.</span><span class="nx">example</span><span class="p">.</span><span class="nx">com</span><span class="err">:</span><span class="mi">443</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.0</span>
+<span class="nx">User</span><span class="o">-</span><span class="nx">agent</span><span class="err">:</span> <span class="nx">Mozilla</span><span class="o">/</span><span class="mf">4.0</span>
+
+<span class="err">响应:</span>
+<span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.0</span> <span class="mi">200</span> <span class="nx">Connection</span> <span class="nx">Established</span>
+<span class="nx">Proxy</span><span class="o">-</span><span class="nx">agent</span><span class="err">:</span> <span class="nx">Netscape</span><span class="o">-</span><span class="nx">Proxy</span><span class="o">/</span><span class="mf">1.1</span>
+
+<span class="err">与普通</span><span class="nx">HTTP</span><span class="err">响应不同，这个响应并不需要包含</span><span class="nx">Content</span><span class="o">-</span><span class="nx">Type</span><span class="err">首部，此时连接只是对原始字节进行转接，不再是报文的承载着，所以不需要使用内容类型了。</span>
+</code></pre>
+</div>
 
 <ul>
-  <li>证明编程语言的一个重要特点:一个操作所需的代码越多，就越难避免bug，也越难发现它们。</li>
+  <li>数据隧道、定时及连接管理</li>
+  <li>隧道认证</li>
+</ul>
+
+<h5 id="section-3">中继</h5>
+<ul>
+  <li>中继(relay)是没有完全遵循HTTP规范的简单HTTP代理，中继负责处理HTTP中建立连接的部分，然后对字节进行盲转发。</li>
+  <li>简单盲中继实现中存在一个问题，就是他们无法正确处理Connection首部，所以有潜在的刮起keep-alive连接的可能。</li>
 </ul>
 
     </article>
@@ -154,8 +168,8 @@
       
         <li>
           <h5>
-            <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-8.html">
-              HTTP权威指南-8
+            <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-7.html">
+              HTTP权威指南-7
               <small>2016-10-02</small>
             </a>
           </h5>
@@ -163,8 +177,8 @@
       
         <li>
           <h5>
-            <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-7.html">
-              HTTP权威指南-7
+            <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-11.html">
+              HTTP权威指南-11
               <small>2016-10-02</small>
             </a>
           </h5>
@@ -229,8 +243,8 @@
 
 		ga('create', 'UA-84531968-1', 'auto');
 		ga('send', 'pageview', {
-		  'page': '/cs/2016/09/25/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6%E7%AC%94%E8%AE%B0.html',
-		  'title': '黑客与画家-读书笔记'
+		  'page': '/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-8.html',
+		  'title': 'HTTP权威指南-8'
 		});
 	</script>
 	<!-- End Google Analytics -->
