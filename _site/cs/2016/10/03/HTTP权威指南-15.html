@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Java Thread – Michael – Developer</title>
+    <title>HTTP权威指南-15 – Michael – Developer</title>
 
         <meta charset="utf-8" />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
@@ -9,14 +9,14 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="Java 多线程" />
-    <meta property="og:description" content="Java 多线程" />
+    <meta name="description" content="第十五 实体和编码" />
+    <meta property="og:description" content="第十五 实体和编码" />
     
     <meta name="author" content="Michael" />
 
     
-    <meta property="og:title" content="Java Thread" />
-    <meta property="twitter:title" content="Java Thread" />
+    <meta property="og:title" content="HTTP权威指南-15" />
+    <meta property="twitter:title" content="HTTP权威指南-15" />
     
 
     <!--[if lt IE 9]>
@@ -91,53 +91,36 @@
     <div id="main" role="main" class="container">
       <article class="post">
   <div class="post">
-    <h1 class="post-title">Java Thread</h1>
-    <span class="post-date">2016-09-25</span>
+    <h1 class="post-title">HTTP权威指南-15</h1>
+    <span class="post-date">2016-10-03</span>
     <!--  |
     
      -->
     <article>
-      <ul>
-  <li>多线程指的是这个程序(一个进程)运行时产生了不止一个线程。</li>
-  <li>并行与并发
-    <blockquote>
-      <ul>
-        <li>并行:多个<code class="highlighter-rouge">cpu</code>实例或者多台机器同时执行一段处理逻辑,真正的同时。</li>
-        <li>并发:通过<code class="highlighter-rouge">cpu</code>调度算法，让用户看上去同时执行，实际从<code class="highlighter-rouge">cpu</code>操作层面上看不是真正的同时。并发往往在场景中有公用资源，那么针对这个公用的资源往往产生瓶颈，我们用<code class="highlighter-rouge">TPS</code>或者<code class="highlighter-rouge">QPS</code>来反应这个系统的处理能力。</li>
-      </ul>
-    </blockquote>
-  </li>
-  <li>线程安全:经常用来描述一段代码。指在并发的情况下该代码经过多线程的使用，线程的调度顺序不能影响任何结果。这个时候使用多线程，我们只需要关注系统的内存,<code class="highlighter-rouge">cpu</code>是不是够用即可。反过来，线程不安全就意味着线程的调度顺序会影响最终的结果，如不加事务的转账代码:
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">vodi</span> <span class="nf">transferMoney</span><span class="o">(</span><span class="n">User</span> <span class="n">from</span><span class="o">,</span> <span class="n">User</span> <span class="n">to</span><span class="o">,</span> <span class="kt">float</span> <span class="n">amount</span><span class="o">){</span>
-  <span class="n">to</span><span class="o">.</span><span class="na">setMoney</span><span class="o">(</span><span class="n">to</span><span class="o">.</span><span class="na">getBlance</span><span class="o">()</span> <span class="o">+</span> <span class="n">amount</span><span class="o">);</span>
-  <span class="n">from</span><span class="o">.</span><span class="na">setMoney</span><span class="o">(</span><span class="n">from</span><span class="o">.</span><span class="na">getBlance</span><span class="o">()</span> <span class="o">-</span> <span class="n">amount</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre>
-    </div>
-  </li>
-  <li>同步:Java中的同步指的是通过人为的控制和调度，保证共享资源的多线程访问成为线程安全，来保证结果的准确。如上面代码简单加入<code class="highlighter-rouge">@synchronized</code>关键字。在保证结果准确的同时，提高性能，才是优秀的程序，县城安全的优先级高于性能。</li>
+      <ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">报文时箱子，实体是货物</a></li>
 </ul>
 
-<p><strong>线程状态:</strong>
-<em>Java线程一共有七个状态，分别是新建，可运行，运行中，睡眠，阻塞，等待，死亡。</em></p>
+<h5 id="section">报文时箱子，实体是货物</h5>
+
 <ul>
-  <li>新建状态<code class="highlighter-rouge">New</code>:新创建一个线程对象</li>
-  <li>就绪状态<code class="highlighter-rouge">Runable</code>:线程对象创建后，其他线程调用了该对象的<code class="highlighter-rouge">start()</code>方法。该状态的线程位于线程池中，变得可运行，等待获取<code class="highlighter-rouge">CPU</code>的使用权。</li>
-  <li>运行状态<code class="highlighter-rouge">Running</code>:就绪状态的线程获取了<code class="highlighter-rouge">CPU</code>，执行程序代码。</li>
-  <li>阻塞状态<code class="highlighter-rouge">Blocked</code>:阻塞状态是线程因为某种原因放弃<code class="highlighter-rouge">CPU</code>使用权，暂时停止运行，直到线程进入就绪状态，才有机会转到运行状态。阻塞的情况分三种:
-    <blockquote>
-      <ol>
-        <li>等待阻塞:运行的线程执行<code class="highlighter-rouge">wait()</code>方法，JVM会把该线程放入等待池中(进入这个状态会释放所占有的所有资源，与阻塞状态不同)。</li>
-        <li>同步阻塞:运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入锁池中。</li>
-        <li>其他阻塞:运行的线程执行<code class="highlighter-rouge">sleep()或join()</code>或者发出了I/O请求时，JVM会把该线程置为阻塞状态(该状态既停止当前线程，但并不释放所占有的资源)。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。</li>
-      </ol>
-    </blockquote>
-  </li>
-  <li>线程调用<code class="highlighter-rouge">yield()</code>意思是放弃当前获得的CPU时间片，回到可运行状态，这时与其它线程处于同等竞争状态，OS有可能接着又让这个线程进入运行状态</li>
-  <li>死亡状态<code class="highlighter-rouge">Dead</code>:线程执行完了或者因异常退出了run()方法，该线程结束生命周期。</li>
+  <li>报文实体由实体首部和实体主体组成，HTTP/1.1定义了以下几个基本实体首部字段</li>
 </ul>
 
-<p><img src="http://ifeve.com/wp-content/uploads/2014/08/threads2.gif" alt="线程状态图" /></p>
+<ol>
+  <li>Content-Type:实体中所承载的对象类型</li>
+  <li>Content-Length:所传输实体主体的长度或大小</li>
+  <li>Content-Language:与所传送对象最相配的人类语言</li>
+  <li>Content-Encoding:对象数据所做的任意变换</li>
+  <li>Content-Location:一个备用位置，请求时可通过它获取对象</li>
+  <li>Content-Range:如果这是部分实体，这个首部说明它是整体的哪个部分</li>
+  <li>Content-MD5:实体主体内容的校验和</li>
+  <li>Last-Modified:所传输内容在服务器上创建或最后修改的日期时间</li>
+  <li>Expires:实体数据将要实效的日期时间</li>
+  <li>Allow: 该资源所允许的各种请求方法</li>
+  <li>ETag: 该文档特定实例的唯一验证码</li>
+  <li>Cache-Control: 指出应该如何缓存该文档</li>
+</ol>
 
     </article>
   </div>
@@ -157,8 +140,8 @@
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
-              HTTP权威指南-15
+            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
+              HTTP权威指南-14
               <small>2016-10-03</small>
             </a>
           </h5>
@@ -166,9 +149,9 @@
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
-              HTTP权威指南-14
-              <small>2016-10-03</small>
+            <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-9-10.html">
+              HTTP权威指南-9-10
+              <small>2016-10-02</small>
             </a>
           </h5>
         </li>
@@ -232,8 +215,8 @@
 
 		ga('create', 'UA-84531968-1', 'auto');
 		ga('send', 'pageview', {
-		  'page': '/java/2016/09/25/Java-Thread.html',
-		  'title': 'Java Thread'
+		  'page': '/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html',
+		  'title': 'HTTP权威指南-15'
 		});
 	</script>
 	<!-- End Google Analytics -->

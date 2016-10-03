@@ -117,48 +117,58 @@
 
 <h4 id="web">第九章 Web机器人</h4>
 <h5 id="section">爬虫及爬行方式</h5>
+
 <ul>
   <li>从哪儿开始: 根集</li>
   <li>链接的提取以及相对链接的标准化</li>
   <li>避免环路出现</li>
-  <li>循环与复制
-    <blockquote>
-      <p>⚠️ 如果爬虫不断地获取相同的页面时，并且爬虫与服务器连接良好，它就可能会阻止其他真实用户的访问，这种拒绝服务是可以作为法律诉讼理由的。</p>
-    </blockquote>
-  </li>
-  <li>面包屑留下的痕迹;大规模Web爬虫对其访问地址进行管理时使用以下相关技术点:
-    <ol>
-      <li>树和散列表(加速URL查找)</li>
-      <li>有损的存在位图(减小空间)</li>
-      <li>检查点(将已访问URL列表存在硬盘上，防止机器人程序崩溃)</li>
-      <li>分类</li>
-    </ol>
-  </li>
+  <li>循环与复制</li>
+</ul>
+
+<blockquote>
+  <p>⚠️ 如果爬虫不断地获取相同的页面时，并且爬虫与服务器连接良好，它就可能会阻止其他真实用户的访问，这种拒绝服务是可以作为法律诉讼理由的。</p>
+</blockquote>
+
+<ul>
+  <li>面包屑留下的痕迹;大规模Web爬虫对其访问地址进行管理时使用以下相关技术点:</li>
+</ul>
+
+<ol>
+  <li>树和散列表(加速URL查找)</li>
+  <li>有损的存在位图(减小空间)</li>
+  <li>检查点(将已访问URL列表存在硬盘上，防止机器人程序崩溃)</li>
+  <li>分类</li>
+</ol>
+
+<ul>
   <li>别名与机器人环路</li>
-  <li>规范化URL
-    <ol>
-      <li>如果没有指定端口的话，就向主机名中添加 ‘80’</li>
-      <li>将所有转义符 %xx 都转换成等价字符</li>
-      <li>删除 # 标签</li>
-    </ol>
-  </li>
+  <li>规范化URL</li>
+</ul>
+
+<ol>
+  <li>如果没有指定端口的话，就向主机名中添加 ‘80’</li>
+  <li>将所有转义符 %xx 都转换成等价字符</li>
+  <li>删除 # 标签</li>
+</ol>
+
+<ul>
   <li>文件系统连接环路 ‘/’</li>
   <li>动态虚拟Web空间</li>
-  <li>避免循环和重复
-    <blockquote>
-      <ol>
-        <li>规范化URL</li>
-        <li>广度优先的爬行</li>
-        <li>节流</li>
-        <li>限制URL的大小</li>
-        <li>URL/站点黑名单</li>
-        <li>模式检测</li>
-        <li>内容指纹</li>
-        <li>人工监视</li>
-      </ol>
-    </blockquote>
-  </li>
+  <li>避免循环和重复</li>
 </ul>
+
+<blockquote>
+  <ol>
+    <li>规范化URL</li>
+    <li>广度优先的爬行</li>
+    <li>节流</li>
+    <li>限制URL的大小</li>
+    <li>URL/站点黑名单</li>
+    <li>模式检测</li>
+    <li>内容指纹</li>
+    <li>人工监视</li>
+  </ol>
+</blockquote>
 
 <h5 id="http">机器人的HTTP</h5>
 <ul>
@@ -181,15 +191,18 @@
 <h5 id="section-2">拒绝机器人访问</h5>
 <ul>
   <li>拒绝机器人访问标准; Dissallow/Allow</li>
-  <li>Web站点和robots.txt文件
-    <blockquote>
-      <ol>
-        <li>User-agent: <robot-name></robot-name></li>
-        <li>Dissallow</li>
-        <li>Allow</li>
-      </ol>
-    </blockquote>
-  </li>
+  <li>Web站点和robots.txt文件</li>
+</ul>
+
+<blockquote>
+  <ol>
+    <li>User-agent: <robot-name></robot-name></li>
+    <li>Dissallow</li>
+    <li>Allow</li>
+  </ol>
+</blockquote>
+
+<ul>
   <li>缓存和robots.txt的过期</li>
   <li>HTML的robot-control元标签</li>
 </ul>
@@ -201,6 +214,7 @@
 
 <h4 id="http-ng-">第十章 HTTP-NG 下一代系统</h4>
 <h5 id="http-1">HTTP发展中存在的问题</h5>
+
 <ol>
   <li>复杂性</li>
   <li>扩展性</li>
@@ -219,27 +233,27 @@
       
         <li>
           <h5>
-            <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-8.html">
-              HTTP权威指南-8
-              <small>2016-10-02</small>
+            <a href="/interview/2016/10/03/interview-1.html">
+              Interview-1
+              <small>2016-10-03</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-7.html">
-              HTTP权威指南-7
-              <small>2016-10-02</small>
+            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
+              HTTP权威指南-15
+              <small>2016-10-03</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-12-13.html">
-              HTTP权威指南-12-13
-              <small>2016-10-02</small>
+            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
+              HTTP权威指南-14
+              <small>2016-10-03</small>
             </a>
           </h5>
         </li>
