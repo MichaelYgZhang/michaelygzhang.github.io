@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2016-10-02T21:58:29+08:00</updated><id>/</id><title>Michael</title><subtitle>Developer</subtitle><entry><title>HTTP权威指南-9-10</title><link href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-9-10.html" rel="alternate" type="text/html" title="HTTP权威指南-9-10" /><published>2016-10-02T00:00:00+08:00</published><updated>2016-10-02T00:00:00+08:00</updated><id>/cs/2016/10/02/HTTP权威指南-9-10</id><content type="html" xml:base="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-9-10.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2016-10-03T09:54:49+08:00</updated><id>/</id><title>Michael</title><subtitle>Developer</subtitle><entry><title>HTTP权威指南-9-10</title><link href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-9-10.html" rel="alternate" type="text/html" title="HTTP权威指南-9-10" /><published>2016-10-02T00:00:00+08:00</published><updated>2016-10-02T00:00:00+08:00</updated><id>/cs/2016/10/02/HTTP权威指南-9-10</id><content type="html" xml:base="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-9-10.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#web&quot; id=&quot;markdown-toc-web&quot;&gt;第九章 Web机器人&lt;/a&gt;    &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;爬虫及爬行方式&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#http&quot; id=&quot;markdown-toc-http&quot;&gt;机器人的HTTP&lt;/a&gt;&lt;/li&gt;
@@ -286,10 +286,89 @@
       &lt;td style=&quot;text-align: left&quot;&gt;只有当缓存中有副本存在时，客户端才会获取一份副本&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
-&lt;/table&gt;</content><category term="CS" /><summary>第七章 缓存</summary></entry><entry><title>HTTP权威指南-11</title><link href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-11.html" rel="alternate" type="text/html" title="HTTP权威指南-11" /><published>2016-10-02T00:00:00+08:00</published><updated>2016-10-02T00:00:00+08:00</updated><id>/cs/2016/10/02/HTTP权威指南-11</id><content type="html" xml:base="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-11.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#http&quot; id=&quot;markdown-toc-http&quot;&gt;HTTP用户识别机制&lt;/a&gt;&lt;/li&gt;
+&lt;/table&gt;</content><category term="CS" /><summary>第七章 缓存</summary></entry><entry><title>HTTP权威指南-12-13</title><link href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-12-13.html" rel="alternate" type="text/html" title="HTTP权威指南-12-13" /><published>2016-10-02T00:00:00+08:00</published><updated>2016-10-02T00:00:00+08:00</updated><id>/cs/2016/10/02/HTTP权威指南-12-13</id><content type="html" xml:base="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-12-13.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;第十二章 基本认证机制&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;第十三章 摘要认证&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;h4 id=&quot;section&quot;&gt;第十二章 基本认证机制&lt;/h4&gt;
+&lt;p&gt;认证的四个步骤:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;步骤&lt;/th&gt;
+      &lt;th&gt;首部&lt;/th&gt;
+      &lt;th&gt;描述&lt;/th&gt;
+      &lt;th&gt;方法/状态&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;请求&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;第一条没有请求认证信息&lt;/td&gt;
+      &lt;td&gt;GET&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;质询&lt;/td&gt;
+      &lt;td&gt;WWW-Authenticate&lt;/td&gt;
+      &lt;td&gt;服务器用401状态拒绝了请求，说明需要用户提供用户名和密码&lt;/td&gt;
+      &lt;td&gt;401 Unauthorized&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;授权&lt;/td&gt;
+      &lt;td&gt;Authorization&lt;/td&gt;
+      &lt;td&gt;客户端重新发出请求，但这次会附加一个Authorization首部，用来说明认证算法、用户名和密码&lt;/td&gt;
+      &lt;td&gt;GET&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;成功&lt;/td&gt;
+      &lt;td&gt;Authorization-Info&lt;/td&gt;
+      &lt;td&gt;如果授权证书正确，服务器会将文档返回，有些授权算法会在可选的Authorization-Info首部返回一些与授权会话相关的附加信息&lt;/td&gt;
+      &lt;td&gt;200 OK&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;⚠️基本认证中不包括Authorization-Info首部&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;基本认证的安全缺陷&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;基本认证会通过网络发送用户名和密码，这些用户名和密码都是以一种很容易的解码的形式表示的。&lt;/li&gt;
+  &lt;li&gt;即使密码是以更难解码的方式加密的，第三方用户仍然可以捕获被修改过的用户名和密码，并将修改过的用户名和密码一次次重放给原始服务器，以获取服务器访问授权，没有什么措施可以用来防止重放攻击。&lt;/li&gt;
+  &lt;li&gt;即使将基本认证用于一些不太重要的的应用程序，一些不良习惯也会让它变得危险。比如很多用户的很多账号都是用相同的密码，若某些恶徒先获取了基本认证的密码然后尝试某些重要的在线银行网站!&lt;/li&gt;
+  &lt;li&gt;基本认证没有提供任何针对代理和作为中间人的中间节点的防护措施，他们没有修改认证首部，但却修改了报文的其余部分，这样就严重地改变了事务的本质。&lt;/li&gt;
+  &lt;li&gt;假冒服务器 很容易骗过基本认证。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;基本认证与加密数据传输(比如SSL)配合使用，会使基本认证变得更加安全。这是一种常用技巧。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-1&quot;&gt;第十三章 摘要认证&lt;/h4&gt;
+&lt;p&gt;在基本认证的基础上添加了更多的限制条件。&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;客户端发起GET请求&lt;/li&gt;
+  &lt;li&gt;服务器产生随机数WWW-Authenticate质询，服务器发送域随机数和算法&lt;/li&gt;
+  &lt;li&gt;客户端从算法集中选择一个算法产生响应摘要及客户端随机数，Authorization作为向服务器的请求。&lt;/li&gt;
+  &lt;li&gt;服务器对摘要进行认证，并产生下一个随机数，返回客户端Authorization-Info信息及下一个需要认证时发送的随机数&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;⚠️:摘要认证还有很多安全性相关的技巧&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.ietf.org/rfc/rfc2617.txt&quot;&gt;更多认证信息&lt;/a&gt;&lt;/p&gt;</content><category term="CS" /><summary>第十二章 基本认证机制; 第十三章 摘要认证</summary></entry><entry><title>HTTP权威指南-11</title><link href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-11.html" rel="alternate" type="text/html" title="HTTP权威指南-11" /><published>2016-10-02T00:00:00+08:00</published><updated>2016-10-02T00:00:00+08:00</updated><id>/cs/2016/10/02/HTTP权威指南-11</id><content type="html" xml:base="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-11.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#cookie&quot; id=&quot;markdown-toc-cookie&quot;&gt;第十一章 客户端识别与Cookie机制&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#http&quot; id=&quot;markdown-toc-http&quot;&gt;HTTP用户识别机制&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#http-1&quot; id=&quot;markdown-toc-http-1&quot;&gt;HTTP首部&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#cookie-1&quot; id=&quot;markdown-toc-cookie-1&quot;&gt;Cookie&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#cookie-&quot; id=&quot;markdown-toc-cookie-&quot;&gt;Cookie 与缓存&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#cookie-2&quot; id=&quot;markdown-toc-cookie-2&quot;&gt;Cookie安全性和隐私&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;cookie&quot;&gt;第十一章 客户端识别与Cookie机制&lt;/h4&gt;
 &lt;h5 id=&quot;http&quot;&gt;HTTP用户识别机制&lt;/h5&gt;
 &lt;ul&gt;
   &lt;li&gt;承载用户身份信息的HTTP首部&lt;/li&gt;
@@ -298,7 +377,100 @@
   &lt;li&gt;胖URL一种在URL中嵌入识别信息的技术&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;######&lt;/p&gt;</content><category term="CS" /><summary>第十一章 客户端识别与Cookie机制</summary></entry><entry><title>HTTP权威指南-5-6</title><link href="/cs/2016/10/01/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-5-6.html" rel="alternate" type="text/html" title="HTTP权威指南-5-6" /><published>2016-10-01T00:00:00+08:00</published><updated>2016-10-01T00:00:00+08:00</updated><id>/cs/2016/10/01/HTTP权威指南-5-6</id><content type="html" xml:base="/cs/2016/10/01/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-5-6.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
+&lt;h6 id=&quot;http-1&quot;&gt;HTTP首部&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;承载用户相关信息的HTTP首部&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;首部名称&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;首部类型&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;描述&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;From&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;请求&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;用户的E-mail地址&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;User-Agent&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;请求&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;用户的浏览器软件&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Referer&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;请求&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;用户是这个页面上依照链接跳转过来的&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Authorization&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;请求&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;用户名和密码&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Client-IP&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;扩展(请求)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;客户端IP&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;X-Forwarded-For&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;扩展(请求)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;客户端IP地址&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Cookie&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;扩展(请求)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;服务器产生的ID标签&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h6 id=&quot;cookie-1&quot;&gt;Cookie&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;Cookie类型:会话cookie(临时的一般关闭浏览器时删除)和持久cookie(存在硬盘中)&lt;/li&gt;
+  &lt;li&gt;Cookie成分&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Set-Cookie属性&lt;/th&gt;
+      &lt;th&gt;描述及实例&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;NAME = VALUE&lt;/td&gt;
+      &lt;td&gt;强制的,都是字符序列，可以创建任意NAME＝VALUE关联;Set-Cookie: customer=Mary&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Expires&lt;/td&gt;
+      &lt;td&gt;可选，指定一个到期日期，格式为:Weekday, DD-Mon-YY HH:MM:SS GMT&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Domain&lt;/td&gt;
+      &lt;td&gt;可选,浏览器只向指定域名的服务器主机发送cookie&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Path&lt;/td&gt;
+      &lt;td&gt;可选，可以为服务器上特定的文档分配cookie&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Secure&lt;/td&gt;
+      &lt;td&gt;可选，只有HTTP使用了SSL安全连接时才会发送cookie;Set-Cookie: private_id =113; secure&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h6 id=&quot;cookie-&quot;&gt;Cookie 与缓存&lt;/h6&gt;
+&lt;p&gt;TODO&lt;/p&gt;
+&lt;h6 id=&quot;cookie-2&quot;&gt;Cookie安全性和隐私&lt;/h6&gt;
+
+&lt;p&gt;⚠️当用户禁用cookie时，可以通过胖URL达到跟踪用户状态的目的。&lt;/p&gt;</content><category term="CS" /><summary>第十一章 客户端识别与Cookie机制</summary></entry><entry><title>HTTP权威指南-5-6</title><link href="/cs/2016/10/01/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-5-6.html" rel="alternate" type="text/html" title="HTTP权威指南-5-6" /><published>2016-10-01T00:00:00+08:00</published><updated>2016-10-01T00:00:00+08:00</updated><id>/cs/2016/10/01/HTTP权威指南-5-6</id><content type="html" xml:base="/cs/2016/10/01/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-5-6.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#web&quot; id=&quot;markdown-toc-web&quot;&gt;第五章Web服务器&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;第六章代理&lt;/a&gt;    &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#web-1&quot; id=&quot;markdown-toc-web-1&quot;&gt;Web的中间实体&lt;/a&gt;&lt;/li&gt;
@@ -1305,200 +1477,4 @@ Keep-Alive: max=5, timeout=120
   &lt;li&gt;整数类型:&lt;code class=&quot;highlighter-rouge&quot;&gt;TINYINT&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;SMALLINT&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;MEDIUMINT&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;INT&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;BIGINT&lt;/code&gt;分别使用8，16，24，32，64位存储空间。它们可以存储的值的范围从-2^(N-1) 到-2^(N-1) - 1，其中N是存储空间的位数。有可选的&lt;code class=&quot;highlighter-rouge&quot;&gt;UNSIGNED&lt;/code&gt;属性，表示不允许负值，例如:&lt;code class=&quot;highlighter-rouge&quot;&gt;UNSIGNED&lt;/code&gt;可以存储的范围是0 ~ 255,而&lt;code class=&quot;highlighter-rouge&quot;&gt;TINYINT&lt;/code&gt;的存储范围是-128 ~ 127。&lt;/li&gt;
   &lt;li&gt;实数类型:指带有小数部分的数字。对于&lt;code class=&quot;highlighter-rouge&quot;&gt;DECIMAL&lt;/code&gt;列，可以指定小数点前后所允许的最大位数，这会影响列的空间消耗。MySQL 5.0和更高的版本将数字打包保存到一个二进制字符串中(每4格字节存储9格数字)。例如: &lt;code class=&quot;highlighter-rouge&quot;&gt;DECIMAL(18,9)&lt;/code&gt;小数点两边将个存储9格数字，一共使用9格字节，小数点前后各4各字节，小数点本身占用一个字节。浮点类型在存储同样范围的值时，通常比&lt;code class=&quot;highlighter-rouge&quot;&gt;DECIMAL&lt;/code&gt;使用更少的空间。&lt;code class=&quot;highlighter-rouge&quot;&gt;FLOAT&lt;/code&gt;使用4个字节存储，&lt;code class=&quot;highlighter-rouge&quot;&gt;DOUBLE&lt;/code&gt;占用8个字节，相比&lt;code class=&quot;highlighter-rouge&quot;&gt;FLOAT&lt;/code&gt;有更高的精度和更大的范围，&lt;code class=&quot;highlighter-rouge&quot;&gt;MySQL&lt;/code&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;DOUBLE&lt;/code&gt;作为内部浮点计算的类型。因为需要额外的空间和计算开销，所以应该尽量只在对小数进行精确计算时才使用&lt;code class=&quot;highlighter-rouge&quot;&gt;DECIMAL&lt;/code&gt;，例如存储财务数据，但在数据量比较大的时候，可以考虑使用&lt;code class=&quot;highlighter-rouge&quot;&gt;BIGINT&lt;/code&gt;代替&lt;code class=&quot;highlighter-rouge&quot;&gt;DECIMAL&lt;/code&gt;，将需要存储的值乘以小数点后面相应的倍数即可，这样同时避免浮点存储计算的不精确和&lt;code class=&quot;highlighter-rouge&quot;&gt;DECIMAL&lt;/code&gt;精确计算代价高的问题。&lt;/li&gt;
   &lt;li&gt;字符串。&lt;/li&gt;
-&lt;/ol&gt;</content><category term="MySQL" /><summary>第四章</summary></entry><entry><title>图解HTTP-9-10</title><link href="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-9-10.html" rel="alternate" type="text/html" title="图解HTTP-9-10" /><published>2016-09-25T00:00:00+08:00</published><updated>2016-09-25T00:00:00+08:00</updated><id>/cs/2016/09/25/图解HTTP-9-10</id><content type="html" xml:base="/cs/2016/09/25/%E5%9B%BE%E8%A7%A3HTTP-9-10.html">&lt;h4 id=&quot;http&quot;&gt;9 基于HTTP的功能追加协议&lt;/h4&gt;
-
-&lt;h5 id=&quot;spdy&quot;&gt;SPDY的涉及与功能&lt;/h5&gt;
-
-&lt;h5 id=&quot;spdy-1&quot;&gt;SPDY设计&lt;/h5&gt;
-
-&lt;p&gt;SPDY是Google在2010年发布的取自SPeeDY，发音同speedy，开发目标旨在解决HTTP的新能瓶颈，缩短Web页面的家在时间(50%)&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;HTTP&lt;/th&gt;
-      &lt;th&gt;应用层&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;SPDY&lt;/td&gt;
-      &lt;td&gt;会话层&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;SSL&lt;/td&gt;
-      &lt;td&gt;表示层&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;TCP&lt;/td&gt;
-      &lt;td&gt;传输层&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;使用SPDY后，HTTP协议额外获得以下功能:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;多路复用流:通过单一的TCP连接，可以无限制处理多个HTTP请求，所有请求的处理都在一条TCP连接上完成，因此TCP的处理效率得到提高。&lt;/li&gt;
-  &lt;li&gt;赋予请求优先级:SPDY不仅可以无限制地并发处理请求，还可给请求逐个分配优先级顺序，主要为了在发送多个请求时，解决因宽带低而导致响应变慢的问题。&lt;/li&gt;
-  &lt;li&gt;压缩HTTP首部:压缩HTTP请求和响应的首部，通过过程产生的数量包和发送的字节数就少了。&lt;/li&gt;
-  &lt;li&gt;推送功能:支持服务器主动向客户端推送数据功能。这样，服务器可直接发送数据，而不必等待客户端的请求。&lt;/li&gt;
-  &lt;li&gt;服务器提示功能:服务器可以主动提示客户端请求所需资源，由于在客户端发现资源之前就可以获知资源的存在，因此在资源已经缓存的情况下，可以避免发送不必要的请求。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;spdy-2&quot;&gt;SPDY目前的缺陷&lt;/h5&gt;
-
-&lt;p&gt;SPDY基本上只是将单个域名(IP地址)的通信多路复用，所以当一个Web网站上使用多个域名下的资源，改善效就会受到限制。SPDY的确是一种可以有效消除HTTP瓶颈的技术，但很多Web网站存在的问题并非仅仅由HTTP瓶颈导致的，对Web本身的所读提升，还应该从其它可细致钻研的地方入手，比如改善Web内容的编写方式等。&lt;/p&gt;
-
-&lt;h5 id=&quot;websocket&quot;&gt;使用浏览器进行全双工通信的WebSocket&lt;/h5&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;WebSocket&lt;/code&gt;为了解决Ajax和Comet里XMLHttpRequest附带的缺陷问题。一旦Web服务器与客户端之间建立起WebSocket协议的通信连接，之后所有的通信都依靠这个专用协议进行，通信过程中可互相发送JSON、XML、HTML或者图片等任意格式数据。由于是建立在HTTP基础上的协议，因此连接的发送方仍是客户端，而一旦确立WebSocket通信连接，不论服务器还是客户端，任意一方都可以直接向对方发送报文。&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;推送功能&lt;/li&gt;
-  &lt;li&gt;减少通信量:只要建立起WebSocket连接，就希望一直保持连接状态，和HTTP相比不但每次连接的总开销减少，而且由于WebSocket的首部信息很少，通信量也响应减少了。为了实现WebScoket通信，在建立HTTP连接后，需要完成一次”握手(Handshaking)”步骤。&lt;/li&gt;
-  &lt;li&gt;握手•请求:为了实现WebScoket通信，需要用到HTTP的Upgrade首部字段，告知服务器通信协议发生改变，以达到握手目的。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;GET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;chat&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;com&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Upgrade&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;websocket&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Upgrade&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Sec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;WebScoket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Key&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dGEJKFLJDdfjl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Origin&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//example.com&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Sec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Protocol&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;chat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;superchat&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Sec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Version&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;握手•响应:对于之前的请求返回101(Switching Proctocols)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;Http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;101&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Switching&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Protocols&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Upgrade&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;websocket&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Upgrade&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Sec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Accept&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dGEJKFLJDdfjl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Sec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Protocol&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;chat&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h5 id=&quot;websocket-api&quot;&gt;WebSocket API&lt;/h5&gt;
-
-&lt;p&gt;JS可以调用&lt;a href=&quot;http://www.w3.org/TR/websockets/&quot;&gt;TheWebSocketAPI&lt;/a&gt;
-内部提供的程序API，实现WebSocket协议下全双工通信。
-举例:每50ms发送一次数据实例！&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebScoket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ws:/game.example.com:12010/updates'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;scoket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onopen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;setInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bufferedAmount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getUpdateDate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h5 id=&quot;http20&quot;&gt;HTTP2.0&lt;/h5&gt;
-
-&lt;p&gt;设计的的7项技术,2.0的基础协议包括以下3项:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;SPDY&lt;/li&gt;
-  &lt;li&gt;HTTP Speed + Mobility 由微软公司起草用于改善提高移动端痛通信时通信速度和性能的标准，建立在Google的SPDY和WebSocket之上&lt;/li&gt;
-  &lt;li&gt;Network-Friendly HTTP Upgrade主要是移动端通信时改善HTTP性能标准&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;压缩&lt;/th&gt;
-      &lt;th&gt;SPDY,Friendly&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;多路复用&lt;/td&gt;
-      &lt;td&gt;SPDY&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;TLS义务化&lt;/td&gt;
-      &lt;td&gt;Speed+Mobility&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;协商&lt;/td&gt;
-      &lt;td&gt;Speed+Mobility,Friendly&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;客户端拉拽(Client Pull)／服务器推送(Server Push)&lt;/td&gt;
-      &lt;td&gt;Speed+Mobility&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;流量控制&lt;/td&gt;
-      &lt;td&gt;SPDY&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;WebSocket&lt;/td&gt;
-      &lt;td&gt;Speed+Mobility&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;HTTP Speed + Mobility 简写Speed + Mobility, Network-Friendly HTTP Upgrade简写Friendly&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;webwebdav&quot;&gt;Web服务器管理文件的WebDAV&lt;/h4&gt;
-
-&lt;p&gt;WebDAV(web-based Distributed Authoring and Versioning, 基于万维网的分布式创作和版本控制)是一个可以对Web服务器上的内容直接进行文件复制、编辑等操作的分布式文件系统。&lt;/p&gt;
-
-&lt;p&gt;针对服务器的资源WebDAV增加了一些概念:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;集合(Collection):是一种统一管理过个资源的概念，以集合为单位可进行各种操作，也可实现类似集合的集合这样的叠加。&lt;/li&gt;
-  &lt;li&gt;资源(Resource):把文件货集合称为资源&lt;/li&gt;
-  &lt;li&gt;属性(Propertry):定义资源的属性。定义以”名称=值”的格式执行。&lt;/li&gt;
-  &lt;li&gt;锁(Lock):把文件设置成无状态编辑状态。多人同时编辑时，可防止在同一时间进行内容写入。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;webdav&quot;&gt;WebDAV内新增的方法及状态&lt;/h5&gt;
-
-&lt;p&gt;为实现远程文件管理，向HTTP/1.1中追加了以下方法及状态码&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;PROPFIND:获取属性&lt;/li&gt;
-  &lt;li&gt;PROPPATCH:修改属性&lt;/li&gt;
-  &lt;li&gt;MKCOL:创建集合&lt;/li&gt;
-  &lt;li&gt;COPY:复制资源及属性&lt;/li&gt;
-  &lt;li&gt;MOVE:移动资源&lt;/li&gt;
-  &lt;li&gt;LOCK:资源加锁&lt;/li&gt;
-  &lt;li&gt;UNLOCK:资源解锁&lt;/li&gt;
-  &lt;li&gt;102 Processing:可正常处理请求，目前处理中状态&lt;/li&gt;
-  &lt;li&gt;207 Multi-Status:存在多种状态&lt;/li&gt;
-  &lt;li&gt;422 Unprocessible Entity:格式正确，内容错误&lt;/li&gt;
-  &lt;li&gt;423 Locked:资源已经加锁&lt;/li&gt;
-  &lt;li&gt;424 Failed Dependency:处理与某请求关联的请求失败，因此不再维持依赖关系&lt;/li&gt;
-  &lt;li&gt;507 Insufficient Storage:保存空间不足&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;web&quot;&gt;10 构建Web内容技术&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;HTML(HyperText Markup Language,超文本标记语言)&lt;/li&gt;
-  &lt;li&gt;CSS(Cascading Style Shets,层叠样式表)&lt;/li&gt;
-  &lt;li&gt;动态HTML(Dynamic HTML)即使用客户端脚本语言将静态HTML内容编程动态技术的总称。使用js实现对HTML的Web页面动态改造，利用DOM(Document Object Model,文档对象模型)可以指定欲发送动态变化的HTML元素。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;web-1&quot;&gt;Web应用&lt;/h5&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;CGI(Common Gateway Interface,通用网关接口),每次请求都启动新的CGI程序，当访问比较大时服务器负载大&lt;/li&gt;
-  &lt;li&gt;Servelt 取自Server + Applet&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section&quot;&gt;数据发布的格式及语言&lt;/h5&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;XML(eXtensible Markup Language,可扩展标记语言)&lt;/li&gt;
-  &lt;li&gt;RSS／Atom&lt;/li&gt;
-  &lt;li&gt;JSON(JavaScript Object Notatin)能够处理数据类型有7种:
-    &lt;blockquote&gt;
-      &lt;p&gt;fasle/null/true/对象/数组/数字/字符串&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>michael</name></author><category term="CS" /><summary>基于HTTP的功能追加协议，构建Web内容的技术</summary></entry></feed>
+&lt;/ol&gt;</content><category term="MySQL" /><summary>第四章</summary></entry></feed>

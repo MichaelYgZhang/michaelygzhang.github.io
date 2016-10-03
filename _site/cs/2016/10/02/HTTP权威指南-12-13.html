@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HTTP权威指南-11 – Michael – Developer</title>
+    <title>HTTP权威指南-12-13 – Michael – Developer</title>
 
         <meta charset="utf-8" />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
@@ -9,14 +9,14 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="第十一章 客户端识别与Cookie机制" />
-    <meta property="og:description" content="第十一章 客户端识别与Cookie机制" />
+    <meta name="description" content="第十二章 基本认证机制; 第十三章 摘要认证" />
+    <meta property="og:description" content="第十二章 基本认证机制; 第十三章 摘要认证" />
     
     <meta name="author" content="Michael" />
 
     
-    <meta property="og:title" content="HTTP权威指南-11" />
-    <meta property="twitter:title" content="HTTP权威指南-11" />
+    <meta property="og:title" content="HTTP权威指南-12-13" />
+    <meta property="twitter:title" content="HTTP权威指南-12-13" />
     
 
     <!--[if lt IE 9]>
@@ -91,128 +91,82 @@
     <div id="main" role="main" class="container">
       <article class="post">
   <div class="post">
-    <h1 class="post-title">HTTP权威指南-11</h1>
+    <h1 class="post-title">HTTP权威指南-12-13</h1>
     <span class="post-date">2016-10-02</span>
     <!--  |
     
      -->
     <article>
       <ul id="markdown-toc">
-  <li><a href="#cookie" id="markdown-toc-cookie">第十一章 客户端识别与Cookie机制</a>    <ul>
-      <li><a href="#http" id="markdown-toc-http">HTTP用户识别机制</a>        <ul>
-          <li><a href="#http-1" id="markdown-toc-http-1">HTTP首部</a></li>
-          <li><a href="#cookie-1" id="markdown-toc-cookie-1">Cookie</a></li>
-          <li><a href="#cookie-" id="markdown-toc-cookie-">Cookie 与缓存</a></li>
-          <li><a href="#cookie-2" id="markdown-toc-cookie-2">Cookie安全性和隐私</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
+  <li><a href="#section" id="markdown-toc-section">第十二章 基本认证机制</a></li>
+  <li><a href="#section-1" id="markdown-toc-section-1">第十三章 摘要认证</a></li>
 </ul>
 
-<h4 id="cookie">第十一章 客户端识别与Cookie机制</h4>
-<h5 id="http">HTTP用户识别机制</h5>
-<ul>
-  <li>承载用户身份信息的HTTP首部</li>
-  <li>客户端IP地址跟踪，通过用户的IP地址对其进行识别</li>
-  <li>用户登陆，用认证方式来识别用户</li>
-  <li>胖URL一种在URL中嵌入识别信息的技术</li>
-</ul>
-
-<h6 id="http-1">HTTP首部</h6>
-<ul>
-  <li>承载用户相关信息的HTTP首部</li>
-</ul>
+<h4 id="section">第十二章 基本认证机制</h4>
+<p>认证的四个步骤:</p>
 
 <table>
   <thead>
     <tr>
-      <th style="text-align: left">首部名称</th>
-      <th style="text-align: left">首部类型</th>
-      <th style="text-align: left">描述</th>
+      <th>步骤</th>
+      <th>首部</th>
+      <th>描述</th>
+      <th>方法/状态</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left">From</td>
-      <td style="text-align: left">请求</td>
-      <td style="text-align: left">用户的E-mail地址</td>
+      <td>请求</td>
+      <td> </td>
+      <td>第一条没有请求认证信息</td>
+      <td>GET</td>
     </tr>
     <tr>
-      <td style="text-align: left">User-Agent</td>
-      <td style="text-align: left">请求</td>
-      <td style="text-align: left">用户的浏览器软件</td>
+      <td>质询</td>
+      <td>WWW-Authenticate</td>
+      <td>服务器用401状态拒绝了请求，说明需要用户提供用户名和密码</td>
+      <td>401 Unauthorized</td>
     </tr>
     <tr>
-      <td style="text-align: left">Referer</td>
-      <td style="text-align: left">请求</td>
-      <td style="text-align: left">用户是这个页面上依照链接跳转过来的</td>
+      <td>授权</td>
+      <td>Authorization</td>
+      <td>客户端重新发出请求，但这次会附加一个Authorization首部，用来说明认证算法、用户名和密码</td>
+      <td>GET</td>
     </tr>
     <tr>
-      <td style="text-align: left">Authorization</td>
-      <td style="text-align: left">请求</td>
-      <td style="text-align: left">用户名和密码</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">Client-IP</td>
-      <td style="text-align: left">扩展(请求)</td>
-      <td style="text-align: left">客户端IP</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">X-Forwarded-For</td>
-      <td style="text-align: left">扩展(请求)</td>
-      <td style="text-align: left">客户端IP地址</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">Cookie</td>
-      <td style="text-align: left">扩展(请求)</td>
-      <td style="text-align: left">服务器产生的ID标签</td>
+      <td>成功</td>
+      <td>Authorization-Info</td>
+      <td>如果授权证书正确，服务器会将文档返回，有些授权算法会在可选的Authorization-Info首部返回一些与授权会话相关的附加信息</td>
+      <td>200 OK</td>
     </tr>
   </tbody>
 </table>
 
-<h6 id="cookie-1">Cookie</h6>
+<p>⚠️基本认证中不包括Authorization-Info首部</p>
+
+<p><strong>基本认证的安全缺陷</strong></p>
 <ul>
-  <li>Cookie类型:会话cookie(临时的一般关闭浏览器时删除)和持久cookie(存在硬盘中)</li>
-  <li>Cookie成分</li>
+  <li>基本认证会通过网络发送用户名和密码，这些用户名和密码都是以一种很容易的解码的形式表示的。</li>
+  <li>即使密码是以更难解码的方式加密的，第三方用户仍然可以捕获被修改过的用户名和密码，并将修改过的用户名和密码一次次重放给原始服务器，以获取服务器访问授权，没有什么措施可以用来防止重放攻击。</li>
+  <li>即使将基本认证用于一些不太重要的的应用程序，一些不良习惯也会让它变得危险。比如很多用户的很多账号都是用相同的密码，若某些恶徒先获取了基本认证的密码然后尝试某些重要的在线银行网站!</li>
+  <li>基本认证没有提供任何针对代理和作为中间人的中间节点的防护措施，他们没有修改认证首部，但却修改了报文的其余部分，这样就严重地改变了事务的本质。</li>
+  <li>假冒服务器 很容易骗过基本认证。</li>
 </ul>
 
-<table>
-  <thead>
-    <tr>
-      <th>Set-Cookie属性</th>
-      <th>描述及实例</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>NAME = VALUE</td>
-      <td>强制的,都是字符序列，可以创建任意NAME＝VALUE关联;Set-Cookie: customer=Mary</td>
-    </tr>
-    <tr>
-      <td>Expires</td>
-      <td>可选，指定一个到期日期，格式为:Weekday, DD-Mon-YY HH:MM:SS GMT</td>
-    </tr>
-    <tr>
-      <td>Domain</td>
-      <td>可选,浏览器只向指定域名的服务器主机发送cookie</td>
-    </tr>
-    <tr>
-      <td>Path</td>
-      <td>可选，可以为服务器上特定的文档分配cookie</td>
-    </tr>
-    <tr>
-      <td>Secure</td>
-      <td>可选，只有HTTP使用了SSL安全连接时才会发送cookie;Set-Cookie: private_id =113; secure</td>
-    </tr>
-  </tbody>
-</table>
+<p>基本认证与加密数据传输(比如SSL)配合使用，会使基本认证变得更加安全。这是一种常用技巧。</p>
 
-<h6 id="cookie-">Cookie 与缓存</h6>
-<p>TODO</p>
-<h6 id="cookie-2">Cookie安全性和隐私</h6>
+<h4 id="section-1">第十三章 摘要认证</h4>
+<p>在基本认证的基础上添加了更多的限制条件。</p>
+<ol>
+  <li>客户端发起GET请求</li>
+  <li>服务器产生随机数WWW-Authenticate质询，服务器发送域随机数和算法</li>
+  <li>客户端从算法集中选择一个算法产生响应摘要及客户端随机数，Authorization作为向服务器的请求。</li>
+  <li>服务器对摘要进行认证，并产生下一个随机数，返回客户端Authorization-Info信息及下一个需要认证时发送的随机数</li>
+</ol>
 
-<p>⚠️当用户禁用cookie时，可以通过胖URL达到跟踪用户状态的目的。</p>
+<p>⚠️:摘要认证还有很多安全性相关的技巧</p>
+
+<p><a href="http://www.ietf.org/rfc/rfc2617.txt">更多认证信息</a></p>
 
     </article>
   </div>
@@ -307,8 +261,8 @@
 
 		ga('create', 'UA-84531968-1', 'auto');
 		ga('send', 'pageview', {
-		  'page': '/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-11.html',
-		  'title': 'HTTP权威指南-11'
+		  'page': '/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-12-13.html',
+		  'title': 'HTTP权威指南-12-13'
 		});
 	</script>
 	<!-- End Google Analytics -->
