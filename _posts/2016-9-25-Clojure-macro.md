@@ -6,6 +6,7 @@ category: Clojure
 ---
 
 #### 宏
+
 ```clojure
 (defmacro dbg [x] `(let [x# ~x] (println '~x "=" x#) x#))
 (defn tt [x] (dbg (+ x 1)))
@@ -14,25 +15,32 @@ category: Clojure
 ;(+ x 1) = 2
 ;2
 ```
+
 可以看到我们用defmacro定义了一个dbg的宏，这个宏的作用就是先实现代码喝代码执行的结果，并将结果 返回回去。在clojure的宏里我们主要会用到以下几个符号。
 
 - ' (quote) :表示被quote不求值
 - ` (syntax quote) :把变量变成有namespace的形势
+
 ```clojure
 user> 'x
 x
 user> `x
 user/x
 ```
+
 - ~ (unquote):⚠️`~`和点搭配使用时，`~`必须在其的后面，并且`~`的数量不能超过点的数量，`~`是用来将变量的值替换到相应位置，比如
+
 ```clojure
 user> (def a 123)
 #'user/a
 user> `(def b ~a)
 (def user/b 123)
 ```
+
 可以看到`~a`被替换为a的值123了，而`~@`的作用和`~`类似，不过`~@`不但会替换掉值而且会把括号去掉。
+
 - ~@ (unquote splicing)
+
 ```clojure
 user> (def c [1 2 3])
 #'user/c
