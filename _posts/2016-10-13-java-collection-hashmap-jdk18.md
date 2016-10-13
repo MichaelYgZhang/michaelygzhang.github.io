@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Java Collections HashMap JDK1.8 源码分析
+title: HashMap JDK1.8 源码分析
 excerpt: Java Collections HashMap JDK1.8 源码分析
 category: Java
 ---
