@@ -9,7 +9,7 @@ category: DP
 
 [回调函数](https://zh.wikipedia.org/wiki/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0)
 
-- 异步处理中常用的处理方式回调。举个例子，Calling为调用者Called为被调用者，CallBack为两者之前的关联。
+- 异步处理中常用的处理方式回调。举个例子，Calling为调用者Called为被调用者以及CallBack接口
 
 ```java
 public interface CallBack {
