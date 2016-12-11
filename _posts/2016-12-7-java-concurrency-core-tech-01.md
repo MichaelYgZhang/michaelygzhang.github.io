@@ -28,4 +28,4 @@ category: Java
 
 - JVM中具有String常量池缓存功能。所以如果`synchronized(String)`则可能会造成多个线程同步时错误的情况。可以采用new Object()
   实例化一个Object对象，`synchronized(object)`这种方式。
--  
+-  volatile使变量在多线程间可见，只能修饰变量，不保证原子性。
