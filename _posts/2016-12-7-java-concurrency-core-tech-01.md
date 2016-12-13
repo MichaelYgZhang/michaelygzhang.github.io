@@ -5,6 +5,35 @@ excerpt: Java Concurrency Core Tech
 category: Java
 ---
 
+- println()内部是同步的。
+
+```java
+public void println(String x){
+  synchronized (this){
+    print(x);
+    newLine();
+  }
+}
+```
+
+- 停止线程方式
+  1. 使用退出标志，使线程正常退出，也就是当run方法完成后线程终止。
+  2. 使用stop方法强制终止线程，但是不推荐使用这个方法，因为stop和suspend及resume一样，都是作废过期的方法，使用他们可能产生不可预料的结果。
+  3. 使用interrupt方法中断线程。
+
+- this.interrupted()：测试当前线程是否已经是中断状态，执行后具有将状态标志置清除为false的功能；
+  this.isInterrupted()：测试线程Thread对象是否已经是中断状态，但不清除状态标志。
+- yield方法：作用是放弃当前CPU资源，将它让给其他任务去占用CPU执行时间。但放弃的时间不确定，有可能刚刚放弃，马上又获得CPU时间片。
+- 线程优先级setPriority()分为1～10个等级小于1或大于10抛出异常throw IllegalArgumentException()。
+- 线程优先级具有继承特性。
+- 线程优先级具有随机性，就是说优先级高的线程大多数会先执行，但并不一定每次都先执行完。
+- 守护线程：java中有两种线程一种用户线程，一种守护线程。只要当前JVM实例中存在任何一个非守护线程没有结束，守护线程就在工作。
+只有当最后一个非守护线程结束时，守护线程才随着JVM一同结束工作。Daemon的作用就是为其他线程的运行提供便利服务，守护线程的典型就是GC，他就是一个很称职的守护者。Thread.setDaemon(true);设置守护线程。
+
+- 多个线程访问多个对象则JVM会创建多个锁。
+- A线程先持有object对象的Lock锁，B线程可以以异的方式调用object对象中的非synchronized类型的方法。
+- A线程先持有object对象的Lock锁，B线程如果在这时调用object对象中的synchronized类型方法则需要等待，就是同步。
+
 - 脏读一定会出现操作实例变量的情况下，这就是不同县城“争抢”实例变量的结果。
 - `synchronized`锁重入，在使用`synchronized`时，当一个线程得到一个对象的锁后，再次请求此对象锁时是可以再次得到
   该对象的锁的。这也证明了一个`synchronized`方法/块的内部调用本类的其他`synchronized`方法/块时，是可以得到这个对象的锁的，
@@ -56,4 +85,17 @@ wait()方法进行等待，而synchronized关键字使用的是"对象监视器"
 
 
 ###### Lock的使用
-- Lock
+- ReentrantLock: lock()获取锁，unlock()释放锁；lock.lock()代码的线程持有“对象监视器”其他线程只有等待锁被释放时再次
+  争抢，效果和使用synchronized关键字一样，线程之前还是顺序执行。
+- Condition实现等待／通知，在使用notify/notifyAll方法进行通知时，被通知的线程是由JVM随机选择的，所有线程都注册在它一个
+对象身上，线程开始notifyAll时，需要通知所有的WAITING线程，没有选择全，会出现相当大的效率问题。使用ReentrantLock结合
+Condition类可以实现“选择性通知”，这个功能非常重要，而且在Condition类中默认提供的。Condition.await()/Condition.signal()；
+- 公平锁与非公平锁，公平锁即先到先得FIFO先进先出顺序，而非公平锁就是一中获取锁的抢占机制，时随机获取锁的。这个方式可能造成
+某些线程一直拿不到锁，结果也就时不公平的了。
+- ReentrantLock:方法，getHoldCount()查询当前线程保持此锁定的个数，也就是调用lock()方法的次数；getQueueLength()返回正等待获取此锁定的线程数； getWaitQueueLength()返回等待与此锁定相关的给定条件Condition的线程估计数。
+- ReentrantReadWriteLock加快效率，一个时读锁，也称为共享锁；另一个是写操作相关的锁，也叫排他锁。就是多个读锁之间不互斥，
+读锁与写锁互斥，写锁与写锁互斥。
+
+
+
+总结： java多线程编程核心技术 这本书主要是入门，更多的是简单的示例，基本API的使用。
