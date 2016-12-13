@@ -56,4 +56,4 @@ wait()方法进行等待，而synchronized关键字使用的是"对象监视器"
 
 
 ###### Lock的使用
-- 
+- Lock
