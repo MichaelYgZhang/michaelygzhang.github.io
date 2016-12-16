@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Java Concurrency in Paractice 第二部分 结构化并发应用程序
-excerpt: Java Concurrency in Paractice 第六章 任务执行 第七章 取消与关闭 第八章 线程池的使用
+excerpt: Java Concurrency in Paractice 第六章 任务执行 第七章 取消与关闭 第八章 线程池的使用 第九章 图形用户界面应用程序
 category: Java
 ---
 
@@ -21,4 +21,6 @@ category: Java
 - 在任务与执行策略之间的隐性耦合
 - 对于并发执行的任务，Executor框架是一种强大且灵活的框架。它提供了大量可调节的选项，例如创建线程和关闭线程的策略，处理队列任务的策略，处理过多任务的策略，并且提供了几个钩子方法来扩展它的行为。
   然而，与大多数功能强大的框架一样，其中有些设置参数并不能很好地工作，某些类型的任务需要特定的执行策略，而一些参数组合则可能产生奇怪的结果。
-  
+
+
+##### 图形用户界面应用程序
