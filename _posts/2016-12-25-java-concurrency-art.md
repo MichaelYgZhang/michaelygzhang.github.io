@@ -69,4 +69,31 @@ category: Java
 
 ###### 4 Java并发编程基础
 
-- TODO
+- JMX 查看一个Java程序包含那些线程
+
+```java
+public class MultiThread {
+    public static void main(String[] args) {
+        ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+        ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(false, false);
+        for (ThreadInfo threadInfo : threadInfos){
+            System.out.println("[" + threadInfo.getThreadId() + ":" + threadInfo.getThreadName() + "]");
+        }
+    }
+}
+/** Mac JDK1.8
+[7:JDWP Command Reader]
+[6:JDWP Event Helper Thread]
+[5:JDWP Transport Listener: dt_socket]
+[4:Signal Dispatcher]
+[3:Finalizer]
+[2:Reference Handler]
+[1:main]
+*/
+```
+
+- 使用多线程的原因：利用多核，更快的响应时间，更好的编程模型
+- 线程优先级setPriority(int);默认5，范围1～10.
+- 线程的状态:NEW;RUNNABLE;BLOCKED;WAITING;TIME_WAITING;TERMINATED;
+- Daemon线程Thread.setDaemon(true);线程启动前设置，不能在启动后设置。
+- 启动和终止线程
