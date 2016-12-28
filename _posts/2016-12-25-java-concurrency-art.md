@@ -97,3 +97,9 @@ public class MultiThread {
 - 线程的状态:NEW;RUNNABLE;BLOCKED;WAITING;TIME_WAITING;TERMINATED;
 - Daemon线程Thread.setDaemon(true);线程启动前设置，不能在启动后设置。
 - 启动和终止线程
+- 线程间通信
+- 线程应用实例
+
+##### Java中的锁
+
+- TODO
