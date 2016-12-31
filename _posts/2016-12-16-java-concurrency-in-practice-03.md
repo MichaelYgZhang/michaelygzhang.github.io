@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Java Concurrency in Paractice 第三部分  活跃性、性能与测试
-excerpt: Java Concurrency in Paractice 第十章 避免活跃性危险 第十一章 性能与可伸缩性 第十二章 并发程序的测试
+title: Java Concurrency in Practice 第三部分  活跃性、性能与测试
+excerpt: Java Concurrency in Practice 第十章 避免活跃性危险 第十一章 性能与可伸缩性 第十二章 并发程序的测试
 category: Java
 ---
 
@@ -40,4 +40,3 @@ category: Java
 - 测试应该放在多处理器的系统上运行，从而进一步测试更多形式的交替运行。然而，CPU的数量越多并不一定会使测试越搞笑。要最大成都地检测出一些对执行时序敏感的数据竞争，那么测试中的
   线程数量应该多于CPU数量，这样在任意时刻都会有一些线程在运行，而另一些被交换出去，从而可以检查线程间交替行为的可预测性。
 - 要编写有效的性能测试程序，就需要告诉优化器不要将基准测试当作无用代码而优化掉。这就要求在程序中对每个计算结果都要通过某种方式来使用，这种方式不需要同步或者大量的计算。
-    

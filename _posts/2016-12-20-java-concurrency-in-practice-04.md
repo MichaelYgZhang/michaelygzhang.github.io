@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Java Concurrency in Paractice 第四部分 高级主题
-excerpt: Java Concurrency in Paractice 第十三章 显示锁 第十四章 构建自定义的同步工具 第十五章 原子变量与非阻塞同步机制 第十六章 Java内存模型
+title: Java Concurrency in Practice 第四部分 高级主题
+excerpt: Java Concurrency in Practice 第十三章 显示锁 第十四章 构建自定义的同步工具 第十五章 原子变量与非阻塞同步机制 第十六章 Java内存模型
 category: Java
 ---
 

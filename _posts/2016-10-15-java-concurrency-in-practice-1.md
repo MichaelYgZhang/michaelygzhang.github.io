@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Java Concurrency in Paractice 第一部分 基础知识
-excerpt: Java Concurrency in Paractice 第二章 线程安全性 第三章 对象的共享  第四章 对象的组合 第五章 基础构建模块
+title: Java Concurrency in Practice 第一部分 基础知识
+excerpt: Java Concurrency in Practice 第二章 线程安全性 第三章 对象的共享  第四章 对象的组合 第五章 基础构建模块
 category: Java
 ---
 

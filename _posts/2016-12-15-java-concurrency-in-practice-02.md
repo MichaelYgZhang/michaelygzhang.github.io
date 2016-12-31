@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Java Concurrency in Paractice 第二部分 结构化并发应用程序
-excerpt: Java Concurrency in Paractice 第六章 任务执行 第七章 取消与关闭 第八章 线程池的使用 第九章 图形用户界面应用程序
+title: Java Concurrency in Practice 第二部分 结构化并发应用程序
+excerpt: Java Concurrency in Practice 第六章 任务执行 第七章 取消与关闭 第八章 线程池的使用 第九章 图形用户界面应用程序
 category: Java
 ---
 
