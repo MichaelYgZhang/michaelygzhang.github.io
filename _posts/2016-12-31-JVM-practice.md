@@ -29,11 +29,11 @@ jstack [ option ] pid
 jstack [ option ] executable core
 jstack [ option ] [server-id@]remote-hostname-or-IP
 -F当jstack [-l] pid没有相应的时候强制打印栈信息
--`l` 长列表. 打印关于锁的附加信息,例如属于java.util.concurrent的ownable synchronizers列表.
+-l 长列表. 打印关于锁的附加信息,例如属于java.util.concurrent的ownable synchronizers列表.
 -m 打印java和native c/c++框架的所有栈信息.
 -h | -help打印帮助信息
 pid 需要被打印配置信息的java进程id,可以用jps查询.
--------线程状态
+-线程状态
 死锁，Deadlock（重点关注）
 等待资源，Waiting on condition（重点关注）
 等待获取监视器，Waiting on monitor entry（重点关注）
@@ -146,7 +146,10 @@ GCT	从应用程序启动到采样时用于垃圾回收的总时间(单位秒)�
 
 ```js
 -XX:+UseParNewGC：设置年轻代为并发收集。可与CMS收集同时使用。JDK5.0以上，JVM会根据系统配置自行设置，所以无需再设置此值。
-          CMS， 全称Concurrent Low Pause Collector，是jdk1.4后期版本开始引入的新gc算法，在jdk5和jdk6中得到了进一步改进，它的主要适合场景是对响应时间的重要性需求 大于对吞吐量的要求，能够承受垃圾回收线程和应用线程共享处理器资源，并且应用中存在比较多的长生命周期的对象的应用。CMS是用于对tenured generation的回收，也就是年老代的回收，目标是尽量减少应用的暂停时间，减少FullGC发生的几率，利用和应用程序线程并发的垃圾回收线程来 标记清除年老代。
+          CMS， 全称Concurrent Low Pause Collector，是jdk1.4后期版本开始引入的新gc算法，在jdk5和jdk6中得到了进一步改进，
+          它的主要适合场景是对响应时间的重要性需求 大于对吞吐量的要求，能够承受垃圾回收线程和应用线程共享处理器资源，
+          并且应用中存在比较多的长生命周期的对象的应用。CMS是用于对tenured generation的回收，也就是年老代的回收，
+          目标是尽量减少应用的暂停时间，减少FullGC发生的几率，利用和应用程序线程并发的垃圾回收线程来 标记清除年老代。
 -XX:+UseConcMarkSweepGC：设置年老代为并发收集。
           测试中配置这个以后，-XX:NewRatio=4的配置失效了。所以，此时年轻代大小最好用-Xmn设置。
 -XX:CMSFullGCsBeforeCompaction=：由于并发收集器不对内存空间进行压缩、整理，
@@ -154,8 +157,7 @@ GCT	从应用程序启动到采样时用于垃圾回收的总时间(单位秒)�
 -XX:+UseCMSCompactAtFullCollection：打开对年老代的压缩。可能会影响性能，但是可以消除内存碎片。
 -XX:+CMSIncrementalMode：设置为增量收集模式。一般适用于单CPU情况。
 -XX:CMSInitiatingOccupancyFraction=70：表示年老代空间到70%时就开始执行CMS，确保年老代有足够的空间接纳来自年轻代的对象。
-注：如果使用 throughput collector 和 concurrent low pause collector 这两种垃圾收集器，
-需要适当的挺高内存大小，为多线程做准备。
+注：如果使用 throughput collector 和 concurrent low pause collector 这两种垃圾收集器，需要适当的挺高内存大小，为多线程做准备。
 
 其它
 -XX:+ScavengeBeforeFullGC：新生代GC优先于Full GC执行。
@@ -194,7 +196,6 @@ GCT	从应用程序启动到采样时用于垃圾回收的总时间(单位秒)�
 
 ```js
 服务器：8 cup, 8G mem
-e.g.
 java -Xmx3550m -Xms3550m -Xss128k -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxPermSize=16m -XX:MaxTenuringThreshold=0
 调优方案：
 -Xmx5g：设置JVM最大可用内存为5G。
@@ -206,7 +207,9 @@ java -Xmx3550m -Xms3550m -Xss128k -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxPerm
 -XX:SurvivorRatio=6：设置年轻代中Eden区与Survivor区的大小比值。根据经验设置为6，则两个Survivor区与一个Eden区的比值为2:6，
         一个Survivor区占整个年轻代的1/8。
 -XX:MaxTenuringThreshold=30： 设置垃圾最大年龄（次数）。如果设置为0的话，则年轻代对象不经过Survivor区直接进入年老代。
-        对于年老代比较多的应用，可以提高效率。如果将此值 设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象再年轻代的存活时间，增加在年轻代即被回收的概率。设置为30表示 一个对象如果在Survivor空间移动30次还没有被回收就放入年老代
+        对于年老代比较多的应用，可以提高效率。如果将此值 设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，
+        这样可以增加对象再年轻代的存活时间，增加在年轻代即被回收的概率。设置为30表示
+        一个对象如果在Survivor空间移动30次还没有被回收就放入年老代
 -XX:+UseConcMarkSweepGC：设置年老代为并发收集。测试配置这个参数以后，参数-XX:NewRatio=4就失效了，
         所以，此时年轻代大小最好用-Xmn设置，因此这个参数不建议使用。
 ```
