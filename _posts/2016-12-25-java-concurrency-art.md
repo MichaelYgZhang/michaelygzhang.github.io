@@ -100,6 +100,6 @@ public class MultiThread {
 - 线程间通信
 - 线程应用实例
 
-##### Java中的锁
+#### 5 Java中的锁
 
-- TODO
+- 
