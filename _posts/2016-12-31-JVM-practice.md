@@ -126,14 +126,17 @@ GCT	从应用程序启动到采样时用于垃圾回收的总时间(单位秒)�
 
 ###### 并行收集器(吞吐量优先)
 
+```js
 -XX:+UseParallelGC：选择垃圾收集器为并行收集器。此配置仅对年轻代有效。即上述配置下，年轻代使用并发收集，而年老代仍旧使用串行收集。
 -XX:ParallelGCThreads=20：配置并行收集器的线程数，即：同时多少个线程一起进行垃圾回收。此值最好配置与处理器数目相等。
 -XX:+UseParallelOldGC：配置年老代垃圾收集方式为并行收集。JDK6.0支持对年老代并行收集。
 -XX:MaxGCPauseMillis=100：设置每次年轻代垃圾回收的最长时间（单位毫秒），如果无法满足此时间，JVM会自动调整年轻代大小，以满足此值。
 -XX:+UseAdaptiveSizePolicy：设置此选项后，并行收集器会自动选择年轻代区大小和相应的Survivor区比例，以达到目标系统规定的最低响应时间或者收集频率等。此参数建议使用并行收集器时，一直打开。
+```
 
 ###### 并发收集器(响应时间优先)
 
+```js
 -XX:+UseParNewGC：设置年轻代为并发收集。可与CMS收集同时使用。JDK5.0以上，JVM会根据系统配置自行设置，所以无需再设置此值。
 CMS， 全称Concurrent Low Pause Collector，是jdk1.4后期版本开始引入的新gc算法，在jdk5和jdk6中得到了进一步改进，它的主要适合场景是对响应时间的重要性需求 大于对吞吐量的要求，能够承受垃圾回收线程和应用线程共享处理器资源，并且应用中存在比较多的长生命周期的对象的应用。CMS是用于对tenured generation的回收，也就是年老代的回收，目标是尽量减少应用的暂停时间，减少FullGC发生的几率，利用和应用程序线程并发的垃圾回收线程来 标记清除年老代。
 -XX:+UseConcMarkSweepGC：设置年老代为并发收集。测试中配置这个以后，-XX:NewRatio=4的配置失效了。所以，此时年轻代大小最好用-Xmn设置。
@@ -149,9 +152,11 @@ CMS， 全称Concurrent Low Pause Collector，是jdk1.4后期版本开始引入�
 -XX:+UseThreadPriorities：启用本地线程优先级API，即使 java.lang.Thread.setPriority() 生效，反之无效。
 -XX:SoftRefLRUPolicyMSPerMB=0：“软引用”的对象在最后一次被访问后能存活0毫秒（默认为1秒）。
 -XX:TargetSurvivorRatio=90：允许90%的Survivor空间被占用（默认为50%）。提高对于Survivor的使用率——超过就会尝试垃圾回收。
+```
 
 ###### 辅助信息
 
+```js
 -XX:-CITime：打印消耗在JIT编译的时间
 -XX:ErrorFile=./hs_err_pid.log：保存错误日志或者数据到指定文件中
 -XX:-ExtendedDTraceProbes：开启solaris特有的dtrace探针
@@ -171,9 +176,11 @@ CMS， 全称Concurrent Low Pause Collector，是jdk1.4后期版本开始引入�
 -XX:-TraceClassResolution：跟踪常量池
 -XX:-TraceClassUnloading：跟踪类的卸载信息
 -XX:-TraceLoaderConstraints：跟踪类加载器约束的相关信息
+```
 
 ###### JVM服务调优实战
 
+```js
 服务器：8 cup, 8G mem
 e.g.
 java -Xmx3550m -Xms3550m -Xss128k -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxPermSize=16m -XX:MaxTenuringThreshold=0
@@ -196,3 +203,4 @@ java -Xmx3550m -Xms3550m -Xss128k -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxPerm
 在年轻代中经历了N（可配置）次垃圾回收后仍然存活的对象，就会被放到年老代中。因此，可以认为年老代中存放的都是一些生命周期较长的对象。
 持久代
 用于存放静态数据，如 Java Class, Method 等。持久代对垃圾回收没有显著影响，但是有些应用可能动态生成或者调用一些Class，例如 Hibernate 等，在这种时候需要设置一个比较大的持久代空间来存放这些运行过程中动态增加的类型。持久代大小通过 -XX:MaxPermSize= 进行设置。
+```
