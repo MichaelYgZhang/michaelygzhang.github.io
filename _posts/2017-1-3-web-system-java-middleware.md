@@ -57,9 +57,28 @@ category: Java
 - 优雅和实用的平衡
 - 分布式环境中的请求合并
 - 分布式锁服务，看情况是否可以根据一定规则把同样的请求分配到同一台服务器上，这样避免了分布式锁的复杂度。
-- ESB总线模型，可以更多考虑不同厂商所提供服务的整合。 
+- ESB总线模型，可以更多考虑不同厂商所提供服务的整合。
 
 ##### 第五章 数据访问层
+
+- 分布式事务；X/Open: Application Program, Resource Manager, Transaction Manager
+- CAP (Consistency, Availability, Partition-Tolerance)
+- BASE (Basically Available, Soft state, Eventually consistent)
+- 一般选择CAP中的A和P对于C策略就是保证最终一致性
+- Paxos协议：少数服从多数原则
+- 集群内数据一致性的算法
+  1. Quorum,用来权衡分布式系统中数据一致性和可用性
+  2. 补偿重试机制
+- 多机器的Sequence问题与处理
+  1. 唯一性
+  2. 连续性
+  - ID集中管理问题：1 性能问题  2 生成器的稳定性问题 3 存储问题
+- 分布式查询问题
+  1. 跨库join问题，在服务层分多次查询数据库或者数据冗余，借助外部系统比如搜索引擎解决一些跨库问题。
+  2. 外键约束。
+- SQL解析-->规则处理-->SQL改写-->数据源选择-->SQL执行-->结果集返回合并处理
+- 
+
 
 ##### 第六层 消息中间件
 
