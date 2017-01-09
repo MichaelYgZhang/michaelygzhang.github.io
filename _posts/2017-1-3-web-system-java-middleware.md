@@ -133,6 +133,6 @@ Result postMessage(Message m, PostMessageCallback pmc) {
 ##### 第七章 软负载中心与集中配置管理
 
 - 软负载中心基础职责。聚合地址信息，生命周期感知。
-- TODO 279
+- 
 
 ##### 第八章 构建大型网站的其他要素
