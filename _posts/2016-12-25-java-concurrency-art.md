@@ -102,4 +102,14 @@ public class MultiThread {
 
 #### 5 Java中的锁
 
-- 
+- Lock接口
+  1. Lock接口与synchronized关键字的区别：尝试非阻塞地获取锁，能被中断地获取锁，超时获取所。
+  2. Lock的API；
+    -  void lock();
+    - void lockInterrruptibly() throws InterruptedException(); 可中断地获取锁
+    - boolean tryLock(); 尝试非阻塞获取锁
+    - boolean tryLock(long time, TimeUnit unit)throws InterruptedException; 超时获取锁；3种情况会返回，当前线程在超时时间内获得了锁，当前线程在超时时间内被中断，超时时间结束，返回false；
+    - void unlock();
+    - Condition newCondition();获取等待通知组件，该组件和当前的锁绑定，当前线程只有获得了锁，才能调用该组件的wait()方法，而调用后，当前线程将被释放。
+- 队列同步器(AbstractQueuedSynchronizer)
+TODO 224p    
