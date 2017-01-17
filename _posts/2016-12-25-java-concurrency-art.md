@@ -119,4 +119,40 @@ public class MultiThread {
   3. 共享式同步状态获取与释放。
   4. 独占锁超时获取同步状态。
 - 重入锁
-  1. 
+  1. 实现重入锁，锁的释放
+  2. 公平与非公平获取所的区别，默认非公平锁，保证了更高的吞吐量，可能造成线程“饥饿”。
+- 读写锁，当某线程获取了写锁时，其他线程读写锁均阻塞。而某线程已获取读锁，要想获取写锁也是被阻塞。
+- 锁降级，写锁可以降级为读锁。
+- LockSupport工具
+  1. park(); 阻塞  unpark(Thread thread); 唤醒一个阻塞线程
+- Condition接口
+
+##### 第6章 Java并发容器和框架
+
+- ConcurrentHashMap
+  1. 锁分段，默认16段
+  2. ConcurrentHashMap<K,V> -> Segments[] -> HashEntry[]
+- ConcurrentLinkedQueue
+  1. 阻塞算法／非阻塞算法CAS
+- Java中的阻塞队列
+- Fork/Join框架
+
+##### 第7章 Java中的13个原子操作类
+
+- Atomic包  AtomicReference原子更行引用类型
+
+##### 第8章 Java中的并发工具类
+
+- CountDownLatch  只能用一次;
+- CyclicBarrier   使用reset()可以多次使用;
+- Semaphore      限流
+- Exchanger
+
+##### 第9章 Java中的线程池
+
+- 降低资源消耗；提高响应速度；提高线程的可管理性；
+- 线程池的使用
+
+##### 第10章 Executor框架
+
+- TODO366
