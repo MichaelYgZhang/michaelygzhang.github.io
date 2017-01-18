@@ -2,7 +2,7 @@
 layout: post
 title: 从Paxos到Zookeeper分布式一致性原理与实践
 excerpt: PaxosToZookeeper
-category: Java
+category: Destributed
 ---
 
 ##### 第1章 分布式架构

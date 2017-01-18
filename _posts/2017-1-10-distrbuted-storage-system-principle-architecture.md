@@ -2,7 +2,7 @@
 layout: post
 title: 大规模分布式存储系统原理解析与架构实战 读书笔记
 excerpt: Analysis of the principle and architecture of large scale distributed storage system
-category: Java
+category: Destributed
 ---
 
 ##### 第1章  概述
