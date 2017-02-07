@@ -155,4 +155,9 @@ public class MultiThread {
 
 ##### 第10章 Executor框架
 
-- TODO366
+- Executor框架，应用程序通过Executor框架控制上层的调度；而下层的调度由操作系统内核控制，下层的调度不受应用程序的控制。
+- Executor主要由3部分组成:
+  1. 任务；包括被执行任务需要实现的接口:Runnable接口或Callable接口。
+  2. 任务的执行；包括任务执行机制的核心接口Executor,以及继承自Executor的ExecutorService接口。Executor框架有两个关键类实现了ExecutorService接口(ThreadPoolExecutor和ScheduledThreadPoolExecutor)。
+  3. 异步计算的结果。包括接口Future和实现Future接口的FutureTask类。
+- TODO 370
