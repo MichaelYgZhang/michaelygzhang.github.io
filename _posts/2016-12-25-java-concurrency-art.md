@@ -160,4 +160,5 @@ public class MultiThread {
   1. 任务；包括被执行任务需要实现的接口:Runnable接口或Callable接口。
   2. 任务的执行；包括任务执行机制的核心接口Executor,以及继承自Executor的ExecutorService接口。Executor框架有两个关键类实现了ExecutorService接口(ThreadPoolExecutor和ScheduledThreadPoolExecutor)。
   3. 异步计算的结果。包括接口Future和实现Future接口的FutureTask类。
-- TODO 370
+- Executor框架最核心的类是ThreadPoolExecutor它是线程池的实现类，主要由4个组件构成。corePool:核心线程池的大小;maximumPool:最大线程池的大小;BlockingQueue:暂时保存任务的工作队列。RejectedExecutionHandler:当ThreadPoolExecutor已经关闭或ThreadPoolExecutor已经饱和时(达到了最大线程池大小且工作队列已满),execute()方法将要调用的Handler.
+- 通过Executor框架的工具类Executors可以创建三种类型的ThreadPoolExecutor.FixedThreadPool, SingleThreadExecutor, CachedThreadPool.
