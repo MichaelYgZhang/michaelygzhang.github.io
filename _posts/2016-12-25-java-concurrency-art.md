@@ -171,8 +171,8 @@ public class MultiThread {
   1. top ：查看每个进程情况
   2. jstat -gcutil pid  : 查看GC情况
   3. jstack pid  dump 文件
-  4. netstat -nat | grep 8080 -c  :查询有多少台机器连接到8080端口
-  5. netstat -nat | grep 3306 -c  :查看多少个数据库连接
+  4. `netstat -nat | grep 8080 -c`  :查询有多少台机器连接到8080端口
+  5. `netstat -nat | grep 3306 -c`  :查看多少个数据库连接
   6. cat /proc/net/dev  :查看网络流量
   7. cat /proc/loadavg  :查看系统平均负载
   8. cat /proc/meminfo  :查看系统内存情况
