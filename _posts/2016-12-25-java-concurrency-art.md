@@ -162,3 +162,20 @@ public class MultiThread {
   3. 异步计算的结果。包括接口Future和实现Future接口的FutureTask类。
 - Executor框架最核心的类是ThreadPoolExecutor它是线程池的实现类，主要由4个组件构成。corePool:核心线程池的大小;maximumPool:最大线程池的大小;BlockingQueue:暂时保存任务的工作队列。RejectedExecutionHandler:当ThreadPoolExecutor已经关闭或ThreadPoolExecutor已经饱和时(达到了最大线程池大小且工作队列已满),execute()方法将要调用的Handler.
 - 通过Executor框架的工具类Executors可以创建三种类型的ThreadPoolExecutor.FixedThreadPool, SingleThreadExecutor, CachedThreadPool.
+- 复合优先于继承
+
+##### 第11章 Java并发变成实践
+
+- 生产者消费者或线程池
+- 线上问题定位
+  1. top ：查看每个进程情况
+  2. jstat -gcutil pid  : 查看GC情况
+  3. jstack pid  dump 文件
+  4. netstat -nat | grep 8080 -c  :查询有多少台机器连接到8080端口
+  5. netstat -nat | grep 3306 -c  :查看多少个数据库连接
+  6. cat /proc/net/dev  :查看网络流量
+  7. cat /proc/loadavg  :查看系统平均负载
+  8. cat /proc/meminfo  :查看系统内存情况
+  9. cat /proc/stat     :查看CPU的利用率
+- 异步任务池
+- DOWN: 2017-2-9 02:35:20  
