@@ -30,7 +30,10 @@ category: Destributed
 ##### 第2章 一致性协议
 
 - 2PC与3PC
-- TODO 17p
+  - 2PC: 1. 提交事务请求 2. 执行事提交
+  - 优缺点:优点，原理简单、实现方便。缺点:同步阻塞、单点问题、数据不一致、太过保守容错机制差。
+  - 3PC: 将2PC协议的第二个阶段过程一分为二，形成由CanCommit、PreCommit和do Commit三个阶段组成的事务处理协议。
+  - P22
 
 ##### 第3章 Paxos的工程实践
 ##### 第4章 ZooKeeper与Paxos
