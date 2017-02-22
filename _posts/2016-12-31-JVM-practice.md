@@ -213,3 +213,7 @@ java -Xmx3550m -Xms3550m -Xss128k -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxPerm
 -XX:+UseConcMarkSweepGC：设置年老代为并发收集。测试配置这个参数以后，参数-XX:NewRatio=4就失效了，
         所以，此时年轻代大小最好用-Xmn设置，因此这个参数不建议使用。
 ```
+
+###### 堆溢时会将堆栈信息输出到文件中的配置
+
+- -XX:+HeapDumpOnOutOfMemoryError-XX:HeapDumpPath=/path/to/heap/dump
