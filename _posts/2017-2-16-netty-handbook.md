@@ -84,8 +84,92 @@ category: Java
 
 ##### 第3章 Netty入门应用
 
-- TODO page 87
+- DEOM
 
 ##### 第4章 TCP粘包／拆包问题的解决之道
 
+- TCP粘包／拆包：TCP是个流协议，没有界限的一串数据，没有分界线，TCP底层并不了解上层业务数据的具体含义，它根据TCP缓冲区的实际情况进行包的划分，所以一个完成的包可能会被TCP拆分成多个包发送，也有可能把多个小包封装在一个大的数据包发送，这就是所谓的粘包和拆包问题。
+
+- TCP粘包／拆包发生原因：
+  1. 应用程序write写入的字节大小大于套接口发送缓冲区的大小。
+  2. 进行MSS大小的TCP分段。
+  3. 以太网帧payload大于MTU进行IP分片
+- 粘包解决策略：
+  1. 消息定长，例如每个报文大小固定长度200字节，如果不够空位补空格。
+  2. 在包尾增加回车换行符进行分割，例如FTP协议。
+  3. 将消息分为消息头和消息体，消息头中包含表示消息总长度的字段，通常设计思路为消息头的第一个字段使用int32来表示消息的总长度。
+  4. 更复杂的应用层协议。
+
+- Netty利用LineBasedFrameDecoder、StringDecoder解决TCP粘包问题。Netty提供了多种编解码器用于处理半包问题。
+- LineBasedFrameDecoder的工作原理是它依次遍历ByteBuf中的可读字节，判断是否有'\n'或者'\r\n'，如果有，就以此位置为结束位置，从可读索引到结束位置区间的字节就组成了一行，它是支持配置单行的最大长度。如果连续读取到最大长度后仍然没有发现换行符，就抛出异常，同时忽略之前读到的异常码流。
+- StringDecoder的功能非常简单，就是将接收到的对象转换成字符串，然后继续调用后面的handler，LineBasedFrameDecoder+StringDecoder组合就是按行切换的文本解码器。
+
 ##### 第5章 分隔符和定长解码器的应用  
+
+- DelimiterBasedFrameDecoder和FixedLengthFramerDecoder前者可以自动完成分隔符做结束标志的消息的解码，后者可以自动完成对定长消息的解码，它们都能解决TCP粘包／拆包导致的半读问题。
+- 使用指南：只要将DelimiterBasedFrameDecoder或FixedLengthFramerDecoder添加到对应的ChannelPipeline的起始位置即可。
+
+```java
+Bootstrap b = new Bootstrap();
+b.group(group).channel(NioSocketChannel.class)
+      .option(ChannelOption.TCP_NODELAY, true)
+      .handler(new ChannelInitializer<SocketChannel>() {
+        @Override
+        protected void initChannel(SocketChannel socketChannel) throws Exception {
+          ByteBuf delimiter = Unpooled.copiedBuffer("$_".getBytes());
+          socketChannel.pipeline().addLast(
+            new DelimiterBasedFrameDecoder(1024, delimiter));
+          socketChannel.pipeline().addLast(new StringDecoder());
+          socketChannel.pipeline().addLast(new EchoClientHandler());  
+        }
+      });
+ChannelFuture f = b.connect(host, port).sync();
+f.channel().closeFuture().sync();
+```
+
+#### 中级篇 Netty编解码开发指南
+
+##### 第6章 编解码技术
+
+- Java序列化，实现 java.io.Serializable并生成序列ID即可，缺点如下：
+  1. 无法跨语言最致命的问题，不同的服务可能语言不同。Java序列化后的字节数组，别的语言无法进行反序列化，事实上目前几乎所有流行的RPC通信框架都没有使用Java序列化作为编解码框架，原因就是无法跨语言。
+  2. 序列化后的码流太大。导致存储占空间更大成本就越高，传输更占带宽，导致系统吞吐量低。
+  3. 序列化性能低。
+  4.
+
+```java
+//java序列化 info对象  java.io.ObjectInput或java.io.ObjectOutput进行反序列化和序列化
+ByteArrayOutputStream bos = new ByteArrayOutputStream();
+ObjectOutputStream os = new ObjectOutputStream(bos);
+os.writeObject(info);
+os.flush();
+os.close;
+```
+
+- 评判一个编解码框架主要考虑以下因素：
+  1. 是否支持跨语言
+  2. 编码后的码流大小
+  3. 编解码的性能
+  4. 类库是否小巧API使用是否方便
+  5. 使用者需要手工开发的工作量和难度
+
+- Protobuf(Google Protocol Buffers):特点如下:
+  1. 结构化数据存储(XML, JSON等)，二进制编码
+  2. 高效编解码性能
+  3. 语言无关、平台无关、扩展性好。
+  4. 官方支持Java、C++、Python三种语言
+- Protobuf优点如下：
+  1. 文本化数据结构，语言和平台无关，适合做异构系统间的集成。
+  2. 通过标识字段的顺序，可以实现协议的前向兼容
+  3. 自动代码生成，不要手工编写同样数据结构的C++和Java版本
+  4. 方便后续管理和维护
+
+- Thrift／JBoss Marshalling
+
+##### 第7章 Java序列化
+
+- P145
+
+##### 第8章 Google Protobuf编解码
+
+##### 第9章 JBoss Marshalling编解码
