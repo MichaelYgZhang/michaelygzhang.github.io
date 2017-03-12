@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 大规模分布式系统架构于设计实战
-excerpt: 大规模分布式系统架构于设计实战读书笔记
+excerpt: 大规模分布式系统架构于设计实战读书笔记(不推荐)
 category: Destributed
 ---
 
