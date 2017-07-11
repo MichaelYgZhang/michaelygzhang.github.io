@@ -29,8 +29,7 @@ public class CommandHelloWorld extends HystrixCommand<String> {
     }
 }
 
-另一种方式，使用HystrixObservableCommand替代HystrixCommand需要覆盖其构造方法。
-
+//另一种方式，使用HystrixObservableCommand替代HystrixCommand需要覆盖其构造方法。
 public class CommandHelloWorld extends HystrixObservableCommand<String> {
 
     private final String name;
@@ -95,11 +94,13 @@ public void testAsynchronous2() throws Exception {
     assertEquals("Hello Bob!", fBob.get());
 }
 ```
+
 - 两种执行方式结果相同
 ```java
 String s1 = new CommandHelloWorld("World").execute();
 String s2 = new CommandHelloWorld("World").queue().get();
 ```
+
 ###### HystrixObservableCommand Equivalent
 - There is no simple equivalent to queue for a HystrixObservableCommand, but if you know that the Observable produced by such a command must always produce only a single value, you can mimic the behavior of queue by applying the RxJava operators .toBlocking().toFuture() to the Observable.
 
