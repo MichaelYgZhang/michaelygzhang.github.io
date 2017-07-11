@@ -75,6 +75,7 @@ public void testSynchronous() {
 
 #### 异步执行 Asynchronous Execution
 - 使用HystrixCommand的方式时，queue()方法执行。
+
 ```java
 Future<String> fs = new CommandHelloWorld("World").queue();
 String s = fs.get();//获取结果
