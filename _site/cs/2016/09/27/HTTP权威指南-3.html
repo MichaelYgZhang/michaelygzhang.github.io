@@ -98,28 +98,30 @@
      -->
     <article>
       <ul id="markdown-toc">
-  <li><a href="#section" id="markdown-toc-section">报文流</a></li>
-  <li><a href="#section-1" id="markdown-toc-section-1">报文的组成部分</a>    <ul>
-      <li><a href="#section-2" id="markdown-toc-section-2">报文的语法</a></li>
-      <li><a href="#section-3" id="markdown-toc-section-3">起始行</a></li>
-      <li><a href="#section-4" id="markdown-toc-section-4">首部</a></li>
-      <li><a href="#section-5" id="markdown-toc-section-5">实体的主体部分</a></li>
-      <li><a href="#section-6" id="markdown-toc-section-6">版本0.9的报文</a></li>
+  <li><a href="#报文流" id="markdown-toc-报文流">报文流</a></li>
+  <li><a href="#报文的组成部分" id="markdown-toc-报文的组成部分">报文的组成部分</a>    <ul>
+      <li><a href="#报文的语法" id="markdown-toc-报文的语法">报文的语法</a></li>
+      <li><a href="#起始行" id="markdown-toc-起始行">起始行</a></li>
+      <li><a href="#首部" id="markdown-toc-首部">首部</a></li>
+      <li><a href="#实体的主体部分" id="markdown-toc-实体的主体部分">实体的主体部分</a></li>
+      <li><a href="#版本09的报文" id="markdown-toc-版本09的报文">版本0.9的报文</a></li>
     </ul>
   </li>
-  <li><a href="#section-7" id="markdown-toc-section-7">方法</a></li>
-  <li><a href="#section-8" id="markdown-toc-section-8">状态码</a>    <ul>
-      <li><a href="#section-9" id="markdown-toc-section-9">首部</a></li>
+  <li><a href="#方法" id="markdown-toc-方法">方法</a></li>
+  <li><a href="#状态码" id="markdown-toc-状态码">状态码</a>    <ul>
+      <li><a href="#首部-1" id="markdown-toc-首部-1">首部</a></li>
     </ul>
   </li>
 </ul>
 
-<h4 id="section">报文流</h4>
+<h4 id="报文流">报文流</h4>
+
 <ul>
   <li>报文都会向下游流动，所有报文的发送者都在接收者的上游</li>
 </ul>
 
-<h4 id="section-1">报文的组成部分</h4>
+<h4 id="报文的组成部分">报文的组成部分</h4>
+
 <ul>
   <li>报文由三部分组成，起始行，包含属性的首部，可选的包含数据的主体</li>
 </ul>
@@ -149,10 +151,11 @@
 
 <p><code class="highlighter-rouge">说明</code>起始行和首部就是由行分隔的ASCII文本，每行都以一个由两个字符组成的行终止序列作为结束，其中包括一个回车符(ASCII 13)和一个换行符(ASCII 10)，这个行终止序列可以写作CRLF；主体部分是可选的，可以是文本或包含二进制数据，也可以为空。</p>
 
-<h5 id="section-2">报文的语法</h5>
+<h5 id="报文的语法">报文的语法</h5>
+
 <p>报文分为两类:请求报文，响应报文，通常的请求报文格式是:</p>
 
-<div class="language-html highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;method&gt;</span> <span class="nt">&lt;request-URL&gt;</span> <span class="nt">&lt;version&gt;</span>
+<div class="language-html highlighter-rouge"><pre class="highlighter"><code>  <span class="nt">&lt;method&gt;</span> <span class="nt">&lt;request-URL&gt;</span> <span class="nt">&lt;version&gt;</span>
   <span class="nt">&lt;headers&gt;</span>
   <span class="nt">&lt;entity-body&gt;</span>
 </code></pre>
@@ -160,13 +163,14 @@
 
 <p>响应报文格式:</p>
 
-<div class="language-html highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;version&gt;</span> <span class="nt">&lt;status&gt;</span> <span class="nt">&lt;reason-phrase&gt;</span>
+<div class="language-html highlighter-rouge"><pre class="highlighter"><code>  <span class="nt">&lt;version&gt;</span> <span class="nt">&lt;status&gt;</span> <span class="nt">&lt;reason-phrase&gt;</span>
   <span class="nt">&lt;headers&gt;</span>
   <span class="nt">&lt;entity-body&gt;</span>
 </code></pre>
 </div>
 
 <p><code class="highlighter-rouge">简要描述</code></p>
+
 <ul>
   <li>method: 客户端希望对服务器资源执行的动作。比如GET/HEAD/POST/PUT，后面会有详解。</li>
   <li>request-URL: 请求资源的完整URL</li>
@@ -179,7 +183,8 @@
 
 <p>⚠️一组HTTP首部总是应该以CRLF结束，但由于历史原因，很多客户端和服务器在实现主体部分时，都(错误地)省略了最后的CRLF，为了这些流行但不符合规则的实现进行互通，客户端和服务器端都应该接受那些最后没有CRLF的报文。</p>
 
-<h5 id="section-3">起始行</h5>
+<h5 id="起始行">起始行</h5>
+
 <ol>
   <li>请求行</li>
   <li>响应行</li>
@@ -189,7 +194,8 @@
   <li>版本号 HTTP/x.y</li>
 </ol>
 
-<h5 id="section-4">首部</h5>
+<h5 id="首部">首部</h5>
+
 <ul>
   <li>通用首部 既可以在请求报文中也可以在响应报文中</li>
   <li>请求首部 提供更多有关请求的信息</li>
@@ -201,15 +207,15 @@
 <p>⚠️每个HTTP首部都有个一个简单的语法: 名字后面跟”:”然后是可选空格再跟字段值，最后是一个CRLF，比如Content-length: 12334 , Content-type: image/gif , …..等
 首部行分为多行可提高可读性，多出来的每行前面至少要有一个空格或制表符(tab).</p>
 
-<h5 id="section-5">实体的主体部分</h5>
+<h5 id="实体的主体部分">实体的主体部分</h5>
 
 <p>主体部分就是要传输的内容可承载很多类型的数字数据:图片、视频、HTML文档、软件应用程序、电子邮件等。</p>
 
-<h5 id="section-6">版本0.9的报文</h5>
+<h5 id="版本09的报文">版本0.9的报文</h5>
 
 <p>HTTP/0.9报文也是由请求和响应组成，但请求中只包含方法和请求URL，响应中只包含实体。没有版本信息(它是第一个，也是当时唯一的版本)，没有状态码或者原因短语，也没有首部。</p>
 
-<h4 id="section-7">方法</h4>
+<h4 id="方法">方法</h4>
 
 <p>HTTP定义不产生动作的方法为安全方法，即不会在服务器端产生任何结果，反之不安全。
 幂等指的是，请求若干次和请求一次的结果一致，反之非幂等。
@@ -226,16 +232,20 @@
   <li>扩展方法</li>
 </ul>
 
-<h4 id="section-8">状态码</h4>
+<h4 id="状态码">状态码</h4>
+
 <ul>
-  <li>100 ~ 199 信息性状态码
-    <blockquote>
-      <ul>
-        <li>100 Continue 说明收到了请求的初始部分，请客户端继续，发送了这个状态码之后服务器在收到请求之后必须进行响应。</li>
-        <li>101 Switching Protocols 服务器根据客户端的指定，将协议切换成Update首部所列的协议。</li>
-      </ul>
-    </blockquote>
-  </li>
+  <li>100 ~ 199 信息性状态码</li>
+</ul>
+
+<blockquote>
+  <ul>
+    <li>100 Continue 说明收到了请求的初始部分，请客户端继续，发送了这个状态码之后服务器在收到请求之后必须进行响应。</li>
+    <li>101 Switching Protocols 服务器根据客户端的指定，将协议切换成Update首部所列的协议。</li>
+  </ul>
+</blockquote>
+
+<ul>
   <li>200 ~ 299 成功状态码</li>
 </ul>
 
@@ -395,7 +405,8 @@
   </tbody>
 </table>
 
-<h5 id="section-9">首部</h5>
+<h5 id="首部-1">首部</h5>
+
 <ul>
   <li>通用首部</li>
 </ul>
@@ -608,27 +619,27 @@
       
         <li>
           <h5>
-            <a href="/interview/2016/10/03/interview-1.html">
-              Interview-1
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
-              HTTP权威指南-15
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
-              HTTP权威指南-14
-              <small>2016-10-03</small>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
             </a>
           </h5>
         </li>

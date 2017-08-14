@@ -97,7 +97,89 @@
     
      -->
     <article>
-      <p>TODO</p>
+      <h4 id="2016-10-12">2016-10-12</h4>
+<p>Java 8种基本数据类型</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="err">基本类型</span> <span class="o">-&gt;</span> <span class="err">数值类型</span> <span class="o">-&gt;</span> <span class="err">整数类型:</span> <span class="kr">byte</span><span class="err">、</span><span class="kr">short</span><span class="err">、</span><span class="kr">int</span><span class="err">、</span><span class="kr">long</span>
+                   <span class="o">-&gt;</span> <span class="err">浮点数据类型:</span> <span class="kr">float</span><span class="err">、</span><span class="kr">double</span>
+                   <span class="o">-&gt;</span> <span class="err">字符类型:</span> <span class="kr">char</span>  
+<span class="err">基本类型</span> <span class="o">-&gt;</span> <span class="kr">boolean</span>
+
+<span class="err">引用类型</span> <span class="o">-&gt;</span> <span class="err">引用</span> <span class="o">-&gt;</span> <span class="err">类类型</span>
+                <span class="o">-&gt;</span> <span class="err">接口类型</span>
+                <span class="o">-&gt;</span> <span class="err">数组类型</span>
+
+<span class="mi">1</span><span class="kr">byte</span> <span class="o">=</span> <span class="mi">8</span><span class="nx">bits</span>
+<span class="err">计算机存储为补码，</span><span class="nx">java</span><span class="err">也是如此，</span><span class="kr">byte</span> <span class="o">=</span> <span class="mi">8</span><span class="nx">bits</span><span class="p">,</span> <span class="kr">short</span> <span class="o">=</span> <span class="mi">16</span><span class="nx">bits</span><span class="p">,</span> <span class="kr">int</span> <span class="o">=</span> <span class="mi">32</span><span class="nx">bits</span><span class="p">,</span> <span class="kr">long</span> <span class="o">=</span> <span class="mi">64</span><span class="nx">bits</span> <span class="p">,</span> <span class="kr">char</span> <span class="o">=</span> <span class="mi">16</span><span class="nx">bits</span><span class="p">,</span> <span class="kr">float</span> <span class="o">=</span> <span class="mi">32</span><span class="nx">bits</span><span class="p">,</span> <span class="kr">double</span> <span class="o">=</span> <span class="mi">64</span><span class="nx">bits</span><span class="p">,</span> <span class="kr">boolean</span> <span class="o">=</span> <span class="mi">8</span><span class="nx">bits</span>
+<span class="nx">java</span><span class="err">采用</span><span class="nx">Unicode</span><span class="err">字符编码，所谓字符编码就是用一串二进制数据来表示特定的字符。</span>
+<span class="err">数据需要高精度的场景需要采用</span><span class="nx">java</span><span class="p">.</span><span class="nx">math</span><span class="p">.</span><span class="nx">BigDecimal</span>
+
+<span class="err">类的成员变量默认值:</span><span class="kr">byte</span><span class="p">,</span><span class="kr">short</span><span class="p">,</span><span class="kr">int</span><span class="p">,</span><span class="kr">long</span><span class="err">:</span><span class="mi">0</span><span class="p">;</span> <span class="nl">float</span><span class="p">:</span><span class="mf">0.0f</span><span class="p">;</span> <span class="nl">double</span><span class="p">:</span><span class="mf">0.0d</span><span class="p">;</span> <span class="nl">char</span><span class="p">:</span><span class="s2">"\u0000"</span><span class="p">;</span> <span class="nl">boolean</span><span class="p">:</span><span class="kc">false</span><span class="p">;</span> <span class="err">引用类型:</span><span class="kc">null</span>
+<span class="err">注意:局部变量</span><span class="nx">JVM</span><span class="err">不会自动初始化为默认值，所以必须先显式初始化，才能使用。</span>
+<span class="err">当类型低于</span><span class="kr">int</span><span class="err">时，比如</span><span class="kr">char</span><span class="err">，则会按照</span><span class="kr">int</span><span class="err">进行计算</span><span class="p">;</span><span class="err">比如</span><span class="nb">String</span> <span class="nx">s</span> <span class="o">=</span> <span class="s1">'1'</span> <span class="o">+</span> <span class="s1">'2'</span> <span class="o">+</span> <span class="s2">"abc"</span><span class="p">;</span>
+<span class="nx">s</span> <span class="o">=</span> <span class="mi">99</span><span class="nx">abc</span><span class="p">;</span><span class="c1">// 1 = 49; 2 = 50;</span>
+</code></pre>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">转义字符</th>
+      <th style="text-align: left">描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">\n</code></td>
+      <td style="text-align: left">换行符，将光标定位到下一行的开头</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">\t</code></td>
+      <td style="text-align: left">垂直制表符，将光标移动到下一个制表符的位置</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">\r</code></td>
+      <td style="text-align: left">回车，将光标定位在当前行的开头，不会跳到下一行</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">\\</code></td>
+      <td style="text-align: left">代表反斜杠</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">\'</code></td>
+      <td style="text-align: left">代表单引号字符</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">\"</code></td>
+      <td style="text-align: left">代表双引号</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="变量作用域">变量作用域</h5>
+<ul>
+  <li>成员变量: 在类中声明，作用域为整个类</li>
+  <li>局部变量: 在一个方法内部或者代码块的内部声明，作用域为方法内或代码块内。</li>
+  <li>方法参数: 作用域为整个方法内部。</li>
+  <li>异常处理参数: 比如catch(Exception e)异常参数e，它的作用域就是紧跟着后面的代码块</li>
+</ul>
+
+<p><em>静态变量和实例变量的生命周期</em></p>
+<ul>
+  <li>成员变量有两种: 被static修饰的称为静态变量；另一种没有被static修饰的称为实例变量；
+静态变量内存中只有一个，JVM加载类的过程中为静态变量分配内存，静态变量位于方法区，被类的所有实例共享，可以直接通过类名访问，它的生命周期取决于类的生命周期。当加载类时，静态变量被创建并分配内存，当卸载类时，静态变量被销毁并撤销所占内存。</li>
+  <li>
+    <p>类的每一个实例都有相应的实例变量，每创建一个类的实例，JVM就会为实例变量分配一次内存，实例变量位于堆区中，它的生命周期取决于类的实例。</p>
+  </li>
+  <li>String底层为private final char value[] + 对这个数组的操作</li>
+  <li>StringBuilder JDK1.5 非线程安全; StringBuffer JDK1.0 线程安全在每个方法上加了<code class="highlighter-rouge">synchronized</code>, 它们都继承与 AbstractStringBuilder</li>
+</ul>
+
+<p><a href="https://michaelygzhang.github.io/home/">常见排序算法以及jdk集合源码分析</a></p>
+
+<p><a href="http://docs.oracle.com/javase/8/docs/technotes/guides/collections/overview.html">Oracle-Collection</a></p>
+
+<p>https://en.wikipedia.org/wiki/Java_(programming_language)</p>
 
     </article>
   </div>
@@ -108,27 +190,27 @@
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
-              HTTP权威指南-15
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
-              HTTP权威指南-14
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-9-10.html">
-              HTTP权威指南-9-10
-              <small>2016-10-02</small>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
             </a>
           </h5>
         </li>

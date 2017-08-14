@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Netty 权威指南 – Michael – Developer</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Netty" />
+    <meta property="og:description" content="Netty" />
+    
+    <meta name="author" content="Michael" />
+
+    
+    <meta property="og:title" content="Netty 权威指南" />
+    <meta property="twitter:title" content="Netty 权威指南" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Michael - Developer" href="/feed.xml" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+  </head>
+
+  <body>
+
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/images/favicon.ico" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Michael</a></h1>
+            <p class="site-description">Developer</p>
+          </div>
+
+          <nav>
+            <a href="/"><i class="fa fa-home fa-2x"></i></a>
+            <a href="/category"><i class="fa fa-tags fa-2x" aria-hidden="true"></i></a>
+            <a href="/about"><i class="fa fa-user-secret fa-2x"></i></a>
+            <a href="/blog"><i class="fa fa-university fa-2x"></i></a>
+            <!-- <a href="/task"><i class="fa fa-book fa-2x" aria-hidden="true"></i></a> -->
+            <a href="/feed.xml" target="_blank"><i class="fa fa-feed fa-2x"></i></a>
+
+            <!-- 
+            
+              
+            
+              
+            
+              
+              <a href="/" >
+                Home
+              </a>
+              
+            
+              
+              <a href="/blog" >
+                Blog
+              </a>
+              
+            
+              
+              <a href="/category" >
+                Category
+              </a>
+              
+             -->
+          </nav>
+
+          <a href="https://github.com/MichaelYgZhang" target="_blank">
+            <img class="fork-me-on-github" src="/images/fork-me-on-github.png" alt="Fork me on GitHub">
+          </a>
+        </header>
+
+        <div id="search-container">
+          <input type="text" id="search-input" placeholder="search...">
+          <ul id="results-container"></ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <div class="post">
+    <h1 class="post-title">Netty 权威指南</h1>
+    <span class="post-date">2017-02-16</span>
+    <!--  |
+    
+     -->
+    <article>
+      <h4 id="基础篇-走进java-nio">基础篇 走进Java NIO</h4>
+
+<h5 id="第1章-java的io演进之路">第1章 Java的I/O演进之路</h5>
+
+<ul>
+  <li>Linux网络I/O模型简介
+    <ul>
+      <li>阻塞I/O模型</li>
+      <li>非阻塞I/O模型</li>
+      <li>I/O复用模型：select/poll</li>
+      <li>信号驱动I/O模型</li>
+      <li>异步I/O：与信号驱动模型区别是：信号驱动I/O由内核通知我们何时开始一个I/O操作，异步I/O模型由内核通知我们I/O何时已经完成。</li>
+    </ul>
+  </li>
+  <li>I／O多路复用技术：目前支持I/O多路复用的系统调用有select、pselect、poll、epoll由于select有一些缺点，所以epoll作了很大改进，总结如下：
+    <ol>
+      <li>支持一个进程打开的socket描述符(FD)不受限制(仅受限于操作系统的最大文件句柄数)。<code class="highlighter-rouge">cat /proc/sys/fs/file-max</code> 可以进行察看，这个值跟系统的内存关系比较大。</li>
+      <li>I／O效率不会随着FD数目的增加而线性下降。</li>
+      <li>使用mmap加速内核与用户空间的消息传递。</li>
+      <li>epoll的API更加简单。</li>
+    </ol>
+  </li>
+  <li>Java的I/O演进。
+    <ul>
+      <li>JDK1.4推出NIO之前都是BIO，BIO简单，性能和可靠性有巨大瓶颈。</li>
+      <li>JDK1.7 NIO2.0</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="第2章-nio入门">第2章 NIO入门</h5>
+
+<ul>
+  <li>传统的BIO编程。</li>
+  <li>伪异步I/O编程
+    <ul>
+      <li>弊端分析：读写IO都是同步阻塞的，只是对BIO线程模型进行了简单的优化，无法从跟不上解决同步I/O导致的通信线程阻塞问题。</li>
+    </ul>
+  </li>
+  <li>NIO(Non-block I/O): 以下是NIO类库和相关概念
+    <ul>
+      <li>缓冲区Buffer：包含了一些要写入或者要写出的数据。本质就是字节数组，提供了对数据的结构化访问以及维护读写位置等信息。
+ByteBuffer、CharBuffer、ShortBuffer、IntBuffer、LongBuffer、FloatBuffer、DoubleBuffer。</li>
+      <li>通道Channel：通过它来读取和写入数据，网络数据通过Channel读取和写入，通道与流的不同之处在于通道是双工的，流只有一个方向。通道可以用于读、写或者同时读写。分为两大类：用于网络读写的SelectableChannel和文档操作FileChannel。</li>
+      <li>多路复用器Selector：简单来讲，Selector会不断地轮训注册在其上的Channel，如果某个Channel上面有新的TCP连接接入、读写事件，这个Channel就处于就绪状态，会被Selector轮训出来，然后通过SelectionKey可以获取就绪Channel的集合，进行后续的I/O操作。一个多路复用器Selector可以同时轮训多个Channel，由于JDK采用了epoll()代替了传统的select实现，所以它并没有最大连接句柄1024/2048的限制，意味着只需要一个线程负责Selector的轮询就可以接入成千上万的客户端。</li>
+    </ul>
+  </li>
+  <li>NIO服务端序列图
+    <ol>
+      <li>打开ServerSocketChannel</li>
+      <li>绑定监听地址InetSocketAddress</li>
+      <li>创建Selector启动线程</li>
+      <li>将ServerSocketChannel注册到Selector，监听</li>
+      <li>Selector轮询就绪的Key</li>
+      <li>handleAccept()处理新的客户端接入</li>
+      <li>设置新的客户端连接的Socket参数</li>
+      <li>向Selector注册监听读操作SelectionKey.OP_READ</li>
+      <li>handleRead()异步请求消息到ByteBuffer</li>
+      <li>decode请求消息</li>
+      <li>异步写ByteBuffer到SocketChannel</li>
+    </ol>
+  </li>
+  <li>NIO客户端序列图
+    <ol>
+      <li>打开SocketChannel</li>
+      <li>设置SocketChannel为非阻塞模式，同时设置TCP参数</li>
+      <li>异步连接服务端</li>
+      <li>判断连接结果，如果成功则调到步骤10，否则5</li>
+      <li>向Reactor线程的多路复用器注册OP_CONNECT事件</li>
+      <li>创建Selector启动线程</li>
+      <li>Selector轮询就绪的Key</li>
+      <li>handerConnect()</li>
+      <li>判断连接是否完成，完成步骤10</li>
+      <li>向多路复用器注册读事件OP_READ</li>
+      <li>HandleRead()异步请求消息到ByteBuffer</li>
+      <li>decode请求消息</li>
+      <li>异步写ByteBuffer到SocketChannel</li>
+    </ol>
+  </li>
+  <li>AIO编程</li>
+  <li>
+    <p>TODO</p>
+  </li>
+  <li>选择Netty而直接使用JDK的NIO类库开发的理由
+    <ol>
+      <li>NIO的类库和API繁杂，使用麻烦，需要熟练掌握Selector,ServerSocketChannel,SocketChannel,ByteBuffer等</li>
+      <li>需要具备其他额外的技能做铺垫，例如熟悉Java多线程编程，这是因为NIO编程涉及到Reactor模式，你必须对多线程和网络编程非常熟悉，才能写出高质量的NIO程序。</li>
+      <li>可靠性能补齐，工作量和难度都非常大。如客户端面临断链重连，网络闪断，半包读写，失败缓存，网络拥塞和异常码流的处理等问题，NIO编程的特点是功能开发相对容易，但可靠性能力的工作量和难度都非常大。</li>
+      <li>JDK NIO的BUG。例如epoll bug，导致Selector空轮询，最终导致CPU 100%</li>
+    </ol>
+  </li>
+  <li>Netty优点：
+    <ol>
+      <li>API简单，开发门槛低</li>
+      <li>功能强大，预置了多种编解码功能，支持多种主流协议</li>
+      <li>定制能力强，可以通过ChannelHandler对通信框架进行灵活扩展。</li>
+      <li>性能高，成熟稳定，修复了以发现的所有JDK NIO bug，不需要再为NIO的bug烦恼</li>
+      <li>社区活跃，版本迭代周期短,发现的bug能即时修复，以及更多的新功能加入。</li>
+      <li>经历了大规模的商业应用考验，质量得到验证。</li>
+    </ol>
+  </li>
+</ul>
+
+<h4 id="入门篇-ntty-nio开发指南">入门篇 Ntty NIO开发指南</h4>
+
+<h5 id="第3章-netty入门应用">第3章 Netty入门应用</h5>
+
+<ul>
+  <li>DEOM</li>
+</ul>
+
+<h5 id="第4章-tcp粘包拆包问题的解决之道">第4章 TCP粘包／拆包问题的解决之道</h5>
+
+<ul>
+  <li>
+    <p>TCP粘包／拆包：TCP是个流协议，没有界限的一串数据，没有分界线，TCP底层并不了解上层业务数据的具体含义，它根据TCP缓冲区的实际情况进行包的划分，所以一个完成的包可能会被TCP拆分成多个包发送，也有可能把多个小包封装在一个大的数据包发送，这就是所谓的粘包和拆包问题。</p>
+  </li>
+  <li>TCP粘包／拆包发生原因：
+    <ol>
+      <li>应用程序write写入的字节大小大于套接口发送缓冲区的大小。</li>
+      <li>进行MSS大小的TCP分段。</li>
+      <li>以太网帧payload大于MTU进行IP分片</li>
+    </ol>
+  </li>
+  <li>粘包解决策略：
+    <ol>
+      <li>消息定长，例如每个报文大小固定长度200字节，如果不够空位补空格。</li>
+      <li>在包尾增加回车换行符进行分割，例如FTP协议。</li>
+      <li>将消息分为消息头和消息体，消息头中包含表示消息总长度的字段，通常设计思路为消息头的第一个字段使用int32来表示消息的总长度。</li>
+      <li>更复杂的应用层协议。</li>
+    </ol>
+  </li>
+  <li>Netty利用LineBasedFrameDecoder、StringDecoder解决TCP粘包问题。Netty提供了多种编解码器用于处理半包问题。</li>
+  <li>LineBasedFrameDecoder的工作原理是它依次遍历ByteBuf中的可读字节，判断是否有’\n’或者’\r\n’，如果有，就以此位置为结束位置，从可读索引到结束位置区间的字节就组成了一行，它是支持配置单行的最大长度。如果连续读取到最大长度后仍然没有发现换行符，就抛出异常，同时忽略之前读到的异常码流。</li>
+  <li>StringDecoder的功能非常简单，就是将接收到的对象转换成字符串，然后继续调用后面的handler，LineBasedFrameDecoder+StringDecoder组合就是按行切换的文本解码器。</li>
+</ul>
+
+<h5 id="第5章-分隔符和定长解码器的应用">第5章 分隔符和定长解码器的应用</h5>
+
+<ul>
+  <li>DelimiterBasedFrameDecoder和FixedLengthFramerDecoder前者可以自动完成分隔符做结束标志的消息的解码，后者可以自动完成对定长消息的解码，它们都能解决TCP粘包／拆包导致的半读问题。</li>
+  <li>使用指南：只要将DelimiterBasedFrameDecoder或FixedLengthFramerDecoder添加到对应的ChannelPipeline的起始位置即可。</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><pre class="highlighter"><code><span class="n">Bootstrap</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bootstrap</span><span class="o">();</span>
+<span class="n">b</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="n">group</span><span class="o">).</span><span class="na">channel</span><span class="o">(</span><span class="n">NioSocketChannel</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">option</span><span class="o">(</span><span class="n">ChannelOption</span><span class="o">.</span><span class="na">TCP_NODELAY</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">handler</span><span class="o">(</span><span class="k">new</span> <span class="n">ChannelInitializer</span><span class="o">&lt;</span><span class="n">SocketChannel</span><span class="o">&gt;()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">initChannel</span><span class="o">(</span><span class="n">SocketChannel</span> <span class="n">socketChannel</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+          <span class="n">ByteBuf</span> <span class="n">delimiter</span> <span class="o">=</span> <span class="n">Unpooled</span><span class="o">.</span><span class="na">copiedBuffer</span><span class="o">(</span><span class="s">"$_"</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+          <span class="n">socketChannel</span><span class="o">.</span><span class="na">pipeline</span><span class="o">().</span><span class="na">addLast</span><span class="o">(</span>
+            <span class="k">new</span> <span class="nf">DelimiterBasedFrameDecoder</span><span class="o">(</span><span class="mi">1024</span><span class="o">,</span> <span class="n">delimiter</span><span class="o">));</span>
+          <span class="n">socketChannel</span><span class="o">.</span><span class="na">pipeline</span><span class="o">().</span><span class="na">addLast</span><span class="o">(</span><span class="k">new</span> <span class="n">StringDecoder</span><span class="o">());</span>
+          <span class="n">socketChannel</span><span class="o">.</span><span class="na">pipeline</span><span class="o">().</span><span class="na">addLast</span><span class="o">(</span><span class="k">new</span> <span class="n">EchoClientHandler</span><span class="o">());</span>  
+        <span class="o">}</span>
+      <span class="o">});</span>
+<span class="n">ChannelFuture</span> <span class="n">f</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="na">connect</span><span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">port</span><span class="o">).</span><span class="na">sync</span><span class="o">();</span>
+<span class="n">f</span><span class="o">.</span><span class="na">channel</span><span class="o">().</span><span class="na">closeFuture</span><span class="o">().</span><span class="na">sync</span><span class="o">();</span>
+</code></pre>
+</div>
+
+<h4 id="中级篇-netty编解码开发指南">中级篇 Netty编解码开发指南</h4>
+
+<h5 id="第6章-编解码技术">第6章 编解码技术</h5>
+
+<ul>
+  <li>Java序列化，实现 java.io.Serializable并生成序列ID即可，缺点如下：
+    <ol>
+      <li>无法跨语言最致命的问题，不同的服务可能语言不同。Java序列化后的字节数组，别的语言无法进行反序列化，事实上目前几乎所有流行的RPC通信框架都没有使用Java序列化作为编解码框架，原因就是无法跨语言。</li>
+      <li>序列化后的码流太大。导致存储占空间更大成本就越高，传输更占带宽，导致系统吞吐量低。</li>
+      <li>序列化性能低。
+4.</li>
+    </ol>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><pre class="highlighter"><code><span class="c1">//java序列化 info对象  java.io.ObjectInput或java.io.ObjectOutput进行反序列化和序列化</span>
+<span class="n">ByteArrayOutputStream</span> <span class="n">bos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayOutputStream</span><span class="o">();</span>
+<span class="n">ObjectOutputStream</span> <span class="n">os</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="n">bos</span><span class="o">);</span>
+<span class="n">os</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">info</span><span class="o">);</span>
+<span class="n">os</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+<span class="n">os</span><span class="o">.</span><span class="na">close</span><span class="o">;</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>评判一个编解码框架主要考虑以下因素：
+    <ol>
+      <li>是否支持跨语言</li>
+      <li>编码后的码流大小</li>
+      <li>编解码的性能</li>
+      <li>类库是否小巧API使用是否方便</li>
+      <li>使用者需要手工开发的工作量和难度</li>
+    </ol>
+  </li>
+  <li>Protobuf(Google Protocol Buffers):特点如下:
+    <ol>
+      <li>结构化数据存储(XML, JSON等)，二进制编码</li>
+      <li>高效编解码性能</li>
+      <li>语言无关、平台无关、扩展性好。</li>
+      <li>官方支持Java、C++、Python三种语言</li>
+    </ol>
+  </li>
+  <li>Protobuf优点如下：
+    <ol>
+      <li>文本化数据结构，语言和平台无关，适合做异构系统间的集成。</li>
+      <li>通过标识字段的顺序，可以实现协议的前向兼容</li>
+      <li>自动代码生成，不要手工编写同样数据结构的C++和Java版本</li>
+      <li>方便后续管理和维护</li>
+    </ol>
+  </li>
+  <li>Thrift／JBoss Marshalling</li>
+</ul>
+
+<h5 id="第7章-java序列化">第7章 Java序列化</h5>
+
+<ul>
+  <li>通过使用Netty的Java序列化编解码handler，可以完成POJO的序列化和反序列化。</li>
+</ul>
+
+<h5 id="第8章-google-protobuf编解码">第8章 Google Protobuf编解码</h5>
+
+<ul>
+  <li>优点：
+    <ol>
+      <li>Google内部长期使用，产品成熟度高；</li>
+      <li>跨语言，C++，Java，Python</li>
+      <li>编码后的消息更小，更加有利于存储和传输</li>
+      <li>编解码性能高</li>
+      <li>支持不同协议版本的前后兼容</li>
+      <li>支持定义可选和必选字段</li>
+    </ol>
+  </li>
+</ul>
+
+<h5 id="第9章-jboss-marshalling编解码">第9章 JBoss Marshalling编解码</h5>
+
+<ul>
+  <li>略。</li>
+</ul>
+
+<h4 id="高级篇-netty多协议开发和应用">高级篇 Netty多协议开发和应用</h4>
+
+<h5 id="第10章-http协议开发应用">第10章 HTTP协议开发应用</h5>
+
+<ul>
+  <li>HTTP协议主要特点：
+    <ol>
+      <li>支持Client/Server模式</li>
+      <li>简单–客户向服务器请求服务时，只需指定服务URL，携带必要的请求参数或者消息体</li>
+      <li>灵活–HTTP允许传输任意类型的数据对象，传输的内容类型由HTTP消息头中的Content-Type加以标记</li>
+      <li>无状态–HTTP协议是无状态协议。</li>
+    </ol>
+  </li>
+  <li>P232  TODO</li>
+</ul>
+
+<h5 id="第11章-websocket协议开发">第11章 WebSocket协议开发</h5>
+
+<h5 id="第12章-udp协议开发">第12章 UDP协议开发</h5>
+
+<h5 id="第13章-文件传输">第13章 文件传输</h5>
+
+<h5 id="第14章-私有协议栈开发">第14章 私有协议栈开发</h5>
+
+    </article>
+  </div>
+
+  <div class="related">
+    <h4>最新文章</h4>
+    <ul class="related-posts">
+      
+        <li>
+          <h5>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
+            </a>
+          </h5>
+        </li>
+      
+    </ul>
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'michaelygzhangblog';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:g.zhangyg@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/MichaelYgZhang"><i class="svg-icon github"></i></a>
+
+
+
+
+<a href="https://www.twitter.com/michaelygzhang"><i class="svg-icon twitter"></i></a>
+
+
+<a href="https://plus.google.com/115646538142388831563"><i class="svg-icon googleplus"></i></a>
+
+        </footer>
+      </div>
+    </div>
+
+    <div id="backToTop" class="backtoTop">
+    	<i class="fa fa-hand-o-up fa-2x"></i>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-84531968-1', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/java/2017/02/16/netty-handbook.html',
+		  'title': 'Netty 权威指南'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-jekyll-search/1.1.5/jekyll-search.js" type="text/javascript"></script>
+    <script src="/js/blog.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+          SimpleJekyllSearch({
+            searchInput: document.getElementById('search-input'),
+            resultsContainer: document.getElementById('results-container'),
+            json: '/search.json',
+            searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+            noResultsText: 'No results found',
+            limit: 10,
+            fuzzy: false,
+            exclude: ['Welcome']
+          })
+    </script>
+  </body>
+</html>

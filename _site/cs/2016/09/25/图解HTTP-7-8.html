@@ -97,11 +97,12 @@
     
      -->
     <article>
-      <h4 id="webhttps">7 确保Web安全的HTTPS</h4>
+      <h4 id="7-确保web安全的https">7 确保Web安全的HTTPS</h4>
 
-<h5 id="http">1－HTTP的缺点</h5>
+<h5 id="1http的缺点">1－HTTP的缺点</h5>
 
-<h6 id="section">通信使用明文可能会被窃听</h6>
+<h6 id="通信使用明文可能会被窃听">通信使用明文可能会被窃听</h6>
+
 <ul>
   <li>TCP/IP 是可能被窃听的网络</li>
   <li>加密处理防止被窃听</li>
@@ -112,15 +113,16 @@
   <li>无法证明报文完整性，可能已遭篡改</li>
 </ul>
 
-<h5 id="httphttps">2－HTTP＋加密＋认证＋完整性保护＝HTTPS</h5>
+<h5 id="2http加密认证完整性保护https">2－HTTP＋加密＋认证＋完整性保护＝HTTPS</h5>
 
 <h6 id="sslsecure-socket-layer-tlstransport-layer-security">SSL(Secure Socket Layer) TLS(Transport Layer Security)</h6>
 
 <p>HTTPS就是在HTTP协议的基础上加上SSL和TLS</p>
 
-<h5 id="section-1">8 确认访问用户身份的认证</h5>
+<h5 id="8-确认访问用户身份的认证">8 确认访问用户身份的认证</h5>
 
-<h6 id="section-2">认证方式</h6>
+<h6 id="认证方式">认证方式</h6>
+
 <ul>
   <li>密码</li>
   <li>动态令牌</li>
@@ -129,7 +131,8 @@
   <li>IC卡等</li>
 </ul>
 
-<h6 id="http11">HTTP/1.1认证方式</h6>
+<h6 id="http11认证方式">HTTP/1.1认证方式</h6>
+
 <ul>
   <li>BASIC认证</li>
   <li>DIGEST认证</li>
@@ -137,40 +140,40 @@
   <li>FormBase认证</li>
 </ul>
 
-<h6 id="basic">BASIC认证</h6>
+<h6 id="basic认证">BASIC认证</h6>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:发送请求</span>
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:发送请求</span>
 <span class="nx">S</span><span class="o">-&gt;&gt;</span><span class="nx">C</span><span class="err">:返回状态吗</span><span class="mi">401</span><span class="err">告知</span><span class="nx">C</span><span class="err">需要认证</span>
 <span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:用户</span><span class="nx">ID</span><span class="err">和</span><span class="nx">PWD</span><span class="err">以</span><span class="nx">Base64</span><span class="err">方式编码</span><span class="p">(</span><span class="err">并不是加密处理</span><span class="p">)</span><span class="err">后发送</span>
 <span class="nx">S</span><span class="o">-&gt;&gt;</span><span class="nx">C</span><span class="err">:认证成功返回</span><span class="mi">200</span><span class="err">，失败则</span><span class="mi">401</span>
 </code></pre>
 </div>
 
-<h5 id="digest">DIGEST认证</h5>
+<h5 id="digest认证">DIGEST认证</h5>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:</span> <span class="err">发送请求</span>
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:</span> <span class="err">发送请求</span>
 <span class="nx">S</span><span class="o">-&gt;&gt;</span><span class="nx">C</span><span class="err">:</span> <span class="err">发送临时的质询码</span><span class="p">(</span><span class="err">随机数</span><span class="p">,</span><span class="nx">nonce</span><span class="p">)</span><span class="err">以告知需要认证的状态吗</span><span class="mi">401</span>
 <span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:</span> <span class="err">发送摘要以及由质询码计算出的响应码</span>
 <span class="nx">S</span><span class="o">-&gt;&gt;</span><span class="nx">C</span><span class="err">:</span> <span class="err">认证成功返回</span><span class="mi">200</span><span class="err">失败</span><span class="mi">401</span>
 </code></pre>
 </div>
 
-<h5 id="ssl">SSL认证</h5>
+<h5 id="ssl认证">SSL认证</h5>
 
 <p>客户端证书收费</p>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:请求某一需要认证的资源，比如登陆</span>
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:请求某一需要认证的资源，比如登陆</span>
 <span class="nx">S</span><span class="o">-&gt;&gt;</span><span class="nx">C</span><span class="err">:发送</span><span class="nx">Certificate</span> <span class="nx">Request</span><span class="err">报文，要求提供客户端证书</span>
 <span class="nx">C</span><span class="o">--&gt;</span><span class="nx">S</span><span class="err">:将</span><span class="nx">Certicicate</span><span class="err">信息以</span><span class="nx">Client</span> <span class="nx">Certificate</span><span class="err">报文方式发送给</span><span class="nx">S</span>
 <span class="nx">S</span><span class="o">-&gt;&gt;</span><span class="nx">C</span><span class="err">:验证证书</span><span class="p">,</span><span class="err">通过后领取客户端的公开密钥进行</span><span class="nx">HTTPS</span><span class="err">加密通信</span>
 </code></pre>
 </div>
 
-<h5 id="section-3">基于表单认证</h5>
+<h5 id="基于表单认证">基于表单认证</h5>
 
 <p>大多认证采用表单认证，涉及Session管理Cookie应用，即Cookie来管理Session,弥补HTTP协议为无状态的缺点。</p>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:发送登陆信息</span><span class="nx">ID</span><span class="p">,</span><span class="nx">PWD</span>
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:发送登陆信息</span><span class="nx">ID</span><span class="p">,</span><span class="nx">PWD</span>
 <span class="nx">S</span><span class="o">-&gt;&gt;</span><span class="nx">C</span><span class="err">:返回包含</span><span class="nx">Session</span> <span class="nx">ID</span><span class="err">的</span><span class="nx">Cookie</span><span class="p">,</span><span class="err">以纪录认证状态</span>
 <span class="nx">C</span><span class="o">-&gt;&gt;</span><span class="nx">S</span><span class="err">:发送包含</span><span class="nx">Session</span> <span class="nx">ID</span><span class="err">的</span><span class="nx">Cookie</span><span class="err">的请求</span>
 </code></pre>
@@ -187,27 +190,27 @@
       
         <li>
           <h5>
-            <a href="/interview/2016/10/03/interview-1.html">
-              Interview-1
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
-              HTTP权威指南-15
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
-              HTTP权威指南-14
-              <small>2016-10-03</small>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
             </a>
           </h5>
         </li>

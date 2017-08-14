@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>QA – Michael – Developer</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="经验累计" />
+    <meta property="og:description" content="经验累计" />
+    
+    <meta name="author" content="Michael" />
+
+    
+    <meta property="og:title" content="QA" />
+    <meta property="twitter:title" content="QA" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Michael - Developer" href="/feed.xml" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+  </head>
+
+  <body>
+
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/images/favicon.ico" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Michael</a></h1>
+            <p class="site-description">Developer</p>
+          </div>
+
+          <nav>
+            <a href="/"><i class="fa fa-home fa-2x"></i></a>
+            <a href="/category"><i class="fa fa-tags fa-2x" aria-hidden="true"></i></a>
+            <a href="/about"><i class="fa fa-user-secret fa-2x"></i></a>
+            <a href="/blog"><i class="fa fa-university fa-2x"></i></a>
+            <!-- <a href="/task"><i class="fa fa-book fa-2x" aria-hidden="true"></i></a> -->
+            <a href="/feed.xml" target="_blank"><i class="fa fa-feed fa-2x"></i></a>
+
+            <!-- 
+            
+              
+            
+              
+            
+              
+              <a href="/" >
+                Home
+              </a>
+              
+            
+              
+              <a href="/blog" >
+                Blog
+              </a>
+              
+            
+              
+              <a href="/category" >
+                Category
+              </a>
+              
+             -->
+          </nav>
+
+          <a href="https://github.com/MichaelYgZhang" target="_blank">
+            <img class="fork-me-on-github" src="/images/fork-me-on-github.png" alt="Fork me on GitHub">
+          </a>
+        </header>
+
+        <div id="search-container">
+          <input type="text" id="search-input" placeholder="search...">
+          <ul id="results-container"></ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <div class="post">
+    <h1 class="post-title">QA</h1>
+    <span class="post-date">2017-02-22</span>
+    <!--  |
+    
+     -->
+    <article>
+      <h4 id="锁">锁</h4>
+
+<ul>
+  <li>单数据库, 乐观锁</li>
+  <li>memcached的add()</li>
+  <li>redis的setnx(), expire(), get(), getset()</li>
+  <li>思考宕机情况如何解决</li>
+  <li>跨表垮裤事务问题</li>
+  <li>
+    <p>分库分表</p>
+  </li>
+  <li>RPC？底层？服务注册、获取？</li>
+  <li>JVM, jmap, jstat, jps, jstack…</li>
+  <li>ConcurrencyHashMap, safe why? AQS, CAS, HashMap</li>
+</ul>
+
+<h6 id="并发指标">并发指标：</h6>
+
+<ul>
+  <li>PV(Page view)PV是指页面的访问次数，每打开或刷新一次页面，就算做一个pv</li>
+  <li>计算模型：</li>
+  <li>每台服务器每秒处理请求的数量=((80%总PV量)/(24小时<em>60分</em>60秒*40%)) / 服务器数量 。
+其中关键的参数是80%、40%。表示一天中有80%的请求发生在一天的40%的时间内。24小时的40%是9.6小时，有80%的请求发生一天的9.6个小时当中（很适合互联网的应用，白天请求多，晚上请求少）。</li>
+  <li>注意机房的网络带宽</li>
+  <li>QPS - Queries Per Second  每秒处理的查询数（如果是数据库，就相当于读取）</li>
+  <li>TPS - Transactions Per Second  每秒处理的事务数(如果是数据库，就相当于写入、修改)</li>
+  <li>
+    <p>IOPS，每秒磁盘进行的I/O操作次数</p>
+  </li>
+  <li>设计后端接口时，注意思考这样的几个状态：成功、失败、是否幂等、超时、异常、每个状态如何处理、是否做到了请求次数的最少设计。
+    <ol>
+      <li>接口设计还应该注意几端接入时扩展性，高并发，稳定性问题。</li>
+      <li>TODO</li>
+    </ol>
+  </li>
+  <li>连接池：
+    <ul>
+      <li>优点: 复用避免重复创建销毁，很好的控制资源，稳定系统性能，其核心思想：连接复用。</li>
+      <li>关键点: 并发问题，数据库连接池设计时考虑多库多用户问题，事务问题。</li>
+      <li>关键参数: corePoolSize, maximumPoolSize, keepAliveTime, workQueue阻塞队列; worker, job
+        <ul>
+          <li>核心处理:
+            <ol>
+              <li>works数量低于corePoolSize则创建一个worker处理job</li>
+              <li>works高于corePoolSize则将job放入待处理队列，若成功则结束。</li>
+              <li>若2放入队列失败，则再次检查works是否还是处于高于corePoolSize，如果是小于则创建一个worker处理job</li>
+              <li>拒绝处理。</li>
+            </ol>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>ThreadLocal：该类提供了线程局部 (thread-local) 变量。这些变量不同于它们的普通对应物，因为访问某个变量（通过其 get 或 set 方法）的每个线程都有自己的局部变量，它独立于变量的<code class="highlighter-rouge">初始化副本</code>。ThreadLocal 实例通常是类中的 private static 字段，它们希望将状态与某一个线程（例如，用户 ID 或事务 ID）相关联。</p>
+  </li>
+  <li>分布式最终一致性方案:
+    <ul>
+      <li>基于消息队列+定时补偿机制</li>
+      <li>引入异步回调机制，通知机制</li>
+      <li>TODO</li>
+    </ul>
+  </li>
+  <li>用户权限相关做法：
+    <ul>
+      <li>以用户菜单为例，不同角色的用户拥有不同的菜单权限。
+        <ol>
+          <li>菜单表: id, topid,menu_name,link,status ;编号key,菜单的上一级就是说这里只支持2级菜单，菜单对应的请求路径，状态</li>
+          <li>角色表:id,role_name,create_time ;编号key,角色名称比如超期管理员，管理员，经理，员工等,创建时间</li>
+          <li>角色菜单表,意思就是那个角色分配哪些菜单,以id关联，字段为:id,role_id,menu_id    ;编号key,角色编号,菜单编号</li>
+          <li>用户表: id,account,pwd,name,sex,status,roles,create_time ;编号key,账号,密码,姓名,性别,状态,</li>
+        </ol>
+      </li>
+      <li>所属角色[1];[1,2]比如可能只有一个角色，也可能有多个角色</li>
+    </ul>
+  </li>
+  <li>
+    <p>总结:当一个用户登录时，先在用户表中获得所属角色，然后根据所属角色在角色菜单表中获得相应的菜单，然后再去菜单表中得到需要展现的数据。</p>
+  </li>
+  <li>修改代码时要先取理解原有代码的含义，以及设计的目的，如果不明白，要及时了解沟通，不要随意修改他人代码。</li>
+  <li>编写模块前一定先搞清模块的业务，然后多思考，设计合适的方案，最后才是写代码。</li>
+</ul>
+
+    </article>
+  </div>
+
+  <div class="related">
+    <h4>最新文章</h4>
+    <ul class="related-posts">
+      
+        <li>
+          <h5>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
+            </a>
+          </h5>
+        </li>
+      
+    </ul>
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'michaelygzhangblog';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:g.zhangyg@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/MichaelYgZhang"><i class="svg-icon github"></i></a>
+
+
+
+
+<a href="https://www.twitter.com/michaelygzhang"><i class="svg-icon twitter"></i></a>
+
+
+<a href="https://plus.google.com/115646538142388831563"><i class="svg-icon googleplus"></i></a>
+
+        </footer>
+      </div>
+    </div>
+
+    <div id="backToTop" class="backtoTop">
+    	<i class="fa fa-hand-o-up fa-2x"></i>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-84531968-1', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/qa/2017/02/22/QA.html',
+		  'title': 'QA'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-jekyll-search/1.1.5/jekyll-search.js" type="text/javascript"></script>
+    <script src="/js/blog.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+          SimpleJekyllSearch({
+            searchInput: document.getElementById('search-input'),
+            resultsContainer: document.getElementById('results-container'),
+            json: '/search.json',
+            searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+            noResultsText: 'No results found',
+            limit: 10,
+            fuzzy: false,
+            exclude: ['Welcome']
+          })
+    </script>
+  </body>
+</html>

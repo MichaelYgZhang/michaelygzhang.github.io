@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Java并发编程艺术-读书笔记 – Michael – Developer</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Java并发编程艺术" />
+    <meta property="og:description" content="Java并发编程艺术" />
+    
+    <meta name="author" content="Michael" />
+
+    
+    <meta property="og:title" content="Java并发编程艺术-读书笔记" />
+    <meta property="twitter:title" content="Java并发编程艺术-读书笔记" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Michael - Developer" href="/feed.xml" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+  </head>
+
+  <body>
+
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/images/favicon.ico" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Michael</a></h1>
+            <p class="site-description">Developer</p>
+          </div>
+
+          <nav>
+            <a href="/"><i class="fa fa-home fa-2x"></i></a>
+            <a href="/category"><i class="fa fa-tags fa-2x" aria-hidden="true"></i></a>
+            <a href="/about"><i class="fa fa-user-secret fa-2x"></i></a>
+            <a href="/blog"><i class="fa fa-university fa-2x"></i></a>
+            <!-- <a href="/task"><i class="fa fa-book fa-2x" aria-hidden="true"></i></a> -->
+            <a href="/feed.xml" target="_blank"><i class="fa fa-feed fa-2x"></i></a>
+
+            <!-- 
+            
+              
+            
+              
+            
+              
+              <a href="/" >
+                Home
+              </a>
+              
+            
+              
+              <a href="/blog" >
+                Blog
+              </a>
+              
+            
+              
+              <a href="/category" >
+                Category
+              </a>
+              
+             -->
+          </nav>
+
+          <a href="https://github.com/MichaelYgZhang" target="_blank">
+            <img class="fork-me-on-github" src="/images/fork-me-on-github.png" alt="Fork me on GitHub">
+          </a>
+        </header>
+
+        <div id="search-container">
+          <input type="text" id="search-input" placeholder="search...">
+          <ul id="results-container"></ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <div class="post">
+    <h1 class="post-title">Java并发编程艺术-读书笔记</h1>
+    <span class="post-date">2016-12-25</span>
+    <!--  |
+    
+     -->
+    <article>
+      <h5 id="1-并发编程的挑战">1 并发编程的挑战</h5>
+
+<ul>
+  <li>上下文切换，减少上下文切换的方法有无锁并发编程、CAS算法、使用最少线程和使用协程。</li>
+  <li>死锁，避免死锁的常见方法，避免一个线程同时获取多个锁；避免一个线程在锁内同时占用多个资源，尽量
+保证每个锁只占用一个资源；尝试使用定时锁，使用lock.tryLock(timeout)来替代使用内部锁机制；
+对于数据库锁，加锁和解锁必须在一个数据库连接里，否则会出现解锁失败的情况。</li>
+  <li>资源限制，可以通过增加集群解决，具体问题具体分析</li>
+</ul>
+
+<h5 id="2-java并发机制的底层实现原理">2 Java并发机制的底层实现原理</h5>
+
+<ul>
+  <li><code class="highlighter-rouge">volatile</code> 多线程共享变量的可见性，不保证原子性。比<code class="highlighter-rouge">synchronized</code>的执行成本更低，因为它不会引起线程上下文的切换和调度。实现机制：1. volatile变量生成字节码中，在写之前有lock，lock前缀指令会引起处理器缓存回写到内存，
+并且有会有个称为“缓存锁定”的操作，这个缓存一致性机制会阻止同时修改由两个以上处理器缓存的内存区域数据。2. 一个处理器缓存回写到内存会导致其他处理器的缓存无效。</li>
+  <li><code class="highlighter-rouge">synchronized</code>的实现原理与应用。每个对象对应会有一对Monitor，monitorenter/monitorexit
+    <ol>
+      <li>普通同步方法，锁的是当前实例对象。</li>
+      <li>对于静态同步方法，锁是当前类的Class对象。</li>
+      <li>对于同步方法块，锁的是’synchronized’括号里的对象。</li>
+    </ol>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">锁</th>
+      <th style="text-align: left">优点</th>
+      <th style="text-align: left">缺点</th>
+      <th style="text-align: left">使用场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">偏向锁</td>
+      <td style="text-align: left">加锁和解锁不需要额外的消耗，和执行非同步方法相比仅存在纳秒级差距</td>
+      <td style="text-align: left">线程存在锁竞争带来额外的锁撤销的消耗</td>
+      <td style="text-align: left">适用于只有一个线程访问同步块场景。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">轻量级锁</td>
+      <td style="text-align: left">竞争的线程不会阻塞，提高程序的响应速度</td>
+      <td style="text-align: left">如果程序始终得不到锁竞争的线程使用自旋会消耗CPU</td>
+      <td style="text-align: left">追求响应时间同步块执行速度非常快</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">重量级锁</td>
+      <td style="text-align: left">线程竞争不使用自旋,不会消耗CPU</td>
+      <td style="text-align: left">线程阻塞，响应时间缓慢</td>
+      <td style="text-align: left">追求吞吐量同步块执行速度较长</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>原子操作的实现原理
+    <ol>
+      <li>使用总线锁保证原子性。</li>
+      <li>使用缓存锁保证原子性。</li>
+    </ol>
+  </li>
+  <li>Java如何实现原子操作。
+    <ol>
+      <li>锁</li>
+      <li>CAS
+        <ul>
+          <li>ABA问题(<code class="highlighter-rouge">AtomicStampedReference</code>)</li>
+          <li>自旋CAS如果长时间不成功，循环时间长开销大</li>
+          <li>自能保证一个共享变量的原子操作，可以合并共享变量然后JDK 1.5开始可以使用<code class="highlighter-rouge">AtomicReference</code>类保证引用对象之前的原子性。</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h5 id="3-java内存模型-jmm">3 Java内存模型 JMM</h5>
+
+<ul>
+  <li>Java内存模型的基础，共享内存模型。
+    <ol>
+      <li>在执行程序时，为了提高性能，编译器和处理器常常会对执行做重排序，分3中类型。
+        <ul>
+          <li>编译器优化的重排序。</li>
+          <li>指令级并行的重排序，如果不存在数据依赖性，处理器可以改变语句对应机器指令的执行顺序。</li>
+          <li>内存系统的重排序，由于处理器使用缓存和读／写缓冲区，使得家在和存储操作看上去可能是乱序执行。</li>
+          <li>从源码到最终实际执行的指令序列。源码–&gt;1编译器优化冲排序–&gt;2指令级并行重排序–&gt;3内存系统重排序–&gt;最终执行的指令序列。1为编译器重排序23为处理器重排序。通过内存屏障指令可以禁止特定类型的处理器重排序。</li>
+        </ul>
+      </li>
+      <li>happens-before原则</li>
+    </ol>
+  </li>
+  <li>重排序，是指编译器和处理器为了优化程序性能而对指令序列进行重排序的一种手段。
+    <ol>
+      <li>数据依赖；如果两个操作访问一个变量，且这两个操作中有一个写操作，此时这个两个操作之前就存在数据依赖，3中情况，写后读，写后写，读后写，只要重排序两个操作的执行顺序，程序结果就会被改变。编译器和处理器不会改变存在数据依赖关系的两个操作的执行顺序。</li>
+      <li>as-if-serial语义；不管怎么重排序，程序的执行结果不能被改变。</li>
+      <li>程序顺序规则。</li>
+    </ol>
+  </li>
+  <li>
+    <p>顺序一致性。</p>
+  </li>
+  <li>
+    <p>volatile 的内存语义</p>
+  </li>
+  <li>
+    <p>锁的内存语义</p>
+  </li>
+  <li>
+    <p>final域的内存语义</p>
+  </li>
+  <li>
+    <p>happens-before</p>
+  </li>
+  <li>Java编译器在生成字节码时，会在执行指令序列的适当位置插入内存屏障来限制处理器的重排序。</li>
+</ul>
+
+<h6 id="4-java并发编程基础">4 Java并发编程基础</h6>
+
+<ul>
+  <li>JMX 查看一个Java程序包含那些线程</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><pre class="highlighter"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MultiThread</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ThreadMXBean</span> <span class="n">threadMXBean</span> <span class="o">=</span> <span class="n">ManagementFactory</span><span class="o">.</span><span class="na">getThreadMXBean</span><span class="o">();</span>
+        <span class="n">ThreadInfo</span><span class="o">[]</span> <span class="n">threadInfos</span> <span class="o">=</span> <span class="n">threadMXBean</span><span class="o">.</span><span class="na">dumpAllThreads</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">ThreadInfo</span> <span class="n">threadInfo</span> <span class="o">:</span> <span class="n">threadInfos</span><span class="o">){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"["</span> <span class="o">+</span> <span class="n">threadInfo</span><span class="o">.</span><span class="na">getThreadId</span><span class="o">()</span> <span class="o">+</span> <span class="s">":"</span> <span class="o">+</span> <span class="n">threadInfo</span><span class="o">.</span><span class="na">getThreadName</span><span class="o">()</span> <span class="o">+</span> <span class="s">"]"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="cm">/** Mac JDK1.8
+[7:JDWP Command Reader]
+[6:JDWP Event Helper Thread]
+[5:JDWP Transport Listener: dt_socket]
+[4:Signal Dispatcher]
+[3:Finalizer]
+[2:Reference Handler]
+[1:main]
+*/</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>使用多线程的原因：利用多核，更快的响应时间，更好的编程模型</li>
+  <li>线程优先级setPriority(int);默认5，范围1～10.</li>
+  <li>线程的状态:NEW;RUNNABLE;BLOCKED;WAITING;TIME_WAITING;TERMINATED;</li>
+  <li>Daemon线程Thread.setDaemon(true);线程启动前设置，不能在启动后设置。</li>
+  <li>启动和终止线程</li>
+  <li>线程间通信</li>
+  <li>线程应用实例</li>
+</ul>
+
+<h4 id="5-java中的锁">5 Java中的锁</h4>
+
+<ul>
+  <li>Lock接口
+    <ol>
+      <li>Lock接口与synchronized关键字的区别：尝试非阻塞地获取锁，能被中断地获取锁，超时获取所。</li>
+      <li>Lock的API；
+        <ul>
+          <li>void lock();</li>
+          <li>void lockInterrruptibly() throws InterruptedException(); 可中断地获取锁</li>
+          <li>boolean tryLock(); 尝试非阻塞获取锁</li>
+          <li>boolean tryLock(long time, TimeUnit unit)throws InterruptedException; 超时获取锁；3种情况会返回，当前线程在超时时间内获得了锁，当前线程在超时时间内被中断，超时时间结束，返回false；</li>
+          <li>void unlock();</li>
+          <li>Condition newCondition();获取等待通知组件，该组件和当前的锁绑定，当前线程只有获得了锁，才能调用该组件的wait()方法，而调用后，当前线程将被释放。</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>队列同步器(AbstractQueuedSynchronizer)</li>
+  <li>队列同步器的实现分析
+    <ol>
+      <li>同步队列：依赖内部的同步队列（FIFO双向队列）来完成同步状态管理，当前线程获取
+同步状态失败时，同步器会将当前线程以及等待状态等信息构成为一个节点（Node）并将其加入同步队列，同时会阻塞当前线程，当同步状态释放时，会把首节点中的线程唤醒，使其再次尝试获取同步状态。</li>
+      <li>独占式同步状态获取与释放。</li>
+      <li>共享式同步状态获取与释放。</li>
+      <li>独占锁超时获取同步状态。</li>
+    </ol>
+  </li>
+  <li>重入锁
+    <ol>
+      <li>实现重入锁，锁的释放</li>
+      <li>公平与非公平获取所的区别，默认非公平锁，保证了更高的吞吐量，可能造成线程“饥饿”。</li>
+    </ol>
+  </li>
+  <li>读写锁，当某线程获取了写锁时，其他线程读写锁均阻塞。而某线程已获取读锁，要想获取写锁也是被阻塞。</li>
+  <li>锁降级，写锁可以降级为读锁。</li>
+  <li>LockSupport工具
+    <ol>
+      <li>park(); 阻塞  unpark(Thread thread); 唤醒一个阻塞线程</li>
+    </ol>
+  </li>
+  <li>Condition接口</li>
+</ul>
+
+<h5 id="第6章-java并发容器和框架">第6章 Java并发容器和框架</h5>
+
+<ul>
+  <li>ConcurrentHashMap
+    <ol>
+      <li>锁分段，默认16段</li>
+      <li>ConcurrentHashMap&lt;K,V&gt; -&gt; Segments[] -&gt; HashEntry[]</li>
+    </ol>
+  </li>
+  <li>ConcurrentLinkedQueue
+    <ol>
+      <li>阻塞算法／非阻塞算法CAS</li>
+    </ol>
+  </li>
+  <li>Java中的阻塞队列</li>
+  <li>Fork/Join框架</li>
+</ul>
+
+<h5 id="第7章-java中的13个原子操作类">第7章 Java中的13个原子操作类</h5>
+
+<ul>
+  <li>Atomic包  AtomicReference原子更行引用类型</li>
+</ul>
+
+<h5 id="第8章-java中的并发工具类">第8章 Java中的并发工具类</h5>
+
+<ul>
+  <li>CountDownLatch  只能用一次;</li>
+  <li>CyclicBarrier   使用reset()可以多次使用;</li>
+  <li>Semaphore      限流</li>
+  <li>Exchanger</li>
+</ul>
+
+<h5 id="第9章-java中的线程池">第9章 Java中的线程池</h5>
+
+<ul>
+  <li>降低资源消耗；提高响应速度；提高线程的可管理性；</li>
+  <li>线程池的使用</li>
+</ul>
+
+<h5 id="第10章-executor框架">第10章 Executor框架</h5>
+
+<ul>
+  <li>Executor框架，应用程序通过Executor框架控制上层的调度；而下层的调度由操作系统内核控制，下层的调度不受应用程序的控制。</li>
+  <li>Executor主要由3部分组成:
+    <ol>
+      <li>任务；包括被执行任务需要实现的接口:Runnable接口或Callable接口。</li>
+      <li>任务的执行；包括任务执行机制的核心接口Executor,以及继承自Executor的ExecutorService接口。Executor框架有两个关键类实现了ExecutorService接口(ThreadPoolExecutor和ScheduledThreadPoolExecutor)。</li>
+      <li>异步计算的结果。包括接口Future和实现Future接口的FutureTask类。</li>
+    </ol>
+  </li>
+  <li>Executor框架最核心的类是ThreadPoolExecutor它是线程池的实现类，主要由4个组件构成。corePool:核心线程池的大小;maximumPool:最大线程池的大小;BlockingQueue:暂时保存任务的工作队列。RejectedExecutionHandler:当ThreadPoolExecutor已经关闭或ThreadPoolExecutor已经饱和时(达到了最大线程池大小且工作队列已满),execute()方法将要调用的Handler.</li>
+  <li>通过Executor框架的工具类Executors可以创建三种类型的ThreadPoolExecutor.FixedThreadPool, SingleThreadExecutor, CachedThreadPool.</li>
+  <li>复合优先于继承</li>
+</ul>
+
+<h5 id="第11章-java并发变成实践">第11章 Java并发变成实践</h5>
+
+<ul>
+  <li>生产者消费者或线程池</li>
+  <li>线上问题定位
+    <ol>
+      <li>top ：查看每个进程情况</li>
+      <li>jstat -gcutil pid  : 查看GC情况</li>
+      <li>jstack pid  dump 文件</li>
+      <li><code class="highlighter-rouge">netstat -nat | grep 8080 -c</code>  :查询有多少台机器连接到8080端口</li>
+      <li><code class="highlighter-rouge">netstat -nat | grep 3306 -c</code>  :查看多少个数据库连接</li>
+      <li>cat /proc/net/dev  :查看网络流量</li>
+      <li>cat /proc/loadavg  :查看系统平均负载</li>
+      <li>cat /proc/meminfo  :查看系统内存情况</li>
+      <li>cat /proc/stat     :查看CPU的利用率</li>
+    </ol>
+  </li>
+  <li>异步任务池</li>
+  <li>DOWN: 2017-2-9 02:35:20</li>
+</ul>
+
+    </article>
+  </div>
+
+  <div class="related">
+    <h4>最新文章</h4>
+    <ul class="related-posts">
+      
+        <li>
+          <h5>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
+            </a>
+          </h5>
+        </li>
+      
+    </ul>
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'michaelygzhangblog';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:g.zhangyg@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/MichaelYgZhang"><i class="svg-icon github"></i></a>
+
+
+
+
+<a href="https://www.twitter.com/michaelygzhang"><i class="svg-icon twitter"></i></a>
+
+
+<a href="https://plus.google.com/115646538142388831563"><i class="svg-icon googleplus"></i></a>
+
+        </footer>
+      </div>
+    </div>
+
+    <div id="backToTop" class="backtoTop">
+    	<i class="fa fa-hand-o-up fa-2x"></i>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-84531968-1', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/java/2016/12/25/java-concurrency-art.html',
+		  'title': 'Java并发编程艺术-读书笔记'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-jekyll-search/1.1.5/jekyll-search.js" type="text/javascript"></script>
+    <script src="/js/blog.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+          SimpleJekyllSearch({
+            searchInput: document.getElementById('search-input'),
+            resultsContainer: document.getElementById('results-container'),
+            json: '/search.json',
+            searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+            noResultsText: 'No results found',
+            limit: 10,
+            fuzzy: false,
+            exclude: ['Welcome']
+          })
+    </script>
+  </body>
+</html>

@@ -98,14 +98,15 @@
      -->
     <article>
       <ul id="markdown-toc">
-  <li><a href="#section" id="markdown-toc-section">网关</a></li>
-  <li><a href="#section-1" id="markdown-toc-section-1">资源网关</a></li>
-  <li><a href="#web" id="markdown-toc-web">应用程序接口和Web服务</a></li>
-  <li><a href="#section-2" id="markdown-toc-section-2">隧道</a></li>
-  <li><a href="#section-3" id="markdown-toc-section-3">中继</a></li>
+  <li><a href="#网关" id="markdown-toc-网关">网关</a></li>
+  <li><a href="#资源网关" id="markdown-toc-资源网关">资源网关</a></li>
+  <li><a href="#应用程序接口和web服务" id="markdown-toc-应用程序接口和web服务">应用程序接口和Web服务</a></li>
+  <li><a href="#隧道" id="markdown-toc-隧道">隧道</a></li>
+  <li><a href="#中继" id="markdown-toc-中继">中继</a></li>
 </ul>
 
-<h5 id="section">网关</h5>
+<h5 id="网关">网关</h5>
+
 <ul>
   <li>网关:协议转换器</li>
   <li>客户端和服务器端网关<code class="highlighter-rouge">&lt;客户端协议&gt;/&lt;服务器端协议&gt;</code>;服务器端网关就是:HTTP/<code class="highlighter-rouge">*</code>;客户端网关:<code class="highlighter-rouge">*</code>/HTTP;</li>
@@ -113,21 +114,23 @@
   <li>HTTPS/HTTP服务器端安全网关</li>
 </ul>
 
-<h5 id="section-1">资源网关</h5>
+<h5 id="资源网关">资源网关</h5>
+
 <ul>
   <li>CGI(Common Getway Interface),为每个请求创建一个新进程，开销比较高，服务器负载大。</li>
   <li>服务器扩展API</li>
 </ul>
 
-<h5 id="web">应用程序接口和Web服务</h5>
+<h5 id="应用程序接口和web服务">应用程序接口和Web服务</h5>
 
-<h5 id="section-2">隧道</h5>
+<h5 id="隧道">隧道</h5>
+
 <ul>
   <li>Web隧道允许用户通过HTTP连接发送非HTTP流量，这样就可以在HTTP上捎带其他协议数据了，使用Web隧道最常见的原因就是要在HTTP连接中嵌入非HTTP流量，这样，这类流量就可以穿过只允许Web流量通过的防火墙了。</li>
   <li>使用CONNECT建立HTTP隧道</li>
 </ul>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="err">请求建立一条</span><span class="nx">SSL</span><span class="err">隧道:</span>
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="err">请求建立一条</span><span class="nx">SSL</span><span class="err">隧道:</span>
 <span class="nx">CONNECT</span> <span class="nx">www</span><span class="p">.</span><span class="nx">example</span><span class="p">.</span><span class="nx">com</span><span class="err">:</span><span class="mi">443</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.0</span>
 <span class="nx">User</span><span class="o">-</span><span class="nx">agent</span><span class="err">:</span> <span class="nx">Mozilla</span><span class="o">/</span><span class="mf">4.0</span>
 
@@ -144,7 +147,8 @@
   <li>隧道认证</li>
 </ul>
 
-<h5 id="section-3">中继</h5>
+<h5 id="中继">中继</h5>
+
 <ul>
   <li>中继(relay)是没有完全遵循HTTP规范的简单HTTP代理，中继负责处理HTTP中建立连接的部分，然后对字节进行盲转发。</li>
   <li>简单盲中继实现中存在一个问题，就是他们无法正确处理Connection首部，所以有潜在的刮起keep-alive连接的可能。</li>
@@ -159,27 +163,27 @@
       
         <li>
           <h5>
-            <a href="/interview/2016/10/03/interview-1.html">
-              Interview-1
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
-              HTTP权威指南-15
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
-              HTTP权威指南-14
-              <small>2016-10-03</small>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
             </a>
           </h5>
         </li>

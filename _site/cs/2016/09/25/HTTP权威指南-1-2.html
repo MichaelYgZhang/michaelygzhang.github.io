@@ -97,15 +97,18 @@
     
      -->
     <article>
-      <h4 id="http">1 HTTP概述</h4>
+      <h4 id="1-http概述">1 HTTP概述</h4>
 
-<h5 id="section">资源</h5>
+<h5 id="资源">资源</h5>
+
 <ul>
   <li>媒体类型MIME(Multipurpose Internet Mail Extension，多用途因特网邮件扩展),是一种文本标记,表示一种
 主要的对象类型和特定的子类型,中间用一条斜杠分隔,比如常见的:
 <strong>text/html  text/plain  image/jpeg  image/gif  video/quicktime  applicaiton/vnd.ms-powerpoint</strong></li>
   <li>URI 统一资源标识符(Uniform Resource Identifier, URI),URI有两种形式，分别是<code class="highlighter-rouge">URL</code>和<code class="highlighter-rouge">URN</code></li>
-  <li>URL 统一资源定位符,URL格式主要包含了以下三个部分
+  <li>
+    <p>URL 统一资源定位符,URL格式主要包含了以下三个部分</p>
+
     <blockquote>
       <ul>
         <li>URL的第一部分称为方案scheme,说明访问资源所使用的协议类型，这部分通常为HTTP协议(http://)</li>
@@ -117,13 +120,14 @@
   <li>URN 统一资源名,URN是作为特定内容的唯一名称使用的，与目前的资源所在地无关，使用这些与位置无关的URN，就可以将资源四处搬移，通过URN，还可以用同一个名字通过多种网络访问协议来访问资源。比如，不论因特网标准文档RFC 2141位于何处(甚至可以将其复制到多个地方)都可以用下列URN来命名它:<code class="highlighter-rouge">urn:ietf:rfc:2141</code> ;URN目前还处于实验阶段。</li>
 </ul>
 
-<h5 id="section-1">事务</h5>
+<h5 id="事务">事务</h5>
+
 <ul>
   <li>HTTP方法 常见的有: GET/PUT/DELETE/POST/HEAD</li>
   <li>状态码: 200/302/404</li>
 </ul>
 
-<h5 id="section-2">报文</h5>
+<h5 id="报文">报文</h5>
 
 <table>
   <thead>
@@ -141,7 +145,8 @@
   </tbody>
 </table>
 
-<h5 id="section-3">连接</h5>
+<h5 id="连接">连接</h5>
+
 <ul>
   <li>TCP/IP</li>
 </ul>
@@ -177,7 +182,8 @@
   <li>连接、IP地址及端口号</li>
 </ul>
 
-<h5 id="web">Web的结构组件</h5>
+<h5 id="web的结构组件">Web的结构组件</h5>
+
 <ul>
   <li>代理: 位于客户端和服务器之间的HTTP中间实体，可能会对请求进行修改后转发。</li>
   <li>代理缓存: HTTP的仓库，使常用的页面副本可以保存在离客户端更近的地方。</li>
@@ -186,7 +192,8 @@
   <li>Agent代理: 发起自动HTTP请求的半智能Web客户端，指代表用户发起HTTP请求的客户端程序，通常指浏览器，还有很多其他类型的Agent代理，比如爬虫等。</li>
 </ul>
 
-<h4 id="url">2 URL与资源</h4>
+<h4 id="2-url与资源">2 URL与资源</h4>
+
 <ul>
   <li>URL资源命名方式:<code class="highlighter-rouge">方案://服务器位置//资源路径</code></li>
   <li>URL语法: <code class="highlighter-rouge">&lt;scheme&gt;://&lt;user&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;/&gt;&lt;path&gt;;&lt;params&gt;?&lt;query&gt;#&lt;frag&gt;</code></li>
@@ -241,7 +248,8 @@
 
 <p>frag举例: http://www.example.com/blog/#it 当点击这个连接时<code class="highlighter-rouge">#it</code>不会发送给服务器，发送给服务器的是http://www.example.com，服务器将返回整个HTML页面，浏览器渲染后向下滚动并从名为<code class="highlighter-rouge">＃it</code>的片段处开始显示。</p>
 
-<h5 id="url-1">自动扩展URL</h5>
+<h5 id="自动扩展url">自动扩展URL</h5>
+
 <ul>
   <li>主机名扩展</li>
   <li>历史扩展</li>
@@ -290,7 +298,8 @@
   </tbody>
 </table>
 
-<h5 id="section-4">未来展望</h5>
+<h5 id="未来展望">未来展望</h5>
+
 <ul>
   <li>URN (uniform resource name)</li>
   <li>PURL (persistent uniform resource locators) 是用URL来实现URN功能的例子。基本思想是在搜索资源的过程中引入另一个中间层，通过一个中间资源定位符服务器对资源的实际URL进行登记和跟踪。客户端可以向定位符请求一个永久URL，定位符可以以一个资源作为响应，将客户端重定向到资源当前实际的URL上去。更多purl信息<a href="http://purl.oclc.org">PURL</a></li>
@@ -307,27 +316,27 @@
       
         <li>
           <h5>
-            <a href="/interview/2016/10/03/interview-1.html">
-              Interview-1
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
-              HTTP权威指南-15
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
-              HTTP权威指南-14
-              <small>2016-10-03</small>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
             </a>
           </h5>
         </li>

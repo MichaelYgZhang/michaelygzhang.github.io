@@ -97,7 +97,7 @@
     
      -->
     <article>
-      <h4 id="http">4 返回解构的HTTP状态码</h4>
+      <h4 id="4-返回解构的http状态码">4 返回解构的HTTP状态码</h4>
 
 <table>
   <thead>
@@ -205,34 +205,31 @@
 
 <p>⚠️状态码与状况不一致的情况，比如Web应用程序内部发生错误，状态码依然是200 OK</p>
 
-<h5 id="httpweb">与HTTP协作的Web服务器</h5>
+<h5 id="与http协作的web服务器">与HTTP协作的Web服务器</h5>
 
 <p>一台Web服务器可搭建多个独立域名的Web网站，也可作为通信路径上的中转站服务器提升传输效率。</p>
+
 <ul>
   <li>在相同IP地址下，由于虚拟主机可以寄存多个不同主机名和域名的Web网站，因此在发送HTTP请求时，必须在Host首部内完整指定主机名或域名URI</li>
-  <li><code class="highlighter-rouge">代理</code>:一种有转发功能的应用程序，扮演处于C和S的”中间人”的角色，接收C发送的请求并转发给S，同时也接收S的响应转发给C。
-    <blockquote>
-      <ol>
-        <li>缓存代理:Caching Proxy预先将资源的副本保存在代理服务器上，当下次对相同资源的请求时，就可以不从源服务器获取资源，而是将之前缓存的资源作为响应返回</li>
-        <li>透明代理:转发请求或响应时，不对报文做任何加工的代理类型被称为透明代理Transparent Proxy,反之称非透明代理</li>
-      </ol>
-    </blockquote>
-  </li>
-  <li><code class="highlighter-rouge">网关</code>:转发其它服务器通信数据的服务器，接收从客户端发送来的请求时，它就像自己拥有资源的源服务器一样对请求进行处理，有时客户端都不会察觉，自己的通信目标是一个网关。
-    <blockquote>
-      <ol>
-        <li>可以使通信线路上的服务器提供非HTTP协议服务，利用网关可以在客户端与网关之间的通信心路上加密以确保连接的安全。</li>
-      </ol>
-    </blockquote>
-  </li>
-  <li><code class="highlighter-rouge">隧道</code>:在相隔甚远的客户端和服务器两者之间进行中转，并保持双发通信连接的应用程序。
-    <blockquote>
-      <ol>
-        <li>隧道可以按要求建立起一条与其它服务器的通信线路，可以利用SSL等加密手段进行通信，确保客户端与服务器进行安全性通信，不会解析HTTP请求</li>
-      </ol>
-    </blockquote>
-  </li>
+  <li><code class="highlighter-rouge">代理</code>:一种有转发功能的应用程序，扮演处于C和S的”中间人”的角色，接收C发送的请求并转发给S，同时也接收S的响应转发给C。</li>
 </ul>
+
+<blockquote>
+  <ol>
+    <li>缓存代理:Caching Proxy预先将资源的副本保存在代理服务器上，当下次对相同资源的请求时，就可以不从源服务器获取资源，而是将之前缓存的资源作为响应返回</li>
+    <li>透明代理:转发请求或响应时，不对报文做任何加工的代理类型被称为透明代理Transparent Proxy,反之称非透明代理
+      <ul>
+        <li><code class="highlighter-rouge">网关</code>:转发其它服务器通信数据的服务器，接收从客户端发送来的请求时，它就像自己拥有资源的源服务器一样对请求进行处理，有时客户端都不会察觉，自己的通信目标是一个网关。</li>
+      </ul>
+    </li>
+    <li>可以使通信线路上的服务器提供非HTTP协议服务，利用网关可以在客户端与网关之间的通信心路上加密以确保连接的安全。
+      <ul>
+        <li><code class="highlighter-rouge">隧道</code>:在相隔甚远的客户端和服务器两者之间进行中转，并保持双发通信连接的应用程序。</li>
+      </ul>
+    </li>
+    <li>隧道可以按要求建立起一条与其它服务器的通信线路，可以利用SSL等加密手段进行通信，确保客户端与服务器进行安全性通信，不会解析HTTP请求</li>
+  </ol>
+</blockquote>
 
 <p>⚠️代理不会改变请求URI，只做转发处理。持有资源实体的服务器称源服务器</p>
 
@@ -249,27 +246,27 @@
       
         <li>
           <h5>
-            <a href="/interview/2016/10/03/interview-1.html">
-              Interview-1
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
-              HTTP权威指南-15
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
-              HTTP权威指南-14
-              <small>2016-10-03</small>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
             </a>
           </h5>
         </li>

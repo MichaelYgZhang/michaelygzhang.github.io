@@ -97,11 +97,11 @@
     
      -->
     <article>
-      <h4 id="http">9 基于HTTP的功能追加协议</h4>
+      <h4 id="9-基于http的功能追加协议">9 基于HTTP的功能追加协议</h4>
 
-<h5 id="spdy">SPDY的涉及与功能</h5>
+<h5 id="spdy的涉及与功能">SPDY的涉及与功能</h5>
 
-<h5 id="spdy-1">SPDY设计</h5>
+<h5 id="spdy设计">SPDY设计</h5>
 
 <p>SPDY是Google在2010年发布的取自SPeeDY，发音同speedy，开发目标旨在解决HTTP的新能瓶颈，缩短Web页面的家在时间(50%)</p>
 
@@ -129,6 +129,7 @@
 </table>
 
 <p>使用SPDY后，HTTP协议额外获得以下功能:</p>
+
 <ul>
   <li>多路复用流:通过单一的TCP连接，可以无限制处理多个HTTP请求，所有请求的处理都在一条TCP连接上完成，因此TCP的处理效率得到提高。</li>
   <li>赋予请求优先级:SPDY不仅可以无限制地并发处理请求，还可给请求逐个分配优先级顺序，主要为了在发送多个请求时，解决因宽带低而导致响应变慢的问题。</li>
@@ -137,20 +138,21 @@
   <li>服务器提示功能:服务器可以主动提示客户端请求所需资源，由于在客户端发现资源之前就可以获知资源的存在，因此在资源已经缓存的情况下，可以避免发送不必要的请求。</li>
 </ul>
 
-<h5 id="spdy-2">SPDY目前的缺陷</h5>
+<h5 id="spdy目前的缺陷">SPDY目前的缺陷</h5>
 
 <p>SPDY基本上只是将单个域名(IP地址)的通信多路复用，所以当一个Web网站上使用多个域名下的资源，改善效就会受到限制。SPDY的确是一种可以有效消除HTTP瓶颈的技术，但很多Web网站存在的问题并非仅仅由HTTP瓶颈导致的，对Web本身的所读提升，还应该从其它可细致钻研的地方入手，比如改善Web内容的编写方式等。</p>
 
-<h5 id="websocket">使用浏览器进行全双工通信的WebSocket</h5>
+<h5 id="使用浏览器进行全双工通信的websocket">使用浏览器进行全双工通信的WebSocket</h5>
 
 <p><code class="highlighter-rouge">WebSocket</code>为了解决Ajax和Comet里XMLHttpRequest附带的缺陷问题。一旦Web服务器与客户端之间建立起WebSocket协议的通信连接，之后所有的通信都依靠这个专用协议进行，通信过程中可互相发送JSON、XML、HTML或者图片等任意格式数据。由于是建立在HTTP基础上的协议，因此连接的发送方仍是客户端，而一旦确立WebSocket通信连接，不论服务器还是客户端，任意一方都可以直接向对方发送报文。</p>
+
 <ul>
   <li>推送功能</li>
   <li>减少通信量:只要建立起WebSocket连接，就希望一直保持连接状态，和HTTP相比不但每次连接的总开销减少，而且由于WebSocket的首部信息很少，通信量也响应减少了。为了实现WebScoket通信，在建立HTTP连接后，需要完成一次”握手(Handshaking)”步骤。</li>
   <li>握手•请求:为了实现WebScoket通信，需要用到HTTP的Upgrade首部字段，告知服务器通信协议发生改变，以达到握手目的。</li>
 </ul>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">GET</span> <span class="o">/</span><span class="nx">chat</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">GET</span> <span class="o">/</span><span class="nx">chat</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
 <span class="nl">Host</span><span class="p">:</span> <span class="nx">server</span><span class="p">.</span><span class="nx">example</span><span class="p">.</span><span class="nx">com</span>
 <span class="nl">Upgrade</span><span class="p">:</span> <span class="nx">websocket</span>
 <span class="nl">Connection</span><span class="p">:</span> <span class="nx">Upgrade</span>
@@ -165,7 +167,7 @@
   <li>握手•响应:对于之前的请求返回101(Switching Proctocols)</li>
 </ul>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">Http</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">101</span> <span class="nx">Switching</span> <span class="nx">Protocols</span>
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">Http</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">101</span> <span class="nx">Switching</span> <span class="nx">Protocols</span>
 <span class="nl">Upgrade</span><span class="p">:</span> <span class="nx">websocket</span>
 <span class="nl">Connection</span><span class="p">:</span> <span class="nx">Upgrade</span>
 <span class="nx">Sec</span><span class="o">-</span><span class="nx">WebSocket</span><span class="o">-</span><span class="nx">Accept</span><span class="err">:</span> <span class="nx">dGEJKFLJDdfjl</span><span class="o">==</span>
@@ -179,7 +181,7 @@
 内部提供的程序API，实现WebSocket协议下全双工通信。
 举例:每50ms发送一次数据实例！</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebScoket</span><span class="p">(</span><span class="s1">'ws:/game.example.com:12010/updates'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlighter"><code><span class="kd">var</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebScoket</span><span class="p">(</span><span class="s1">'ws:/game.example.com:12010/updates'</span><span class="p">);</span>
 <span class="nx">scoket</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
         <span class="k">if</span><span class="p">(</span><span class="nx">socket</span><span class="p">.</span><span class="nx">bufferedAmount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
@@ -192,6 +194,7 @@
 <h5 id="http20">HTTP2.0</h5>
 
 <p>设计的的7项技术,2.0的基础协议包括以下3项:</p>
+
 <ul>
   <li>SPDY</li>
   <li>HTTP Speed + Mobility 由微软公司起草用于改善提高移动端痛通信时通信速度和性能的标准，建立在Google的SPDY和WebSocket之上</li>
@@ -237,11 +240,12 @@
   <p>HTTP Speed + Mobility 简写Speed + Mobility, Network-Friendly HTTP Upgrade简写Friendly</p>
 </blockquote>
 
-<h4 id="webwebdav">Web服务器管理文件的WebDAV</h4>
+<h4 id="web服务器管理文件的webdav">Web服务器管理文件的WebDAV</h4>
 
 <p>WebDAV(web-based Distributed Authoring and Versioning, 基于万维网的分布式创作和版本控制)是一个可以对Web服务器上的内容直接进行文件复制、编辑等操作的分布式文件系统。</p>
 
 <p>针对服务器的资源WebDAV增加了一些概念:</p>
+
 <ul>
   <li>集合(Collection):是一种统一管理过个资源的概念，以集合为单位可进行各种操作，也可实现类似集合的集合这样的叠加。</li>
   <li>资源(Resource):把文件货集合称为资源</li>
@@ -249,9 +253,10 @@
   <li>锁(Lock):把文件设置成无状态编辑状态。多人同时编辑时，可防止在同一时间进行内容写入。</li>
 </ul>
 
-<h5 id="webdav">WebDAV内新增的方法及状态</h5>
+<h5 id="webdav内新增的方法及状态">WebDAV内新增的方法及状态</h5>
 
 <p>为实现远程文件管理，向HTTP/1.1中追加了以下方法及状态码</p>
+
 <ul>
   <li>PROPFIND:获取属性</li>
   <li>PROPPATCH:修改属性</li>
@@ -268,7 +273,7 @@
   <li>507 Insufficient Storage:保存空间不足</li>
 </ul>
 
-<h4 id="web">10 构建Web内容技术</h4>
+<h4 id="10-构建web内容技术">10 构建Web内容技术</h4>
 
 <ul>
   <li>HTML(HyperText Markup Language,超文本标记语言)</li>
@@ -276,24 +281,24 @@
   <li>动态HTML(Dynamic HTML)即使用客户端脚本语言将静态HTML内容编程动态技术的总称。使用js实现对HTML的Web页面动态改造，利用DOM(Document Object Model,文档对象模型)可以指定欲发送动态变化的HTML元素。</li>
 </ul>
 
-<h5 id="web-1">Web应用</h5>
+<h5 id="web应用">Web应用</h5>
 
 <ul>
   <li>CGI(Common Gateway Interface,通用网关接口),每次请求都启动新的CGI程序，当访问比较大时服务器负载大</li>
   <li>Servelt 取自Server + Applet</li>
 </ul>
 
-<h5 id="section">数据发布的格式及语言</h5>
+<h5 id="数据发布的格式及语言">数据发布的格式及语言</h5>
 
 <ul>
   <li>XML(eXtensible Markup Language,可扩展标记语言)</li>
   <li>RSS／Atom</li>
-  <li>JSON(JavaScript Object Notatin)能够处理数据类型有7种:
-    <blockquote>
-      <p>fasle/null/true/对象/数组/数字/字符串</p>
-    </blockquote>
-  </li>
+  <li>JSON(JavaScript Object Notatin)能够处理数据类型有7种:</li>
 </ul>
+
+<blockquote>
+  <p>fasle/null/true/对象/数组/数字/字符串</p>
+</blockquote>
 
     </article>
   </div>
@@ -304,27 +309,27 @@
       
         <li>
           <h5>
-            <a href="/interview/2016/10/03/interview-1.html">
-              Interview-1
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
-              HTTP权威指南-15
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
-              HTTP权威指南-14
-              <small>2016-10-03</small>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
             </a>
           </h5>
         </li>

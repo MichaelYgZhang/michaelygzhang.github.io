@@ -98,54 +98,58 @@
      -->
     <article>
       <ul id="markdown-toc">
-  <li><a href="#web" id="markdown-toc-web">第五章Web服务器</a></li>
-  <li><a href="#section" id="markdown-toc-section">第六章代理</a>    <ul>
-      <li><a href="#web-1" id="markdown-toc-web-1">Web的中间实体</a></li>
-      <li><a href="#section-1" id="markdown-toc-section-1">为什么使用代理</a></li>
-      <li><a href="#section-2" id="markdown-toc-section-2">代理去往何处</a></li>
-      <li><a href="#section-3" id="markdown-toc-section-3">客户端的代理设置</a></li>
-      <li><a href="#section-4" id="markdown-toc-section-4">与代理请求有关的一些棘手问题</a></li>
-      <li><a href="#section-5" id="markdown-toc-section-5">追踪报文</a></li>
-      <li><a href="#section-6" id="markdown-toc-section-6">代理认证</a></li>
-      <li><a href="#section-7" id="markdown-toc-section-7">代理的互操作性</a></li>
+  <li><a href="#第五章web服务器" id="markdown-toc-第五章web服务器">第五章Web服务器</a></li>
+  <li><a href="#第六章代理" id="markdown-toc-第六章代理">第六章代理</a>    <ul>
+      <li><a href="#web的中间实体" id="markdown-toc-web的中间实体">Web的中间实体</a></li>
+      <li><a href="#为什么使用代理" id="markdown-toc-为什么使用代理">为什么使用代理</a></li>
+      <li><a href="#代理去往何处" id="markdown-toc-代理去往何处">代理去往何处</a></li>
+      <li><a href="#客户端的代理设置" id="markdown-toc-客户端的代理设置">客户端的代理设置</a></li>
+      <li><a href="#与代理请求有关的一些棘手问题" id="markdown-toc-与代理请求有关的一些棘手问题">与代理请求有关的一些棘手问题</a></li>
+      <li><a href="#追踪报文" id="markdown-toc-追踪报文">追踪报文</a></li>
+      <li><a href="#代理认证" id="markdown-toc-代理认证">代理认证</a></li>
+      <li><a href="#代理的互操作性" id="markdown-toc-代理的互操作性">代理的互操作性</a></li>
     </ul>
   </li>
 </ul>
 
-<h4 id="web">第五章Web服务器</h4>
+<h4 id="第五章web服务器">第五章Web服务器</h4>
+
 <ul>
-  <li>Web服务器处理请求的响应步骤
-    <ol>
-      <li>建立连接－接受一个/多个客户端的连接</li>
-      <li>接收请求－从网络中读取一条HTTP请求报文</li>
-      <li>处理请求－对请求报文进行解析，并采取行动</li>
-      <li>访问资源－访问报文中指定的资源</li>
-      <li>构建响应－创建带有正确首部的HTTP响应报文</li>
-      <li>发送响应－将响应回送给客户端</li>
-      <li>记录事务的处理过程－将已完成事务有关的内容记录在一个日志文件中。</li>
-    </ol>
-  </li>
+  <li>Web服务器处理请求的响应步骤</li>
 </ul>
 
-<h4 id="section">第六章代理</h4>
+<ol>
+  <li>建立连接－接受一个/多个客户端的连接</li>
+  <li>接收请求－从网络中读取一条HTTP请求报文</li>
+  <li>处理请求－对请求报文进行解析，并采取行动</li>
+  <li>访问资源－访问报文中指定的资源</li>
+  <li>构建响应－创建带有正确首部的HTTP响应报文</li>
+  <li>发送响应－将响应回送给客户端</li>
+  <li>记录事务的处理过程－将已完成事务有关的内容记录在一个日志文件中。</li>
+</ol>
+
+<h4 id="第六章代理">第六章代理</h4>
+
 <ul>
   <li>Web代理(proxy)服务器是网络的中间实体，位于客户端和服务器之间扮演’中间人’的角色，在各断点之间来回传送HTTP报文。</li>
 </ul>
 
-<h5 id="web-1">Web的中间实体</h5>
+<h5 id="web的中间实体">Web的中间实体</h5>
+
 <ul>
   <li>私有和共享代理</li>
-  <li>代理与网关的比较
-    <blockquote>
-      <ol>
-        <li>代理:连接的是两个或多个使用<code class="highlighter-rouge">相同协议</code>的应用程序</li>
-        <li>网关:连接的则是两个或多个使用<code class="highlighter-rouge">不同协议</code>的端点，网关扮演<code class="highlighter-rouge">协议转换器</code>的角色</li>
-      </ol>
-    </blockquote>
-  </li>
+  <li>代理与网关的比较</li>
 </ul>
 
-<h5 id="section-1">为什么使用代理</h5>
+<blockquote>
+  <ol>
+    <li>代理:连接的是两个或多个使用<code class="highlighter-rouge">相同协议</code>的应用程序</li>
+    <li>网关:连接的则是两个或多个使用<code class="highlighter-rouge">不同协议</code>的端点，网关扮演<code class="highlighter-rouge">协议转换器</code>的角色</li>
+  </ol>
+</blockquote>
+
+<h5 id="为什么使用代理">为什么使用代理</h5>
+
 <ul>
   <li>网站访问过滤</li>
   <li>文档访问权限控制</li>
@@ -157,35 +161,43 @@
   <li>匿名者</li>
 </ul>
 
-<h5 id="section-2">代理去往何处</h5>
+<h5 id="代理去往何处">代理去往何处</h5>
+
 <ul>
-  <li>代理服务器的部署
-    <ol>
-      <li>出口代理</li>
-      <li>访问(入口)代理</li>
-      <li>反向代理(取代原始服务器的代理服务器)</li>
-      <li>网络交换代理</li>
-    </ol>
-  </li>
-  <li>代理的层次结构(动态选择父子层次结构)
-    <ol>
-      <li>负载均衡</li>
-      <li>地理位置附近的路由</li>
-      <li>协议/类型路由</li>
-      <li>基于订购的路由</li>
-    </ol>
-  </li>
-  <li>代理是如何获取流量的
-    <ol>
-      <li>修改Web客户端</li>
-      <li>修改网络(拦截代理)拦截代理被称为<code class="highlighter-rouge">透明代理</code>因为你会在不知情的情况下连接到这些代理上去，但HTTP规范中已用”透明”来表示那些不会对语义进行修改的功能了，所以标准指定机构建议在流量捕获中使用术语<code class="highlighter-rouge">拦截</code>，这里采纳了这一术语。</li>
-      <li>修改DNS命名空间</li>
-      <li>修改Web服务器</li>
-    </ol>
-  </li>
+  <li>代理服务器的部署</li>
 </ul>
 
-<h5 id="section-3">客户端的代理设置</h5>
+<ol>
+  <li>出口代理</li>
+  <li>访问(入口)代理</li>
+  <li>反向代理(取代原始服务器的代理服务器)</li>
+  <li>网络交换代理</li>
+</ol>
+
+<ul>
+  <li>代理的层次结构(动态选择父子层次结构)</li>
+</ul>
+
+<ol>
+  <li>负载均衡</li>
+  <li>地理位置附近的路由</li>
+  <li>协议/类型路由</li>
+  <li>基于订购的路由</li>
+</ol>
+
+<ul>
+  <li>代理是如何获取流量的</li>
+</ul>
+
+<ol>
+  <li>修改Web客户端</li>
+  <li>修改网络(拦截代理)拦截代理被称为<code class="highlighter-rouge">透明代理</code>因为你会在不知情的情况下连接到这些代理上去，但HTTP规范中已用”透明”来表示那些不会对语义进行修改的功能了，所以标准指定机构建议在流量捕获中使用术语<code class="highlighter-rouge">拦截</code>，这里采纳了这一术语。</li>
+  <li>修改DNS命名空间</li>
+  <li>修改Web服务器</li>
+</ol>
+
+<h5 id="客户端的代理设置">客户端的代理设置</h5>
+
 <ul>
   <li>手工配置</li>
   <li>预先配置浏览器</li>
@@ -193,12 +205,13 @@
   <li>WPAD(Web Proxy Autodiscovery Protocol)的代理发现;⚠️目前只有IE支持这一特性</li>
 </ul>
 
-<h5 id="section-4">与代理请求有关的一些棘手问题</h5>
+<h5 id="与代理请求有关的一些棘手问题">与代理请求有关的一些棘手问题</h5>
+
 <ul>
   <li>代理URI与服务器URI的不同(没有设置客户端使用代理时，它会发送部分URI。设置客户端使用代理时，它会发送完整URI)</li>
 </ul>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">a</span><span class="p">.</span> <span class="err">服务器请求</span>
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">a</span><span class="p">.</span> <span class="err">服务器请求</span>
 <span class="nx">GET</span> <span class="o">/</span><span class="nx">index</span><span class="p">.</span><span class="nx">html</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.0</span>
 <span class="nx">User</span><span class="o">-</span><span class="nx">agent</span><span class="err">:</span> <span class="nx">SuperBrowser</span> <span class="nx">v1</span><span class="p">.</span><span class="mi">3</span>
 
@@ -225,12 +238,13 @@
   <li>有拦截代理时URI的解析</li>
 </ul>
 
-<h5 id="section-5">追踪报文</h5>
+<h5 id="追踪报文">追踪报文</h5>
+
 <ul>
   <li>Via首部(它列出了报文途径的每个中间节点(代理或网关)有关的信息，报文每经过一个节点，都必须将这个中间节点添加到Via列表的末尾),比如以下Via字符串告诉我们报文经过两个代理，以及分别实现的协议版本。</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Via: 1.1 proxy-62.irenes-isp.net, 1.0 cacahe.joes-hardware.com
+<div class="highlighter-rouge"><pre class="highlighter"><code>Via: 1.1 proxy-62.irenes-isp.net, 1.0 cacahe.joes-hardware.com
 </code></pre>
 </div>
 
@@ -241,7 +255,7 @@
   <li>TRACE方法，HTTP/1.1的TRACE方法，用户可以追踪经代理链传输的请求报文，观察报文经过了哪些代理，以及每个代理是如果对请求报文进行修改的。</li>
 </ul>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">TRACE</span><span class="err">请求</span>
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">TRACE</span><span class="err">请求</span>
 <span class="nx">TRACE</span> <span class="o">/</span><span class="nx">index</span><span class="p">.</span><span class="nx">html</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
 <span class="nl">Host</span><span class="p">:</span> <span class="nx">www</span><span class="p">.</span><span class="nx">example</span><span class="p">.</span><span class="nx">com</span>
 <span class="nl">Accept</span><span class="p">:</span> <span class="nx">text</span><span class="o">/</span><span class="nx">html</span>
@@ -259,13 +273,18 @@
 <span class="p">...</span>
 </code></pre>
 </div>
+
 <p>可以使用Max-Forwards添加到首部限制最大转发次数</p>
 
-<h5 id="section-6">代理认证</h5>
+<h5 id="代理认证">代理认证</h5>
+
 <ul>
-  <li>Proxy Authorization
-    <h5 id="section-7">代理的互操作性</h5>
-  </li>
+  <li>Proxy Authorization</li>
+</ul>
+
+<h5 id="代理的互操作性">代理的互操作性</h5>
+
+<ul>
   <li>OPTIONS: 发现对可选特性的支持</li>
 </ul>
 
@@ -280,7 +299,7 @@
   <li>Allow首部，列出请求URI标识资源所支持的方法列表。也可以将Allow首部作为请求首部，建议在新建资源上支持某些方法。</li>
 </ul>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">C</span><span class="o">/</span><span class="nx">Proxy</span> <span class="nx">C</span>  <span class="o">---&gt;</span> <span class="nx">S</span> <span class="err">:</span> <span class="nx">OPTIONS</span> <span class="o">*</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">C</span><span class="o">/</span><span class="nx">Proxy</span> <span class="nx">C</span>  <span class="o">---&gt;</span> <span class="nx">S</span> <span class="err">:</span> <span class="nx">OPTIONS</span> <span class="o">*</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
 <span class="nx">S</span> <span class="o">---&gt;</span> <span class="nx">C</span><span class="o">/</span><span class="nx">Proxy</span> <span class="nx">C</span> <span class="err">:</span>
 <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="nx">OK</span>
 <span class="nl">Allow</span><span class="p">:</span> <span class="nx">GET</span><span class="p">,</span> <span class="nx">PUT</span><span class="p">,</span> <span class="nx">POST</span><span class="p">,</span> <span class="nx">HEAD</span><span class="p">,</span> <span class="nx">TRACE</span><span class="p">,</span> <span class="nx">OPTIONS</span>
@@ -297,27 +316,27 @@
       
         <li>
           <h5>
-            <a href="/interview/2016/10/03/interview-1.html">
-              Interview-1
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
-              HTTP权威指南-15
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
-              HTTP权威指南-14
-              <small>2016-10-03</small>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
             </a>
           </h5>
         </li>

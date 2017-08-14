@@ -98,22 +98,23 @@
      -->
     <article>
       <ul id="markdown-toc">
-  <li><a href="#section" id="markdown-toc-section">缓存</a>    <ul>
-      <li><a href="#section-1" id="markdown-toc-section-1">冗余的数据传输</a></li>
-      <li><a href="#section-2" id="markdown-toc-section-2">带宽瓶颈</a></li>
-      <li><a href="#section-3" id="markdown-toc-section-3">瞬间拥塞</a></li>
-      <li><a href="#section-4" id="markdown-toc-section-4">距离时延</a></li>
-      <li><a href="#section-5" id="markdown-toc-section-5">命中和未命中的</a></li>
-      <li><a href="#section-6" id="markdown-toc-section-6">缓存的拓扑结构</a></li>
-      <li><a href="#section-7" id="markdown-toc-section-7">缓存的处理步骤</a></li>
-      <li><a href="#section-8" id="markdown-toc-section-8">控制缓存的能力</a></li>
+  <li><a href="#缓存" id="markdown-toc-缓存">缓存</a>    <ul>
+      <li><a href="#冗余的数据传输" id="markdown-toc-冗余的数据传输">冗余的数据传输</a></li>
+      <li><a href="#带宽瓶颈" id="markdown-toc-带宽瓶颈">带宽瓶颈</a></li>
+      <li><a href="#瞬间拥塞" id="markdown-toc-瞬间拥塞">瞬间拥塞</a></li>
+      <li><a href="#距离时延" id="markdown-toc-距离时延">距离时延</a></li>
+      <li><a href="#命中和未命中的" id="markdown-toc-命中和未命中的">命中和未命中的</a></li>
+      <li><a href="#缓存的拓扑结构" id="markdown-toc-缓存的拓扑结构">缓存的拓扑结构</a></li>
+      <li><a href="#缓存的处理步骤" id="markdown-toc-缓存的处理步骤">缓存的处理步骤</a></li>
+      <li><a href="#控制缓存的能力" id="markdown-toc-控制缓存的能力">控制缓存的能力</a></li>
     </ul>
   </li>
 </ul>
 
-<h4 id="section">缓存</h4>
+<h4 id="缓存">缓存</h4>
 
 <p><strong>使用缓存的优点</strong></p>
+
 <blockquote>
   <ol>
     <li>减少冗余的数据传输，节省了你的网络费用</li>
@@ -123,30 +124,44 @@
   </ol>
 </blockquote>
 
-<h5 id="section-1">冗余的数据传输</h5>
+<h5 id="冗余的数据传输">冗余的数据传输</h5>
+
 <p>服务器多次传输同一份文档，每次传输给一个客户端，相同的字节在网络中一遍遍地传输，造成冗余，缓存可以很好解决这个问题。</p>
-<h5 id="section-2">带宽瓶颈</h5>
+
+<h5 id="带宽瓶颈">带宽瓶颈</h5>
+
 <p>缓存可以缓解网络带宽瓶颈问题。</p>
-<h5 id="section-3">瞬间拥塞</h5>
+
+<h5 id="瞬间拥塞">瞬间拥塞</h5>
+
 <p>缓存在破坏瞬间拥塞时显得非常重要，比如突发事件，使很多人几乎同时访问一个Web文档时，就会出现瞬间拥塞，由此造成Web服务器负载过高甚至崩溃。</p>
-<h5 id="section-4">距离时延</h5>
+
+<h5 id="距离时延">距离时延</h5>
+
 <p>即便带宽不是问题，距离也可能是问题的原因，没太网络路由器都会增加因特网流量的时延，即使没有太多路由器，光速本身也会造成显著的时延。</p>
-<h5 id="section-5">命中和未命中的</h5>
+
+<h5 id="命中和未命中的">命中和未命中的</h5>
+
 <p>可以用已有副本为某些到达缓存的请求提供服务，被称为<code class="highlighter-rouge">缓存命中</code>，亦或请求的资源在缓存服务器上不存在，而将请求转发给原始服务器被称为<code class="highlighter-rouge">缓存未命中</code></p>
+
 <ul>
-  <li>再验证以保持缓存的”新鲜度”，在缓存服务器向源服务器发送请求的首部加上If-Modified-Since首部，告诉源服务器只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。
-    <ol>
-      <li>再验证命中(如果服务器对象未被修改，服务器想客户端发送一个小的HTTP304Not Modified响应)</li>
-      <li>再验证未命中(如果服务器对象与已缓存副本不同，则向客户端发送一条普通的，带有完整内容的HTTP 200 OK响应)</li>
-      <li>对象被删除(如果服务器对象已经被删除了，服务器回送一个404 Not Found响应，缓存也会将其副本删除)</li>
-    </ol>
-  </li>
+  <li>再验证以保持缓存的”新鲜度”，在缓存服务器向源服务器发送请求的首部加上If-Modified-Since首部，告诉源服务器只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。</li>
+</ul>
+
+<ol>
+  <li>再验证命中(如果服务器对象未被修改，服务器想客户端发送一个小的HTTP304Not Modified响应)</li>
+  <li>再验证未命中(如果服务器对象与已缓存副本不同，则向客户端发送一条普通的，带有完整内容的HTTP 200 OK响应)</li>
+  <li>对象被删除(如果服务器对象已经被删除了，服务器回送一个404 Not Found响应，缓存也会将其副本删除)</li>
+</ol>
+
+<ul>
   <li>命中率</li>
   <li>字节命中率</li>
   <li>区分命中和未命中的情况(根据Date首部，若响应日期比较早，则为缓存响应)</li>
 </ul>
 
-<h5 id="section-6">缓存的拓扑结构</h5>
+<h5 id="缓存的拓扑结构">缓存的拓扑结构</h5>
+
 <ul>
   <li>私有缓存(比如浏览器缓存)</li>
   <li>公有代理缓存或者称为代理缓存</li>
@@ -154,8 +169,10 @@
   <li>网状缓存、内容路由以及对等缓存</li>
 </ul>
 
-<h5 id="section-7">缓存的处理步骤</h5>
+<h5 id="缓存的处理步骤">缓存的处理步骤</h5>
+
 <p>对一条HTTP GET报文的基本缓存处理过程包括7个步骤:</p>
+
 <ol>
   <li>接收－缓存从网络中读取抵达的请求报文。</li>
   <li>解析－缓存对报文进行解析，提取出URL和各种首部。</li>
@@ -169,28 +186,32 @@
 <ul>
   <li>文档过期设置(Cache-Control: max-age=3600<code class="highlighter-rouge">指定最大使用期限以秒为单位</code>; Expires: Fri, 05 Jul 2002, 05:00:00 GMT<code class="highlighter-rouge">指定一个绝对的过期日期</code>)</li>
   <li>服务器再验证</li>
-  <li>在请求报文中添加用条件方法进行再验证
-    <blockquote>
-      <ol>
-        <li>If-Modified-Since:<date></date></li>
-        <li>If-None-Match:<tags></tags></li>
-      </ol>
-    </blockquote>
-  </li>
+  <li>在请求报文中添加用条件方法进行再验证</li>
 </ul>
 
-<h5 id="section-8">控制缓存的能力</h5>
+<blockquote>
+  <ol>
+    <li>If-Modified-Since:<date></date></li>
+    <li>If-None-Match:<tags></tags></li>
+  </ol>
+</blockquote>
+
+<h5 id="控制缓存的能力">控制缓存的能力</h5>
+
 <ul>
-  <li>服务器可以通过HTTP定义的几种方式来指定在文档过期之前可以将其缓存多长时间，按照优先级递减的顺序。服务器可以:
-    <ol>
-      <li>附加一个Cache-Control: no-store 首部到响应中去;</li>
-      <li>附加一个Cache-Control: no-cache 首部到响应中去;</li>
-      <li>附加一个Cache-Control: must-revalidate 首部到响应中去;</li>
-      <li>附加一个Cache-Control: max-age 首部到响应中去;</li>
-      <li>附加一个Expires 日期首部到响应中去;</li>
-      <li>不附加过期信息，让缓存确定自己的过期日期;</li>
-    </ol>
-  </li>
+  <li>服务器可以通过HTTP定义的几种方式来指定在文档过期之前可以将其缓存多长时间，按照优先级递减的顺序。服务器可以:</li>
+</ul>
+
+<ol>
+  <li>附加一个Cache-Control: no-store 首部到响应中去;</li>
+  <li>附加一个Cache-Control: no-cache 首部到响应中去;</li>
+  <li>附加一个Cache-Control: must-revalidate 首部到响应中去;</li>
+  <li>附加一个Cache-Control: max-age 首部到响应中去;</li>
+  <li>附加一个Expires 日期首部到响应中去;</li>
+  <li>不附加过期信息，让缓存确定自己的过期日期;</li>
+</ol>
+
+<ul>
   <li>客户端的新鲜度限制</li>
 </ul>
 
@@ -234,27 +255,27 @@
       
         <li>
           <h5>
-            <a href="/interview/2016/10/03/interview-1.html">
-              Interview-1
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
-              HTTP权威指南-15
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
-              HTTP权威指南-14
-              <small>2016-10-03</small>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
             </a>
           </h5>
         </li>

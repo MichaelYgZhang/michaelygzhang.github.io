@@ -97,8 +97,9 @@
     
      -->
     <article>
-      <h4 id="section">宏</h4>
-<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="k">defmacro</span><span class="w"> </span><span class="n">dbg</span><span class="w"> </span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">[</span><span class="n">x</span><span class="o">#</span><span class="w"> </span><span class="o">~</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="nb">println</span><span class="w"> </span><span class="o">'~</span><span class="n">x</span><span class="w"> </span><span class="s">"="</span><span class="w"> </span><span class="n">x</span><span class="o">#</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="o">#</span><span class="p">))</span><span class="w">
+      <h4 id="宏">宏</h4>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlighter"><code><span class="p">(</span><span class="k">defmacro</span><span class="w"> </span><span class="n">dbg</span><span class="w"> </span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">[</span><span class="n">x</span><span class="o">#</span><span class="w"> </span><span class="o">~</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="nb">println</span><span class="w"> </span><span class="o">'~</span><span class="n">x</span><span class="w"> </span><span class="s">"="</span><span class="w"> </span><span class="n">x</span><span class="o">#</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="o">#</span><span class="p">))</span><span class="w">
 </span><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">tt</span><span class="w"> </span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="nf">dbg</span><span class="w"> </span><span class="p">(</span><span class="nb">+</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="mi">1</span><span class="p">)))</span><span class="w">
 
 </span><span class="c1">;user&gt; (tt 1)
@@ -106,38 +107,46 @@
 ;2
 </span></code></pre>
 </div>
+
 <p>可以看到我们用defmacro定义了一个dbg的宏，这个宏的作用就是先实现代码喝代码执行的结果，并将结果 返回回去。在clojure的宏里我们主要会用到以下几个符号。</p>
 
 <ul>
   <li>’ (quote) :表示被quote不求值</li>
-  <li>` (syntax quote) :把变量变成有namespace的形势
-    <div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="n">user&gt;</span><span class="w"> </span><span class="ss">'x</span><span class="w">
+  <li>` (syntax quote) :把变量变成有namespace的形势</li>
+</ul>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlighter"><code><span class="n">user&gt;</span><span class="w"> </span><span class="ss">'x</span><span class="w">
 </span><span class="n">x</span><span class="w">
 </span><span class="n">user&gt;</span><span class="w"> </span><span class="o">`</span><span class="n">x</span><span class="w">
 </span><span class="n">user/x</span><span class="w">
 </span></code></pre>
-    </div>
-  </li>
-  <li>~ (unquote):⚠️<code class="highlighter-rouge">~</code>和点搭配使用时，<code class="highlighter-rouge">~</code>必须在其的后面，并且<code class="highlighter-rouge">~</code>的数量不能超过点的数量，<code class="highlighter-rouge">~</code>是用来将变量的值替换到相应位置，比如
-    <div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="n">user&gt;</span><span class="w"> </span><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="mi">123</span><span class="p">)</span><span class="w">
+</div>
+
+<ul>
+  <li>~ (unquote):⚠️<code class="highlighter-rouge">~</code>和点搭配使用时，<code class="highlighter-rouge">~</code>必须在其的后面，并且<code class="highlighter-rouge">~</code>的数量不能超过点的数量，<code class="highlighter-rouge">~</code>是用来将变量的值替换到相应位置，比如</li>
+</ul>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlighter"><code><span class="n">user&gt;</span><span class="w"> </span><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="mi">123</span><span class="p">)</span><span class="w">
 </span><span class="o">#</span><span class="ss">'user/a</span><span class="w">
 </span><span class="n">user&gt;</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">~</span><span class="n">a</span><span class="p">)</span><span class="w">
 </span><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">user/b</span><span class="w"> </span><span class="mi">123</span><span class="p">)</span><span class="w">
 </span></code></pre>
-    </div>
-    <p>可以看到<code class="highlighter-rouge">~a</code>被替换为a的值123了，而<code class="highlighter-rouge">~@</code>的作用和<code class="highlighter-rouge">~</code>类似，不过<code class="highlighter-rouge">~@</code>不但会替换掉值而且会把括号去掉。</p>
-  </li>
-  <li>~@ (unquote splicing)
-    <div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="n">user&gt;</span><span class="w"> </span><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="p">])</span><span class="w">
+</div>
+
+<p>可以看到<code class="highlighter-rouge">~a</code>被替换为a的值123了，而<code class="highlighter-rouge">~@</code>的作用和<code class="highlighter-rouge">~</code>类似，不过<code class="highlighter-rouge">~@</code>不但会替换掉值而且会把括号去掉。</p>
+
+<ul>
+  <li>~@ (unquote splicing)</li>
+</ul>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlighter"><code><span class="n">user&gt;</span><span class="w"> </span><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="p">])</span><span class="w">
 </span><span class="o">#</span><span class="ss">'user/c</span><span class="w">
 </span><span class="n">user&gt;</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="p">[</span><span class="o">~@</span><span class="n">c</span><span class="p">])</span><span class="w">
 </span><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">user/d</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="p">])</span><span class="w">
 </span></code></pre>
-    </div>
-  </li>
-</ul>
+</div>
 
-<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="k">defmacro</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">[</span><span class="n">a1</span><span class="w"> </span><span class="p">(</span><span class="nb">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">1</span><span class="p">)]</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">cc</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="nb">println</span><span class="w"> </span><span class="o">~</span><span class="n">a1</span><span class="p">)))</span><span class="w">
+<div class="language-clojure highlighter-rouge"><pre class="highlighter"><code><span class="p">(</span><span class="k">defmacro</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">[</span><span class="n">a1</span><span class="w"> </span><span class="p">(</span><span class="nb">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">1</span><span class="p">)]</span><span class="w"> </span><span class="o">`</span><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">cc</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="nb">println</span><span class="w"> </span><span class="o">~</span><span class="n">a1</span><span class="p">)))</span><span class="w">
 
 </span><span class="c1">;user&gt; (t1)
 ;#'user/cc
@@ -148,7 +157,7 @@
 
 <p>传递给宏的代码是不会求值的，这点和函数非常不同，函数传的参数都是先做函数运算，如下例子所示:</p>
 
-<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">aa</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">(</span><span class="nb">println</span><span class="w"> </span><span class="s">"aa"</span><span class="p">)</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">
+<div class="language-clojure highlighter-rouge"><pre class="highlighter"><code><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">aa</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">(</span><span class="nb">println</span><span class="w"> </span><span class="s">"aa"</span><span class="p">)</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">
 </span><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">bb</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">(</span><span class="nb">println</span><span class="w"> </span><span class="s">"bb"</span><span class="p">)</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">
 </span><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">cc</span><span class="w"> </span><span class="p">[</span><span class="n">c</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="p">))</span><span class="w">
 </span><span class="p">(</span><span class="k">defmacro</span><span class="w"> </span><span class="n">dd</span><span class="w"> </span><span class="p">[</span><span class="n">c</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="p">))</span><span class="w">
@@ -176,27 +185,27 @@
       
         <li>
           <h5>
-            <a href="/interview/2016/10/03/interview-1.html">
-              Interview-1
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
-              HTTP权威指南-15
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
-              HTTP权威指南-14
-              <small>2016-10-03</small>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
             </a>
           </h5>
         </li>

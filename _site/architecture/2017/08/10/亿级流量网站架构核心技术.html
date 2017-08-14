@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>亿级流量网站架构核心技术 – Michael – Developer</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="亿级流量网站架构核心技术" />
+    <meta property="og:description" content="亿级流量网站架构核心技术" />
+    
+    <meta name="author" content="Michael" />
+
+    
+    <meta property="og:title" content="亿级流量网站架构核心技术" />
+    <meta property="twitter:title" content="亿级流量网站架构核心技术" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Michael - Developer" href="/feed.xml" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+  </head>
+
+  <body>
+
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/images/favicon.ico" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Michael</a></h1>
+            <p class="site-description">Developer</p>
+          </div>
+
+          <nav>
+            <a href="/"><i class="fa fa-home fa-2x"></i></a>
+            <a href="/category"><i class="fa fa-tags fa-2x" aria-hidden="true"></i></a>
+            <a href="/about"><i class="fa fa-user-secret fa-2x"></i></a>
+            <a href="/blog"><i class="fa fa-university fa-2x"></i></a>
+            <!-- <a href="/task"><i class="fa fa-book fa-2x" aria-hidden="true"></i></a> -->
+            <a href="/feed.xml" target="_blank"><i class="fa fa-feed fa-2x"></i></a>
+
+            <!-- 
+            
+              
+            
+              
+            
+              
+              <a href="/" >
+                Home
+              </a>
+              
+            
+              
+              <a href="/blog" >
+                Blog
+              </a>
+              
+            
+              
+              <a href="/category" >
+                Category
+              </a>
+              
+             -->
+          </nav>
+
+          <a href="https://github.com/MichaelYgZhang" target="_blank">
+            <img class="fork-me-on-github" src="/images/fork-me-on-github.png" alt="Fork me on GitHub">
+          </a>
+        </header>
+
+        <div id="search-container">
+          <input type="text" id="search-input" placeholder="search...">
+          <ul id="results-container"></ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <div class="post">
+    <h1 class="post-title">亿级流量网站架构核心技术</h1>
+    <span class="post-date">2017-08-10</span>
+    <!--  |
+    
+     -->
+    <article>
+      <h4 id="第1部分-概述">第1部分 概述</h4>
+
+<ul>
+  <li>交易系统设计的一些原则
+    <ul>
+      <li>墨菲定律
+        <ol>
+          <li>任何事情都没有表面看起来那么简单</li>
+          <li>所有的事情都会比你预计的时间长</li>
+          <li>可能出错的事情总会出错</li>
+          <li>如果你担心某种情况发生，那么它就更有可能发生</li>
+        </ol>
+      </li>
+      <li>系统划分时，也需要思考康威定律
+        <ol>
+          <li>系统架构是公司组织架构的反映</li>
+          <li>应该按照业务闭环进行系统拆分／组织架构划分，实现闭环／高内聚／低耦合，减少沟通成本</li>
+          <li>如果沟通出现问题，那么应该考虑进行系统和组织架构的调整</li>
+          <li>在合适时机进行系统拆分，不要一开始就把系统／服务拆得非常细，虽然闭环，但每个人维护的系统多，维护成本高。</li>
+        </ol>
+      </li>
+      <li>二八定律</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="高并发原则">高并发原则</h5>
+
+<ul>
+  <li>无状态</li>
+  <li>拆分
+    <ul>
+      <li>系统维度：按照系统功能／业务拆分，比如商品系统，购物车，结算，订单系统等</li>
+      <li>功能维度：对一个系统进行功能再拆分，比如优惠券系统可以拆分为后台券创建系统，领券系统，用券系统等</li>
+      <li>读写维度：根据读写比例特性进行拆分。读量大采用缓存，写量大采用分库分表。聚合读取场景，考虑数据异构拆分系统，将分散在多处的数据聚合到一起存储，提升系统的性能和可靠性。</li>
+      <li>AOP维度：根据访问特性，按照AOP进行拆分。</li>
+      <li>模块维度：比如按照基础或者代码维护特性进行拆分，如基础模块分库分表，数据库连接池等。代码结构按照三层架构Web，Service，DAO进行划分。</li>
+    </ul>
+  </li>
+  <li>服务化：进程内服务-》单机远程服务-》集群手动注册服务-》自动注册和发现服务-》服务的分组／隔离／路由-》服务治理如限流／黑名单</li>
+  <li>消息队列：大流量缓冲，数据校对</li>
+  <li>数据异构：数据异构，数据闭环</li>
+</ul>
+
+<h5 id="高可用原则">高可用原则</h5>
+
+<h5 id="业务设计原则">业务设计原则</h5>
+
+<h5 id="总结">总结</h5>
+
+    </article>
+  </div>
+
+  <div class="related">
+    <h4>最新文章</h4>
+    <ul class="related-posts">
+      
+        <li>
+          <h5>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/books/2017/07/03/%E8%8B%8F%E8%8F%B2%E7%9A%84%E4%B8%96%E7%95%8C.html">
+              苏菲的世界
+              <small>2017-07-03</small>
+            </a>
+          </h5>
+        </li>
+      
+    </ul>
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'michaelygzhangblog';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:g.zhangyg@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/MichaelYgZhang"><i class="svg-icon github"></i></a>
+
+
+
+
+<a href="https://www.twitter.com/michaelygzhang"><i class="svg-icon twitter"></i></a>
+
+
+<a href="https://plus.google.com/115646538142388831563"><i class="svg-icon googleplus"></i></a>
+
+        </footer>
+      </div>
+    </div>
+
+    <div id="backToTop" class="backtoTop">
+    	<i class="fa fa-hand-o-up fa-2x"></i>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-84531968-1', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html',
+		  'title': '亿级流量网站架构核心技术'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-jekyll-search/1.1.5/jekyll-search.js" type="text/javascript"></script>
+    <script src="/js/blog.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+          SimpleJekyllSearch({
+            searchInput: document.getElementById('search-input'),
+            resultsContainer: document.getElementById('results-container'),
+            json: '/search.json',
+            searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+            noResultsText: 'No results found',
+            limit: 10,
+            fuzzy: false,
+            exclude: ['Welcome']
+          })
+    </script>
+  </body>
+</html>

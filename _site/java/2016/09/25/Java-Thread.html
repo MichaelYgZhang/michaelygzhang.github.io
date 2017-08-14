@@ -99,40 +99,51 @@
     <article>
       <ul>
   <li>多线程指的是这个程序(一个进程)运行时产生了不止一个线程。</li>
-  <li>并行与并发
-    <blockquote>
-      <ul>
-        <li>并行:多个<code class="highlighter-rouge">cpu</code>实例或者多台机器同时执行一段处理逻辑,真正的同时。</li>
-        <li>并发:通过<code class="highlighter-rouge">cpu</code>调度算法，让用户看上去同时执行，实际从<code class="highlighter-rouge">cpu</code>操作层面上看不是真正的同时。并发往往在场景中有公用资源，那么针对这个公用的资源往往产生瓶颈，我们用<code class="highlighter-rouge">TPS</code>或者<code class="highlighter-rouge">QPS</code>来反应这个系统的处理能力。</li>
-      </ul>
-    </blockquote>
-  </li>
-  <li>线程安全:经常用来描述一段代码。指在并发的情况下该代码经过多线程的使用，线程的调度顺序不能影响任何结果。这个时候使用多线程，我们只需要关注系统的内存,<code class="highlighter-rouge">cpu</code>是不是够用即可。反过来，线程不安全就意味着线程的调度顺序会影响最终的结果，如不加事务的转账代码:
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">vodi</span> <span class="nf">transferMoney</span><span class="o">(</span><span class="n">User</span> <span class="n">from</span><span class="o">,</span> <span class="n">User</span> <span class="n">to</span><span class="o">,</span> <span class="kt">float</span> <span class="n">amount</span><span class="o">){</span>
-  <span class="n">to</span><span class="o">.</span><span class="na">setMoney</span><span class="o">(</span><span class="n">to</span><span class="o">.</span><span class="na">getBlance</span><span class="o">()</span> <span class="o">+</span> <span class="n">amount</span><span class="o">);</span>
-  <span class="n">from</span><span class="o">.</span><span class="na">setMoney</span><span class="o">(</span><span class="n">from</span><span class="o">.</span><span class="na">getBlance</span><span class="o">()</span> <span class="o">-</span> <span class="n">amount</span><span class="o">);</span>
+  <li>并行与并发</li>
+</ul>
+
+<blockquote>
+  <ul>
+    <li>并行:多个<code class="highlighter-rouge">cpu</code>实例或者多台机器同时执行一段处理逻辑,真正的同时。</li>
+    <li>并发:通过<code class="highlighter-rouge">cpu</code>调度算法，让用户看上去同时执行，实际从<code class="highlighter-rouge">cpu</code>操作层面上看不是真正的同时。并发往往在场景中有公用资源，那么针对这个公用的资源往往产生瓶颈，我们用<code class="highlighter-rouge">TPS</code>或者<code class="highlighter-rouge">QPS</code>来反应这个系统的处理能力。</li>
+  </ul>
+</blockquote>
+
+<ul>
+  <li>线程安全:经常用来描述一段代码。指在并发的情况下该代码经过多线程的使用，线程的调度顺序不能影响任何结果。这个时候使用多线程，我们只需要关注系统的内存,<code class="highlighter-rouge">cpu</code>是不是够用即可。反过来，线程不安全就意味着线程的调度顺序会影响最终的结果，如不加事务的转账代码:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><pre class="highlighter"><code><span class="n">vodi</span> <span class="nf">transferMoney</span><span class="o">(</span><span class="n">User</span> <span class="n">from</span><span class="o">,</span> <span class="n">User</span> <span class="n">to</span><span class="o">,</span> <span class="kt">float</span> <span class="n">amount</span><span class="o">){</span>
+    <span class="n">to</span><span class="o">.</span><span class="na">setMoney</span><span class="o">(</span><span class="n">to</span><span class="o">.</span><span class="na">getBlance</span><span class="o">()</span> <span class="o">+</span> <span class="n">amount</span><span class="o">);</span>
+    <span class="n">from</span><span class="o">.</span><span class="na">setMoney</span><span class="o">(</span><span class="n">from</span><span class="o">.</span><span class="na">getBlance</span><span class="o">()</span> <span class="o">-</span> <span class="n">amount</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre>
-    </div>
-  </li>
+</div>
+
+<ul>
   <li>同步:Java中的同步指的是通过人为的控制和调度，保证共享资源的多线程访问成为线程安全，来保证结果的准确。如上面代码简单加入<code class="highlighter-rouge">@synchronized</code>关键字。在保证结果准确的同时，提高性能，才是优秀的程序，县城安全的优先级高于性能。</li>
 </ul>
 
-<p><strong>线程状态:</strong>
-<em>Java线程一共有七个状态，分别是新建，可运行，运行中，睡眠，阻塞，等待，死亡。</em></p>
+<p><strong>线程状态:</strong></p>
+
+<p><em>Java线程一共有七个状态，分别是新建，可运行，运行中，睡眠，阻塞，等待，死亡。</em></p>
+
 <ul>
   <li>新建状态<code class="highlighter-rouge">New</code>:新创建一个线程对象</li>
   <li>就绪状态<code class="highlighter-rouge">Runable</code>:线程对象创建后，其他线程调用了该对象的<code class="highlighter-rouge">start()</code>方法。该状态的线程位于线程池中，变得可运行，等待获取<code class="highlighter-rouge">CPU</code>的使用权。</li>
   <li>运行状态<code class="highlighter-rouge">Running</code>:就绪状态的线程获取了<code class="highlighter-rouge">CPU</code>，执行程序代码。</li>
-  <li>阻塞状态<code class="highlighter-rouge">Blocked</code>:阻塞状态是线程因为某种原因放弃<code class="highlighter-rouge">CPU</code>使用权，暂时停止运行，直到线程进入就绪状态，才有机会转到运行状态。阻塞的情况分三种:
-    <blockquote>
-      <ol>
-        <li>等待阻塞:运行的线程执行<code class="highlighter-rouge">wait()</code>方法，JVM会把该线程放入等待池中(进入这个状态会释放所占有的所有资源，与阻塞状态不同)。</li>
-        <li>同步阻塞:运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入锁池中。</li>
-        <li>其他阻塞:运行的线程执行<code class="highlighter-rouge">sleep()或join()</code>或者发出了I/O请求时，JVM会把该线程置为阻塞状态(该状态既停止当前线程，但并不释放所占有的资源)。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。</li>
-      </ol>
-    </blockquote>
-  </li>
+  <li>阻塞状态<code class="highlighter-rouge">Blocked</code>:阻塞状态是线程因为某种原因放弃<code class="highlighter-rouge">CPU</code>使用权，暂时停止运行，直到线程进入就绪状态，才有机会转到运行状态。阻塞的情况分三种:</li>
+</ul>
+
+<blockquote>
+  <ol>
+    <li>等待阻塞:运行的线程执行<code class="highlighter-rouge">wait()</code>方法，JVM会把该线程放入等待池中(进入这个状态会释放所占有的所有资源，与阻塞状态不同)。</li>
+    <li>同步阻塞:运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入锁池中。</li>
+    <li>其他阻塞:运行的线程执行<code class="highlighter-rouge">sleep()或join()</code>或者发出了I/O请求时，JVM会把该线程置为阻塞状态(该状态既停止当前线程，但并不释放所占有的资源)。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。</li>
+  </ol>
+</blockquote>
+
+<ul>
   <li>线程调用<code class="highlighter-rouge">yield()</code>意思是放弃当前获得的CPU时间片，回到可运行状态，这时与其它线程处于同等竞争状态，OS有可能接着又让这个线程进入运行状态</li>
   <li>死亡状态<code class="highlighter-rouge">Dead</code>:线程执行完了或者因异常退出了run()方法，该线程结束生命周期。</li>
 </ul>
@@ -148,27 +159,27 @@
       
         <li>
           <h5>
-            <a href="/interview/2016/10/03/interview-1.html">
-              Interview-1
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
-              HTTP权威指南-15
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
-              HTTP权威指南-14
-              <small>2016-10-03</small>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
             </a>
           </h5>
         </li>

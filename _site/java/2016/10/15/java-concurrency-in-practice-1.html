@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Java Concurrency in Practice 第一部分 基础知识 – Michael – Developer</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Java Concurrency in Practice 第二章 线程安全性 第三章 对象的共享  第四章 对象的组合 第五章 基础构建模块" />
+    <meta property="og:description" content="Java Concurrency in Practice 第二章 线程安全性 第三章 对象的共享  第四章 对象的组合 第五章 基础构建模块" />
+    
+    <meta name="author" content="Michael" />
+
+    
+    <meta property="og:title" content="Java Concurrency in Practice 第一部分 基础知识" />
+    <meta property="twitter:title" content="Java Concurrency in Practice 第一部分 基础知识" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Michael - Developer" href="/feed.xml" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+  </head>
+
+  <body>
+
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/images/favicon.ico" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Michael</a></h1>
+            <p class="site-description">Developer</p>
+          </div>
+
+          <nav>
+            <a href="/"><i class="fa fa-home fa-2x"></i></a>
+            <a href="/category"><i class="fa fa-tags fa-2x" aria-hidden="true"></i></a>
+            <a href="/about"><i class="fa fa-user-secret fa-2x"></i></a>
+            <a href="/blog"><i class="fa fa-university fa-2x"></i></a>
+            <!-- <a href="/task"><i class="fa fa-book fa-2x" aria-hidden="true"></i></a> -->
+            <a href="/feed.xml" target="_blank"><i class="fa fa-feed fa-2x"></i></a>
+
+            <!-- 
+            
+              
+            
+              
+            
+              
+              <a href="/" >
+                Home
+              </a>
+              
+            
+              
+              <a href="/blog" >
+                Blog
+              </a>
+              
+            
+              
+              <a href="/category" >
+                Category
+              </a>
+              
+             -->
+          </nav>
+
+          <a href="https://github.com/MichaelYgZhang" target="_blank">
+            <img class="fork-me-on-github" src="/images/fork-me-on-github.png" alt="Fork me on GitHub">
+          </a>
+        </header>
+
+        <div id="search-container">
+          <input type="text" id="search-input" placeholder="search...">
+          <ul id="results-container"></ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <div class="post">
+    <h1 class="post-title">Java Concurrency in Practice 第一部分 基础知识</h1>
+    <span class="post-date">2016-10-15</span>
+    <!--  |
+    
+     -->
+    <article>
+      <h5 id="线程安全性">线程安全性</h5>
+
+<ul>
+  <li>如果当多个线程访问同一个可变状态变量时没有使用合适的同步，那么程序就会出现错误，有三种方式可以修复这个问题</li>
+</ul>
+
+<blockquote>
+  <ul>
+    <li>不在线程之间共享该状态变量</li>
+    <li>将状态变量修改为不可变的变量</li>
+    <li>在访问状态变量时使用同步</li>
+  </ul>
+</blockquote>
+
+<ul>
+  <li>当设计线程安全的类时，良好的面向对象技术、不可修改性，以及明析的不变性规范都能起到一定的帮助作用</li>
+  <li>编写并发应用时，正确的编程方法就是: 首先使代码正确运行，然后再提高代码的速度。</li>
+  <li><code class="highlighter-rouge">线程安全性</code>: 当多个线程访问某个类时，不管运行时环境采用何种调度方式或者这些线程将如何交替执行，并且在主调代码中不需要任何额外的同步或协同，这个类都能表现出正确的行为，那么就称这个类是线程安全的。</li>
+  <li>线程安全类中封装了必要的同步机制，因此客户端无须进一步采取同步措施。</li>
+  <li>无状态对象一定是线程安全的。</li>
+  <li>在实际情况中，应尽可能地使用现有的线程安全对象(比如AcomicLong)来管理类的状态，与非线程安全的对象相比，判断线程安全对象的可能状态及其状态转换情况要更为容易，从而也更容易维护和验证线程安全性。</li>
+  <li>要保持状态的一致性，就需要在单个原子操作中更新所有相关的状态变量。</li>
+  <li>锁机制: <code class="highlighter-rouge">synchronized</code>同步代码块包括两个部分:一个作为锁的对象引用，一个作为由这个锁保护的代码块。<code class="highlighter-rouge">内置锁是可重入的</code></li>
+  <li>对于可能被多个线程同时访问的可变状态变量，在访问它时都需要持有同一个锁，在这种情况下，我们称状态变量是由这个锁保护的。</li>
+  <li>每个共享的和可变的变量都应该只由一个锁来保护，从而使维护人员知道是哪个锁。</li>
+  <li>对于每个包含多个变量的不变性条件，其中涉及的所有变量都需要由同一个锁来保护。</li>
+  <li>通常，在简单性与性能之间存在相互制约因素，当实现某个同步策略时，一定不要盲目地为了性能而牺牲简单性(这可能会破坏安全性)</li>
+  <li>当执行时间较长的计算或者可能无法快速完成的操作时(例如，网络I/O或者控制台I/O)一定不要持有锁</li>
+</ul>
+
+<h5 id="对象的共享">对象的共享</h5>
+
+<ul>
+  <li>在没有同步的情况下，编译器，处理器以及运行时等都可能对操作的执行顺序进行一些意想不到的调整。在缺乏足够同步的多线程中，要想对内存操作的执行顺序进行判断，几乎无法得出正确的结论。</li>
+  <li>加锁的含义不仅仅局限于互斥行为，还包括内存可见性。为了确保所有线程都能看到共享变量的最新值，所有执行读操作或者写操作的线程都必须在同一个锁上同步。</li>
+  <li>仅当<code class="highlighter-rouge">volatile</code>变量能简化代码的实现以及对同步策略的验证时，才应该使用他们。如果在在验证正确性时需要对可见性进行复杂的判断，那么就不要使用volatile变量。volatile变量的正确使用方式
+包括：确保它们自身状态的可见性，确保它们所引用对象的状态的可见性，以及标识一些重要的程序生命周期事件的发生。(比如，初始化或关闭)</li>
+  <li>加锁机制既可以确保可见行又可以确保原子性，而<code class="highlighter-rouge">volatile</code>变量只能确保可见性。</li>
+  <li>仅当满足一下所有条件时，才应该使用volatile变量：
+    <ol>
+      <li>变量的写入操作不依赖变量当前的值，或者你能确保只有单个线程更新变量的值。</li>
+      <li>该变量不会与其他状态变量一起纳入不变性条件中。</li>
+      <li>在访问变量时不需要加锁。</li>
+    </ol>
+  </li>
+  <li>不要在构造过程中使this引用逸出。可以使用工厂方法。</li>
+  <li>不变对象一定是线程安全的。</li>
+  <li>当满足以下条件时，对象才是不变的：
+    <ol>
+      <li>对象创建以后其状态就不能修改。</li>
+      <li>对象的所有域都是final类型</li>
+      <li>对象是正确创建的(在对象的创建期间，this引用没有逸出)</li>
+    </ol>
+  </li>
+  <li>正如“除非需要更高的可见性，否则应将所有域都声明为私有域”是一个良好的编程习惯，“除非需要某个域是可变的，否则应将其声明为final域”也是一个良好的编程习惯。</li>
+  <li>任何线程都可以在不需要额外同步的情况下安全地访问不可变对象，即使在发布这些对象时没有使用同步。</li>
+  <li>在没有额外的同步的情况下，任何线程都可以以安全地使用被安全发布的事实不可变对象。状态在发布后不会再改变，这种对象称为”事实不可变对象”。</li>
+  <li>对象的发布需求取决于它的可变性。
+    <ol>
+      <li>不可变对象可以通过任意机制来发布。</li>
+      <li>事实不可变对象必须通过安全方式来发布。</li>
+      <li>可变对象必须通过安全方式来发布，并且必须是线程安全的或者由某个锁保护起来。</li>
+    </ol>
+  </li>
+  <li>在并发程序中使用和共享对象时，可以使用一些常用的策略，包括：
+    <ol>
+      <li>线程封闭：线程封闭的对象只能由一个线程拥有，对象被封闭在该线程汇总，并且只能由这个线程修改。</li>
+      <li>只读共享：在没有额外同步的情况下，共享的只读对象可以由多个线程并发访问，但任何线程都不能修改它。共享的只读对象包括不可变对象和事实不可变对象。</li>
+      <li>线程安全共享：线程安全的对象在其内部实现同步，因此多个线程可以通过对象的公有接口来进行访问而不需要进一步的同步。</li>
+      <li>保护对象：被保护的对象只能通过持有特定的锁访问，保护对象包括封装在其他线程安全对象中对象，以及已经发布的并且由某个特定锁保护的对象。</li>
+    </ol>
+  </li>
+</ul>
+
+<h5 id="对象的组合">对象的组合</h5>
+
+<ul>
+  <li>在设计线程安全的类的过程汇总，需要包含以下三个基本要素：
+    <ol>
+      <li>找出构成对象状态的所有变量。</li>
+      <li>找出约束状态变量的不变性条件。</li>
+      <li>建立对象状态的并发访问管理策略。</li>
+    </ol>
+  </li>
+  <li>如果不了解对象的不变性条件与后验条件，那么就不能确保线程安全性，要满足在状态变量的有效值或状态转换上的各种约束条件，就需要借助于原子性和封装性。</li>
+  <li>将数据封装在对象内部，可以将数据的访问限制在对象的方法上，从而更容易确保线程在访问数据时总能持有正确的锁。</li>
+  <li>封装机制更易于构造线程安全的类，因为当封装类的状态时，在分析类的线程安全性时无需检查整个程序。</li>
+  <li>如果一个类是由多个独立且线程安全的状态变量组成，并且在所有的操作中都不包含无效状态转换，那么就可以将线程安全性委托给底层的状态变量。</li>
+</ul>
+
+<h5 id="基础构建模块">基础构建模块</h5>
+
+<ul>
+  <li>正如封装对象的状态有助于维持不变性条件一样，封装对象的同步机制同样有助于确保实施同步策略。</li>
+  <li>通过并发容器来代替同步容器，可以极大提高伸缩性并降低风险。</li>
+  <li>在构建高可靠的应用程序时，有界队列是一种强大的资源管理工具，它们能抑制并防止生产过多的工作项，使应用程序在负荷过载的情况下变得更加健壮。</li>
+</ul>
+
+<h6 id="第一部分小结">第一部分小结</h6>
+
+<ul>
+  <li>可变状态是至关重要的，所有并发问题都可以归结为如何协调对并发状态的访问，可变状态越少，就越容易确保线程安全性。</li>
+  <li>尽量将域声明为final类型，除非需要它们是可变的。</li>
+  <li>不可变对象一定是线程安全的。不可变对象能极大地降低并发编程的复杂性，它们更为简单而且安全，可以任意共享而无须使用加锁或保护性复制等机制。</li>
+  <li>封装有助于管理复杂性。在编写线程安全的程序时，虽然可以将所有数据都保存在全局变量中，但为什么要这样做？将数据封装在对象中，更易于维持不变性条件，将同步机制封装在对象中，更易于遵循同步策略。</li>
+  <li>用锁来保护每个可变变量。</li>
+  <li>当保护同一个不可变性条件中的所有变量时，要使用同一个锁。</li>
+  <li>在执行复合操作期间，要持有锁。</li>
+  <li>如果从多个线程中访问同一个可变变量时没有同步机制，那么程序会出现问题。</li>
+  <li>不要故作聪明地推断不需要使用同步</li>
+  <li>在设计过程中考虑线程安全，或者在文档中明确地指出它不是线程安全的。</li>
+  <li>将同步策略文档化。</li>
+</ul>
+
+    </article>
+  </div>
+
+  <div class="related">
+    <h4>最新文章</h4>
+    <ul class="related-posts">
+      
+        <li>
+          <h5>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
+            </a>
+          </h5>
+        </li>
+      
+    </ul>
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'michaelygzhangblog';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:g.zhangyg@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/MichaelYgZhang"><i class="svg-icon github"></i></a>
+
+
+
+
+<a href="https://www.twitter.com/michaelygzhang"><i class="svg-icon twitter"></i></a>
+
+
+<a href="https://plus.google.com/115646538142388831563"><i class="svg-icon googleplus"></i></a>
+
+        </footer>
+      </div>
+    </div>
+
+    <div id="backToTop" class="backtoTop">
+    	<i class="fa fa-hand-o-up fa-2x"></i>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-84531968-1', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/java/2016/10/15/java-concurrency-in-practice-1.html',
+		  'title': 'Java Concurrency in Practice 第一部分 基础知识'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-jekyll-search/1.1.5/jekyll-search.js" type="text/javascript"></script>
+    <script src="/js/blog.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+          SimpleJekyllSearch({
+            searchInput: document.getElementById('search-input'),
+            resultsContainer: document.getElementById('results-container'),
+            json: '/search.json',
+            searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+            noResultsText: 'No results found',
+            limit: 10,
+            fuzzy: false,
+            exclude: ['Welcome']
+          })
+    </script>
+  </body>
+</html>

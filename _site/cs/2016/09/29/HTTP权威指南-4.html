@@ -98,16 +98,17 @@
      -->
     <article>
       <ul id="markdown-toc">
-  <li><a href="#tcp" id="markdown-toc-tcp">TCP连接</a></li>
-  <li><a href="#tcp-1" id="markdown-toc-tcp-1">对TCP性能的考虑</a></li>
-  <li><a href="#http" id="markdown-toc-http">HTTP连接的处理</a></li>
-  <li><a href="#section" id="markdown-toc-section">并行连接</a></li>
-  <li><a href="#section-1" id="markdown-toc-section-1">持久连接</a></li>
-  <li><a href="#section-2" id="markdown-toc-section-2">管道化连接</a></li>
-  <li><a href="#section-3" id="markdown-toc-section-3">关闭连接的奥秘</a></li>
+  <li><a href="#tcp连接" id="markdown-toc-tcp连接">TCP连接</a></li>
+  <li><a href="#对tcp性能的考虑" id="markdown-toc-对tcp性能的考虑">对TCP性能的考虑</a></li>
+  <li><a href="#http连接的处理" id="markdown-toc-http连接的处理">HTTP连接的处理</a></li>
+  <li><a href="#并行连接" id="markdown-toc-并行连接">并行连接</a></li>
+  <li><a href="#持久连接" id="markdown-toc-持久连接">持久连接</a></li>
+  <li><a href="#管道化连接" id="markdown-toc-管道化连接">管道化连接</a></li>
+  <li><a href="#关闭连接的奥秘" id="markdown-toc-关闭连接的奥秘">关闭连接的奥秘</a></li>
 </ul>
 
-<h4 id="tcp">TCP连接</h4>
+<h4 id="tcp连接">TCP连接</h4>
+
 <ul>
   <li>TCP的可靠数据管道</li>
   <li>TCP流是分段的、由IP分组传送。(TCP的数据是通过名为IP分组或者IP数据报的小数据块来发送的)</li>
@@ -225,7 +226,8 @@
   </tbody>
 </table>
 
-<h4 id="tcp-1">对TCP性能的考虑</h4>
+<h4 id="对tcp性能的考虑">对TCP性能的考虑</h4>
+
 <ul>
   <li>HTTP事务的时延</li>
 </ul>
@@ -263,7 +265,8 @@
   <li>TIME_WAIT累积与端口耗尽</li>
 </ul>
 
-<h4 id="http">HTTP连接的处理</h4>
+<h4 id="http连接的处理">HTTP连接的处理</h4>
+
 <ul>
   <li>常被误解的Connection首部</li>
 </ul>
@@ -277,7 +280,7 @@
   </ol>
 </blockquote>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="nx">OK</span>
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="nx">OK</span>
 <span class="nx">Cache</span><span class="o">-</span><span class="nx">control</span><span class="err">:</span> <span class="nx">max</span><span class="o">-</span><span class="nx">age</span><span class="o">=</span><span class="mi">3600</span>
 <span class="nl">Connection</span><span class="p">:</span> <span class="nx">meter</span><span class="p">,</span> <span class="nx">close</span><span class="p">,</span> <span class="nx">bill</span><span class="o">-</span><span class="nx">my</span><span class="o">-</span><span class="nx">credit</span><span class="o">-</span><span class="nx">card</span>
 <span class="nl">Meter</span><span class="p">:</span> <span class="nx">max</span><span class="o">-</span><span class="nx">users</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="nx">max</span><span class="o">-</span><span class="nx">refuses</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="nx">dont</span><span class="o">-</span><span class="nx">report</span>
@@ -291,6 +294,7 @@
 </ul>
 
 <p>四类提高HTTP的连接性能的方法</p>
+
 <ol>
   <li>并行连接(通过多条TCP连接发起并发的HTTP请求)</li>
   <li>持久连接(重用TCP连接，以消除连接及关闭时延)</li>
@@ -298,21 +302,23 @@
   <li>复用的连接(交替传送请求和响应报文)</li>
 </ol>
 
-<h4 id="section">并行连接</h4>
+<h4 id="并行连接">并行连接</h4>
+
 <ul>
   <li>并行连接可能会提高页面的加载速度</li>
   <li>并行的连接不一定更快</li>
   <li>并行连接可能让人“感觉”更快一些</li>
 </ul>
 
-<h4 id="section-1">持久连接</h4>
+<h4 id="持久连接">持久连接</h4>
+
 <ul>
   <li>在HTTP事务处理结束之后仍然保持在打开状态的TCP连接被称为持久连接。重用已对目标服务器打开的空闲持久连接，就可以避开缓慢的连接建立阶段，并且已经打开的连接还可以避免慢启动的拥塞适应阶段，以便更快速地进行数据的传输。</li>
   <li>持久及并行连接，缺点:每个事务都会打开/关闭一条新的连接，会耗费时间和带宽，由于TCP慢启动特性的村子啊，每条新连接的性能都会有所降低，可打开的并行连接数量实际上是有限的。所以持久连接与并行连接配合使用是最高效的方式。</li>
   <li>HTTP/1.0 + keep-alive连接</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Connection: Keep-Alive
+<div class="highlighter-rouge"><pre class="highlighter"><code>Connection: Keep-Alive
 Keep-Alive: max=5, timeout=120
 </code></pre>
 </div>
@@ -320,48 +326,54 @@ Keep-Alive: max=5, timeout=120
 <p>响应报文表明服务器最多还会为另外5个事务保持连接的打开状态，或者将打开状态保持到连接空闲了2分钟之后。</p>
 
 <ul>
-  <li>Keep-Alive连接的限制和规则
-    <ol>
-      <li>HTTP/1.0中keep-alive并不是默认使用的，在需要保持持久连接的请求报文中添加请求首部Connection: Keep-Alive的请求首部来激活keep-alive本次TCP的持久连接。</li>
-      <li>TODO note page: 100</li>
-    </ol>
-  </li>
+  <li>Keep-Alive连接的限制和规则</li>
+</ul>
+
+<ol>
+  <li>HTTP/1.0中keep-alive并不是默认使用的，在需要保持持久连接的请求报文中添加请求首部Connection: Keep-Alive的请求首部来激活keep-alive本次TCP的持久连接。</li>
+  <li>TODO note page: 100</li>
+</ol>
+
+<ul>
   <li>Keep-Alive哑代理</li>
   <li>插入Proxy-Connection解决哑代理问题，客户端和服务器之间只有一个代理时可以使用此方式进行解决。如果是多层代理时，则仍然会出现哑代理问题。</li>
   <li>HTTP/1.1持久连接(默认激活，HTTP1.1客户端假定在收到响应后，除非响应中包含了Connection:close首部，否则HTTP/1.1连接就仍然维持打开状态。如果需要在事务结束之后将连接关闭，HTTP/1.1必须向报文中显示地添加一个Connection:close首部，不发送Connection: close并不意味值服务器承若永远连接保持在打开状态)</li>
-  <li>持久连接的限制和规则
-    <ol>
-      <li>如果客户端不想在连接上发送请求了就在最后一条请求报文中发送一个Connection: close首部。</li>
-      <li>只有连接上所有的报文都是正确的、自定义报文长度时，连接才能持久保持，也就是说异常时可能会关闭。</li>
-      <li>HTTP/1.1的代理必须能够分别管理与客户端和服务器的持久连接–每个持久连接都只适用于一跳传输。</li>
-      <li>(由于较老的代理会转发Connection首部)所以HTTP/1.1的代理服务器不应该与HTTP/1.0客户端建立持久连接，会造成哑代理</li>
-      <li>HTTP/1.1要求应用程序能够从异步的关闭中恢复出来，只要不村子啊可能累积起来的副作用，客户端都应该重复这条请求。</li>
-      <li>除非重复发起请求会产生副作用，否则如果在客户端收到整条响应之前连接关闭了，客户端就必须要重新发起请求。</li>
-      <li>一个用户客户端对任何服务器或代理最多只能维护两条持久连接，以防服务器过载，代理可能需要更多到服务器的连接来支持并发用户的通信，所以，如果有N个用户试图访问服务器的话，代理最多要维持2N条到任意服务器或父代理的连接。</li>
-    </ol>
-  </li>
+  <li>持久连接的限制和规则</li>
 </ul>
 
-<h4 id="section-2">管道化连接</h4>
+<ol>
+  <li>如果客户端不想在连接上发送请求了就在最后一条请求报文中发送一个Connection: close首部。</li>
+  <li>只有连接上所有的报文都是正确的、自定义报文长度时，连接才能持久保持，也就是说异常时可能会关闭。</li>
+  <li>HTTP/1.1的代理必须能够分别管理与客户端和服务器的持久连接–每个持久连接都只适用于一跳传输。</li>
+  <li>(由于较老的代理会转发Connection首部)所以HTTP/1.1的代理服务器不应该与HTTP/1.0客户端建立持久连接，会造成哑代理</li>
+  <li>HTTP/1.1要求应用程序能够从异步的关闭中恢复出来，只要不村子啊可能累积起来的副作用，客户端都应该重复这条请求。</li>
+  <li>除非重复发起请求会产生副作用，否则如果在客户端收到整条响应之前连接关闭了，客户端就必须要重新发起请求。</li>
+  <li>一个用户客户端对任何服务器或代理最多只能维护两条持久连接，以防服务器过载，代理可能需要更多到服务器的连接来支持并发用户的通信，所以，如果有N个用户试图访问服务器的话，代理最多要维持2N条到任意服务器或父代理的连接。</li>
+</ol>
+
+<h4 id="管道化连接">管道化连接</h4>
+
 <ul>
   <li>HTTP/1.1允许持久连接上可选地使用请求管道，管道化:客户端在响应到达之前，可以将多条请求放入队列，当第一条请求通过网络流向地球另一端的服务器时，第二条，第三条也可以开始发送了，在高时延网络条件下，这样可以降低网络的环回时间，提高性能。</li>
-  <li>对管道化连接有几条限制
-    <ol>
-      <li>如果HTTP客户端无法确认连接是持久的，就不应该使用管道。</li>
-      <li>必须按照与请求相同的顺序回送HTTP响应，HTTP报文中没有序号标签，因此如果收到的响应失序了，就没有办法将其与请求匹配起来了。</li>
-      <li>HTTP客户端必须做好连接会随时关闭的准备，并准备好重发所未完成的管道化请求。</li>
-      <li>HTTP客户端不应该使用管道化的方式发送会产生副作用的请求(比如POST)。</li>
-    </ol>
-  </li>
+  <li>对管道化连接有几条限制</li>
 </ul>
 
-<h4 id="section-3">关闭连接的奥秘</h4>
+<ol>
+  <li>如果HTTP客户端无法确认连接是持久的，就不应该使用管道。</li>
+  <li>必须按照与请求相同的顺序回送HTTP响应，HTTP报文中没有序号标签，因此如果收到的响应失序了，就没有办法将其与请求匹配起来了。</li>
+  <li>HTTP客户端必须做好连接会随时关闭的准备，并准备好重发所未完成的管道化请求。</li>
+  <li>HTTP客户端不应该使用管道化的方式发送会产生副作用的请求(比如POST)。</li>
+</ol>
+
+<h4 id="关闭连接的奥秘">关闭连接的奥秘</h4>
+
 <ul>
   <li>所有HTTP客户端、服务器端可以在任意时刻关闭一条TCP传输连接。</li>
   <li>管道连接必须是幂等操作如GET、HEAD、PUT、DELETE、TRACE、OPTIONS，客户端不应该使用非幂等请求如POST，否则在传输连接的过程中连接过早终止就会造成一些不确定的后果，要发送一条非幂等请求，就需要等待来自前一条请求的响应状态。</li>
-  <li>TCP连接是双向的，TCP连接的每一个端都有一个输入队列和一个输出队列对于数据的读或写，放入一端输出队列中的数据最终会出现在另一端的输入队列中。应用程序可以关闭TCP输入和输出信道中的任意一个，或者将两者都关闭了，套接字调用close()会将TCP连接的输入和输出信道都关闭调，这种方式称为”完全关闭”，可以用套接字调用shutdown()单独关闭输入或输出信道，被称为”半关闭”。
-⚠️关闭连接的输入信道比较危险，因为当另一端向你关闭输入信道时，操作系统会向请求方发送一条TCP”连接被对端重置”的报文，大部分操作系统会将这种情况作为很严重的错误来处理，比如你的连接中有部分数据在缓存中还未读取，这时返回的”连接被对端重置”信息会讲你的缓冲区清空，所以慎重！关闭连接的输出信道总是安全的。</li>
+  <li>TCP连接是双向的，TCP连接的每一个端都有一个输入队列和一个输出队列对于数据的读或写，放入一端输出队列中的数据最终会出现在另一端的输入队列中。应用程序可以关闭TCP输入和输出信道中的任意一个，或者将两者都关闭了，套接字调用close()会将TCP连接的输入和输出信道都关闭调，这种方式称为”完全关闭”，可以用套接字调用shutdown()单独关闭输入或输出信道，被称为”半关闭”。</li>
 </ul>
+
+<p>⚠️关闭连接的输入信道比较危险，因为当另一端向你关闭输入信道时，操作系统会向请求方发送一条TCP”连接被对端重置”的报文，大部分操作系统会将这种情况作为很严重的错误来处理，比如你的连接中有部分数据在缓存中还未读取，这时返回的”连接被对端重置”信息会讲你的缓冲区清空，所以慎重！关闭连接的输出信道总是安全的。</p>
 
 <p><a href="https://en.wikipedia.org/wiki/TCP">TCP-wiki</a>
 <a href="http://www.ietf.org/rfc/rf2626.txt">HTTP连接</a>
@@ -376,27 +388,27 @@ Keep-Alive: max=5, timeout=120
       
         <li>
           <h5>
-            <a href="/interview/2016/10/03/interview-1.html">
-              Interview-1
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
-              HTTP权威指南-15
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
-              HTTP权威指南-14
-              <small>2016-10-03</small>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
             </a>
           </h5>
         </li>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>重构-改善既有代码的设计 – Michael – Developer</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="重构-改善既有代码的设计" />
+    <meta property="og:description" content="重构-改善既有代码的设计" />
+    
+    <meta name="author" content="Michael" />
+
+    
+    <meta property="og:title" content="重构-改善既有代码的设计" />
+    <meta property="twitter:title" content="重构-改善既有代码的设计" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Michael - Developer" href="/feed.xml" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+  </head>
+
+  <body>
+
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/images/favicon.ico" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Michael</a></h1>
+            <p class="site-description">Developer</p>
+          </div>
+
+          <nav>
+            <a href="/"><i class="fa fa-home fa-2x"></i></a>
+            <a href="/category"><i class="fa fa-tags fa-2x" aria-hidden="true"></i></a>
+            <a href="/about"><i class="fa fa-user-secret fa-2x"></i></a>
+            <a href="/blog"><i class="fa fa-university fa-2x"></i></a>
+            <!-- <a href="/task"><i class="fa fa-book fa-2x" aria-hidden="true"></i></a> -->
+            <a href="/feed.xml" target="_blank"><i class="fa fa-feed fa-2x"></i></a>
+
+            <!-- 
+            
+              
+            
+              
+            
+              
+              <a href="/" >
+                Home
+              </a>
+              
+            
+              
+              <a href="/blog" >
+                Blog
+              </a>
+              
+            
+              
+              <a href="/category" >
+                Category
+              </a>
+              
+             -->
+          </nav>
+
+          <a href="https://github.com/MichaelYgZhang" target="_blank">
+            <img class="fork-me-on-github" src="/images/fork-me-on-github.png" alt="Fork me on GitHub">
+          </a>
+        </header>
+
+        <div id="search-container">
+          <input type="text" id="search-input" placeholder="search...">
+          <ul id="results-container"></ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <div class="post">
+    <h1 class="post-title">重构-改善既有代码的设计</h1>
+    <span class="post-date">2017-07-26</span>
+    <!--  |
+    
+     -->
+    <article>
+      <h4 id="重构是在不改变软件可观察行为的前提下改善其内部结构">重构是在不改变软件可观察行为的前提下改善其内部结构。</h4>
+
+<h4 id="有一句古老的工程谚语如果它还可以运行就不要动它对吗">有一句古老的工程谚语：如果它还可以运行，就不要动它。对吗？</h4>
+
+<h4 id="第一章-重构第一个案例">第一章 重构第一个案例</h4>
+
+<ul>
+  <li>如果你发现自己需要为程序添加一个特性，而代码结构使你无法很方便地达成目的，那就先重构那个程序，使特性的添加比较容易进行，然后再添加特性。</li>
+  <li>重构第一步：为即将修改的代码建立一组可靠的测试环境，有自我校验的能力，提高重构速度。用现有的程序跑出测试用例，测试用例尽可能全。输入跟输出，然后留存方便重构后的代码进行校验。</li>
+  <li>重构步骤的本质，由于每次修改的幅度都很小，所以任何错误都很容易发现。你不必耗费大把时间调试。</li>
+  <li>任何一个傻瓜都能写出计算机可以理解的代码。唯有写出人类容易理解的代码，才是优秀的程序员。</li>
+  <li>重构的节奏：测试，小修改，测试，小修改，测试，小修改。。。。。。正是这种节奏让重构得以快速而安全的前进。</li>
+</ul>
+
+<h4 id="第二章-重构原则">第二章 重构原则</h4>
+
+<ul>
+  <li>重构（名词）：对软件内部结构的一种调整，目的是在不改变软件可观察行为的前提下，提高其可理解性，降低其修改成本。</li>
+  <li>重构（动词）：使用一系列重构手段，在不改变软件可观察行为的前提下，调整其结构。</li>
+  <li>重构的目的：1. 改进软件设计。 2. 使软件更易于理解。3.重构帮助找到bug 4. 重构提高编程速度</li>
+  <li>事不过三，三则重构。1. 添加新功能时重构 2. 修补错误时重构 3. 复审代码时重构</li>
+  <li>
+    <ol>
+      <li>难以阅读的程序，难以修改。2.逻辑重复的程序，难以修改。 3. 添加新行为时需要修改已有代码的程序，难以修改。 4. 带复杂条件逻辑的程序，难以修改。</li>
+    </ol>
+  </li>
+  <li>希望 1. 容易阅读 2 所有逻辑都只在唯一地点指定 3. 新的改动不会危及现有行为 4. 尽可能简单表达条件逻辑</li>
+  <li>计算机科学时这样一门科学：它相信所有问题都可以通过增加一个间接层来解决。</li>
+  <li>间接层和重构。简介层的价值：1 允许逻辑共享 2. 分开解释意图和实现 3.隔离变化 4. 封装条件逻辑</li>
+  <li>不要过早发布接口，请修改你的代码所有权政策，使重构更顺畅。</li>
+</ul>
+
+<h4 id="第三章-代码的坏味道">第三章 代码的坏味道</h4>
+
+<ul>
+  <li>Duplicated Code</li>
+  <li>Long Method</li>
+  <li>Large Class</li>
+  <li>Long Parameter List</li>
+  <li>Divergent Change 发散式变化</li>
+  <li>Shotgun Surgery 散弹式修改</li>
+  <li>Feature Envy 依恋情结</li>
+  <li>Data Clumps 数据泥团</li>
+  <li>Primitive Obsession 基本类型偏执</li>
+  <li>Switch Statements switch 惊悚现身</li>
+  <li>Parallel InheritanceHierarchies 平行继承体系</li>
+  <li>Lazy Class 冗赘类</li>
+  <li>Speculative Generality 夸夸其谈未来性</li>
+  <li>Temporary Field 令人迷惑的暂时字段</li>
+  <li>Message Chains 过度耦合的消息链</li>
+  <li>Middle Man 中间人</li>
+  <li>Inappropriate Intimacy</li>
+  <li>Alternative Class with Different Interfaces 异曲同工的类</li>
+  <li>Incomplete Library Class 不完美的库类</li>
+  <li>Data Class</li>
+  <li>Refused Bequest 被拒绝的遗赠</li>
+  <li>Comments 过多的注释，当你感觉需要写注释时，请先尝试重试，试着让所有注释都变得多余。当你不知道该做什么才是注释良好运用时机。</li>
+</ul>
+
+<h4 id="第四章-构筑测试体系">第四章 构筑测试体系</h4>
+
+<ul>
+  <li>确保所有测试都完全自动化，让他们检查自己的测试结果</li>
+  <li>一套测试就是一个强大的bug侦测器，能够大大缩减查找bug所需要的时间</li>
+  <li>频繁地运行测试，每次编译请把测试也考虑进去，每天至少执行每个测试一次。</li>
+  <li>每当你收到bug报告，请先写一个单元测试来暴漏bug。</li>
+  <li>测试用例主要是测试你最担心出错的部分。</li>
+  <li>考虑可能出错的边界条件，把测试火力集中在那儿。</li>
+  <li>当事情被认为应该会出错时，别忘了检查是否抛出了预期的异常。</li>
+  <li>不要因为测试无法捕捉所有bug就不写测试，因为测试的确可以捕捉到大多数bug。</li>
+  <li>花合理时间抓住大多数bug，好过，穷尽一生抓尽所有bug。</li>
+</ul>
+
+<h4 id="第五章-重构列表">第五章 重构列表</h4>
+
+<ul>
+  <li>重构手法，名称，简单概要，动机，做法，范例</li>
+  <li>寻找引用点。</li>
+  <li>这些重构手法有多成熟?</li>
+</ul>
+
+<h4 id="第六章-重新组织函数">第六章 重新组织函数</h4>
+
+<ul>
+  <li>Extract Method 提炼函数</li>
+  <li>Inline Method 内联函数</li>
+  <li>Inline Temp 内联临时变量</li>
+  <li>Relace Temp with Query 以查询取代临时变量</li>
+  <li>Introduce Explaining Variable 引入解释性变量</li>
+  <li>Split Temporary Variable 分解临时变量</li>
+  <li>Remove Assignments to Parameters 移除对参数的赋值</li>
+  <li>Relace Method with Method Object 以函数对象取代函数</li>
+  <li>Substitue Algorithm 替换算法</li>
+</ul>
+
+<h4 id="第七章-在对象之间搬移特性">第七章 在对象之间搬移特性</h4>
+
+<ul>
+  <li>Move Method 搬移函数</li>
+  <li>Move Field 搬移字段</li>
+  <li>Extract Class 提炼类</li>
+  <li>Inline Class 将类内联化</li>
+  <li>Hide Delegate 隐藏 “委托关系”</li>
+  <li>Remove Middle Man 移除中间人</li>
+  <li>Introduce Foreign Method 引入外加函数</li>
+  <li>Introduce Local Extension 引入本地扩展</li>
+</ul>
+
+<h4 id="第八章-重新组织数据">第八章 重新组织数据</h4>
+
+<ul>
+  <li>Self Encapsulate Fiedl 自封装字段</li>
+  <li>Replace Data Value with Object 以对象取代数据值</li>
+  <li>Change Value to Reference 将值对象改为引用对象</li>
+  <li>Change Reference to Value 将引用对象改为值对象</li>
+  <li>Replace Array with Object 以对象取代数组</li>
+  <li>Duplicate Observed Data 复制”被监视数据“</li>
+  <li>Change Unidirectional Association to Bidiredctional 将单向关联改为双向关联</li>
+  <li>Change Bidiredctional Association to Unidirectional 将双向关联改为单向关联</li>
+  <li>Replace Magic Number with Symbolic Constant 以字面常量取代魔法数</li>
+  <li>Encapusulate Field 封装字段</li>
+  <li>Encapsulate Collection 封装集合</li>
+  <li>Relace Record with Data Class 以数据类取代记录</li>
+  <li>Replace Type Code with Class 以类取代类型码</li>
+  <li>Replace Type Code with Subclasses 以子类取代类型码</li>
+  <li>Replace Type Code with State/Strategy 以State/Strategy取代类型码</li>
+  <li>Replace Subclass with Fields 以字段取代子类</li>
+</ul>
+
+<h4 id="第九章-简化条件表达式">第九章 简化条件表达式</h4>
+
+<ul>
+  <li>Decompose Conditional 分解条件表达式</li>
+  <li>Consolidate Conditional Expression 合并条件表达式</li>
+  <li>Consolidate Duplicate Conditional Fragments 合并重复的条件片段</li>
+  <li>Remove Control Flag 移除控制标记</li>
+  <li>Replace Nested Conditional with Guard Clauses 以卫语句取代嵌套条件表达式</li>
+  <li>Replace Conditional with Polymorphism 以多态取代条件表达式</li>
+  <li>Introduce Null Object 引入Null对象</li>
+  <li>Introduce Assertion 引入断言</li>
+</ul>
+
+<h4 id="第十章-简化函数调用">第十章 简化函数调用</h4>
+
+<ul>
+  <li>Rename Method 函数改名</li>
+  <li>Add Parameter 添加参数</li>
+  <li>Remove Parameter 移除参数</li>
+  <li>Separate Query from Modifier 将查询函数和修改函数分离</li>
+  <li>Parameterize Method 令函数携带参数</li>
+  <li>Replace Parameter with Explicit Methods 以明确函数取代参数</li>
+  <li>Preserve Whole Object 保持对象完整</li>
+  <li>Replace Parameter with Methods 以函数取代参数</li>
+  <li>Introduce Parameter Object 引入参数对象</li>
+  <li>Remove Setting Method 移除设值函数</li>
+  <li>Hide Method 隐藏函数</li>
+  <li>Replace Constructor with Factory Method 以工厂函数取代构造函数</li>
+  <li>Encapsulate Downcast 封装向下转型</li>
+  <li>Replace Error Code with Exception 以异常取代错误码</li>
+  <li>Replace Exception with Test 以测试取代异常</li>
+</ul>
+
+<h4 id="第十一章-处理概括关系">第十一章 处理概括关系</h4>
+
+<ul>
+  <li>Pull Up Field 字段上移</li>
+  <li>Pull Up Method 函数上移</li>
+  <li>Pull Up Constructor Body 构造函数本体上移</li>
+  <li>Push Down Method 函数下移</li>
+  <li>Push Down Field 字段下移</li>
+  <li>Extract Subclass 提炼子类</li>
+  <li>Extract Superclass 提炼超类</li>
+  <li>Extract Interface 提炼接口</li>
+  <li>Collapse Hierarchy 折叠继承体系</li>
+  <li>Form TemPlate Method 塑造模版函数</li>
+  <li>Replace Inheritance with Delegation 以委托取代继承</li>
+  <li>Replace Delegation with Inheritance 以继承取代委托</li>
+</ul>
+
+<h4 id="第十二章-大型重构">第十二章 大型重构</h4>
+
+<ul>
+  <li>小小的信仰：每天都使自己的程序世界更安全</li>
+  <li>Tease Apart Inheritance 梳理并分解继承体系</li>
+  <li>Convert Procedural Design to Objects 将过程化设计转化为对象设计</li>
+  <li>Separate Domain from Presentation 将领域和表述／显示分离</li>
+  <li>Extract Hierarchy 提炼继承体系</li>
+</ul>
+
+<h4 id="第十三章-重构复用与实现">第十三章 重构，复用与实现</h4>
+
+<h4 id="第十四章-重构工具">第十四章 重构工具</h4>
+
+<ul>
+  <li>重构与新功能需要同时进行</li>
+  <li>Refactoring Browser</li>
+</ul>
+
+<h4 id="第十五章-总结">第十五章 总结</h4>
+
+<ul>
+  <li>随时挑一个目标</li>
+  <li>没把我就停下来</li>
+  <li>学习原路返回</li>
+  <li>二重奏</li>
+</ul>
+
+<h4 id="要点列表">要点列表</h4>
+
+<ul>
+  <li>如果你发现自己需要为程序添加一个特性，而代码结构使你无法很方便地达成目的，那就先重构那个程序，使特性的添加比较容易进行，然后再添加特性。</li>
+  <li>重构前先检查自己是否有一套可靠的测试机制，这些测试机制必须有一套自我检验能力</li>
+  <li>重构技术就是以微小的步伐修改程序。如果你犯下错误，很容易便可发现它。</li>
+  <li>任何傻瓜都能写出计算机可以理解的代码，唯有写出人类容易理解的代码才是优秀的程序员</li>
+  <li>重构，对软件内部结构的一种调整，目的是在不改变软件可观察行为的前提下，提高其可理解性，降低其修改成本。</li>
+  <li>重构：使用一系列重构手法，在不改变软件可观察行为的前提下，调整其机构。</li>
+  <li>事不过三，三则重构</li>
+  <li>不要过早发布接口，请修改你的大米所有权策略，使重构更顺畅。</li>
+  <li>当感觉需要写注释时，请尝试重构，让所有注释都变得多余</li>
+  <li>确保所有测试都完全自动化，让它们检查自己的测试结果</li>
+  <li>一套测试就是一个强大的bug侦测器，能够大大缩减查找bug所需要的时间。</li>
+  <li>频繁地运行测试，每次编译请把测试也考虑进去，每天至少执行每个测试一次。！！！！！</li>
+  <li>每当你收到bug报告，请先写一个测试用例来暴漏这个bug</li>
+  <li>考虑可能出错的边界条件，把测试火力集中在那儿。</li>
+  <li>当事情被大家认为应该会出错时，别忘了检查是否抛出了预期的异常</li>
+  <li>不要应为测试无法捕捉到所有bug就不写测试，因为测试的确可以捕捉到大多数bug</li>
+</ul>
+
+<h3 id="end">END</h3>
+
+    </article>
+  </div>
+
+  <div class="related">
+    <h4>最新文章</h4>
+    <ul class="related-posts">
+      
+        <li>
+          <h5>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/books/2017/07/03/%E8%8B%8F%E8%8F%B2%E7%9A%84%E4%B8%96%E7%95%8C.html">
+              苏菲的世界
+              <small>2017-07-03</small>
+            </a>
+          </h5>
+        </li>
+      
+    </ul>
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'michaelygzhangblog';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:g.zhangyg@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/MichaelYgZhang"><i class="svg-icon github"></i></a>
+
+
+
+
+<a href="https://www.twitter.com/michaelygzhang"><i class="svg-icon twitter"></i></a>
+
+
+<a href="https://plus.google.com/115646538142388831563"><i class="svg-icon googleplus"></i></a>
+
+        </footer>
+      </div>
+    </div>
+
+    <div id="backToTop" class="backtoTop">
+    	<i class="fa fa-hand-o-up fa-2x"></i>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-84531968-1', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html',
+		  'title': '重构-改善既有代码的设计'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-jekyll-search/1.1.5/jekyll-search.js" type="text/javascript"></script>
+    <script src="/js/blog.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+          SimpleJekyllSearch({
+            searchInput: document.getElementById('search-input'),
+            resultsContainer: document.getElementById('results-container'),
+            json: '/search.json',
+            searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+            noResultsText: 'No results found',
+            limit: 10,
+            fuzzy: false,
+            exclude: ['Welcome']
+          })
+    </script>
+  </body>
+</html>

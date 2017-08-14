@@ -97,31 +97,36 @@
     
      -->
     <article>
-      <h4 id="restful">RESTful架构风格</h4>
+      <h4 id="restful架构风格">RESTful架构风格</h4>
+
 <ul>
   <li><code class="highlighter-rouge">REST</code>即<code class="highlighter-rouge">Representational State Transfer</code>的缩写，可译为”表现层状态转化”。<code class="highlighter-rouge">REST</code>最大的几个特点为：资源、统一接口、<code class="highlighter-rouge">URI</code>和无状态。</li>
 </ul>
 
 <p><strong>RESTful架构就是用URI定位资源，用HTTP方法描述操作。</strong></p>
 
-<h5 id="section">资源</h5>
+<h5 id="资源">资源</h5>
+
 <ul>
   <li>资源常见的载体为json、面向用户的一组数据集，</li>
 </ul>
 
-<h6 id="restful-1">综合上面的解释，总结一下什么是RESTful架构：</h6>
+<h6 id="综合上面的解释总结一下什么是restful架构">综合上面的解释，总结一下什么是RESTful架构：</h6>
+
 <ol>
   <li>每一个URI代表一种资源；</li>
   <li>客户端和服务器之间，传递这种资源的某种表现层；</li>
   <li>客户端通过几个HTTP动词，对服务器端资源进行操作，实现”表现层状态转化”。</li>
 </ol>
 
-<h6 id="restful-2">RESTful设计误区</h6>
+<h6 id="restful设计误区">RESTful设计误区</h6>
+
 <ul>
   <li>最常见的一种设计错误，就是URI包含动词。因为”资源”表示一种实体，所以应该是名词，且为复数形式，URI不应该有动词，动词应该放在HTTP协议中。</li>
 </ul>
 
-<h6 id="section-1">举例:</h6>
+<h6 id="举例">举例:</h6>
+
 <ul>
   <li>GET /collection：返回资源对象的列表（数组）</li>
   <li>GET /collection/resource：返回单个资源对象</li>
@@ -142,27 +147,27 @@
       
         <li>
           <h5>
-            <a href="/interview/2016/10/03/interview-1.html">
-              Interview-1
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
-              HTTP权威指南-15
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
-              HTTP权威指南-14
-              <small>2016-10-03</small>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
             </a>
           </h5>
         </li>

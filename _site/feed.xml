@@ -1,801 +1,554 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2016-10-03T17:55:42+08:00</updated><id>/</id><title>Michael</title><subtitle>Developer</subtitle><entry><title>Interview-1</title><link href="/interview/2016/10/03/interview-1.html" rel="alternate" type="text/html" title="Interview-1" /><published>2016-10-03T00:00:00+08:00</published><updated>2016-10-03T00:00:00+08:00</updated><id>/interview/2016/10/03/interview-1</id><content type="html" xml:base="/interview/2016/10/03/interview-1.html">&lt;p&gt;TODO&lt;/p&gt;</content><category term="Interview" /><summary>Interview-1</summary></entry><entry><title>HTTP权威指南-15</title><link href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html" rel="alternate" type="text/html" title="HTTP权威指南-15" /><published>2016-10-03T00:00:00+08:00</published><updated>2016-10-03T00:00:00+08:00</updated><id>/cs/2016/10/03/HTTP权威指南-15</id><content type="html" xml:base="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;报文时箱子，实体是货物&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section&quot;&gt;报文时箱子，实体是货物&lt;/h5&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-08-12T11:33:52+08:00</updated><id>http://localhost:4000/</id><title type="html">Michael</title><subtitle>Developer</subtitle><entry><title type="html">亿级流量网站架构核心技术</title><link href="http://localhost:4000/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html" rel="alternate" type="text/html" title="亿级流量网站架构核心技术" /><published>2017-08-10T00:00:00+08:00</published><updated>2017-08-10T00:00:00+08:00</updated><id>http://localhost:4000/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF</id><content type="html" xml:base="http://localhost:4000/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">&lt;h4 id=&quot;第1部分-概述&quot;&gt;第1部分 概述&lt;/h4&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;报文实体由实体首部和实体主体组成，HTTP/1.1定义了以下几个基本实体首部字段&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Content-Type:实体中所承载的对象类型&lt;/li&gt;
-  &lt;li&gt;Content-Length:所传输实体主体的长度或大小&lt;/li&gt;
-  &lt;li&gt;Content-Language:与所传送对象最相配的人类语言&lt;/li&gt;
-  &lt;li&gt;Content-Encoding:对象数据所做的任意变换&lt;/li&gt;
-  &lt;li&gt;Content-Location:一个备用位置，请求时可通过它获取对象&lt;/li&gt;
-  &lt;li&gt;Content-Range:如果这是部分实体，这个首部说明它是整体的哪个部分&lt;/li&gt;
-  &lt;li&gt;Content-MD5:实体主体内容的校验和&lt;/li&gt;
-  &lt;li&gt;Last-Modified:所传输内容在服务器上创建或最后修改的日期时间&lt;/li&gt;
-  &lt;li&gt;Expires:实体数据将要实效的日期时间&lt;/li&gt;
-  &lt;li&gt;Allow: 该资源所允许的各种请求方法&lt;/li&gt;
-  &lt;li&gt;ETag: 该文档特定实例的唯一验证码&lt;/li&gt;
-  &lt;li&gt;Cache-Control: 指出应该如何缓存该文档&lt;/li&gt;
-&lt;/ol&gt;</content><category term="CS" /><summary>第十五 实体和编码</summary></entry><entry><title>HTTP权威指南-14</title><link href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html" rel="alternate" type="text/html" title="HTTP权威指南-14" /><published>2016-10-03T00:00:00+08:00</published><updated>2016-10-03T00:00:00+08:00</updated><id>/cs/2016/10/03/HTTP权威指南-14</id><content type="html" xml:base="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#http&quot; id=&quot;markdown-toc-http&quot;&gt;保护HTTP的安全&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;http&quot;&gt;保护HTTP的安全&lt;/h5&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;HTTP&lt;/th&gt;
-      &lt;th&gt;应用层&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;SSL or TLS&lt;/td&gt;
-      &lt;td&gt;安全层&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;TCP&lt;/td&gt;
-      &lt;td&gt;传输层&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;IP&lt;/td&gt;
-      &lt;td&gt;网络层&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;网络接口&lt;/td&gt;
-      &lt;td&gt;数据链路层&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;建立安全传输&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;建立安全的HTTP报文传输步骤:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;客户端域服务器端口443建立TCP连接HTTP的三次握手&lt;/li&gt;
-  &lt;li&gt;SSL安全参数握手,包括:&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;交换协议版本号&lt;/li&gt;
-  &lt;li&gt;选择一个两端都了解的密码&lt;/li&gt;
-  &lt;li&gt;对两端的身份进行认证&lt;/li&gt;
-  &lt;li&gt;生成临时的会话密钥，以便加密信道&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;客户端在SSL上发送HTTP请求／在TCP上发送已加密的请求&lt;/li&gt;
-  &lt;li&gt;服务器端在SSL上发送HTTP响应／在TCP上发送已加密的响应&lt;/li&gt;
-  &lt;li&gt;SSL关闭通知&lt;/li&gt;
-  &lt;li&gt;TCP连接关闭&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.ietf.org/rfc/rf2818.txt&quot;&gt;HTTP安全性&lt;/a&gt;
-&lt;a href=&quot;http://www.ietf.org/rfc/rf2246.txt&quot;&gt;SSL与TLS&lt;/a&gt;&lt;/p&gt;</content><category term="CS" /><summary>第十四 安全HTTP</summary></entry><entry><title>HTTP权威指南-9-10</title><link href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-9-10.html" rel="alternate" type="text/html" title="HTTP权威指南-9-10" /><published>2016-10-02T00:00:00+08:00</published><updated>2016-10-02T00:00:00+08:00</updated><id>/cs/2016/10/02/HTTP权威指南-9-10</id><content type="html" xml:base="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-9-10.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#web&quot; id=&quot;markdown-toc-web&quot;&gt;第九章 Web机器人&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;爬虫及爬行方式&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#http&quot; id=&quot;markdown-toc-http&quot;&gt;机器人的HTTP&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;行为不当的机器人&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;拒绝机器人访问&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;搜索引擎&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#http-ng-&quot; id=&quot;markdown-toc-http-ng-&quot;&gt;第十章 HTTP-NG 下一代系统&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#http-1&quot; id=&quot;markdown-toc-http-1&quot;&gt;HTTP发展中存在的问题&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#modularize-and-enhance&quot; id=&quot;markdown-toc-modularize-and-enhance&quot;&gt;模块化及功能增强(modularize and enhance)&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
+  &lt;li&gt;交易系统设计的一些原则
+    &lt;ul&gt;
+      &lt;li&gt;墨菲定律
+        &lt;ol&gt;
+          &lt;li&gt;任何事情都没有表面看起来那么简单&lt;/li&gt;
+          &lt;li&gt;所有的事情都会比你预计的时间长&lt;/li&gt;
+          &lt;li&gt;可能出错的事情总会出错&lt;/li&gt;
+          &lt;li&gt;如果你担心某种情况发生，那么它就更有可能发生&lt;/li&gt;
+        &lt;/ol&gt;
       &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;web&quot;&gt;第九章 Web机器人&lt;/h4&gt;
-&lt;h5 id=&quot;section&quot;&gt;爬虫及爬行方式&lt;/h5&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;从哪儿开始: 根集&lt;/li&gt;
-  &lt;li&gt;链接的提取以及相对链接的标准化&lt;/li&gt;
-  &lt;li&gt;避免环路出现&lt;/li&gt;
-  &lt;li&gt;循环与复制&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;⚠️ 如果爬虫不断地获取相同的页面时，并且爬虫与服务器连接良好，它就可能会阻止其他真实用户的访问，这种拒绝服务是可以作为法律诉讼理由的。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;面包屑留下的痕迹;大规模Web爬虫对其访问地址进行管理时使用以下相关技术点:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;树和散列表(加速URL查找)&lt;/li&gt;
-  &lt;li&gt;有损的存在位图(减小空间)&lt;/li&gt;
-  &lt;li&gt;检查点(将已访问URL列表存在硬盘上，防止机器人程序崩溃)&lt;/li&gt;
-  &lt;li&gt;分类&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;别名与机器人环路&lt;/li&gt;
-  &lt;li&gt;规范化URL&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;如果没有指定端口的话，就向主机名中添加 ‘80’&lt;/li&gt;
-  &lt;li&gt;将所有转义符 %xx 都转换成等价字符&lt;/li&gt;
-  &lt;li&gt;删除 # 标签&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;文件系统连接环路 ‘/’&lt;/li&gt;
-  &lt;li&gt;动态虚拟Web空间&lt;/li&gt;
-  &lt;li&gt;避免循环和重复&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;ol&gt;
-    &lt;li&gt;规范化URL&lt;/li&gt;
-    &lt;li&gt;广度优先的爬行&lt;/li&gt;
-    &lt;li&gt;节流&lt;/li&gt;
-    &lt;li&gt;限制URL的大小&lt;/li&gt;
-    &lt;li&gt;URL/站点黑名单&lt;/li&gt;
-    &lt;li&gt;模式检测&lt;/li&gt;
-    &lt;li&gt;内容指纹&lt;/li&gt;
-    &lt;li&gt;人工监视&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;h5 id=&quot;http&quot;&gt;机器人的HTTP&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;识别请求首部&lt;/li&gt;
-  &lt;li&gt;虚拟主机，实现机器人要支持Host首部&lt;/li&gt;
-  &lt;li&gt;条件请求&lt;/li&gt;
-  &lt;li&gt;对响应的处理;需要识别比如状态码，实体等&lt;/li&gt;
-  &lt;li&gt;User-agent导向&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section-1&quot;&gt;行为不当的机器人&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;失控机器人&lt;/li&gt;
-  &lt;li&gt;实效的URL&lt;/li&gt;
-  &lt;li&gt;很长的错误URL&lt;/li&gt;
-  &lt;li&gt;爱打听的机器人&lt;/li&gt;
-  &lt;li&gt;动态网关访问&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section-2&quot;&gt;拒绝机器人访问&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;拒绝机器人访问标准; Dissallow/Allow&lt;/li&gt;
-  &lt;li&gt;Web站点和robots.txt文件&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;ol&gt;
-    &lt;li&gt;User-agent: &lt;robot-name&gt;&lt;/robot-name&gt;&lt;/li&gt;
-    &lt;li&gt;Dissallow&lt;/li&gt;
-    &lt;li&gt;Allow&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;缓存和robots.txt的过期&lt;/li&gt;
-  &lt;li&gt;HTML的robot-control元标签&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section-3&quot;&gt;搜索引擎&lt;/h5&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.robotstxt.org&quot;&gt;Web机器人&lt;/a&gt;
-&lt;a href=&quot;http://www.searchengineworld.com&quot;&gt;搜索引擎世界&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;http-ng-&quot;&gt;第十章 HTTP-NG 下一代系统&lt;/h4&gt;
-&lt;h5 id=&quot;http-1&quot;&gt;HTTP发展中存在的问题&lt;/h5&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;复杂性&lt;/li&gt;
-  &lt;li&gt;扩展性&lt;/li&gt;
-  &lt;li&gt;性能&lt;/li&gt;
-  &lt;li&gt;传输依赖性&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h6 id=&quot;modularize-and-enhance&quot;&gt;模块化及功能增强(modularize and enhance)&lt;/h6&gt;</content><category term="CS" /><summary>第九章 Web机器人; 第十章 HTTP-NG</summary></entry><entry><title>HTTP权威指南-8</title><link href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-8.html" rel="alternate" type="text/html" title="HTTP权威指南-8" /><published>2016-10-02T00:00:00+08:00</published><updated>2016-10-02T00:00:00+08:00</updated><id>/cs/2016/10/02/HTTP权威指南-8</id><content type="html" xml:base="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-8.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;网关&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;资源网关&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#web&quot; id=&quot;markdown-toc-web&quot;&gt;应用程序接口和Web服务&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;隧道&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;中继&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section&quot;&gt;网关&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;网关:协议转换器&lt;/li&gt;
-  &lt;li&gt;客户端和服务器端网关&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;客户端协议&amp;gt;/&amp;lt;服务器端协议&amp;gt;&lt;/code&gt;;服务器端网关就是:HTTP/&lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;;客户端网关:&lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;/HTTP;&lt;/li&gt;
-  &lt;li&gt;协议网关&lt;/li&gt;
-  &lt;li&gt;HTTPS/HTTP服务器端安全网关&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section-1&quot;&gt;资源网关&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;CGI(Common Getway Interface),为每个请求创建一个新进程，开销比较高，服务器负载大。&lt;/li&gt;
-  &lt;li&gt;服务器扩展API&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;web&quot;&gt;应用程序接口和Web服务&lt;/h5&gt;
-
-&lt;h5 id=&quot;section-2&quot;&gt;隧道&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;Web隧道允许用户通过HTTP连接发送非HTTP流量，这样就可以在HTTP上捎带其他协议数据了，使用Web隧道最常见的原因就是要在HTTP连接中嵌入非HTTP流量，这样，这类流量就可以穿过只允许Web流量通过的防火墙了。&lt;/li&gt;
-  &lt;li&gt;使用CONNECT建立HTTP隧道&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;请求建立一条&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SSL&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;隧道:&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;CONNECT&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;www&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;443&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Mozilla&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;4.0&lt;/span&gt;
-
-&lt;span class=&quot;err&quot;&gt;响应:&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Connection&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Established&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Netscape&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt;
-
-&lt;span class=&quot;err&quot;&gt;与普通&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;响应不同，这个响应并不需要包含&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;首部，此时连接只是对原始字节进行转接，不再是报文的承载着，所以不需要使用内容类型了。&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;数据隧道、定时及连接管理&lt;/li&gt;
-  &lt;li&gt;隧道认证&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section-3&quot;&gt;中继&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;中继(relay)是没有完全遵循HTTP规范的简单HTTP代理，中继负责处理HTTP中建立连接的部分，然后对字节进行盲转发。&lt;/li&gt;
-  &lt;li&gt;简单盲中继实现中存在一个问题，就是他们无法正确处理Connection首部，所以有潜在的刮起keep-alive连接的可能。&lt;/li&gt;
-&lt;/ul&gt;</content><category term="CS" /><summary>第八章 网关、隧道及中继</summary></entry><entry><title>HTTP权威指南-7</title><link href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-7.html" rel="alternate" type="text/html" title="HTTP权威指南-7" /><published>2016-10-02T00:00:00+08:00</published><updated>2016-10-02T00:00:00+08:00</updated><id>/cs/2016/10/02/HTTP权威指南-7</id><content type="html" xml:base="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-7.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;缓存&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;冗余的数据传输&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;带宽瓶颈&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;瞬间拥塞&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;距离时延&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-5&quot; id=&quot;markdown-toc-section-5&quot;&gt;命中和未命中的&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-6&quot; id=&quot;markdown-toc-section-6&quot;&gt;缓存的拓扑结构&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-7&quot; id=&quot;markdown-toc-section-7&quot;&gt;缓存的处理步骤&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-8&quot; id=&quot;markdown-toc-section-8&quot;&gt;控制缓存的能力&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;section&quot;&gt;缓存&lt;/h4&gt;
-
-&lt;p&gt;&lt;strong&gt;使用缓存的优点&lt;/strong&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;ol&gt;
-    &lt;li&gt;减少冗余的数据传输，节省了你的网络费用&lt;/li&gt;
-    &lt;li&gt;缓解了网络瓶颈的问题，不需要更多的带宽就能够更快地加载页面&lt;/li&gt;
-    &lt;li&gt;降低了对原始服务器的要求，服务器可以更快地响应，避免过载的出现&lt;/li&gt;
-    &lt;li&gt;降低了距离时延，因为从较远的地方加载页面会更慢一些&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;h5 id=&quot;section-1&quot;&gt;冗余的数据传输&lt;/h5&gt;
-&lt;p&gt;服务器多次传输同一份文档，每次传输给一个客户端，相同的字节在网络中一遍遍地传输，造成冗余，缓存可以很好解决这个问题。&lt;/p&gt;
-&lt;h5 id=&quot;section-2&quot;&gt;带宽瓶颈&lt;/h5&gt;
-&lt;p&gt;缓存可以缓解网络带宽瓶颈问题。&lt;/p&gt;
-&lt;h5 id=&quot;section-3&quot;&gt;瞬间拥塞&lt;/h5&gt;
-&lt;p&gt;缓存在破坏瞬间拥塞时显得非常重要，比如突发事件，使很多人几乎同时访问一个Web文档时，就会出现瞬间拥塞，由此造成Web服务器负载过高甚至崩溃。&lt;/p&gt;
-&lt;h5 id=&quot;section-4&quot;&gt;距离时延&lt;/h5&gt;
-&lt;p&gt;即便带宽不是问题，距离也可能是问题的原因，没太网络路由器都会增加因特网流量的时延，即使没有太多路由器，光速本身也会造成显著的时延。&lt;/p&gt;
-&lt;h5 id=&quot;section-5&quot;&gt;命中和未命中的&lt;/h5&gt;
-&lt;p&gt;可以用已有副本为某些到达缓存的请求提供服务，被称为&lt;code class=&quot;highlighter-rouge&quot;&gt;缓存命中&lt;/code&gt;，亦或请求的资源在缓存服务器上不存在，而将请求转发给原始服务器被称为&lt;code class=&quot;highlighter-rouge&quot;&gt;缓存未命中&lt;/code&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;再验证以保持缓存的”新鲜度”，在缓存服务器向源服务器发送请求的首部加上If-Modified-Since首部，告诉源服务器只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。
-    &lt;ol&gt;
-      &lt;li&gt;再验证命中(如果服务器对象未被修改，服务器想客户端发送一个小的HTTP304Not Modified响应)&lt;/li&gt;
-      &lt;li&gt;再验证未命中(如果服务器对象与已缓存副本不同，则向客户端发送一条普通的，带有完整内容的HTTP 200 OK响应)&lt;/li&gt;
-      &lt;li&gt;对象被删除(如果服务器对象已经被删除了，服务器回送一个404 Not Found响应，缓存也会将其副本删除)&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;命中率&lt;/li&gt;
-  &lt;li&gt;字节命中率&lt;/li&gt;
-  &lt;li&gt;区分命中和未命中的情况(根据Date首部，若响应日期比较早，则为缓存响应)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section-6&quot;&gt;缓存的拓扑结构&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;私有缓存(比如浏览器缓存)&lt;/li&gt;
-  &lt;li&gt;公有代理缓存或者称为代理缓存&lt;/li&gt;
-  &lt;li&gt;代理缓存的层次结构&lt;/li&gt;
-  &lt;li&gt;网状缓存、内容路由以及对等缓存&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section-7&quot;&gt;缓存的处理步骤&lt;/h5&gt;
-&lt;p&gt;对一条HTTP GET报文的基本缓存处理过程包括7个步骤:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;接收－缓存从网络中读取抵达的请求报文。&lt;/li&gt;
-  &lt;li&gt;解析－缓存对报文进行解析，提取出URL和各种首部。&lt;/li&gt;
-  &lt;li&gt;查询－缓存查看是否本地有副本可用，如果没有，就获取一份并缓存本地&lt;/li&gt;
-  &lt;li&gt;新鲜度检测－缓存查看已缓存副本是否足够新鲜，如果不是，就询问源服务器是否有任何更新。&lt;/li&gt;
-  &lt;li&gt;创建响应－缓存会用新的首部和已缓存的主体来构建一条响应报文&lt;/li&gt;
-  &lt;li&gt;发送－缓存通过网络将响应发回给客户端&lt;/li&gt;
-  &lt;li&gt;日志－缓存可选地创建一个日志文件条目来描述这个事务&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;文档过期设置(Cache-Control: max-age=3600&lt;code class=&quot;highlighter-rouge&quot;&gt;指定最大使用期限以秒为单位&lt;/code&gt;; Expires: Fri, 05 Jul 2002, 05:00:00 GMT&lt;code class=&quot;highlighter-rouge&quot;&gt;指定一个绝对的过期日期&lt;/code&gt;)&lt;/li&gt;
-  &lt;li&gt;服务器再验证&lt;/li&gt;
-  &lt;li&gt;在请求报文中添加用条件方法进行再验证
-    &lt;blockquote&gt;
-      &lt;ol&gt;
-        &lt;li&gt;If-Modified-Since:&lt;date&gt;&lt;/date&gt;&lt;/li&gt;
-        &lt;li&gt;If-None-Match:&lt;tags&gt;&lt;/tags&gt;&lt;/li&gt;
-      &lt;/ol&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section-8&quot;&gt;控制缓存的能力&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;服务器可以通过HTTP定义的几种方式来指定在文档过期之前可以将其缓存多长时间，按照优先级递减的顺序。服务器可以:
-    &lt;ol&gt;
-      &lt;li&gt;附加一个Cache-Control: no-store 首部到响应中去;&lt;/li&gt;
-      &lt;li&gt;附加一个Cache-Control: no-cache 首部到响应中去;&lt;/li&gt;
-      &lt;li&gt;附加一个Cache-Control: must-revalidate 首部到响应中去;&lt;/li&gt;
-      &lt;li&gt;附加一个Cache-Control: max-age 首部到响应中去;&lt;/li&gt;
-      &lt;li&gt;附加一个Expires 日期首部到响应中去;&lt;/li&gt;
-      &lt;li&gt;不附加过期信息，让缓存确定自己的过期日期;&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;客户端的新鲜度限制&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: left&quot;&gt;指令&lt;/th&gt;
-      &lt;th style=&quot;text-align: left&quot;&gt;目的&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Cache-Control: max-fresh = &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;s&amp;gt;&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;至少在未来&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;s&amp;gt;&lt;/code&gt;秒内文档要保持新鲜。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Cache-Control: max-age = &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;s&amp;gt;&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;缓存无法返回缓存时间长于&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;s&amp;gt;&lt;/code&gt;秒的文档&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Cache-Control: no-cache&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;除非资源进行再验证，否则这个客户端不会接受已缓存的资源&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Cache-Control: no-store&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;缓存应尽快从存储器中删除文档的所有痕迹，因为其中可能会包含敏感信息&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Cache-Control: only-if-cached&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;只有当缓存中有副本存在时，客户端才会获取一份副本&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;</content><category term="CS" /><summary>第七章 缓存</summary></entry><entry><title>HTTP权威指南-12-13</title><link href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-12-13.html" rel="alternate" type="text/html" title="HTTP权威指南-12-13" /><published>2016-10-02T00:00:00+08:00</published><updated>2016-10-02T00:00:00+08:00</updated><id>/cs/2016/10/02/HTTP权威指南-12-13</id><content type="html" xml:base="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-12-13.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;第十二章 基本认证机制&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;第十三章 摘要认证&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;section&quot;&gt;第十二章 基本认证机制&lt;/h4&gt;
-
-&lt;p&gt;认证的四个步骤:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;步骤&lt;/th&gt;
-      &lt;th&gt;首部&lt;/th&gt;
-      &lt;th&gt;描述&lt;/th&gt;
-      &lt;th&gt;方法/状态&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;请求&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;第一条没有请求认证信息&lt;/td&gt;
-      &lt;td&gt;GET&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;质询&lt;/td&gt;
-      &lt;td&gt;WWW-Authenticate&lt;/td&gt;
-      &lt;td&gt;服务器用401状态拒绝了请求，说明需要用户提供用户名和密码&lt;/td&gt;
-      &lt;td&gt;401 Unauthorized&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;授权&lt;/td&gt;
-      &lt;td&gt;Authorization&lt;/td&gt;
-      &lt;td&gt;客户端重新发出请求，但这次会附加一个Authorization首部，用来说明认证算法、用户名和密码&lt;/td&gt;
-      &lt;td&gt;GET&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;成功&lt;/td&gt;
-      &lt;td&gt;Authorization-Info&lt;/td&gt;
-      &lt;td&gt;如果授权证书正确，服务器会将文档返回，有些授权算法会在可选的Authorization-Info首部返回一些与授权会话相关的附加信息&lt;/td&gt;
-      &lt;td&gt;200 OK&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;⚠️基本认证中不包括Authorization-Info首部&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;基本认证的安全缺陷&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;基本认证会通过网络发送用户名和密码，这些用户名和密码都是以一种很容易的解码的形式表示的。&lt;/li&gt;
-  &lt;li&gt;即使密码是以更难解码的方式加密的，第三方用户仍然可以捕获被修改过的用户名和密码，并将修改过的用户名和密码一次次重放给原始服务器，以获取服务器访问授权，没有什么措施可以用来防止重放攻击。&lt;/li&gt;
-  &lt;li&gt;即使将基本认证用于一些不太重要的的应用程序，一些不良习惯也会让它变得危险。比如很多用户的很多账号都是用相同的密码，若某些恶徒先获取了基本认证的密码然后尝试某些重要的在线银行网站!&lt;/li&gt;
-  &lt;li&gt;基本认证没有提供任何针对代理和作为中间人的中间节点的防护措施，他们没有修改认证首部，但却修改了报文的其余部分，这样就严重地改变了事务的本质。&lt;/li&gt;
-  &lt;li&gt;假冒服务器 很容易骗过基本认证。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;基本认证与加密数据传输(比如SSL)配合使用，会使基本认证变得更加安全。这是一种常用技巧。&lt;/p&gt;
-
-&lt;h4 id=&quot;section-1&quot;&gt;第十三章 摘要认证&lt;/h4&gt;
-
-&lt;p&gt;在基本认证的基础上添加了更多的限制条件。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;客户端发起GET请求&lt;/li&gt;
-  &lt;li&gt;服务器产生随机数WWW-Authenticate质询，服务器发送域随机数和算法&lt;/li&gt;
-  &lt;li&gt;客户端从算法集中选择一个算法产生响应摘要及客户端随机数，Authorization作为向服务器的请求。&lt;/li&gt;
-  &lt;li&gt;服务器对摘要进行认证，并产生下一个随机数，返回客户端Authorization-Info信息及下一个需要认证时发送的随机数&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;⚠️:摘要认证还有很多安全性相关的技巧&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.ietf.org/rfc/rfc2617.txt&quot;&gt;更多认证信息&lt;/a&gt;&lt;/p&gt;</content><category term="CS" /><summary>第十二章 基本认证机制; 第十三章 摘要认证</summary></entry><entry><title>HTTP权威指南-11</title><link href="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-11.html" rel="alternate" type="text/html" title="HTTP权威指南-11" /><published>2016-10-02T00:00:00+08:00</published><updated>2016-10-02T00:00:00+08:00</updated><id>/cs/2016/10/02/HTTP权威指南-11</id><content type="html" xml:base="/cs/2016/10/02/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-11.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#cookie&quot; id=&quot;markdown-toc-cookie&quot;&gt;第十一章 客户端识别与Cookie机制&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#http&quot; id=&quot;markdown-toc-http&quot;&gt;HTTP用户识别机制&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#http-1&quot; id=&quot;markdown-toc-http-1&quot;&gt;HTTP首部&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#cookie-1&quot; id=&quot;markdown-toc-cookie-1&quot;&gt;Cookie&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#cookie-&quot; id=&quot;markdown-toc-cookie-&quot;&gt;Cookie 与缓存&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#cookie-2&quot; id=&quot;markdown-toc-cookie-2&quot;&gt;Cookie安全性和隐私&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
+      &lt;li&gt;系统划分时，也需要思考康威定律
+        &lt;ol&gt;
+          &lt;li&gt;系统架构是公司组织架构的反映&lt;/li&gt;
+          &lt;li&gt;应该按照业务闭环进行系统拆分／组织架构划分，实现闭环／高内聚／低耦合，减少沟通成本&lt;/li&gt;
+          &lt;li&gt;如果沟通出现问题，那么应该考虑进行系统和组织架构的调整&lt;/li&gt;
+          &lt;li&gt;在合适时机进行系统拆分，不要一开始就把系统／服务拆得非常细，虽然闭环，但每个人维护的系统多，维护成本高。&lt;/li&gt;
+        &lt;/ol&gt;
       &lt;/li&gt;
+      &lt;li&gt;二八定律&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;cookie&quot;&gt;第十一章 客户端识别与Cookie机制&lt;/h4&gt;
-&lt;h5 id=&quot;http&quot;&gt;HTTP用户识别机制&lt;/h5&gt;
+&lt;h5 id=&quot;高并发原则&quot;&gt;高并发原则&lt;/h5&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;承载用户身份信息的HTTP首部&lt;/li&gt;
-  &lt;li&gt;客户端IP地址跟踪，通过用户的IP地址对其进行识别&lt;/li&gt;
-  &lt;li&gt;用户登陆，用认证方式来识别用户&lt;/li&gt;
-  &lt;li&gt;胖URL一种在URL中嵌入识别信息的技术&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h6 id=&quot;http-1&quot;&gt;HTTP首部&lt;/h6&gt;
-&lt;ul&gt;
-  &lt;li&gt;承载用户相关信息的HTTP首部&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: left&quot;&gt;首部名称&lt;/th&gt;
-      &lt;th style=&quot;text-align: left&quot;&gt;首部类型&lt;/th&gt;
-      &lt;th style=&quot;text-align: left&quot;&gt;描述&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;From&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;请求&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;用户的E-mail地址&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;User-Agent&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;请求&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;用户的浏览器软件&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Referer&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;请求&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;用户是这个页面上依照链接跳转过来的&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Authorization&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;请求&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;用户名和密码&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Client-IP&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;扩展(请求)&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;客户端IP&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;X-Forwarded-For&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;扩展(请求)&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;客户端IP地址&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Cookie&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;扩展(请求)&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;服务器产生的ID标签&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h6 id=&quot;cookie-1&quot;&gt;Cookie&lt;/h6&gt;
-&lt;ul&gt;
-  &lt;li&gt;Cookie类型:会话cookie(临时的一般关闭浏览器时删除)和持久cookie(存在硬盘中)&lt;/li&gt;
-  &lt;li&gt;Cookie成分&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Set-Cookie属性&lt;/th&gt;
-      &lt;th&gt;描述及实例&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;NAME = VALUE&lt;/td&gt;
-      &lt;td&gt;强制的,都是字符序列，可以创建任意NAME＝VALUE关联;Set-Cookie: customer=Mary&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Expires&lt;/td&gt;
-      &lt;td&gt;可选，指定一个到期日期，格式为:Weekday, DD-Mon-YY HH:MM:SS GMT&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Domain&lt;/td&gt;
-      &lt;td&gt;可选,浏览器只向指定域名的服务器主机发送cookie&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Path&lt;/td&gt;
-      &lt;td&gt;可选，可以为服务器上特定的文档分配cookie&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Secure&lt;/td&gt;
-      &lt;td&gt;可选，只有HTTP使用了SSL安全连接时才会发送cookie;Set-Cookie: private_id =113; secure&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h6 id=&quot;cookie-&quot;&gt;Cookie 与缓存&lt;/h6&gt;
-&lt;p&gt;TODO&lt;/p&gt;
-&lt;h6 id=&quot;cookie-2&quot;&gt;Cookie安全性和隐私&lt;/h6&gt;
-
-&lt;p&gt;⚠️当用户禁用cookie时，可以通过胖URL达到跟踪用户状态的目的。&lt;/p&gt;</content><category term="CS" /><summary>第十一章 客户端识别与Cookie机制</summary></entry><entry><title>HTTP权威指南-5-6</title><link href="/cs/2016/10/01/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-5-6.html" rel="alternate" type="text/html" title="HTTP权威指南-5-6" /><published>2016-10-01T00:00:00+08:00</published><updated>2016-10-01T00:00:00+08:00</updated><id>/cs/2016/10/01/HTTP权威指南-5-6</id><content type="html" xml:base="/cs/2016/10/01/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-5-6.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#web&quot; id=&quot;markdown-toc-web&quot;&gt;第五章Web服务器&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;第六章代理&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#web-1&quot; id=&quot;markdown-toc-web-1&quot;&gt;Web的中间实体&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;为什么使用代理&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;代理去往何处&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;客户端的代理设置&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-4&quot; id=&quot;markdown-toc-section-4&quot;&gt;与代理请求有关的一些棘手问题&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-5&quot; id=&quot;markdown-toc-section-5&quot;&gt;追踪报文&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-6&quot; id=&quot;markdown-toc-section-6&quot;&gt;代理认证&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#section-7&quot; id=&quot;markdown-toc-section-7&quot;&gt;代理的互操作性&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;无状态&lt;/li&gt;
+  &lt;li&gt;拆分
+    &lt;ul&gt;
+      &lt;li&gt;系统维度：按照系统功能／业务拆分，比如商品系统，购物车，结算，订单系统等&lt;/li&gt;
+      &lt;li&gt;功能维度：对一个系统进行功能再拆分，比如优惠券系统可以拆分为后台券创建系统，领券系统，用券系统等&lt;/li&gt;
+      &lt;li&gt;读写维度：根据读写比例特性进行拆分。读量大采用缓存，写量大采用分库分表。聚合读取场景，考虑数据异构拆分系统，将分散在多处的数据聚合到一起存储，提升系统的性能和可靠性。&lt;/li&gt;
+      &lt;li&gt;AOP维度：根据访问特性，按照AOP进行拆分。&lt;/li&gt;
+      &lt;li&gt;模块维度：比如按照基础或者代码维护特性进行拆分，如基础模块分库分表，数据库连接池等。代码结构按照三层架构Web，Service，DAO进行划分。&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;服务化：进程内服务-》单机远程服务-》集群手动注册服务-》自动注册和发现服务-》服务的分组／隔离／路由-》服务治理如限流／黑名单&lt;/li&gt;
+  &lt;li&gt;消息队列：大流量缓冲，数据校对&lt;/li&gt;
+  &lt;li&gt;数据异构：数据异构，数据闭环&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;web&quot;&gt;第五章Web服务器&lt;/h4&gt;
+&lt;h5 id=&quot;高可用原则&quot;&gt;高可用原则&lt;/h5&gt;
+
+&lt;h5 id=&quot;业务设计原则&quot;&gt;业务设计原则&lt;/h5&gt;
+
+&lt;h5 id=&quot;总结&quot;&gt;总结&lt;/h5&gt;</content><author><name></name></author><category term="Architecture" /><summary type="html">亿级流量网站架构核心技术</summary></entry><entry><title type="html">重构-改善既有代码的设计</title><link href="http://localhost:4000/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html" rel="alternate" type="text/html" title="重构-改善既有代码的设计" /><published>2017-07-26T00:00:00+08:00</published><updated>2017-07-26T00:00:00+08:00</updated><id>http://localhost:4000/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1</id><content type="html" xml:base="http://localhost:4000/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">&lt;h4 id=&quot;重构是在不改变软件可观察行为的前提下改善其内部结构&quot;&gt;重构是在不改变软件可观察行为的前提下改善其内部结构。&lt;/h4&gt;
+
+&lt;h4 id=&quot;有一句古老的工程谚语如果它还可以运行就不要动它对吗&quot;&gt;有一句古老的工程谚语：如果它还可以运行，就不要动它。对吗？&lt;/h4&gt;
+
+&lt;h4 id=&quot;第一章-重构第一个案例&quot;&gt;第一章 重构第一个案例&lt;/h4&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;Web服务器处理请求的响应步骤
+  &lt;li&gt;如果你发现自己需要为程序添加一个特性，而代码结构使你无法很方便地达成目的，那就先重构那个程序，使特性的添加比较容易进行，然后再添加特性。&lt;/li&gt;
+  &lt;li&gt;重构第一步：为即将修改的代码建立一组可靠的测试环境，有自我校验的能力，提高重构速度。用现有的程序跑出测试用例，测试用例尽可能全。输入跟输出，然后留存方便重构后的代码进行校验。&lt;/li&gt;
+  &lt;li&gt;重构步骤的本质，由于每次修改的幅度都很小，所以任何错误都很容易发现。你不必耗费大把时间调试。&lt;/li&gt;
+  &lt;li&gt;任何一个傻瓜都能写出计算机可以理解的代码。唯有写出人类容易理解的代码，才是优秀的程序员。&lt;/li&gt;
+  &lt;li&gt;重构的节奏：测试，小修改，测试，小修改，测试，小修改。。。。。。正是这种节奏让重构得以快速而安全的前进。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;第二章-重构原则&quot;&gt;第二章 重构原则&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;重构（名词）：对软件内部结构的一种调整，目的是在不改变软件可观察行为的前提下，提高其可理解性，降低其修改成本。&lt;/li&gt;
+  &lt;li&gt;重构（动词）：使用一系列重构手段，在不改变软件可观察行为的前提下，调整其结构。&lt;/li&gt;
+  &lt;li&gt;重构的目的：1. 改进软件设计。 2. 使软件更易于理解。3.重构帮助找到bug 4. 重构提高编程速度&lt;/li&gt;
+  &lt;li&gt;事不过三，三则重构。1. 添加新功能时重构 2. 修补错误时重构 3. 复审代码时重构&lt;/li&gt;
+  &lt;li&gt;
     &lt;ol&gt;
-      &lt;li&gt;建立连接－接受一个/多个客户端的连接&lt;/li&gt;
-      &lt;li&gt;接收请求－从网络中读取一条HTTP请求报文&lt;/li&gt;
-      &lt;li&gt;处理请求－对请求报文进行解析，并采取行动&lt;/li&gt;
-      &lt;li&gt;访问资源－访问报文中指定的资源&lt;/li&gt;
-      &lt;li&gt;构建响应－创建带有正确首部的HTTP响应报文&lt;/li&gt;
-      &lt;li&gt;发送响应－将响应回送给客户端&lt;/li&gt;
-      &lt;li&gt;记录事务的处理过程－将已完成事务有关的内容记录在一个日志文件中。&lt;/li&gt;
+      &lt;li&gt;难以阅读的程序，难以修改。2.逻辑重复的程序，难以修改。 3. 添加新行为时需要修改已有代码的程序，难以修改。 4. 带复杂条件逻辑的程序，难以修改。&lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
+  &lt;li&gt;希望 1. 容易阅读 2 所有逻辑都只在唯一地点指定 3. 新的改动不会危及现有行为 4. 尽可能简单表达条件逻辑&lt;/li&gt;
+  &lt;li&gt;计算机科学时这样一门科学：它相信所有问题都可以通过增加一个间接层来解决。&lt;/li&gt;
+  &lt;li&gt;间接层和重构。简介层的价值：1 允许逻辑共享 2. 分开解释意图和实现 3.隔离变化 4. 封装条件逻辑&lt;/li&gt;
+  &lt;li&gt;不要过早发布接口，请修改你的代码所有权政策，使重构更顺畅。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;section&quot;&gt;第六章代理&lt;/h4&gt;
+&lt;h4 id=&quot;第三章-代码的坏味道&quot;&gt;第三章 代码的坏味道&lt;/h4&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;Web代理(proxy)服务器是网络的中间实体，位于客户端和服务器之间扮演’中间人’的角色，在各断点之间来回传送HTTP报文。&lt;/li&gt;
+  &lt;li&gt;Duplicated Code&lt;/li&gt;
+  &lt;li&gt;Long Method&lt;/li&gt;
+  &lt;li&gt;Large Class&lt;/li&gt;
+  &lt;li&gt;Long Parameter List&lt;/li&gt;
+  &lt;li&gt;Divergent Change 发散式变化&lt;/li&gt;
+  &lt;li&gt;Shotgun Surgery 散弹式修改&lt;/li&gt;
+  &lt;li&gt;Feature Envy 依恋情结&lt;/li&gt;
+  &lt;li&gt;Data Clumps 数据泥团&lt;/li&gt;
+  &lt;li&gt;Primitive Obsession 基本类型偏执&lt;/li&gt;
+  &lt;li&gt;Switch Statements switch 惊悚现身&lt;/li&gt;
+  &lt;li&gt;Parallel InheritanceHierarchies 平行继承体系&lt;/li&gt;
+  &lt;li&gt;Lazy Class 冗赘类&lt;/li&gt;
+  &lt;li&gt;Speculative Generality 夸夸其谈未来性&lt;/li&gt;
+  &lt;li&gt;Temporary Field 令人迷惑的暂时字段&lt;/li&gt;
+  &lt;li&gt;Message Chains 过度耦合的消息链&lt;/li&gt;
+  &lt;li&gt;Middle Man 中间人&lt;/li&gt;
+  &lt;li&gt;Inappropriate Intimacy&lt;/li&gt;
+  &lt;li&gt;Alternative Class with Different Interfaces 异曲同工的类&lt;/li&gt;
+  &lt;li&gt;Incomplete Library Class 不完美的库类&lt;/li&gt;
+  &lt;li&gt;Data Class&lt;/li&gt;
+  &lt;li&gt;Refused Bequest 被拒绝的遗赠&lt;/li&gt;
+  &lt;li&gt;Comments 过多的注释，当你感觉需要写注释时，请先尝试重试，试着让所有注释都变得多余。当你不知道该做什么才是注释良好运用时机。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h5 id=&quot;web-1&quot;&gt;Web的中间实体&lt;/h5&gt;
+&lt;h4 id=&quot;第四章-构筑测试体系&quot;&gt;第四章 构筑测试体系&lt;/h4&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;私有和共享代理&lt;/li&gt;
-  &lt;li&gt;代理与网关的比较
-    &lt;blockquote&gt;
-      &lt;ol&gt;
-        &lt;li&gt;代理:连接的是两个或多个使用&lt;code class=&quot;highlighter-rouge&quot;&gt;相同协议&lt;/code&gt;的应用程序&lt;/li&gt;
-        &lt;li&gt;网关:连接的则是两个或多个使用&lt;code class=&quot;highlighter-rouge&quot;&gt;不同协议&lt;/code&gt;的端点，网关扮演&lt;code class=&quot;highlighter-rouge&quot;&gt;协议转换器&lt;/code&gt;的角色&lt;/li&gt;
-      &lt;/ol&gt;
-    &lt;/blockquote&gt;
+  &lt;li&gt;确保所有测试都完全自动化，让他们检查自己的测试结果&lt;/li&gt;
+  &lt;li&gt;一套测试就是一个强大的bug侦测器，能够大大缩减查找bug所需要的时间&lt;/li&gt;
+  &lt;li&gt;频繁地运行测试，每次编译请把测试也考虑进去，每天至少执行每个测试一次。&lt;/li&gt;
+  &lt;li&gt;每当你收到bug报告，请先写一个单元测试来暴漏bug。&lt;/li&gt;
+  &lt;li&gt;测试用例主要是测试你最担心出错的部分。&lt;/li&gt;
+  &lt;li&gt;考虑可能出错的边界条件，把测试火力集中在那儿。&lt;/li&gt;
+  &lt;li&gt;当事情被认为应该会出错时，别忘了检查是否抛出了预期的异常。&lt;/li&gt;
+  &lt;li&gt;不要因为测试无法捕捉所有bug就不写测试，因为测试的确可以捕捉到大多数bug。&lt;/li&gt;
+  &lt;li&gt;花合理时间抓住大多数bug，好过，穷尽一生抓尽所有bug。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;第五章-重构列表&quot;&gt;第五章 重构列表&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;重构手法，名称，简单概要，动机，做法，范例&lt;/li&gt;
+  &lt;li&gt;寻找引用点。&lt;/li&gt;
+  &lt;li&gt;这些重构手法有多成熟?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;第六章-重新组织函数&quot;&gt;第六章 重新组织函数&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Extract Method 提炼函数&lt;/li&gt;
+  &lt;li&gt;Inline Method 内联函数&lt;/li&gt;
+  &lt;li&gt;Inline Temp 内联临时变量&lt;/li&gt;
+  &lt;li&gt;Relace Temp with Query 以查询取代临时变量&lt;/li&gt;
+  &lt;li&gt;Introduce Explaining Variable 引入解释性变量&lt;/li&gt;
+  &lt;li&gt;Split Temporary Variable 分解临时变量&lt;/li&gt;
+  &lt;li&gt;Remove Assignments to Parameters 移除对参数的赋值&lt;/li&gt;
+  &lt;li&gt;Relace Method with Method Object 以函数对象取代函数&lt;/li&gt;
+  &lt;li&gt;Substitue Algorithm 替换算法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;第七章-在对象之间搬移特性&quot;&gt;第七章 在对象之间搬移特性&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Move Method 搬移函数&lt;/li&gt;
+  &lt;li&gt;Move Field 搬移字段&lt;/li&gt;
+  &lt;li&gt;Extract Class 提炼类&lt;/li&gt;
+  &lt;li&gt;Inline Class 将类内联化&lt;/li&gt;
+  &lt;li&gt;Hide Delegate 隐藏 “委托关系”&lt;/li&gt;
+  &lt;li&gt;Remove Middle Man 移除中间人&lt;/li&gt;
+  &lt;li&gt;Introduce Foreign Method 引入外加函数&lt;/li&gt;
+  &lt;li&gt;Introduce Local Extension 引入本地扩展&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;第八章-重新组织数据&quot;&gt;第八章 重新组织数据&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Self Encapsulate Fiedl 自封装字段&lt;/li&gt;
+  &lt;li&gt;Replace Data Value with Object 以对象取代数据值&lt;/li&gt;
+  &lt;li&gt;Change Value to Reference 将值对象改为引用对象&lt;/li&gt;
+  &lt;li&gt;Change Reference to Value 将引用对象改为值对象&lt;/li&gt;
+  &lt;li&gt;Replace Array with Object 以对象取代数组&lt;/li&gt;
+  &lt;li&gt;Duplicate Observed Data 复制”被监视数据“&lt;/li&gt;
+  &lt;li&gt;Change Unidirectional Association to Bidiredctional 将单向关联改为双向关联&lt;/li&gt;
+  &lt;li&gt;Change Bidiredctional Association to Unidirectional 将双向关联改为单向关联&lt;/li&gt;
+  &lt;li&gt;Replace Magic Number with Symbolic Constant 以字面常量取代魔法数&lt;/li&gt;
+  &lt;li&gt;Encapusulate Field 封装字段&lt;/li&gt;
+  &lt;li&gt;Encapsulate Collection 封装集合&lt;/li&gt;
+  &lt;li&gt;Relace Record with Data Class 以数据类取代记录&lt;/li&gt;
+  &lt;li&gt;Replace Type Code with Class 以类取代类型码&lt;/li&gt;
+  &lt;li&gt;Replace Type Code with Subclasses 以子类取代类型码&lt;/li&gt;
+  &lt;li&gt;Replace Type Code with State/Strategy 以State/Strategy取代类型码&lt;/li&gt;
+  &lt;li&gt;Replace Subclass with Fields 以字段取代子类&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;第九章-简化条件表达式&quot;&gt;第九章 简化条件表达式&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Decompose Conditional 分解条件表达式&lt;/li&gt;
+  &lt;li&gt;Consolidate Conditional Expression 合并条件表达式&lt;/li&gt;
+  &lt;li&gt;Consolidate Duplicate Conditional Fragments 合并重复的条件片段&lt;/li&gt;
+  &lt;li&gt;Remove Control Flag 移除控制标记&lt;/li&gt;
+  &lt;li&gt;Replace Nested Conditional with Guard Clauses 以卫语句取代嵌套条件表达式&lt;/li&gt;
+  &lt;li&gt;Replace Conditional with Polymorphism 以多态取代条件表达式&lt;/li&gt;
+  &lt;li&gt;Introduce Null Object 引入Null对象&lt;/li&gt;
+  &lt;li&gt;Introduce Assertion 引入断言&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;第十章-简化函数调用&quot;&gt;第十章 简化函数调用&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Rename Method 函数改名&lt;/li&gt;
+  &lt;li&gt;Add Parameter 添加参数&lt;/li&gt;
+  &lt;li&gt;Remove Parameter 移除参数&lt;/li&gt;
+  &lt;li&gt;Separate Query from Modifier 将查询函数和修改函数分离&lt;/li&gt;
+  &lt;li&gt;Parameterize Method 令函数携带参数&lt;/li&gt;
+  &lt;li&gt;Replace Parameter with Explicit Methods 以明确函数取代参数&lt;/li&gt;
+  &lt;li&gt;Preserve Whole Object 保持对象完整&lt;/li&gt;
+  &lt;li&gt;Replace Parameter with Methods 以函数取代参数&lt;/li&gt;
+  &lt;li&gt;Introduce Parameter Object 引入参数对象&lt;/li&gt;
+  &lt;li&gt;Remove Setting Method 移除设值函数&lt;/li&gt;
+  &lt;li&gt;Hide Method 隐藏函数&lt;/li&gt;
+  &lt;li&gt;Replace Constructor with Factory Method 以工厂函数取代构造函数&lt;/li&gt;
+  &lt;li&gt;Encapsulate Downcast 封装向下转型&lt;/li&gt;
+  &lt;li&gt;Replace Error Code with Exception 以异常取代错误码&lt;/li&gt;
+  &lt;li&gt;Replace Exception with Test 以测试取代异常&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;第十一章-处理概括关系&quot;&gt;第十一章 处理概括关系&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Pull Up Field 字段上移&lt;/li&gt;
+  &lt;li&gt;Pull Up Method 函数上移&lt;/li&gt;
+  &lt;li&gt;Pull Up Constructor Body 构造函数本体上移&lt;/li&gt;
+  &lt;li&gt;Push Down Method 函数下移&lt;/li&gt;
+  &lt;li&gt;Push Down Field 字段下移&lt;/li&gt;
+  &lt;li&gt;Extract Subclass 提炼子类&lt;/li&gt;
+  &lt;li&gt;Extract Superclass 提炼超类&lt;/li&gt;
+  &lt;li&gt;Extract Interface 提炼接口&lt;/li&gt;
+  &lt;li&gt;Collapse Hierarchy 折叠继承体系&lt;/li&gt;
+  &lt;li&gt;Form TemPlate Method 塑造模版函数&lt;/li&gt;
+  &lt;li&gt;Replace Inheritance with Delegation 以委托取代继承&lt;/li&gt;
+  &lt;li&gt;Replace Delegation with Inheritance 以继承取代委托&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;第十二章-大型重构&quot;&gt;第十二章 大型重构&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;小小的信仰：每天都使自己的程序世界更安全&lt;/li&gt;
+  &lt;li&gt;Tease Apart Inheritance 梳理并分解继承体系&lt;/li&gt;
+  &lt;li&gt;Convert Procedural Design to Objects 将过程化设计转化为对象设计&lt;/li&gt;
+  &lt;li&gt;Separate Domain from Presentation 将领域和表述／显示分离&lt;/li&gt;
+  &lt;li&gt;Extract Hierarchy 提炼继承体系&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;第十三章-重构复用与实现&quot;&gt;第十三章 重构，复用与实现&lt;/h4&gt;
+
+&lt;h4 id=&quot;第十四章-重构工具&quot;&gt;第十四章 重构工具&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;重构与新功能需要同时进行&lt;/li&gt;
+  &lt;li&gt;Refactoring Browser&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;第十五章-总结&quot;&gt;第十五章 总结&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;随时挑一个目标&lt;/li&gt;
+  &lt;li&gt;没把我就停下来&lt;/li&gt;
+  &lt;li&gt;学习原路返回&lt;/li&gt;
+  &lt;li&gt;二重奏&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;要点列表&quot;&gt;要点列表&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;如果你发现自己需要为程序添加一个特性，而代码结构使你无法很方便地达成目的，那就先重构那个程序，使特性的添加比较容易进行，然后再添加特性。&lt;/li&gt;
+  &lt;li&gt;重构前先检查自己是否有一套可靠的测试机制，这些测试机制必须有一套自我检验能力&lt;/li&gt;
+  &lt;li&gt;重构技术就是以微小的步伐修改程序。如果你犯下错误，很容易便可发现它。&lt;/li&gt;
+  &lt;li&gt;任何傻瓜都能写出计算机可以理解的代码，唯有写出人类容易理解的代码才是优秀的程序员&lt;/li&gt;
+  &lt;li&gt;重构，对软件内部结构的一种调整，目的是在不改变软件可观察行为的前提下，提高其可理解性，降低其修改成本。&lt;/li&gt;
+  &lt;li&gt;重构：使用一系列重构手法，在不改变软件可观察行为的前提下，调整其机构。&lt;/li&gt;
+  &lt;li&gt;事不过三，三则重构&lt;/li&gt;
+  &lt;li&gt;不要过早发布接口，请修改你的大米所有权策略，使重构更顺畅。&lt;/li&gt;
+  &lt;li&gt;当感觉需要写注释时，请尝试重构，让所有注释都变得多余&lt;/li&gt;
+  &lt;li&gt;确保所有测试都完全自动化，让它们检查自己的测试结果&lt;/li&gt;
+  &lt;li&gt;一套测试就是一个强大的bug侦测器，能够大大缩减查找bug所需要的时间。&lt;/li&gt;
+  &lt;li&gt;频繁地运行测试，每次编译请把测试也考虑进去，每天至少执行每个测试一次。！！！！！&lt;/li&gt;
+  &lt;li&gt;每当你收到bug报告，请先写一个测试用例来暴漏这个bug&lt;/li&gt;
+  &lt;li&gt;考虑可能出错的边界条件，把测试火力集中在那儿。&lt;/li&gt;
+  &lt;li&gt;当事情被大家认为应该会出错时，别忘了检查是否抛出了预期的异常&lt;/li&gt;
+  &lt;li&gt;不要应为测试无法捕捉到所有bug就不写测试，因为测试的确可以捕捉到大多数bug&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;end&quot;&gt;END&lt;/h3&gt;</content><author><name></name></author><category term="Architecture" /><summary type="html">重构-改善既有代码的设计</summary></entry><entry><title type="html">亲密关系</title><link href="http://localhost:4000/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html" rel="alternate" type="text/html" title="亲密关系" /><published>2017-07-07T00:00:00+08:00</published><updated>2017-07-07T00:00:00+08:00</updated><id>http://localhost:4000/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB</id><content type="html" xml:base="http://localhost:4000/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">&lt;h4 id=&quot;简介&quot;&gt;简介&lt;/h4&gt;
+
+&lt;h4 id=&quot;第1章-人际关系的构成&quot;&gt;第1章 人际关系的构成&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;亲密关系的性质和重要性
+    &lt;ul&gt;
+      &lt;li&gt;亲密关系的性质：了解程度，关心程度，相互依赖性，相互一致性，信任度，忠诚度&lt;/li&gt;
+      &lt;li&gt;归属的需要&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;文化的影响
+    &lt;ul&gt;
+      &lt;li&gt;亲密关系变化的根源：我们对人际关系的期望和接纳，在很大程度上取决于我们所处的时代和地区的文化标准。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;个人经历的影响&lt;/li&gt;
+  &lt;li&gt;个体差异的影响
+    &lt;ul&gt;
+      &lt;li&gt;性别差异&lt;/li&gt;
+      &lt;li&gt;性认同差异&lt;/li&gt;
+      &lt;li&gt;人格&lt;/li&gt;
+      &lt;li&gt;自尊&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;人类本性的影响&lt;/li&gt;
+  &lt;li&gt;人际互动的影响&lt;/li&gt;
+  &lt;li&gt;人际关系的消极面&lt;/li&gt;
+  &lt;li&gt;请你思考&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="Books" /><summary type="html">亲密关系---第5版 罗兰-米勒</summary></entry><entry><title type="html">苏菲的世界</title><link href="http://localhost:4000/books/2017/07/03/%E8%8B%8F%E8%8F%B2%E7%9A%84%E4%B8%96%E7%95%8C.html" rel="alternate" type="text/html" title="苏菲的世界" /><published>2017-07-03T00:00:00+08:00</published><updated>2017-07-03T00:00:00+08:00</updated><id>http://localhost:4000/books/2017/07/03/%E8%8B%8F%E8%8F%B2%E7%9A%84%E4%B8%96%E7%95%8C</id><content type="html" xml:base="http://localhost:4000/books/2017/07/03/%E8%8B%8F%E8%8F%B2%E7%9A%84%E4%B8%96%E7%95%8C.html">&lt;h4 id=&quot;内容简介&quot;&gt;内容简介&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;14岁的少女苏菲某天放学回家，发现了神秘的一封信。—-你是谁？—-世界从哪里来？就这样，在一位神秘导师的指导引下，苏菲开始思索从古希腊到康德，从祁克果到佛洛伊德等各位大师所思考的根本问题。与此同时，苏菲不断接到了些极不寻常的来信，世界像迹团一般在她眼底展开。苏菲运用少女天生的悟性与后天知识，企图解开这些迹团然而事实真相远比她所想的更怪异、更离奇……《苏菲的世界》，即是智慧的世界，梦的世界。它将会唤醒每个人内心深处对生命的赞叹与对人生终极意义的关怀和好奇。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h5 id=&quot;section-1&quot;&gt;为什么使用代理&lt;/h5&gt;
+&lt;h5 id=&quot;作者简介&quot;&gt;作者简介&lt;/h5&gt;
 &lt;ul&gt;
-  &lt;li&gt;网站访问过滤&lt;/li&gt;
-  &lt;li&gt;文档访问权限控制&lt;/li&gt;
-  &lt;li&gt;安全防火墙&lt;/li&gt;
-  &lt;li&gt;Web缓存&lt;/li&gt;
-  &lt;li&gt;反向代理&lt;/li&gt;
-  &lt;li&gt;内容路由&lt;/li&gt;
-  &lt;li&gt;转码器&lt;/li&gt;
-  &lt;li&gt;匿名者&lt;/li&gt;
+  &lt;li&gt;乔斯坦·贾德1952年生于挪威，担任高中哲学教师多年。自1986年出版第一部作品以来，已成为挪威世界级的作家。1991年《苏菲的世界》出版后，成为挪威、丹厂、瑞典和德国的畅销书，销量达三百万册。目前，已有三十多个国家购买了该书的版权。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h5 id=&quot;section-2&quot;&gt;代理去往何处&lt;/h5&gt;
+&lt;h5 id=&quot;精彩语句&quot;&gt;精彩语句&lt;/h5&gt;
 &lt;ul&gt;
-  &lt;li&gt;代理服务器的部署
+  &lt;li&gt;成为一个优秀的哲学家的惟一条件就是要有好奇心。&lt;/li&gt;
+  &lt;li&gt;有些东西是人人都需要的，那就是：明白我们是谁，为何会在这里。&lt;/li&gt;
+  &lt;li&gt;如果你就是苏菲，那么你有能力逃离自己的上帝吗？&lt;/li&gt;
+  &lt;li&gt;最聪明的是明白自己无知的人，真正的智慧来自内心，明辨是非者必能进退合宜。&lt;/li&gt;
+  &lt;li&gt;宿命论的意思就是相信所有发生的事，都是命中注定的。—命运&lt;/li&gt;
+  &lt;li&gt;意识是什么？它难道不是宇宙的一个大谜题吗？记忆又是什么？是什么东西使我们“记得”我们所看到，所经验的每一件事情？&lt;/li&gt;
+  &lt;li&gt;生命本来就是悲伤而严肃的。我们来到这个美好的世界里，彼此相逢，彼此问候，并结伴同游一段短暂的时间。然后我们就失去了对方，并且莫名其妙就消失了，就像我们突然莫名其妙地来到世上一般。&lt;/li&gt;
+  &lt;li&gt;你习惯了这个世界了，才会对任何事情都不感到惊奇。&lt;/li&gt;
+  &lt;li&gt;这个世界不可能大家都喜欢我，我也不需要每个人都喜欢我，我只能说很多人还不了解我。&lt;/li&gt;
+  &lt;li&gt;真正的知识来自内心，而不是来自别人的传授。同时，唯有出自内心的知识，才能使人拥有真正的智慧。&lt;/li&gt;
+  &lt;li&gt;没有人天生该对谁好所以我们要学会感恩。&lt;/li&gt;
+  &lt;li&gt;但我们生命中的意义必须由我们自己来创造，存在的意义就是要创造自己的生命。&lt;/li&gt;
+  &lt;li&gt;理智和经验都缺失时，就会出现一个真空，这个真空可以由信仰填补。&lt;/li&gt;
+  &lt;li&gt;我们可能会成为各种事物的奴隶，我们甚至可能成为我们的自我中心思想的奴隶。独立与自由正是我们超脱自我的欲望与恶念的方法。&lt;/li&gt;
+  &lt;li&gt;孩子，我们并不只活在我们所属的时代里，我们身上也扛着历史。不要忘记你在这个房间内看到的每一样东西都曾经是崭新的。&lt;/li&gt;
+  &lt;li&gt;一个人不会再次进入同一条河流。&lt;/li&gt;
+  &lt;li&gt;每个人，都有唯一一个，真实的自我。这个自我，有自由的意志。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;目录&quot;&gt;目录&lt;/h4&gt;
+
+&lt;h5 id=&quot;伊甸园-在某个时刻事物必然从无到有&quot;&gt;伊甸园-在某个时刻事物必然从无到有&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;你是谁？人是什么？世界从何而来？ 席德？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;魔术师的礼帽-要成为一个优秀的哲学家只有一个条件要有好奇心&quot;&gt;魔术师的礼帽-要成为一个优秀的哲学家只有一个条件：要有好奇心&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;哲学是什么？&lt;/li&gt;
+  &lt;li&gt;生命中最重要的是什么？&lt;/li&gt;
+  &lt;li&gt;上帝是否存在？小白兔🐰&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;神话-善与恶之间脆弱的平衡&quot;&gt;神话-善与恶之间脆弱的平衡&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;神话的世界观&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;自然派哲学家-没有一件事情可以来自空无&quot;&gt;自然派哲学家-没有一件事情可以来自空无&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;万事万物是否由一种基本的物质组成？&lt;/li&gt;
+  &lt;li&gt;自然派哲学家，关切的主题都是大自然与它的循环与变化&lt;/li&gt;
+  &lt;li&gt;泰利斯，安纳克西曼德&lt;/li&gt;
+  &lt;li&gt;所有的事物都是流动的&lt;/li&gt;
+  &lt;li&gt;恩培窦可里斯认为自然界有两种力量。他称之为“爱”与“恨”。爱使得事物聚合，而恨则使他们分散。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;德谟克利特斯-世界上最巧妙的玩具&quot;&gt;德谟克利特斯-世界上最巧妙的玩具&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;原子理论&lt;/li&gt;
+  &lt;li&gt;德谟克里特斯同意前面几位哲学家的看法，认为自然界的转变不是因为任何事物的有所“ 变”。他相信每一种事物都是由微小的积木所组成，而每一块积木都是永恒不变的。德谟克里特斯把这些最小的单位称为原子。原子（atom）这个字的本意是“不可分割的”。德谟克里特斯认为，证明组成各种事物的单位不可能被无限制分割成更小的单位是很重要的。 因为如果每一个组成各种事物的单位 都可以被分割成更小的单位，则大自然将开始像不断被稀释的汤一般消失了。 更重要的是， 大自然的积木必须是永恒的， 因为没有一件事物会来自虚无。 在这方面，他同意帕梅尼德斯与伊利亚地区那些哲学家的看法，也认为所有的原子都是坚硬结实的， 但却 非完全一样。 他说，如果所有原子都一模一样， 则我们将无法圆满解释它们何以能够聚合成像罂粟花、橄榄树、羊皮、人发等各种不同的东西。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;命运-算命者试图预测某些事实上极不可测的事物&quot;&gt;命运-算命者试图预测某些事实上极不可测的事物&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;你相信命运吗？&lt;/li&gt;
+  &lt;li&gt;是什么力量影响历史的走向？&lt;/li&gt;
+  &lt;li&gt;戴尔菲的神论&lt;/li&gt;
+  &lt;li&gt;历史与医学&lt;/li&gt;
+  &lt;li&gt;古希腊人相信疾病可能神降的灾祸，也相信只要人以适当的方式向神献祭，神就可能使生病的人痊愈。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;苏格拉底-最聪明的是明白自己无知的人&quot;&gt;苏格拉底-最聪明的是明白自己无知的人&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;最聪明的是明白自己无知的人，真正的智慧来自内心，明辨是非者必能进退合宜。&lt;/li&gt;
+  &lt;li&gt;是否有人天生就很害羞呢？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;雅典-废墟中升起了几栋高楼&quot;&gt;雅典-废墟中升起了几栋高楼&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;以人为中心，公元前450年左右，雅典成了希腊王国的文化中心，从此以后，哲学走上了新的方向。&lt;/li&gt;
+  &lt;li&gt;诡辩学家与自然学家有一个共通点，他们都批评传统的深化。诡辩学家认为，我们虽然无法之道所有自然之谜的答案，
+却可以肯定人类必须学习如何共同生活。因此，他们宁愿关系个人在社会中的地位问题。&lt;/li&gt;
+  &lt;li&gt;苏格拉底(公元前470～公元前399)？ 帮人们“生出”正确的思想，唯有出自内心的知识，才能使人拥有真正的智慧。&lt;/li&gt;
+  &lt;li&gt;借着假装无知的方式，苏格拉底强迫他所遇见的人们运用本身的常识。这种装傻，装呆的方式，我们称之为“苏格拉底式的反讽”。这使得他能够不断揭露人们的思想上的弱点。&lt;/li&gt;
+  &lt;li&gt;“雅典就像一匹驽马，而我就是一只不断叮它，让它具有活力的牛蝇”&lt;/li&gt;
+  &lt;li&gt;哲学家“一个爱好智慧的人”&lt;/li&gt;
+  &lt;li&gt;苏格拉底说：我只知道一件事情，就是我一无所知。&lt;/li&gt;
+  &lt;li&gt;正确的见解导致正确的行动，知善者必能行善。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;柏拉图-回归灵魂世界的渴望&quot;&gt;柏拉图-回归灵魂世界的渴望&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;TODO&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;少校的小木屋-镜中的女孩双眼眨了一眨&quot;&gt;少校的小木屋-镜中的女孩双眼眨了一眨&lt;/h5&gt;
+&lt;h5 id=&quot;亚里斯多德-一位希望澄清我们观念的严谨的逻辑学家&quot;&gt;亚里斯多德-一位希望澄清我们观念的严谨的逻辑学家&lt;/h5&gt;
+&lt;h5 id=&quot;希腊文化-一丝火花&quot;&gt;希腊文化-一丝火花&lt;/h5&gt;
+&lt;h5 id=&quot;明信片-我对自己实施严格的检查制度&quot;&gt;明信片-我对自己实施严格的检查制度&lt;/h5&gt;
+&lt;h5 id=&quot;两种文化-避免在真空中飘浮的唯一方式&quot;&gt;两种文化-避免在真空中飘浮的唯一方式&lt;/h5&gt;
+&lt;h5 id=&quot;中世纪-对了一部分并不等于错&quot;&gt;中世纪-对了一部分并不等于错&lt;/h5&gt;
+&lt;h5 id=&quot;文艺复兴-啊藏在凡俗身躯里的神明子孙呐&quot;&gt;文艺复兴-啊！藏在凡俗身躯里的神明子孙呐&lt;/h5&gt;
+&lt;h5 id=&quot;巴洛克时期-宛如梦中的事物&quot;&gt;巴洛克时期-宛如梦中的事物&lt;/h5&gt;
+&lt;h5 id=&quot;笛卡尔-他希望清除工地上所有的瓦砾&quot;&gt;笛卡尔-他希望清除工地上所有的瓦砾&lt;/h5&gt;
+&lt;h5 id=&quot;史宾诺莎-上帝不是一个傀儡戏师傅&quot;&gt;史宾诺莎-上帝不是一个傀儡戏师傅&lt;/h5&gt;
+&lt;h5 id=&quot;洛克-赤裸空虚一如教师来到教室前的黑板&quot;&gt;洛克-赤裸、空虚一如教师来到教室前的黑板&lt;/h5&gt;
+&lt;h5 id=&quot;休姆-将它付之一炬&quot;&gt;休姆-将它付之一炬&lt;/h5&gt;
+&lt;h5 id=&quot;伯克莱-宛如燃烧的恒星旁一颗晕眩的行星&quot;&gt;伯克莱-宛如燃烧的恒星旁一颗晕眩的行星&lt;/h5&gt;
+&lt;h5 id=&quot;柏客来-曾祖母向一名吉普赛妇人买的一面古老魔镜&quot;&gt;柏客来-曾祖母向一名吉普赛妇人买的一面古老魔镜&lt;/h5&gt;
+&lt;h5 id=&quot;启蒙-从制针的技术到铸造大炮的方法&quot;&gt;启蒙-从制针的技术到铸造大炮的方法&lt;/h5&gt;
+&lt;h5 id=&quot;康德-头上闪烁的星空与心中的道德规范&quot;&gt;康德-头上闪烁的星空与心中的道德规范&lt;/h5&gt;
+&lt;h5 id=&quot;浪漫主义-神秘之路通向内心&quot;&gt;浪漫主义-神秘之路通向内心&lt;/h5&gt;
+&lt;h5 id=&quot;黑格尔-可以站得住脚的就是有道理的&quot;&gt;黑格尔-可以站得住脚的就是有道理的&lt;/h5&gt;
+&lt;h5 id=&quot;祁克果-欧洲正迈向破产的地步&quot;&gt;祁克果-欧洲正迈向破产的地步&lt;/h5&gt;
+&lt;h5 id=&quot;马克思-在欧洲游荡的幽灵&quot;&gt;马克思-在欧洲游荡的幽灵&lt;/h5&gt;
+&lt;h5 id=&quot;达尔文-满载基因航行过生命的一艘小船&quot;&gt;达尔文-满载基因航行过生命的一艘小船&lt;/h5&gt;
+&lt;h5 id=&quot;弗洛伊德-他内心出现那股令人讨厌的自大的冲动&quot;&gt;弗洛伊德-他内心出现那股令人讨厌的自大的冲动&lt;/h5&gt;
+&lt;h5 id=&quot;我们这个时代-人注定是要受自由之苦的&quot;&gt;我们这个时代-人注定是要受自由之苦的&lt;/h5&gt;
+&lt;h5 id=&quot;花园盛会-一只白色的乌鸦&quot;&gt;花园盛会-一只白色的乌鸦&lt;/h5&gt;
+&lt;h5 id=&quot;对位法-两首或多首旋律齐响&quot;&gt;对位法-两首或多首旋律齐响&lt;/h5&gt;
+&lt;h5 id=&quot;那轰然一响-我们也是星尘&quot;&gt;那轰然一响-我们也是星尘&lt;/h5&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://video.tudou.com/v/XMTc4NzAxMDY2NA==.html&quot;&gt;苏菲的世界-电影&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="Books" /><summary type="html">苏菲的世界---哲学入门----（挪）贾德著；萧宝森译. 苏菲的世界 (贾德名作系列)</summary></entry><entry><title type="html">无声的告白</title><link href="http://localhost:4000/books/2017/07/03/%E6%97%A0%E5%A3%B0%E7%9A%84%E5%91%8A%E7%99%BD.html" rel="alternate" type="text/html" title="无声的告白" /><published>2017-07-03T00:00:00+08:00</published><updated>2017-07-03T00:00:00+08:00</updated><id>http://localhost:4000/books/2017/07/03/%E6%97%A0%E5%A3%B0%E7%9A%84%E5%91%8A%E7%99%BD</id><content type="html" xml:base="http://localhost:4000/books/2017/07/03/%E6%97%A0%E5%A3%B0%E7%9A%84%E5%91%8A%E7%99%BD.html">&lt;p&gt;&lt;a href=&quot;https://book.douban.com/subject/26382433/&quot;&gt;无声的告白–豆瓣读书&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;思考&quot;&gt;思考&lt;/h4&gt;
+
+&lt;h5 id=&quot;我们终其一生就是要摆脱他人的期待寻找真正的自己&quot;&gt;我们终其一生，就是要摆脱他人的期待，寻找真正的自己。&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;人类都是健忘的，40岁没法理解30岁，30岁也看不懂20岁，20岁则对10岁不屑一顾。&lt;/li&gt;
+  &lt;li&gt;因为年轻人的悲伤，总是比天还要大。&lt;/li&gt;
+  &lt;li&gt;人天生都要被认同的。被家人父母社会，或者自己。即使一时短暂的叛逆也不过是想要某一瞬间能
+吸引到别人的关注，所败了还是因为一种广义上的虚荣心。&lt;/li&gt;
+  &lt;li&gt;这种被认同的心理会随着年龄的增长越来越清晰，越来与具体。比如，我想成为一个小范围的网红；我要创业，赚钱；我要成名；我要做一个酷的人，让别人都羡慕我，这是认同，是虚荣心的一种结果。&lt;/li&gt;
+  &lt;li&gt;真正能摆脱他人眼光的人都是勇士，能做到的人其实少之又少。&lt;/li&gt;
+  &lt;li&gt;那种渴望被世界认可的成功，不过是在成为自己之后的结果，并不是目标。&lt;/li&gt;
+  &lt;li&gt;我很羡慕成功的人，我更羡慕知道自己要什么，每日都为自己而活的人。&lt;/li&gt;
+  &lt;li&gt;想要平凡，从平凡中有那么点儿不平凡是所有人对于 “社会生存”这个命题里最理想的期盼。&lt;/li&gt;
+  &lt;li&gt;我们应该如何选择：追寻真实的自我，还是满足别人的期待？&lt;/li&gt;
+  &lt;li&gt;懂了很多道理，却仍过不好这一生。为什么?因为你不去按照道理去做，去行动。&lt;/li&gt;
+  &lt;li&gt;我们头脑里总是憧憬着另一种生活，但实际情况却事与愿违。&lt;/li&gt;
+  &lt;li&gt;你曾经爱的那么深，怀有那么多的期望，最后却一无所有。&lt;/li&gt;
+  &lt;li&gt;你永远得不到想要的，你只是学会了如何得过且过而已。&lt;/li&gt;
+  &lt;li&gt;一切苦难都会过去，学会和自己和他人和解，放过自己也放过别人。&lt;/li&gt;
+  &lt;li&gt;家庭，有时候会是一个以爱的名义设置的牢笼，其恐怖在于，门上无锁，你却不敢推门而出，只能咆哮的接受一切爱的安排。
+知道最后溺亡其中，或是被时间所离散。&lt;/li&gt;
+  &lt;li&gt;别担心亲爱的，人生太短，而你太美。&lt;/li&gt;
+  &lt;li&gt;
+    &lt;h2 id=&quot;微笑的意思我喜欢你你让我快乐很高兴见到你&quot;&gt;微笑的意思：”我喜欢你。你让我快乐。很高兴见到你。”&lt;/h2&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="Books" /><summary type="html">无声的告白--伍绮诗（Celeste Ng）</summary></entry><entry><title type="html">小逻辑</title><link href="http://localhost:4000/books/2017/07/03/%E5%B0%8F%E9%80%BB%E8%BE%91.html" rel="alternate" type="text/html" title="小逻辑" /><published>2017-07-03T00:00:00+08:00</published><updated>2017-07-03T00:00:00+08:00</updated><id>http://localhost:4000/books/2017/07/03/%E5%B0%8F%E9%80%BB%E8%BE%91</id><content type="html" xml:base="http://localhost:4000/books/2017/07/03/%E5%B0%8F%E9%80%BB%E8%BE%91.html">&lt;p&gt;&lt;a href=&quot;http://yuedu.163.com/source/10fd0807686844ce92a5de5cba1347bb_4&quot;&gt;小逻辑&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;前言&quot;&gt;前言&lt;/h4&gt;
+
+&lt;h4 id=&quot;导言&quot;&gt;导言&lt;/h4&gt;
+
+&lt;h5 id=&quot;逻辑学概念的初步规定&quot;&gt;逻辑学概念的初步规定&lt;/h5&gt;
+
+&lt;h5 id=&quot;思想对客观性的第一态度&quot;&gt;思想对客观性的第一态度&lt;/h5&gt;
+
+&lt;h5 id=&quot;逻辑学概念的进一步规定和部门划分&quot;&gt;逻辑学概念的进一步规定和部门划分&lt;/h5&gt;
+
+&lt;h5 id=&quot;第一篇存在论&quot;&gt;第一篇存在论&lt;/h5&gt;
+
+&lt;h5 id=&quot;第二篇本质论&quot;&gt;第二篇本质论&lt;/h5&gt;
+
+&lt;h5 id=&quot;第三篇概念论&quot;&gt;第三篇概念论&lt;/h5&gt;
+
+&lt;h6 id=&quot;作者简介&quot;&gt;作者简介&lt;/h6&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;格奥尔格·威廉·弗里德里希·黑格尔（Georg Wilhelm Friedrich Hegel ，1770—1831）德国最伟大哲学家之一。是德国哲学中由康德启始的德国古典哲学运动巅峰，德国古典哲学集大成者，虽然他对康德时常有所批评，假使原来没有康德的学说体系，决不会产生他的体系。黑格尔的影响固然现在渐渐衰退了，但以往一向是很大的，而且不仅限于德国。其思想体系是马克思唯物主义辩证法的主要源流。十九世纪末年，在美国和英国，一流的学院哲学家大多都是黑格尔派。&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="Books" /><summary type="html">小逻辑---黑格尔 著</summary></entry><entry><title type="html">Raft</title><link href="http://localhost:4000/destributed/2017/06/28/raft.html" rel="alternate" type="text/html" title="Raft" /><published>2017-06-28T00:00:00+08:00</published><updated>2017-06-28T00:00:00+08:00</updated><id>http://localhost:4000/destributed/2017/06/28/raft</id><content type="html" xml:base="http://localhost:4000/destributed/2017/06/28/raft.html">&lt;h4 id=&quot;raft-分布式一致性算法&quot;&gt;Raft 分布式一致性算法.&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://raft.github.io/&quot;&gt;raft官网&lt;/a&gt;     &lt;a href=&quot;http://thesecretlivesofdata.com/raft/&quot;&gt;raft算法演示&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;本文目的:读 寻找一种易于理解的一致性算法的论文，记录核心点。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;introduction&quot;&gt;Introduction&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Strong leader: Raft uses a stronger form of leadership
+than other consensus algorithms. For example,
+log entries only flow from the leader to other servers.
+This simplifies the management of the replicated log
+and makes Raft easier to understand&lt;/li&gt;
+  &lt;li&gt;Leader election: Raft uses randomized timers to
+elect leaders. This adds only a small amount of
+mechanism to the heartbeats already required for any
+consensus algorithm, while resolving conflicts simply
+and rapidly.&lt;/li&gt;
+  &lt;li&gt;Membership changes: Raft’s mechanism for
+changing the set of servers in the cluster uses a new
+joint consensus approach where the majorities of
+two different configurations overlap during transitions.
+This allows the cluster to continue operating
+normally during configuration changes.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;replicated-state-machines&quot;&gt;Replicated state machines&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://dn-0x01-io.qbox.me/raft-图1-01.png&quot; alt=&quot;图 1 &quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;raft-算法&quot;&gt;Raft 算法&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Raft通过选举一个高贵的领导人，然后给予他全部的管理复制日志的责任来实现一致性。领导人从客户端接收日志条目，把日志条目复制到其他服务器上，并且当保证安全性的时候告诉其他的服务器应用日志条目到他们的状态机中。拥有一个领导人大大简化了对复制日志的管理。例如，领导人可以决定新的日志条目需要放在日志中的什么位置而不需要和其他服务器商议，并且数据都从领导人流向其他服务器。一个领导人可以宕机，可以和其他服务器失去连接，这时一个新的领导人会被选举出来。&lt;/li&gt;
+  &lt;li&gt;通过领导人的方式，Raft 将一致性问题分解成了三个相对独立的子问题
     &lt;ol&gt;
-      &lt;li&gt;出口代理&lt;/li&gt;
-      &lt;li&gt;访问(入口)代理&lt;/li&gt;
-      &lt;li&gt;反向代理(取代原始服务器的代理服务器)&lt;/li&gt;
-      &lt;li&gt;网络交换代理&lt;/li&gt;
+      &lt;li&gt;领导选举：一个新的领导人需要被选举出来，当现存的领导人宕机的时候&lt;/li&gt;
+      &lt;li&gt;日志复制：领导人必须从客户端接收日志然后复制到集群中的其他节点，并且强制要求其他节点的日志保持和自己相同。&lt;/li&gt;
+      &lt;li&gt;安全性：如果有任何的服务器节点已经应用了一个确定的日志条目到它的状态机中，那么其他服务器节点不能在同一个日志索引位置应用一个不同的指令。&lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
-  &lt;li&gt;代理的层次结构(动态选择父子层次结构)
-    &lt;ol&gt;
-      &lt;li&gt;负载均衡&lt;/li&gt;
-      &lt;li&gt;地理位置附近的路由&lt;/li&gt;
-      &lt;li&gt;协议/类型路由&lt;/li&gt;
-      &lt;li&gt;基于订购的路由&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;代理是如何获取流量的
-    &lt;ol&gt;
-      &lt;li&gt;修改Web客户端&lt;/li&gt;
-      &lt;li&gt;修改网络(拦截代理)拦截代理被称为&lt;code class=&quot;highlighter-rouge&quot;&gt;透明代理&lt;/code&gt;因为你会在不知情的情况下连接到这些代理上去，但HTTP规范中已用”透明”来表示那些不会对语义进行修改的功能了，所以标准指定机构建议在流量捕获中使用术语&lt;code class=&quot;highlighter-rouge&quot;&gt;拦截&lt;/code&gt;，这里采纳了这一术语。&lt;/li&gt;
-      &lt;li&gt;修改DNS命名空间&lt;/li&gt;
-      &lt;li&gt;修改Web服务器&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
+  &lt;li&gt;每一台服务有三种状态，领导者，跟随者，候选人&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h5 id=&quot;section-3&quot;&gt;客户端的代理设置&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;手工配置&lt;/li&gt;
-  &lt;li&gt;预先配置浏览器&lt;/li&gt;
-  &lt;li&gt;代理的自动配置&lt;/li&gt;
-  &lt;li&gt;WPAD(Web Proxy Autodiscovery Protocol)的代理发现;⚠️目前只有IE支持这一特性&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;section-4&quot;&gt;与代理请求有关的一些棘手问题&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;代理URI与服务器URI的不同(没有设置客户端使用代理时，它会发送部分URI。设置客户端使用代理时，它会发送完整URI)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;服务器请求&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;GET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SuperBrowser&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;显示&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;配置了代理请求&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;GET&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//www.example.com/index.html HTTP/1.0&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SuperBrowser&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;替代物，反向代理&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;服务器主机名指向替代物代理&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;GET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SuperBrowser&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;拦截代理请求&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;GET&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SuperBrowser&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;h6 id=&quot;核心数据结构&quot;&gt;核心数据结构&lt;/h6&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;代理既可以处理代理请求，也可以处理服务器请求&lt;/li&gt;
-  &lt;li&gt;转发过程中对URI的修改(HTTP规范禁止一般的拦截代理在转发URI时重写其绝对路径，唯一的例外是可以用”/”来取代空路径)&lt;/li&gt;
-  &lt;li&gt;URI的客户端自动扩张和主机名解析&lt;/li&gt;
-  &lt;li&gt;没有代理时URI的解析，没有提供显示的代理时，浏览器会对部分主机名进行自动扩展。&lt;/li&gt;
-  &lt;li&gt;有显示代理时URI的解析，有显示设置代理时浏览器不会对不完整的主机名进行自动扩展，因此当用户在地址栏窗口中输入oreilly时，发给代理的就是http://oreilly/(浏览器添加了默认的方案和路径，但主机名和输入的一样)&lt;/li&gt;
-  &lt;li&gt;有拦截代理时URI的解析&lt;/li&gt;
+  &lt;li&gt;state&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h5 id=&quot;section-5&quot;&gt;追踪报文&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;Via首部(它列出了报文途径的每个中间节点(代理或网关)有关的信息，报文每经过一个节点，都必须将这个中间节点添加到Via列表的末尾),比如以下Via字符串告诉我们报文经过两个代理，以及分别实现的协议版本。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Via: 1.1 proxy-62.irenes-isp.net, 1.0 cacahe.joes-hardware.com
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;响应Via通常与请求Via相反，比如请求是:’Via: 1.1 A, 1.0 B, 1.1 C’则响应是:’Via: 1.1 C, 1.0 B, 1.1 A’&lt;/li&gt;
-  &lt;li&gt;Via与网关,有些代理会为使用非HTTP协议的服务器提供网关功能。Via首部会记录这些协议转换。&lt;/li&gt;
-  &lt;li&gt;Via的隐私和安全问题&lt;/li&gt;
-  &lt;li&gt;TRACE方法，HTTP/1.1的TRACE方法，用户可以追踪经代理链传输的请求报文，观察报文经过了哪些代理，以及每个代理是如果对请求报文进行修改的。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;TRACE&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;请求&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;TRACE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;www&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;com&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Accept&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;TRACE&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;响应:响应首部&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;为&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;状态&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OK&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Coontent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Length&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;269&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Via&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p1123&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;att&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;proxy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;irenes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;net&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;TRACE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;www&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;com&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Accept&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Via&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;proxy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;irenes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p1123&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;att&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;com&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;可以使用Max-Forwards添加到首部限制最大转发次数&lt;/p&gt;
-
-&lt;h5 id=&quot;section-6&quot;&gt;代理认证&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;Proxy Authorization
-    &lt;h5 id=&quot;section-7&quot;&gt;代理的互操作性&lt;/h5&gt;
-  &lt;/li&gt;
-  &lt;li&gt;OPTIONS: 发现对可选特性的支持&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;ol&gt;
-    &lt;li&gt;OPTIONS * HTTP/1.1 表示请求的整个服务器所支持的功能&lt;/li&gt;
-    &lt;li&gt;OPTIONS http://www.example.com/index.html HTTP/1.1 表示具体特定资源的可用特性&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Allow首部，列出请求URI标识资源所支持的方法列表。也可以将Allow首部作为请求首部，建议在新建资源上支持某些方法。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Proxy&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;---&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OPTIONS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;S&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;---&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Proxy&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OK&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;PUT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;POST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HEAD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TRACE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OPTIONS&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Proxy_server&quot;&gt;Proxy-Server wiki&lt;/a&gt;&lt;/p&gt;</content><category term="CS" /><summary>第五章-Web服务器;第六章-代理</summary></entry><entry><title>HTTP权威指南-4</title><link href="/cs/2016/09/29/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-4.html" rel="alternate" type="text/html" title="HTTP权威指南-4" /><published>2016-09-29T00:00:00+08:00</published><updated>2016-09-29T00:00:00+08:00</updated><id>/cs/2016/09/29/HTTP权威指南-4</id><content type="html" xml:base="/cs/2016/09/29/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-4.html">&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#tcp&quot; id=&quot;markdown-toc-tcp&quot;&gt;TCP连接&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#tcp-1&quot; id=&quot;markdown-toc-tcp-1&quot;&gt;对TCP性能的考虑&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#http&quot; id=&quot;markdown-toc-http&quot;&gt;HTTP连接的处理&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;并行连接&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;持久连接&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;管道化连接&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;关闭连接的奥秘&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;tcp&quot;&gt;TCP连接&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;TCP的可靠数据管道&lt;/li&gt;
-  &lt;li&gt;TCP流是分段的、由IP分组传送。(TCP的数据是通过名为IP分组或者IP数据报的小数据块来发送的)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;HTTP与HTTPS&lt;/strong&gt;&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th&gt;HTTP&lt;/th&gt;
-      &lt;th&gt;应用层&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;state&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Persistent state on all servers(Updated on stable storage before responding to RPCs)&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;TCP&lt;/td&gt;
-      &lt;td&gt;传输层&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;currentTerm&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;latest term server has seen (initialized to 0  on first boot, increases monotonically)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;IP&lt;/td&gt;
-      &lt;td&gt;网络层&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;votedFor&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;candidateId that received vote in current term (or null if none)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;网络接口&lt;/td&gt;
-      &lt;td&gt;数据链路层&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;log[]&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;log entries; each entry contains command for state machine, and term when entry  was received by leader (first index is 1)&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -803,228 +556,389 @@
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th&gt;HTTP&lt;/th&gt;
-      &lt;th&gt;应用层&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;state&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Volatile state on all servers&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;TSL or SSL&lt;/td&gt;
-      &lt;td&gt;安全层&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;commitIndex&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;index of highest log entry known to be committed (initialized to 0, increases  monotonically)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;TCP&lt;/td&gt;
-      &lt;td&gt;传输层&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;lastApplied&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;index of highest log entry applied to state  machine (initialized to 0, increases  monotonically)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;state&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Volatile state on leaders(Reinitialized after election)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;nextIndex[]&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;for each server, index of the next log entry to send to that server (initialized to leader last log index + 1)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;IP&lt;/td&gt;
-      &lt;td&gt;网络层&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;matchIndex[]&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;for each server, index of highest log entry known to be replicated on server&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;网络接口层&lt;/td&gt;
-      &lt;td&gt;数据链路层&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;(initialized to 0, increases monotonically)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt; &lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;保持TCP连接持续不断地运行(TCP通过端口号保持所有持续运行的TCP连接)，TCP连接通过4个值来识别&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;源IP地址、源端口号、目的IP地址、目的端口号&amp;gt;&lt;/code&gt;进而一起定义唯一的一条连接。&lt;/li&gt;
-  &lt;li&gt;使用TCP套接字编程&lt;/li&gt;
+  &lt;li&gt;AppendEntries RPC.&lt;/li&gt;
+  &lt;li&gt;Invoked by leader to replicate log entries; also used as heartbeat.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th&gt;套接字API调用&lt;/th&gt;
-      &lt;th&gt;描述&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Arguments&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Explain&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;s = socket(&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;parameters&amp;gt;&lt;/code&gt;)&lt;/td&gt;
-      &lt;td&gt;创建一个新的、未命名、未关联的套接字&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;term&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;leader’s term  leaderId so follower can redirect clients&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;bind(s,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;local IP:port&amp;gt;&lt;/code&gt;)&lt;/td&gt;
-      &lt;td&gt;向套接字赋一个本地端口号和接口&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;prevLogIndex&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;index of log entry immediately preceding new ones&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;connect(s, &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;remote IP:port&amp;gt;&lt;/code&gt;)&lt;/td&gt;
-      &lt;td&gt;创建一条连接本地套接字与远程主机及端口的连接&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;prevLogTerm&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;term of prevLogIndex entry&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;listen(s,….)&lt;/td&gt;
-      &lt;td&gt;标识一个本地套接字，使其可以合法接受连接&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;entries[]&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;log entries to store (empty for heartbeat; may send more than one for efficiency)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;s2 = accept(s)&lt;/td&gt;
-      &lt;td&gt;等待某人建立一条到本地端口的连接&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;n = read(s, buffer, n)&lt;/td&gt;
-      &lt;td&gt;尝试从套接字向缓冲区读取n个字节&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;n = write(s, buffer, n)&lt;/td&gt;
-      &lt;td&gt;尝试从缓冲区中向套接字写入n个字节&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;close(s)&lt;/td&gt;
-      &lt;td&gt;完全关闭TCP连接&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;shutdown(s, &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;side&amp;gt;&lt;/code&gt;)&lt;/td&gt;
-      &lt;td&gt;只关闭TCP连接的输入或输出端&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getsockopt(s,…)&lt;/td&gt;
-      &lt;td&gt;读取某个内部套接字配置选项值&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;setsockopt(s,…)&lt;/td&gt;
-      &lt;td&gt;修改某个内部套接字配置选项值&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;leaderCommit&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;leader’s commitIndex&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h4 id=&quot;tcp-1&quot;&gt;对TCP性能的考虑&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;HTTP事务的时延&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;ol&gt;
-    &lt;li&gt;客户端首选需要根据URL确定Web服务器的IP地址和端口号，如果最近没有对URL中的主机名进行访问，通过DNS解析系统将URL中的主机名转换成一个IP地址可能需要花费数十秒的时间&lt;/li&gt;
-    &lt;li&gt;客户端会向服务器发送一条TCP连接请求，并等待服务器回送一个请求接受应答，每条新的TCP连接都会有连接时延，这个值通常最多只有一两秒钟，但如果数百个HTTP事务的话，这个值会快速地叠加上去。&lt;/li&gt;
-    &lt;li&gt;一旦连接建立起来了，客户端就会通过新建立的TCP管道来发送HTTP请求，数据到达时，Web服务器会从TCP连接中读取请求报文，并对请求进行处理，网络传输请求报文以及服务器处理请求报文都需要时间。&lt;/li&gt;
-    &lt;li&gt;Web服务器会会送HTTP响应，这也需要花费时间。&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;总结:这些TCP网络时延的大小取决于硬件速度，网络和服务器的负载，请求和响应报文的尺寸，以及客户端和服务器之间的距离。TCP协议技术的复杂性也会对时延产生巨大对影响。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;性能聚集区域&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;ol&gt;
-    &lt;li&gt;TCP连接建立握手&lt;/li&gt;
-    &lt;li&gt;TCP慢启动拥塞控制&lt;/li&gt;
-    &lt;li&gt;数据聚集的Nagle算法&lt;/li&gt;
-    &lt;li&gt;用于捎带确认的TCP延迟确认算法&lt;/li&gt;
-    &lt;li&gt;TIME_WAIT时延和端口耗尽&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Results&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Explain&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;term&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;currentTerm, for leader to update itself&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;success&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;true if follower contained entry matching prevLogIndex  and prevLogTerm&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;TCP连接的握手时延(SYN/SYN+ACK三次握手)SYN是一种标记，表明是连接请求&lt;/li&gt;
-  &lt;li&gt;延迟确认&lt;/li&gt;
-  &lt;li&gt;TCP慢启动‘自动调谐’&lt;/li&gt;
-  &lt;li&gt;Nagle算法与TCP_NODELAY(每个TCP段至少装载40个字节的标记和首部，如果TCP发送了大量包含少量数据的分组，网络性能就会严重下降，这种行为称为”发送端傻窗口综合症”;Nagle算法就是试图在发送一个分组之前，将大量TCP数据绑定在一起，以提高效率。可以在栈中设置参数TCP_NODELAY来禁用Nagle算法，如果需要这么做一定要确保会向TCP写入大块的数据，这样就不会产生一堆小分组了)&lt;/li&gt;
-  &lt;li&gt;TIME_WAIT累积与端口耗尽&lt;/li&gt;
+  &lt;li&gt;Receiver implementation:
+    &lt;ol&gt;
+      &lt;li&gt;Reply false if term &amp;lt; currentTerm&lt;/li&gt;
+      &lt;li&gt;Reply false if log doesn’t contain an entry at prevLogIndex  whose term matches prevLogTerm&lt;/li&gt;
+      &lt;li&gt;If an existing entry conflicts with a new one (same index  but different terms),
+delete the existing entry and all that  follow it&lt;/li&gt;
+      &lt;li&gt;Append any new entries not already in the log&lt;/li&gt;
+      &lt;li&gt;If leaderCommit &amp;gt; commitIndex, set commitIndex = min(leaderCommit, index of last new entry)&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;RequestVote RPC  Invoked by candidates to gather votes.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;http&quot;&gt;HTTP连接的处理&lt;/h4&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Arguments&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Explain&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;term&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;candidate’s term&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;candidateId&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;candidate requesting vote&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;lastLogIndex&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;index of candidate’s last log entry&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;lastLogTerm&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;term of candidate’s last log entry&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Results&lt;/td&gt;
+      &lt;td&gt;Explain&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;term&lt;/td&gt;
+      &lt;td&gt;currentTerm, for candidate to update itself&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;voteGranted&lt;/td&gt;
+      &lt;td&gt;true means candidate received vote&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;常被误解的Connection首部&lt;/li&gt;
+  &lt;li&gt;Receiver implementation:
+    &lt;ol&gt;
+      &lt;li&gt;Reply false if term &amp;lt; currentTerm&lt;/li&gt;
+      &lt;li&gt;If votedFor is null or candidateId, and candidate’s log is at  least as up-to-date as receiver’s log, grant vote&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Rules for Servers&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;blockquote&gt;
-  &lt;ol&gt;
-    &lt;li&gt;HTTP首部字段名，列出了只与此链接有关的首部&lt;/li&gt;
-    &lt;li&gt;任意标签值，用于描述此连接的非标准选项&lt;/li&gt;
-    &lt;li&gt;值close，说明操作完成之后需关闭这条持久连接&lt;/li&gt;
-    &lt;li&gt;⚠️如果报文中包含连接相关的信息，不能将其转发出去，在转发之前，必须删除Connection首部列出的所有首部字段。进而可以防止无意中对本地首部的转发。被称为对首部的保护。&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
+&lt;h6 id=&quot;all-servers&quot;&gt;All Servers:&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;If commitIndex &amp;gt; lastApplied: increment lastApplied, apply  log[lastApplied] to state machine&lt;/li&gt;
+  &lt;li&gt;If RPC request or response contains term T &amp;gt; currentTerm: set currentTerm = T, convert to follower
+    &lt;h6 id=&quot;followers&quot;&gt;Followers:&lt;/h6&gt;
+    &lt;p&gt;• Respond to RPCs from candidates and leaders
+• If election timeout elapses without receiving AppendEntries
+RPC from current leader or granting vote to candidate:
+convert to candidate&lt;/p&gt;
+    &lt;h6 id=&quot;candidates&quot;&gt;Candidates:&lt;/h6&gt;
+    &lt;p&gt;• On conversion to candidate, start election:
+• Increment currentTerm
+• Vote for self
+• Reset election timer
+• Send RequestVote RPCs to all other servers
+• If votes received from majority of servers: become leader
+• If AppendEntries RPC received from new leader: convert to
+follower
+• If election timeout elapses: start new election&lt;/p&gt;
+    &lt;h6 id=&quot;leaders&quot;&gt;Leaders:&lt;/h6&gt;
+    &lt;p&gt;• Upon election: send initial empty AppendEntries RPCs
+(heartbeat) to each server; repeat during idle periods to
+prevent election timeouts
+• If command received from client: append entry to local log,
+respond after entry applied to state machine
+• If last log index ≥ nextIndex for a follower: send
+AppendEntries RPC with log entries starting at nextIndex
+• If successful: update nextIndex and matchIndex for
+follower
+• If AppendEntries fails because of log inconsistency:
+decrement nextIndex and retry
+• If there exists an N such that N &amp;gt; commitIndex, a majority
+of matchIndex[i] ≥ N, and log[N].term == currentTerm:
+set commitIndex = N .&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OK&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Cache&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;control&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3600&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;meter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bill&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;my&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;credit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;card&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Meter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;refuses&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dont&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;report&lt;/span&gt;
+&lt;h6 id=&quot;summary&quot;&gt;summary&lt;/h6&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Election Safety&lt;/code&gt;: at most one leader can be elected in a
+given term.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Leader Append-Only&lt;/code&gt;: a leader never overwrites or deletes
+entries in its log; it only appends new entries. §5.3&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Log Matching&lt;/code&gt;: if two logs contain an entry with the same
+index and term, then the logs are identical in all entries
+up through the given index. §5.3&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Leader Completeness&lt;/code&gt;: if a log entry is committed in a
+given term, then that entry will be present in the logs
+of the leaders for all higher-numbered terms. §5.4&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;State Machine Safety&lt;/code&gt;: if a server has applied a log entry
+at a given index to its state machine, no other server
+will ever apply a different log entry for the same index.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="Destributed" /><summary type="html">Raft</summary></entry><entry><title type="html">RabbitMQ实战—读书笔记</title><link href="http://localhost:4000/destributed/2017/06/14/rabbitMq.html" rel="alternate" type="text/html" title="RabbitMQ实战---读书笔记" /><published>2017-06-14T00:00:00+08:00</published><updated>2017-06-14T00:00:00+08:00</updated><id>http://localhost:4000/destributed/2017/06/14/rabbitMq</id><content type="html" xml:base="http://localhost:4000/destributed/2017/06/14/rabbitMq.html">&lt;h4 id=&quot;第1章-天将奇兵&quot;&gt;第1章 天将奇兵&lt;/h4&gt;
+&lt;h4 id=&quot;第2章-理解消息通信&quot;&gt;第2章 理解消息通信&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;信道跟TCP连接。&lt;/li&gt;
+  &lt;li&gt;交换器，队列，绑定。根据绑定规则将队列绑定到交换器上，消息是发布到交换器上的。有三种交换器：direct，fanout，topic。&lt;/li&gt;
+  &lt;li&gt;基于消息的路由键和交换器类型，服务器会决定将消息投递到那个队列上。&lt;/li&gt;
+  &lt;li&gt;rabbitMQ每一条消息都要返回确认消息，否则不会继续发送消息给该订阅者。&lt;/li&gt;
+  &lt;li&gt;默认情况下重启RabbitMQ服务器，队列和交换器都消失了以及里面的消息。durable属性默认false。它决定了RabbitMQ是否需要在崩溃或者重启之后重新创建队列。&lt;/li&gt;
+  &lt;li&gt;想要消息从RabbitMQ崩溃中恢复必须做到
+    &lt;ol&gt;
+      &lt;li&gt;把它的投递模式Delivery Mode 选项设置为2（持久）&lt;/li&gt;
+      &lt;li&gt;发送到持久化的交换器&lt;/li&gt;
+      &lt;li&gt;到达持久化的队列。
+疑问：如果在持久化队列做持久化时候，宕机或者重启了，怎么办？&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;保证持久性消息能重启恢复的方式就是写入磁盘的持久化日志文件。一旦某条持久化消息被消费了，被标记为等待垃圾收集。&lt;/li&gt;
+  &lt;li&gt;虚拟主机和隔离措施。&lt;/li&gt;
+  &lt;li&gt;将信道设置成confirm模式控制事务。异步执行。消息没有回滚概念，失败重发。发送确认方式更加轻量级。同时对代理服务器的性能影响几乎忽略不计。&lt;/li&gt;
+  &lt;li&gt;使用RabbitMQ核心流程
+    &lt;ol&gt;
+      &lt;li&gt;连接到RabbitMQ&lt;/li&gt;
+      &lt;li&gt;获取信道&lt;/li&gt;
+      &lt;li&gt;声明交换器&lt;/li&gt;
+      &lt;li&gt;创建消息&lt;/li&gt;
+      &lt;li&gt;发布消息&lt;/li&gt;
+      &lt;li&gt;关闭信道&lt;/li&gt;
+      &lt;li&gt;关闭连接&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;-&lt;/p&gt;</content><author><name></name></author><category term="Destributed" /><summary type="html">RabbitMQ实战---读书笔记</summary></entry><entry><title type="html">深入理解计算机系统3th—-读书笔记</title><link href="http://localhost:4000/cs/2017/06/01/computer-systems-3th.html" rel="alternate" type="text/html" title="深入理解计算机系统3th----读书笔记" /><published>2017-06-01T00:00:00+08:00</published><updated>2017-06-01T00:00:00+08:00</updated><id>http://localhost:4000/cs/2017/06/01/computer-systems-3th</id><content type="html" xml:base="http://localhost:4000/cs/2017/06/01/computer-systems-3th.html">&lt;h4 id=&quot;第1章-计算机系统漫游&quot;&gt;第1章 计算机系统漫游&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;小结:计算机系统是由硬件和系统软件组成的，它们共同写作以运行应用程序。
+计算机内部的信息被表示为一组组的位，它们依据上下文有不同的解释方式。程序被其他程序翻译成不同的形式。
+开始时是ASCII文本，然后被翻译器和链接器翻译成二进制可执行文件。
+处理器读取并解释存放在主存里二进制指令。因为计算机花费了大量的时间在内存，I/O设备和CPU寄存器之间复制
+数据，所以将系统中的存储设备划分成层次结构–CPU寄存器在顶部，接着是多层的硬件高速缓存存储器，DRAM主存和磁盘存储器
+。在层次模型中，位于更高层的存储设备比低层次的存储设备更快 ，单位比特造价也更高。层次结构中较高层次的存储设备可以作为比较低层次设备的高速缓存。
+操作系统内核是应用程序和硬件之间的媒介。它提供三个基本抽象:1,文件是对I/O设备的抽象 2.虚拟内存是对主内存和磁盘的抽象。3. 进程是处理器，主存和I/O设备的抽象。最后网络提供了计算机系统之间通信的手段，从特殊的角度来看，网络就是一种I/O设备。&lt;/li&gt;
+  &lt;li&gt;Amdahl定律&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;第一部分-程序结构和执行&quot;&gt;第一部分 程序结构和执行&lt;/h4&gt;
+&lt;h5 id=&quot;第2章-信息的表示和处理&quot;&gt;第2章 信息的表示和处理&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;三种最重要的数字表示:无符号编码基于传统的二进制表示法，表示大于或者等于零的数字。补码编码是表示有符号整数的最常见的方式，有符号整数就可以为正或者为负的数字。浮点数编码是表示实数的科学计数法的以2为基数的版本。&lt;/li&gt;
+  &lt;li&gt;信息的存储：8bit的块就是一个字节。每个程序对象简单理解为一个字节块，程序本身就是一个字节序列。&lt;/li&gt;
+  &lt;li&gt;字数据大小：字长表示指针数据的标称大小，因为虚拟地址是以这样的字一个字来编码的。所以字长决定的最重要的系统参数就是虚拟地址空间的最大大小。&lt;/li&gt;
+  &lt;li&gt;寻址和字节顺序：这个对象的地址是什么，以及在内存中如何排列这些字节。大端，小端&lt;/li&gt;
+  &lt;li&gt;TODO 50-87&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;第3章-程序的机器级表示&quot;&gt;第3章 程序的机器级表示&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;gcc - S hello.c //产生汇编文件hello.s   gcc -C hello.c //产生目标代码文件，hello.o   objdump -d hello.o //反汇编&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="CS" /><summary type="html">深入理解计算机系统3th----读书笔记</summary></entry><entry><title type="html">Netflix—Hystrix文档翻译–01</title><link href="http://localhost:4000/destributed/2017/05/27/Netflix-Hystrix-01.html" rel="alternate" type="text/html" title="Netflix---Hystrix文档翻译--01" /><published>2017-05-27T00:00:00+08:00</published><updated>2017-05-27T00:00:00+08:00</updated><id>http://localhost:4000/destributed/2017/05/27/Netflix-Hystrix-01</id><content type="html" xml:base="http://localhost:4000/destributed/2017/05/27/Netflix-Hystrix-01.html">&lt;p&gt;&lt;a href=&quot;https://github.com/Netflix/Hystrix/wiki/How-To-Use&quot;&gt;Hystrix wiki &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/Netflix/Hystrix/wiki/How-To-Use&quot;&gt;How-To-Use&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;hello-world&quot;&gt;Hello World!&lt;/h4&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlighter&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CommandHelloWorld&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HystrixCommand&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;CommandHelloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HystrixCommandGroupKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Factory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;asKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ExampleGroup&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// a real example would do work like a network call here&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Hello &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//另一种方式，使用HystrixObservableCommand替代HystrixCommand需要覆盖其构造方法。&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CommandHelloWorld&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HystrixObservableCommand&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;CommandHelloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HystrixCommandGroupKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Factory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;asKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ExampleGroup&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;construct&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;OnSubscribe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+            &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Subscriber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;super&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;observer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;observer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isUnsubscribed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;c1&quot;&gt;// a real example would do work like a network call here&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;observer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;onNext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;observer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;onNext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;observer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;onCompleted&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;observer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;onError&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+         &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subscribeOn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Schedulers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;首部说明: 不应该转发Meter首部，要应用假象的bill-my-credit-card选项，且本次事务结束之后应关闭持久连接。&lt;/p&gt;
-
+&lt;h4 id=&quot;同步执行--synchronous-execution&quot;&gt;同步执行  Synchronous Execution&lt;/h4&gt;
 &lt;ul&gt;
-  &lt;li&gt;串行事务处理时延&lt;/li&gt;
+  &lt;li&gt;使用HystrixCommand的方式时，可以运行execute()方法,以及对应的测试用例
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlighter&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CommandHelloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;World&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;testSynchronous&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CommandHelloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;World&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello Bob!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CommandHelloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Bob&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;h5 id=&quot;hystrixobservablecommand-equivalent&quot;&gt;HystrixObservableCommand Equivalent&lt;/h5&gt;
+  &lt;/li&gt;
+  &lt;li&gt;There is no simple equivalent to execute for a HystrixObservableCommand, but if you know that the Observable produced by such a command must always produce only a single value, you can mimic the behavior of execute by applying .toBlocking().toFuture().get() to the Observable.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;四类提高HTTP的连接性能的方法&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;并行连接(通过多条TCP连接发起并发的HTTP请求)&lt;/li&gt;
-  &lt;li&gt;持久连接(重用TCP连接，以消除连接及关闭时延)&lt;/li&gt;
-  &lt;li&gt;管道化连接(通过共享的TCP连接发起并发的HTTP请求)&lt;/li&gt;
-  &lt;li&gt;复用的连接(交替传送请求和响应报文)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;section&quot;&gt;并行连接&lt;/h4&gt;
+&lt;h4 id=&quot;异步执行-asynchronous-execution&quot;&gt;异步执行 Asynchronous Execution&lt;/h4&gt;
 &lt;ul&gt;
-  &lt;li&gt;并行连接可能会提高页面的加载速度&lt;/li&gt;
-  &lt;li&gt;并行的连接不一定更快&lt;/li&gt;
-  &lt;li&gt;并行连接可能让人“感觉”更快一些&lt;/li&gt;
+  &lt;li&gt;使用HystrixCommand的方式时，queue()方法执行。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;section-1&quot;&gt;持久连接&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;在HTTP事务处理结束之后仍然保持在打开状态的TCP连接被称为持久连接。重用已对目标服务器打开的空闲持久连接，就可以避开缓慢的连接建立阶段，并且已经打开的连接还可以避免慢启动的拥塞适应阶段，以便更快速地进行数据的传输。&lt;/li&gt;
-  &lt;li&gt;持久及并行连接，缺点:每个事务都会打开/关闭一条新的连接，会耗费时间和带宽，由于TCP慢启动特性的村子啊，每条新连接的性能都会有所降低，可打开的并行连接数量实际上是有限的。所以持久连接与并行连接配合使用是最高效的方式。&lt;/li&gt;
-  &lt;li&gt;HTTP/1.0 + keep-alive连接&lt;/li&gt;
-&lt;/ul&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlighter&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Future&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CommandHelloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;World&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//获取结果&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;testAsynchronous1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CommandHelloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;World&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello Bob!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CommandHelloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Bob&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Connection: Keep-Alive
-Keep-Alive: max=5, timeout=120
+&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;testAsynchronous2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;Future&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fWorld&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CommandHelloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;World&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Future&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fBob&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CommandHelloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Bob&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello Bob!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fBob&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;响应报文表明服务器最多还会为另外5个事务保持连接的打开状态，或者将打开状态保持到连接空闲了2分钟之后。&lt;/p&gt;
-
 &lt;ul&gt;
-  &lt;li&gt;Keep-Alive连接的限制和规则
-    &lt;ol&gt;
-      &lt;li&gt;HTTP/1.0中keep-alive并不是默认使用的，在需要保持持久连接的请求报文中添加请求首部Connection: Keep-Alive的请求首部来激活keep-alive本次TCP的持久连接。&lt;/li&gt;
-      &lt;li&gt;TODO note page: 100&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Keep-Alive哑代理&lt;/li&gt;
-  &lt;li&gt;插入Proxy-Connection解决哑代理问题，客户端和服务器之间只有一个代理时可以使用此方式进行解决。如果是多层代理时，则仍然会出现哑代理问题。&lt;/li&gt;
-  &lt;li&gt;HTTP/1.1持久连接(默认激活，HTTP1.1客户端假定在收到响应后，除非响应中包含了Connection:close首部，否则HTTP/1.1连接就仍然维持打开状态。如果需要在事务结束之后将连接关闭，HTTP/1.1必须向报文中显示地添加一个Connection:close首部，不发送Connection: close并不意味值服务器承若永远连接保持在打开状态)&lt;/li&gt;
-  &lt;li&gt;持久连接的限制和规则
-    &lt;ol&gt;
-      &lt;li&gt;如果客户端不想在连接上发送请求了就在最后一条请求报文中发送一个Connection: close首部。&lt;/li&gt;
-      &lt;li&gt;只有连接上所有的报文都是正确的、自定义报文长度时，连接才能持久保持，也就是说异常时可能会关闭。&lt;/li&gt;
-      &lt;li&gt;HTTP/1.1的代理必须能够分别管理与客户端和服务器的持久连接–每个持久连接都只适用于一跳传输。&lt;/li&gt;
-      &lt;li&gt;(由于较老的代理会转发Connection首部)所以HTTP/1.1的代理服务器不应该与HTTP/1.0客户端建立持久连接，会造成哑代理&lt;/li&gt;
-      &lt;li&gt;HTTP/1.1要求应用程序能够从异步的关闭中恢复出来，只要不村子啊可能累积起来的副作用，客户端都应该重复这条请求。&lt;/li&gt;
-      &lt;li&gt;除非重复发起请求会产生副作用，否则如果在客户端收到整条响应之前连接关闭了，客户端就必须要重新发起请求。&lt;/li&gt;
-      &lt;li&gt;一个用户客户端对任何服务器或代理最多只能维护两条持久连接，以防服务器过载，代理可能需要更多到服务器的连接来支持并发用户的通信，所以，如果有N个用户试图访问服务器的话，代理最多要维持2N条到任意服务器或父代理的连接。&lt;/li&gt;
-    &lt;/ol&gt;
+  &lt;li&gt;两种执行方式结果相同
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlighter&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CommandHelloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;World&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CommandHelloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;World&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;section-2&quot;&gt;管道化连接&lt;/h4&gt;
+&lt;h6 id=&quot;hystrixobservablecommand-equivalent-1&quot;&gt;HystrixObservableCommand Equivalent&lt;/h6&gt;
 &lt;ul&gt;
-  &lt;li&gt;HTTP/1.1允许持久连接上可选地使用请求管道，管道化:客户端在响应到达之前，可以将多条请求放入队列，当第一条请求通过网络流向地球另一端的服务器时，第二条，第三条也可以开始发送了，在高时延网络条件下，这样可以降低网络的环回时间，提高性能。&lt;/li&gt;
-  &lt;li&gt;对管道化连接有几条限制
-    &lt;ol&gt;
-      &lt;li&gt;如果HTTP客户端无法确认连接是持久的，就不应该使用管道。&lt;/li&gt;
-      &lt;li&gt;必须按照与请求相同的顺序回送HTTP响应，HTTP报文中没有序号标签，因此如果收到的响应失序了，就没有办法将其与请求匹配起来了。&lt;/li&gt;
-      &lt;li&gt;HTTP客户端必须做好连接会随时关闭的准备，并准备好重发所未完成的管道化请求。&lt;/li&gt;
-      &lt;li&gt;HTTP客户端不应该使用管道化的方式发送会产生副作用的请求(比如POST)。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
+  &lt;li&gt;There is no simple equivalent to queue for a HystrixObservableCommand, but if you know that the Observable produced by such a command must always produce only a single value, you can mimic the behavior of queue by applying the RxJava operators .toBlocking().toFuture() to the Observable.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;section-3&quot;&gt;关闭连接的奥秘&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;所有HTTP客户端、服务器端可以在任意时刻关闭一条TCP传输连接。&lt;/li&gt;
-  &lt;li&gt;管道连接必须是幂等操作如GET、HEAD、PUT、DELETE、TRACE、OPTIONS，客户端不应该使用非幂等请求如POST，否则在传输连接的过程中连接过早终止就会造成一些不确定的后果，要发送一条非幂等请求，就需要等待来自前一条请求的响应状态。&lt;/li&gt;
-  &lt;li&gt;TCP连接是双向的，TCP连接的每一个端都有一个输入队列和一个输出队列对于数据的读或写，放入一端输出队列中的数据最终会出现在另一端的输入队列中。应用程序可以关闭TCP输入和输出信道中的任意一个，或者将两者都关闭了，套接字调用close()会将TCP连接的输入和输出信道都关闭调，这种方式称为”完全关闭”，可以用套接字调用shutdown()单独关闭输入或输出信道，被称为”半关闭”。
-⚠️关闭连接的输入信道比较危险，因为当另一端向你关闭输入信道时，操作系统会向请求方发送一条TCP”连接被对端重置”的报文，大部分操作系统会将这种情况作为很严重的错误来处理，比如你的连接中有部分数据在缓存中还未读取，这时返回的”连接被对端重置”信息会讲你的缓冲区清空，所以慎重！关闭连接的输出信道总是安全的。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/TCP&quot;&gt;TCP-wiki&lt;/a&gt;
-&lt;a href=&quot;http://www.ietf.org/rfc/rf2626.txt&quot;&gt;HTTP连接&lt;/a&gt;
-&lt;a href=&quot;http://www.w3.org/Protocols/HTTP/Performance/&quot;&gt;HTTP性能问题&lt;/a&gt;&lt;/p&gt;</content><category term="CS" /><summary>第四章－连接管理</summary></entry></feed>
+&lt;h4 id=&quot;非阻塞方式执行-reactive-execution&quot;&gt;非阻塞方式执行 Reactive Execution&lt;/h4&gt;</content><author><name></name></author><category term="Destributed" /><summary type="html">Netflix---Hystrix文档翻译--01</summary></entry></feed>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>分布式Java应用基础与实践 – Michael – Developer</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="分布式Java应用基础与实践" />
+    <meta property="og:description" content="分布式Java应用基础与实践" />
+    
+    <meta name="author" content="Michael" />
+
+    
+    <meta property="og:title" content="分布式Java应用基础与实践" />
+    <meta property="twitter:title" content="分布式Java应用基础与实践" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Michael - Developer" href="/feed.xml" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
+  </head>
+
+  <body>
+
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/images/favicon.ico" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Michael</a></h1>
+            <p class="site-description">Developer</p>
+          </div>
+
+          <nav>
+            <a href="/"><i class="fa fa-home fa-2x"></i></a>
+            <a href="/category"><i class="fa fa-tags fa-2x" aria-hidden="true"></i></a>
+            <a href="/about"><i class="fa fa-user-secret fa-2x"></i></a>
+            <a href="/blog"><i class="fa fa-university fa-2x"></i></a>
+            <!-- <a href="/task"><i class="fa fa-book fa-2x" aria-hidden="true"></i></a> -->
+            <a href="/feed.xml" target="_blank"><i class="fa fa-feed fa-2x"></i></a>
+
+            <!-- 
+            
+              
+            
+              
+            
+              
+              <a href="/" >
+                Home
+              </a>
+              
+            
+              
+              <a href="/blog" >
+                Blog
+              </a>
+              
+            
+              
+              <a href="/category" >
+                Category
+              </a>
+              
+             -->
+          </nav>
+
+          <a href="https://github.com/MichaelYgZhang" target="_blank">
+            <img class="fork-me-on-github" src="/images/fork-me-on-github.png" alt="Fork me on GitHub">
+          </a>
+        </header>
+
+        <div id="search-container">
+          <input type="text" id="search-input" placeholder="search...">
+          <ul id="results-container"></ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <div class="post">
+    <h1 class="post-title">分布式Java应用基础与实践</h1>
+    <span class="post-date">2017-03-23</span>
+    <!--  |
+    
+     -->
+    <article>
+      <h4 id="第1章-分布式java应用">第1章 分布式Java应用</h4>
+
+<ul>
+  <li>分布式Java应用通常有两种典型的方式来实现
+    <ol>
+      <li>基于消息方式实现系统间的通信</li>
+      <li>基于远程调用方式实现系统间的通信</li>
+    </ol>
+  </li>
+</ul>
+
+<h4 id="第2章-大型分布式java应用与soa">第2章 大型分布式Java应用与SOA</h4>
+
+<ul>
+  <li>SOA平台的挑战
+    <ul>
+      <li>服务多级调用带来的延时</li>
+      <li>调试跟踪困难</li>
+      <li>更高的安全、监测的要求</li>
+      <li>现有应用移植</li>
+      <li>QoS的支持(Quality of Service)</li>
+      <li>高可用和高度可伸缩</li>
+      <li>多版本和依赖管理</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="第3章-深入理解jvm">第3章 深入理解JVM</h4>
+
+<ul>
+  <li>Java源码编译机制。
+    <ol>
+      <li>分析和输入到符号表，词法语法分析，生成抽象语法树</li>
+      <li>注解处理</li>
+      <li>语法分析和生成class文件</li>
+    </ol>
+  </li>
+  <li>JVM类加载过程分为三个步骤：装载、链接、初始化。装载和链接过程完成后，即将二进制的字节码转换为Class对象，初始化过程不是加载类时必须触发的，但最迟必须在初次主动使用对象前执行，其所作的动作为给静态变量赋值、调用<clinit>()等</clinit></li>
+</ul>
+
+<h4 id="第4章-分布式java应用与sun-jdk类库">第4章 分布式Java应用与Sun JDK类库</h4>
+
+<ul>
+  <li>Collection存放多个单对象，Map接口用于存放Key-Value形式的键值对</li>
+  <li>ArrayList:容量默认10，Object[]数组方式存放对象的。1.5倍扩容，add(int,E)指将对象插入指定位置，原来元素往后移动。set(int,E)指替换指定位置上的对象。remove(E)先找到元素然后删除，最后把其后的元素前移一位，最后一个元素设置null。remove(int)删除指定位置的对象多了一次范围的检测，少了对象位置的查找，因此性能更高。删除多个元素使用iterator()对象的it的remove()方法。查找更快，插入删除效率低，插入时可能扩容，删除时不会减少数组容量，如果希望缩小可调用trimToSize()，非线程安全。</li>
+  <li>LinkedList:双向链表机制，内部有Entry对象(element,next,previous),get(int)判断参数是否小于0或大于LinkedList的size值，然后判断是否小于LinkedList的size值的一半，如果小从头开始找，否则从队列的尾部往前找。插入删除效率高，耗内存更多，非线程安全。</li>
+  <li>Vector:默认大小10的Objcet[].capacityIncrement=0默认。扩容时如果capacityIncrement大于0则将现有size+capacityIncrement，否则扩大为现有size的两倍。线程安全。其它与ArrayList一样。</li>
+  <li>Stack:继承于Vector。先进后出。push,pop调用peek获取元素并删除数组的最后一个元素,peek获取当前Object数组的大小并获取数组上的最后一个元素.</li>
+  <li>HashSet:不允许元素重复基于HashMap实现。非线程安全。</li>
+  <li>TreeSet:可排序基于TreeMap实现，非线程安全。</li>
+  <li>HashMap:loadFactor=0.75,threshold=12,大小为16的Entry对象数组。扩容时为当前容量的两倍。rehash操作。非线程安全。</li>
+  <li>
+    <p>TreeMap:支持排序Map，可以自定义Comparator参数的构造器，红黑树实现，非线程安全。</p>
+  </li>
+  <li>并发包(java.util.concurrent)</li>
+  <li>ConcurrentHashMap:16并发量Segment[]，扩容时当前Segment*2，rehash，锁分段技术，put，remove时先加锁最后释放锁。voliate的HashEntry[]保证读时多线程并发,HashEntry对象中的hash,key,next属性都是final，这样保证next属性构建的链表不会发生变化。线程安全。</li>
+  <li>CopyOnWriteArrayList:线程安全读操作时无锁的ArrayList，默认大小为0的数组。add(E)通过ReentrantLock保证线程安全。每次添加元素都创建一个新的比之前数组大小多1的Object[],将之前数组中的内容复制到新数组中，并将新增加的对象放到数组末尾，最后做引用的切换将新创建的数组对象赋值给全局的数组对象。
+remove(E)，首先创建一个比当前数组小1的数组，遍历比较，并引用切换，找到返回true否则false。get(int)未加锁，可能会读到脏数据。适合读多写少的并发场景。</li>
+  <li>Atomic原子类型CAS原子操作是CPU原语所以性能高于锁机制。</li>
+  <li>ThreadPoolExecutor:</li>
+  <li>Executors: new FixedThreadPool(int); new SigleThreadExecutor(); new CachedThreadPool(int); new ScheduledThreadPool(int);</li>
+  <li>FutureTask</li>
+  <li>Semaphore:用于控制某个资源同时被访问的个数的类。比如数据库链接池。</li>
+  <li>CountDownLatch:可用于控制多个线程同时开始某动作的类。减计数的方式，当计数减到零时，位于latch.await后的代码才会被执行。</li>
+  <li>CyclicBarrier</li>
+  <li>ReentrantLock</li>
+  <li>Condition 在同一个锁的情况夏可以根据不同的情况执行等待或唤醒动作。</li>
+  <li>
+    <p>ReentrantReadWriteLock</p>
+  </li>
+  <li>序列化／反序列化</li>
+</ul>
+
+<h4 id="第5章-性能调优">第5章 性能调优</h4>
+
+<ul>
+  <li>寻找性能瓶颈
+    <ol>
+      <li>CPU消耗分析，CPU主要用于终端、内核以及用户进程的任务处理，优先级为终端&gt;内核&gt;用户进程；上下文切换，可运行队列，利用率。使用<code class="highlighter-rouge">-top</code>查看CPU的消耗情况</li>
+      <li>文件IO消耗分析，pidstat,iostat</li>
+      <li>网络IO消耗分析，sar</li>
+      <li>内存消耗分析jmap,jstat,mat,visualvm,vmstat</li>
+    </ol>
+  </li>
+  <li>程序执行慢原因分析
+    <ol>
+      <li>锁竞争激烈</li>
+      <li>未充分使用硬件资源</li>
+      <li>数据量增长</li>
+    </ol>
+  </li>
+  <li>调优
+    <ol>
+      <li>JVM调优
+        <ul>
+          <li>代大小的调优关键参数:-Xms-Xmx-Xmn-XX:SurvivorRation -XX:MaxTenuringThreashold ; -Xms和-Xmx通常相同避免运行时扩展JVM内存空间</li>
+          <li>避免新生代大小设置过小，否则minorGC次数频繁，可能对象进入老年代然后触发FullGC</li>
+          <li>避免新生代设置过大，老年代小了FullGC，minorGC耗时增加，推荐设置新生代占JVMHeap区大小的33%</li>
+          <li>避免Survivor区过小或过大</li>
+          <li>合理设置新生代存活周期-XX:MaxTenuringThreshold默认15次</li>
+        </ul>
+      </li>
+      <li>程序调优
+        <ul>
+          <li>CPU消耗严重的解决方法,CPU us高的解决方法 Thread.sleep</li>
+          <li>CPU sy高的解决方法减少线程运行切换，最简单的方法就是减少线程数量。</li>
+          <li>文件IO消耗严重的解决方法：异步写文件，批量读写，限流</li>
+          <li>网络IO消耗严重的解决方法：限流发送packet的频率</li>
+          <li>释放不必要的引用</li>
+          <li>使用对象缓存池，采用合理的缓存失效算法FIFO、LRU、LFU等</li>
+          <li>合理使用SoftReference和WeakReference</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>对资源消耗不多，但程序执行慢的情况，主要原因是锁竞争以及未充分发挥硬件资源
+    <ul>
+      <li>锁竞争激烈导致CPU sy上升</li>
+      <li>使用并发包中的类</li>
+      <li>尽可能少用锁</li>
+      <li>拆分锁</li>
+      <li>去除读写操作的互斥锁CopyOnWrite</li>
+    </ul>
+  </li>
+  <li>未充分使用硬件资源
+    <ul>
+      <li>未充分使用CPU ，fork-join框架可以充分利用CPU</li>
+    </ul>
+  </li>
+  <li>未充分使用内存</li>
+</ul>
+
+<h4 id="第6章-构建高可用的系统">第6章 构建高可用的系统</h4>
+
+<ul>
+  <li>避免系统中出现单点
+    <ol>
+      <li>如果均衡地访问到提供业务功能的机器</li>
+      <li>如何保证当机器出现问题时，用户不会访问到这些机器</li>
+    </ol>
+  </li>
+  <li>负载均衡技术(硬件/软件)
+    <ul>
+      <li>选择实际业务处理器的方式
+        <ol>
+          <li>随机从地址列表中进行选择，简单，性能高</li>
+          <li>Hash选择</li>
+          <li>Round-Robin选择根据地址列表按顺序选择</li>
+          <li>按权重选择，根据每个地址的权重进行选择静态或动态权重两种</li>
+          <li>按负载选择</li>
+          <li>按连接选择</li>
+        </ol>
+      </li>
+      <li>响应返回方式
+        <ol>
+          <li>响应通过负载均衡机器返回。</li>
+          <li>响应直接返回至请求发送方</li>
+        </ol>
+      </li>
+      <li>硬件负载设备
+        <ol>
+          <li>负载设备的流量</li>
+          <li>长连接</li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+  <li>软件负载方案
+    <ul>
+      <li>LVS Linux Virtual Server + Keepalived
+p253</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="构建可伸缩的系统">构建可伸缩的系统</h4>
+
+    </article>
+  </div>
+
+  <div class="related">
+    <h4>最新文章</h4>
+    <ul class="related-posts">
+      
+        <li>
+          <h5>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
+            </a>
+          </h5>
+        </li>
+      
+        <li>
+          <h5>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
+            </a>
+          </h5>
+        </li>
+      
+    </ul>
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'michaelygzhangblog';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:g.zhangyg@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/MichaelYgZhang"><i class="svg-icon github"></i></a>
+
+
+
+
+<a href="https://www.twitter.com/michaelygzhang"><i class="svg-icon twitter"></i></a>
+
+
+<a href="https://plus.google.com/115646538142388831563"><i class="svg-icon googleplus"></i></a>
+
+        </footer>
+      </div>
+    </div>
+
+    <div id="backToTop" class="backtoTop">
+    	<i class="fa fa-hand-o-up fa-2x"></i>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-84531968-1', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/destributed/2017/03/23/distrbuted-java-core.html',
+		  'title': '分布式Java应用基础与实践'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-jekyll-search/1.1.5/jekyll-search.js" type="text/javascript"></script>
+    <script src="/js/blog.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+          SimpleJekyllSearch({
+            searchInput: document.getElementById('search-input'),
+            resultsContainer: document.getElementById('results-container'),
+            json: '/search.json',
+            searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+            noResultsText: 'No results found',
+            limit: 10,
+            fuzzy: false,
+            exclude: ['Welcome']
+          })
+    </script>
+  </body>
+</html>

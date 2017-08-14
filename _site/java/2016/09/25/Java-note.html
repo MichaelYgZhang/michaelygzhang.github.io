@@ -97,11 +97,11 @@
     
      -->
     <article>
-      <h6 id="java">Java单测注意事项</h6>
+      <h6 id="java单测注意事项">Java单测注意事项</h6>
 
 <p><strong>SQL:</strong></p>
 
-<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">update</span> <span class="k">user</span> <span class="k">set</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">'a'</span> <span class="k">where</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<div class="language-sql highlighter-rouge"><pre class="highlighter"><code><span class="k">update</span> <span class="k">user</span> <span class="k">set</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">'a'</span> <span class="k">where</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </code></pre>
 </div>
 
@@ -137,7 +137,7 @@ Rows matched:2 Changed:1 Warnings:0</code></p>
 
 <p>而在代码做单测时若测试如下接口:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserMapper</span><span class="o">{</span>
+<div class="language-java highlighter-rouge"><pre class="highlighter"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserMapper</span><span class="o">{</span>
     <span class="nd">@Update</span><span class="o">(</span><span class="s">"update user set name = 'a' where age = 1"</span><span class="o">)</span>
     <span class="kt">int</span> <span class="nf">updateUser</span><span class="o">();</span>
 <span class="o">}</span>
@@ -146,6 +146,35 @@ Rows matched:2 Changed:1 Warnings:0</code></p>
 
 <p>⚠️ 结果返回2,指的是matched结果,而不是实际changed的数量
 ⚠️使用mock做单测时，serviceImpl的实现类使不允许有<code class="highlighter-rouge">@Transactional</code>注释的，否则无法通过测试，事务控制应该在Dao层处理。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlighter"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"result="</span> <span class="o">+</span> <span class="k">new</span> <span class="n">Test</span><span class="o">().</span><span class="na">test</span><span class="o">());;</span>  
+	<span class="o">}</span>
+	<span class="kd">static</span> <span class="kt">int</span> <span class="nf">test</span><span class="o">()</span>  
+	<span class="o">{</span>  
+	    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"1111"</span><span class="o">);</span>
+	    <span class="k">try</span><span class="o">{</span>  
+	    	  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"222"</span><span class="o">);</span>
+	        <span class="k">return</span> <span class="n">x</span><span class="o">;</span>  
+	    <span class="o">}</span>  
+	    <span class="k">finally</span><span class="o">{</span>  
+	    	  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"333"</span><span class="o">);</span>
+	        <span class="o">++</span><span class="n">x</span><span class="o">;</span>  
+	    <span class="o">}</span>  
+	<span class="o">}</span>
+<span class="o">}</span>
+<span class="err">`</span><span class="mi">111</span>
+ <span class="mi">222</span>
+ <span class="mi">333</span>
+ <span class="n">result</span><span class="o">=</span><span class="mi">1</span><span class="err">`</span>
+</code></pre>
+</div>
+
+<p>注意:这里涉及到一个栈帧的问题。
+在catch中执行的时候，return之前是需要去执行finally的。执行finally之前，把当前要返回的值的引用保存到一个slot【槽】中，也就是说return已经执行，但是还没返回（debug模式下可以看的很清楚），把当前要返回的值保存起来了。 然后执行finally，执行完finally，再从slot中取出要返回的值进行返回。如果返回的是一个对象的引用的话，那么将是finally执行后的值。如果是一个基本类型的话，那么返回的就只是那个基本类型的值了。
+【在这里需要注意一点的是，引用类型修改会反映到返回值中，是因为存储在slot中的是对象的引用。在finally中修改的时候，修改的内容已经保存到堆中的对象了。此时return，会反映出修改后的结果。】</p>
 
     </article>
   </div>
@@ -156,27 +185,27 @@ Rows matched:2 Changed:1 Warnings:0</code></p>
       
         <li>
           <h5>
-            <a href="/interview/2016/10/03/interview-1.html">
-              Interview-1
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">
+              亿级流量网站架构核心技术
+              <small>2017-08-10</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-15.html">
-              HTTP权威指南-15
-              <small>2016-10-03</small>
+            <a href="/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">
+              重构-改善既有代码的设计
+              <small>2017-07-26</small>
             </a>
           </h5>
         </li>
       
         <li>
           <h5>
-            <a href="/cs/2016/10/03/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-14.html">
-              HTTP权威指南-14
-              <small>2016-10-03</small>
+            <a href="/books/2017/07/07/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB.html">
+              亲密关系
+              <small>2017-07-07</small>
             </a>
           </h5>
         </li>
