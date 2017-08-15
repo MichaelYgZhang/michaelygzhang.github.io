@@ -139,13 +139,175 @@
   <li>服务化：进程内服务-》单机远程服务-》集群手动注册服务-》自动注册和发现服务-》服务的分组／隔离／路由-》服务治理如限流／黑名单</li>
   <li>消息队列：大流量缓冲，数据校对</li>
   <li>数据异构：数据异构，数据闭环</li>
+  <li>缓存银弹: 浏览器端缓存，APP客户端缓存，CDN缓存，接入层缓存，应用层缓存，分布式缓存</li>
+  <li>并发化</li>
 </ul>
 
 <h5 id="高可用原则">高可用原则</h5>
 
+<ul>
+  <li>降级：流量降级，业务降级</li>
+  <li>限流：目的防止恶意请求流量，恶意攻击，以及防止流量超出系统峰值。</li>
+  <li>切流量：DNS，HttpDNS，LVS／HaProxy／Nginx</li>
+  <li>可回滚</li>
+</ul>
+
 <h5 id="业务设计原则">业务设计原则</h5>
 
+<ul>
+  <li>防重设计，重复提交表单，下单扣库存，考虑防重key，防重表。</li>
+  <li>幂等设计，接口幂等，异步回调</li>
+  <li>流程可定义</li>
+  <li>状态与状态机</li>
+  <li>后台系统操作可反馈</li>
+  <li>后台系统审批化</li>
+  <li>文档和注释</li>
+  <li>备份</li>
+</ul>
+
 <h5 id="总结">总结</h5>
+
+<p><a href="https://www.processon.com/view/link/5990f37de4b0b7b347dd9f99">高可用脑图</a></p>
+
+<h4 id="第2部分-高可用">第2部分 高可用</h4>
+
+<h5 id="负载均衡与反向代理">负载均衡与反向代理</h5>
+
+<ul>
+  <li>LVS/F5 + Nginx + OpenResty + Tomcat</li>
+  <li>对于负载均衡关心如下方面：
+    <ul>
+      <li>上游服务器配置：使用upstream server配置上游服务器</li>
+      <li>负载均衡算法：配置多个上游服务器时的负载均衡机制</li>
+      <li>失败重试机制：配置当超时或上游服务器不存活时，是否需要重试其他上游服务器</li>
+      <li>服务器心跳检查：上游服务器的健康检查／心跳检查</li>
+    </ul>
+  </li>
+  <li>给Nginx 配置上游服务器，即负载均衡到真实处理业务的服务器，通过http指令下配置upstream即可</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">upstream</span> <span class="nx">backend</span> <span class="p">{</span>
+  <span class="nx">server</span> <span class="mf">192.168</span><span class="p">.</span><span class="mf">61.1</span><span class="err">:</span><span class="mi">9080</span> <span class="nx">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="c1">//权重:默认为1,权重越大分配给这台服务器的请求越多,需要根据服务器的实际处理能力设置权重</span>
+  <span class="nx">server</span> <span class="mf">192.168</span><span class="p">.</span><span class="mf">61.1</span><span class="err">:</span><span class="mi">9090</span> <span class="nx">weight</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// proxy_pass</span>
+<span class="nx">location</span> <span class="o">/</span> <span class="p">{</span>
+  <span class="nx">proxy_pass</span> <span class="na">http</span><span class="p">:</span><span class="c1">//backend; //当访问Nginx时,会将请求反向代理到backend配置的upstream server</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>负载均衡算法，用来解决用户请求到来时如何选择服务器进行处理.
+    <ul>
+      <li>默认round-robin（轮询,通过配合weight配置实现基于权重轮询);</li>
+      <li>ip_hash:根据客户IP进行负载均衡即相同的IP将负载均衡到同一个upstream server.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">upstream</span> <span class="nx">backend</span> <span class="p">{</span>
+  <span class="nx">ip_hash</span><span class="p">;</span>
+  <span class="nx">server</span> <span class="mf">192.168</span><span class="p">.</span><span class="mf">61.1</span><span class="err">:</span><span class="mi">9080</span> <span class="nx">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="c1">//权重:默认为1,权重越大分配给这台服务器的请求越多,需要根据服务器的实际处理能力设置权重</span>
+  <span class="nx">server</span> <span class="mf">192.168</span><span class="p">.</span><span class="mf">61.1</span><span class="err">:</span><span class="mi">9090</span> <span class="nx">weight</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>hash key [consistent]:对某一个key进行哈希或者使用一致性哈希算法进行负载均衡。问题是：当添加／删除一台服务器时，导致很多key被重新负载均衡到不同的服务器，从而可能导致后端出现问题，因此建议考虑一致性哈希算法，当添加／删除一台机器，只有少数key被重新负载均衡到不同的服务器</li>
+  <li>哈希算法：此处是根据请求uri进行负载均衡，可以使用Nginx变量，因此可以实现复杂的算法。</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">upstream</span> <span class="nx">backend</span> <span class="p">{</span>
+  <span class="nx">hash</span> <span class="nx">$uri</span><span class="p">;</span>
+  <span class="nx">server</span> <span class="mf">192.168</span><span class="p">.</span><span class="mf">61.1</span><span class="err">:</span><span class="mi">9080</span> <span class="nx">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="c1">//权重:默认为1,权重越大分配给这台服务器的请求越多,需要根据服务器的实际处理能力设置权重</span>
+  <span class="nx">server</span> <span class="mf">192.168</span><span class="p">.</span><span class="mf">61.1</span><span class="err">:</span><span class="mi">9090</span> <span class="nx">weight</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>一致性哈希算法：consistent_key动态指定。</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">upstream</span> <span class="nx">nginx_local_server</span> <span class="p">{</span>
+  <span class="nx">hash</span> <span class="nx">$consistent_key</span> <span class="nx">consistent</span><span class="p">;</span>
+  <span class="nx">server</span> <span class="mf">192.168</span><span class="p">.</span><span class="mf">61.1</span><span class="err">:</span><span class="mi">9080</span> <span class="nx">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="c1">//权重:默认为1,权重越大分配给这台服务器的请求越多,需要根据服务器的实际处理能力设置权重</span>
+  <span class="nx">server</span> <span class="mf">192.168</span><span class="p">.</span><span class="mf">61.1</span><span class="err">:</span><span class="mi">9090</span> <span class="nx">weight</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">location</span> <span class="o">/</span> <span class="p">{</span>
+  <span class="nx">set</span> <span class="nx">$consistent_key</span> <span class="nx">$arg_cat</span><span class="p">;</span> <span class="c1">//优先考虑请求参数cat，如果没有再根据uri进行负载均衡</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">$consistent_key</span> <span class="o">=</span> <span class="s2">""</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">set</span> <span class="nx">$consistent_key</span> <span class="nx">$request_uri</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>基于Lua设置一致性哈希key TODO</li>
+  <li>失败重试</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">upstream</span> <span class="nx">backend</span> <span class="p">{</span>
+  <span class="nx">server</span> <span class="mf">192.168</span><span class="p">.</span><span class="mf">61.1</span><span class="err">:</span><span class="mi">9080</span> <span class="nx">max_fails</span><span class="o">=</span><span class="mi">2</span> <span class="nx">fail_timeout</span><span class="o">=</span><span class="mi">10</span><span class="nx">s</span> <span class="nx">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="c1">//表示10s内失败了2次就任务该服务器不可用/不存活,然后摘掉,10s后会再次将该服务器加入存活上游服务器列表进行重试</span>
+  <span class="nx">server</span> <span class="mf">192.168</span><span class="p">.</span><span class="mf">61.1</span><span class="err">:</span><span class="mi">9090</span> <span class="nx">max_fails</span><span class="o">=</span><span class="mi">2</span> <span class="nx">fail_timeout</span><span class="o">=</span><span class="mi">10</span><span class="nx">s</span> <span class="nx">weight</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">location</span> <span class="o">/</span><span class="nx">test</span> <span class="p">{</span>
+  <span class="nx">proxy_connect_timeout</span> <span class="mi">5</span><span class="nx">s</span><span class="p">;</span>
+  <span class="nx">proxy_read_timeout</span> <span class="mi">5</span><span class="nx">s</span><span class="p">;</span>
+  <span class="nx">proxy_send_timeout</span> <span class="mi">5</span><span class="nx">s</span><span class="p">;</span>
+
+  <span class="nx">proxy_next_upstream_error</span> <span class="nx">timeout</span><span class="p">;</span>
+  <span class="nx">proxy_next_upstream_timeout</span> <span class="mi">10</span><span class="nx">s</span><span class="p">;</span>
+  <span class="nx">proxy_next_upstream_tries</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="nx">proxy_pass</span> <span class="nx">http</span><span class="err">:</span><span class="c1">//backend;</span>
+  <span class="nx">add_header</span> <span class="nx">upstream_addr</span> <span class="nx">$upstream_addr</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>健康检查：TCP心跳检查，HTTP心跳检查</li>
+  <li>域名上游配置</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><pre class="highlighter"><code><span class="nx">upstream</span> <span class="nx">backend</span> <span class="p">{</span>
+  <span class="nx">server</span> <span class="nx">c0</span><span class="p">.</span><span class="mi">3</span><span class="p">.</span><span class="nx">cn</span><span class="p">;</span>
+  <span class="nx">server</span> <span class="nx">c1</span><span class="p">.</span><span class="mi">3</span><span class="p">.</span><span class="nx">cn</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<ul>
+  <li>备份上游服务器</li>
+  <li>不可用上游服务器</li>
+  <li>长连接</li>
+  <li>HTTP反向代理</li>
+  <li>HTTP动态负载均衡</li>
+  <li>Nginx四层负载均衡</li>
+</ul>
+
+<h5 id="隔离术">隔离术</h5>
+
+<ul>
+  <li>线程池隔离</li>
+  <li>进程隔离</li>
+  <li>集群隔离</li>
+  <li>机房隔离</li>
+  <li>读写隔离</li>
+  <li>动静隔离</li>
+  <li>爬虫隔离，1. 限流 2. 在负载均衡层面将爬虫路由到单独集群，从而保证正常流量可用。 IP+Cookie避免误杀</li>
+  <li>热点隔离</li>
+  <li>资源隔离</li>
+  <li>使用Hystrix实现隔离</li>
+</ul>
+
+<h5 id="限流详解">限流详解</h5>
+<h5 id="降级特级">降级特级</h5>
+<h5 id="超时与重试机制">超时与重试机制</h5>
+<h5 id="回滚机制">回滚机制</h5>
+<h5 id="压测与预案">压测与预案</h5>
 
     </article>
   </div>

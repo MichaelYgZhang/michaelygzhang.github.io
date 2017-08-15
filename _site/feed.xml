@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-08-12T11:33:52+08:00</updated><id>http://localhost:4000/</id><title type="html">Michael</title><subtitle>Developer</subtitle><entry><title type="html">亿级流量网站架构核心技术</title><link href="http://localhost:4000/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html" rel="alternate" type="text/html" title="亿级流量网站架构核心技术" /><published>2017-08-10T00:00:00+08:00</published><updated>2017-08-10T00:00:00+08:00</updated><id>http://localhost:4000/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF</id><content type="html" xml:base="http://localhost:4000/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">&lt;h4 id=&quot;第1部分-概述&quot;&gt;第1部分 概述&lt;/h4&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-08-15T08:34:34+08:00</updated><id>http://localhost:4000/</id><title type="html">Michael</title><subtitle>Developer</subtitle><entry><title type="html">亿级流量网站架构核心技术</title><link href="http://localhost:4000/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html" rel="alternate" type="text/html" title="亿级流量网站架构核心技术" /><published>2017-08-10T00:00:00+08:00</published><updated>2017-08-10T00:00:00+08:00</updated><id>http://localhost:4000/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF</id><content type="html" xml:base="http://localhost:4000/architecture/2017/08/10/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF.html">&lt;h4 id=&quot;第1部分-概述&quot;&gt;第1部分 概述&lt;/h4&gt;
 
 &lt;ul&gt;
   &lt;li&gt;交易系统设计的一些原则
@@ -40,13 +40,175 @@
   &lt;li&gt;服务化：进程内服务-》单机远程服务-》集群手动注册服务-》自动注册和发现服务-》服务的分组／隔离／路由-》服务治理如限流／黑名单&lt;/li&gt;
   &lt;li&gt;消息队列：大流量缓冲，数据校对&lt;/li&gt;
   &lt;li&gt;数据异构：数据异构，数据闭环&lt;/li&gt;
+  &lt;li&gt;缓存银弹: 浏览器端缓存，APP客户端缓存，CDN缓存，接入层缓存，应用层缓存，分布式缓存&lt;/li&gt;
+  &lt;li&gt;并发化&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h5 id=&quot;高可用原则&quot;&gt;高可用原则&lt;/h5&gt;
 
+&lt;ul&gt;
+  &lt;li&gt;降级：流量降级，业务降级&lt;/li&gt;
+  &lt;li&gt;限流：目的防止恶意请求流量，恶意攻击，以及防止流量超出系统峰值。&lt;/li&gt;
+  &lt;li&gt;切流量：DNS，HttpDNS，LVS／HaProxy／Nginx&lt;/li&gt;
+  &lt;li&gt;可回滚&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h5 id=&quot;业务设计原则&quot;&gt;业务设计原则&lt;/h5&gt;
 
-&lt;h5 id=&quot;总结&quot;&gt;总结&lt;/h5&gt;</content><author><name></name></author><category term="Architecture" /><summary type="html">亿级流量网站架构核心技术</summary></entry><entry><title type="html">重构-改善既有代码的设计</title><link href="http://localhost:4000/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html" rel="alternate" type="text/html" title="重构-改善既有代码的设计" /><published>2017-07-26T00:00:00+08:00</published><updated>2017-07-26T00:00:00+08:00</updated><id>http://localhost:4000/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1</id><content type="html" xml:base="http://localhost:4000/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">&lt;h4 id=&quot;重构是在不改变软件可观察行为的前提下改善其内部结构&quot;&gt;重构是在不改变软件可观察行为的前提下改善其内部结构。&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;防重设计，重复提交表单，下单扣库存，考虑防重key，防重表。&lt;/li&gt;
+  &lt;li&gt;幂等设计，接口幂等，异步回调&lt;/li&gt;
+  &lt;li&gt;流程可定义&lt;/li&gt;
+  &lt;li&gt;状态与状态机&lt;/li&gt;
+  &lt;li&gt;后台系统操作可反馈&lt;/li&gt;
+  &lt;li&gt;后台系统审批化&lt;/li&gt;
+  &lt;li&gt;文档和注释&lt;/li&gt;
+  &lt;li&gt;备份&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;总结&quot;&gt;总结&lt;/h5&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.processon.com/view/link/5990f37de4b0b7b347dd9f99&quot;&gt;高可用脑图&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;第2部分-高可用&quot;&gt;第2部分 高可用&lt;/h4&gt;
+
+&lt;h5 id=&quot;负载均衡与反向代理&quot;&gt;负载均衡与反向代理&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;LVS/F5 + Nginx + OpenResty + Tomcat&lt;/li&gt;
+  &lt;li&gt;对于负载均衡关心如下方面：
+    &lt;ul&gt;
+      &lt;li&gt;上游服务器配置：使用upstream server配置上游服务器&lt;/li&gt;
+      &lt;li&gt;负载均衡算法：配置多个上游服务器时的负载均衡机制&lt;/li&gt;
+      &lt;li&gt;失败重试机制：配置当超时或上游服务器不存活时，是否需要重试其他上游服务器&lt;/li&gt;
+      &lt;li&gt;服务器心跳检查：上游服务器的健康检查／心跳检查&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;给Nginx 配置上游服务器，即负载均衡到真实处理业务的服务器，通过http指令下配置upstream即可&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlighter&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;upstream&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;backend&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;61.1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9080&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;weight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//权重:默认为1,权重越大分配给这台服务器的请求越多,需要根据服务器的实际处理能力设置权重&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;61.1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9090&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;weight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// proxy_pass&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;proxy_pass&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//backend; //当访问Nginx时,会将请求反向代理到backend配置的upstream server&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;负载均衡算法，用来解决用户请求到来时如何选择服务器进行处理.
+    &lt;ul&gt;
+      &lt;li&gt;默认round-robin（轮询,通过配合weight配置实现基于权重轮询);&lt;/li&gt;
+      &lt;li&gt;ip_hash:根据客户IP进行负载均衡即相同的IP将负载均衡到同一个upstream server.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlighter&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;upstream&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;backend&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;ip_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;61.1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9080&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;weight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//权重:默认为1,权重越大分配给这台服务器的请求越多,需要根据服务器的实际处理能力设置权重&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;61.1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9090&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;weight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;hash key [consistent]:对某一个key进行哈希或者使用一致性哈希算法进行负载均衡。问题是：当添加／删除一台服务器时，导致很多key被重新负载均衡到不同的服务器，从而可能导致后端出现问题，因此建议考虑一致性哈希算法，当添加／删除一台机器，只有少数key被重新负载均衡到不同的服务器&lt;/li&gt;
+  &lt;li&gt;哈希算法：此处是根据请求uri进行负载均衡，可以使用Nginx变量，因此可以实现复杂的算法。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlighter&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;upstream&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;backend&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;hash&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;61.1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9080&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;weight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//权重:默认为1,权重越大分配给这台服务器的请求越多,需要根据服务器的实际处理能力设置权重&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;61.1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9090&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;weight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一致性哈希算法：consistent_key动态指定。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlighter&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;upstream&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;nginx_local_server&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;hash&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$consistent_key&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;consistent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;61.1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9080&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;weight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//权重:默认为1,权重越大分配给这台服务器的请求越多,需要根据服务器的实际处理能力设置权重&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;61.1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9090&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;weight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$consistent_key&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$arg_cat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//优先考虑请求参数cat，如果没有再根据uri进行负载均衡&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$consistent_key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$consistent_key&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$request_uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;基于Lua设置一致性哈希key TODO&lt;/li&gt;
+  &lt;li&gt;失败重试&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlighter&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;upstream&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;backend&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;61.1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9080&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;max_fails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fail_timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;weight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//表示10s内失败了2次就任务该服务器不可用/不存活,然后摘掉,10s后会再次将该服务器加入存活上游服务器列表进行重试&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;61.1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9090&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;max_fails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fail_timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;weight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;proxy_connect_timeout&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;proxy_read_timeout&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;proxy_send_timeout&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;nx&quot;&gt;proxy_next_upstream_error&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;proxy_next_upstream_timeout&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;proxy_next_upstream_tries&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;proxy_pass&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//backend;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;add_header&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;upstream_addr&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$upstream_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;健康检查：TCP心跳检查，HTTP心跳检查&lt;/li&gt;
+  &lt;li&gt;域名上游配置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlighter&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;upstream&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;backend&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;备份上游服务器&lt;/li&gt;
+  &lt;li&gt;不可用上游服务器&lt;/li&gt;
+  &lt;li&gt;长连接&lt;/li&gt;
+  &lt;li&gt;HTTP反向代理&lt;/li&gt;
+  &lt;li&gt;HTTP动态负载均衡&lt;/li&gt;
+  &lt;li&gt;Nginx四层负载均衡&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;隔离术&quot;&gt;隔离术&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;线程池隔离&lt;/li&gt;
+  &lt;li&gt;进程隔离&lt;/li&gt;
+  &lt;li&gt;集群隔离&lt;/li&gt;
+  &lt;li&gt;机房隔离&lt;/li&gt;
+  &lt;li&gt;读写隔离&lt;/li&gt;
+  &lt;li&gt;动静隔离&lt;/li&gt;
+  &lt;li&gt;爬虫隔离，1. 限流 2. 在负载均衡层面将爬虫路由到单独集群，从而保证正常流量可用。 IP+Cookie避免误杀&lt;/li&gt;
+  &lt;li&gt;热点隔离&lt;/li&gt;
+  &lt;li&gt;资源隔离&lt;/li&gt;
+  &lt;li&gt;使用Hystrix实现隔离&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;限流详解&quot;&gt;限流详解&lt;/h5&gt;
+&lt;h5 id=&quot;降级特级&quot;&gt;降级特级&lt;/h5&gt;
+&lt;h5 id=&quot;超时与重试机制&quot;&gt;超时与重试机制&lt;/h5&gt;
+&lt;h5 id=&quot;回滚机制&quot;&gt;回滚机制&lt;/h5&gt;
+&lt;h5 id=&quot;压测与预案&quot;&gt;压测与预案&lt;/h5&gt;</content><author><name></name></author><category term="Architecture" /><summary type="html">亿级流量网站架构核心技术</summary></entry><entry><title type="html">重构-改善既有代码的设计</title><link href="http://localhost:4000/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html" rel="alternate" type="text/html" title="重构-改善既有代码的设计" /><published>2017-07-26T00:00:00+08:00</published><updated>2017-07-26T00:00:00+08:00</updated><id>http://localhost:4000/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1</id><content type="html" xml:base="http://localhost:4000/architecture/2017/07/26/%E9%87%8D%E6%9E%84%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1.html">&lt;h4 id=&quot;重构是在不改变软件可观察行为的前提下改善其内部结构&quot;&gt;重构是在不改变软件可观察行为的前提下改善其内部结构。&lt;/h4&gt;
 
 &lt;h4 id=&quot;有一句古老的工程谚语如果它还可以运行就不要动它对吗&quot;&gt;有一句古老的工程谚语：如果它还可以运行，就不要动它。对吗？&lt;/h4&gt;
 
