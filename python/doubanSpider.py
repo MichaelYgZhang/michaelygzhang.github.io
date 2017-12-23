@@ -1,17 +1,14 @@
-# -*- coding: UTF-8 -*-
 
-import sys
 import time
-from importlib import reload
+import urllib
+from imp import reload
 
-import urllib3
+import urllib.request
 import requests
-# import numpy as np
+import numpy as np
 from bs4 import BeautifulSoup
 from openpyxl import Workbook
 
-reload(sys)
-# sys.setdefaultencoding('utf8')
 
 # Some User Agents
 hds = [{'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'}, \
@@ -27,18 +24,17 @@ def book_spider(book_tag):
 
     while (1):
         # url='http://www.douban.com/tag/%E5%B0%8F%E8%AF%B4/book?start=0' # For Test
-        url = 'http://www.douban.com/tag/' + book_tag + '/book?start=' + str(page_num * 15)
-        time.sleep(5)
+        url = 'http://www.douban.com/tag/' + urllib.quote(book_tag) + '/book?start=' + str(page_num * 15)
+        time.sleep(np.random.rand() * 5)
 
         # Last Version
-        #try:
-        http = urllib3.PoolManager()
-        #self, method, url, fields = None, headers = None, ** urlopen_kw
-        req = http.request('GET', url)
-        source_code = http.urlopen(req).read()
-        plain_text = str(source_code)
-        #except (urllib3.exceptions):
-        #    continue
+        try:
+            req = urllib.Request(url, headers=hds[page_num % len(hds)])
+            source_code = urllib.request.urlopen(req).read()
+            plain_text = str(source_code)
+        except (urllib.HTTPError, urllib.URLError) as e:
+            print(e)
+            continue
 
         ##Previous Version, IP is easy to be Forbidden
         # source_code = requests.get(url)
@@ -88,13 +84,12 @@ def book_spider(book_tag):
 
 def get_people_num(url):
     # url='http://book.douban.com/subject/6082808/?from=tag_all' # For Test
-    #try:
-    http = urllib3.PoolManager()
-    req = http.request('GET', url)
-    source_code = http.urlopen(req).read()
-    plain_text = str(source_code)
-    # except (urllib3.exceptions) as e:
-    #   print(e)
+    try:
+        req = urllib.Request(url, headers=hds[np.random.randint(0, len(hds))])
+        source_code = urllib.request.urlopen(req).read()
+        plain_text = str(source_code)
+    except (urllib.HTTPError, urllib.URLError) as e:
+        print(e)
     soup = BeautifulSoup(plain_text)
     people_num = soup.find('div', {'class': 'rating_sum'}).findAll('span')[1].string.strip()
     return people_num
@@ -135,9 +130,9 @@ if __name__ == '__main__':
     # book_tag_lists = ['数学']
     # book_tag_lists = ['摄影','设计','音乐','旅行','教育','成长','情感','育儿','健康','养生']
     # book_tag_lists = ['商业','理财','管理']
-    book_tag_lists = ['名著']
+    # book_tag_lists = ['名著']
     # book_tag_lists = ['科普','经典','生活','心灵','文学']
     # book_tag_lists = ['科幻','思维','金融']
-    # book_tag_lists = ['个人管理', '时间管理', '投资', '文化', '宗教']
+    book_tag_lists = ['个人管理', '时间管理', '投资', '文化', '宗教']
     book_lists = do_spider(book_tag_lists)
     print_book_lists_excel(book_lists, book_tag_lists)
