@@ -164,5 +164,7 @@ dirname /XXX/XXX  //目录名
 ##### 文件内容查阅
 
 ```js
-cat:
+cat (concatenate)
+-A : 相当于-vET的整合参数，可以列出一些特殊字符，而不是空白而已
+-b : 列出行号
 ```
