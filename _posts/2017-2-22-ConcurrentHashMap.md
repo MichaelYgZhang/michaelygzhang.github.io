@@ -2,7 +2,7 @@
 layout: post
 title: ConcurrentHashMap
 excerpt: ConcurrentHashMap源码分析
-category: QA
+category: Java
 ---
 
 - 底层bucket数组形式，Node节点k,v,next,所以是个单链结构,延迟初始化策略,2^n大小bucket数组,put第一个bin时采用CAS操作no lock when adding to empty bin,update(insert,delete,replace)则用锁同步,并且用第一个node作为这个bin的锁，锁住整个bucket,新放入的bin的node总在list末尾，所以以第一个node作为锁。默认如果key的hash值and,key值相等则进行覆盖。当单链大于等于8个node节点时则红黑树。
