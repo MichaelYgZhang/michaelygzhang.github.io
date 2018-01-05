@@ -2,7 +2,7 @@
 layout: post
 title: RESTful note
 excerpt: RESTful note
-category: CS
+category: Destributed
 ---
 
 #### RESTful架构风格
