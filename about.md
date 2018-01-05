@@ -38,3 +38,5 @@ permalink: /about/
 - ❌ Python语言
 - ❌ Nginx
 - ❌ Zookeeper
+
+##### 莫道伊始晚,人勤尚可期😁💪
