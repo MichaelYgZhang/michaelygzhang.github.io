@@ -2,7 +2,7 @@
 layout: post
 title: Zookeeper
 excerpt: Zookeeper
-category: Architecture
+category: Destributed
 published: true
 author: michael
 ---
