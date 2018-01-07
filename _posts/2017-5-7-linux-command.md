@@ -87,3 +87,5 @@ AAA:BB:CC
 3
 4
 ```
+
+- vimdiff file1 file2 
