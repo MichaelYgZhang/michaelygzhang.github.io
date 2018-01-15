@@ -19,7 +19,7 @@ category: Java
 
 ###### 启动线程的注意事项
 
-```
+```java
   public static void main(String[] args) {
       //1
       Thread thread1 = new Thread("threadName1"){
@@ -74,7 +74,7 @@ category: Java
 
 ##### 响应中断 Thread.interrupt()
 
-```
+```java
   public static void main(String[] args) {
       //1
       Thread threadInterrupted1 = new Thread("interrupt test1"){
@@ -102,7 +102,7 @@ category: Java
 
 ##### ThreadLocal
 
-```
+```js
  //结构
  ThreadLocal<T>
  initalValue(): T
@@ -161,7 +161,7 @@ category: Java
 
 ##### 阻塞队列
 
-```
+```js
 blockingQueue.put(object); //如果队列满则阻塞,生产者
 blockingQueue.take(); //如果队列空则阻塞,消费者
 //阻塞队列是一种常用的并发数据结构，常用于生产正-消费者模式。有如下阻塞队列
@@ -194,6 +194,7 @@ drainTo(Collection<? super E, int): int
 ```
 
 - ❌
+
 ```js
  final BlockingQuue<Object> blockingQ = new ArrayBlockingQueue<Object>(10);
  Thread thread = new Thread("concumer thread") {
@@ -207,6 +208,7 @@ drainTo(Collection<? super E, int): int
 ```
 
 - ✅
+
 ```js
  final BlockingQuue<Object> blockingQ = new ArrayBlockingQueue<Object>(10);
  Thread thread = new Thread("concumer thread") {
@@ -226,6 +228,7 @@ drainTo(Collection<? super E, int): int
 ```
 
 - ✅
+
 ```js
  final BlockingQuue<Object> blockingQ = new ArrayBlockingQueue<Object>(10);
  Thread thread = new Thread("concumer thread") {
@@ -350,12 +353,12 @@ notifyAll();  signalAll
 
 
 ```js
-  ⬆️ Wait-Free  	      	|
-复| Lock-Free  	      	| 加锁
-杂| Obstruction-Free  	|
-程| Atomic            	| 粒度
-度| Lockless-based    	|
-  | Lock-based        	⬇️
+  ⬆️ Wait-Free  |
+复| Lock-Free  | 加锁
+杂| Obstruction-Free  |
+程| Atomic            | 粒度
+度| Lockless-based    |
+  | Lock-based        ⬇️
 ```
 
 - `ConcurrentHashMap`并没有实现`Lock-Free`只是使用了分离锁的办法使得能够支持多个Writer并发。ConcurrentHashMap需要使用更多的内存。
