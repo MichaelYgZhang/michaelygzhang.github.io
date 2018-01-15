@@ -350,12 +350,12 @@ notifyAll();  signalAll
 
 
 ```js
-  ⬆️ Wait-Free  	      |
-复| Lock-Free  	      | 加锁
-杂| Obstruction-Free  |
-程| Atomic            | 粒度
-度| Lockless-based    |
-  | Lock-based        ⬇️
+  ⬆️ Wait-Free  	      	|
+复| Lock-Free  	      	| 加锁
+杂| Obstruction-Free  	|
+程| Atomic            	| 粒度
+度| Lockless-based    	|
+  | Lock-based        	⬇️
 ```
 
 - `ConcurrentHashMap`并没有实现`Lock-Free`只是使用了分离锁的办法使得能够支持多个Writer并发。ConcurrentHashMap需要使用更多的内存。
@@ -380,3 +380,31 @@ CopyOnWriteArrayList, CopyOnWriteArraySet`适当使用CopyOnWriteArrayList能提
 - 外部锁常被忽视而导致死锁，例如数据库的锁
 - 存在检测死锁的办法
 - 存在一些预防死锁的手段，比如Lock的tryLock,JDK7引入的Phaser等。
+
+- 并发流程控制-使用`CountDownLatch`
+- `Barrier`实现并发性能测试的聚合点，JDK7中包括一个类似的流程控制手段`Phaser`
+- 定时器`ScheduledExecutorService`
+- 大规模定时器`TimerWheel`
+- JDK7 任务分解工具`Fork/Join`,分而治之，获取问题后，递归后将它分成多个子问题，直到每个子问题足够小，以至于可以高效地串行解决它们。递归过程将会把问题分成两个或者多个子问题，然后把这些问题放入队列中等待处理.(fork步骤),接下来等待所有子问题的结果(join步骤)把多个结果合到一起.
+- `Fork/Join`分解主要包含以下几类:
+```js
+任务分解: 不同的行为分解给不同的线程
+数据分解: 多个线程对不同的数据集执行同样的操作
+数据流分解: 一个线程的输出是第二个线程的输入
+```
+
+- 并发三大定律:`Amdahl`计算机系统架构设计中某个部件的优化对整个架构的优化和改善是有上限的。`Gustafson`随着处理器个数的增加，并行与串行的计算总量也是可以增加的。`Sun-Ni`充分利用存储空间等计算资源尽量增大问题规模以产生更好/更精确的解。
+
+- Donald Knuth说:"在我看来这种现象(并发)或多或少是由于硬件设计者已经无计可施导致的，它们将Moore定律失效的责任推脱给软件开发者"
+- `GPU大规模并行计算`并行线程组织结构:Thread并行基本单位,Thread block相互合作的线程组,CTA(Cooperative Thread Array),允许彼此同步,通过快速共享内存交换数据,以1维2维,3维组织,最多包含512个线程; Grid：一组thread block，共享全局内存; Kernel：在GPU上执行的核心程序`One Kernel<->one grid`
+- 问题:1 Future是做什么用的？2.Lock与synchronized区别是? 3. CAS? 4 Lock-Free算法三个组成部分？(循环,CAS(CompareAndSet),回退)
+
+- [维基百科并发控制专题](http://en.wikipedia.org/wiki/Category:Concurrency_control)
+- [维基百科并行计算专题](http://en.wikipedia.org/wiki/Parallel_computing)
+- [维基百科非阻塞同步专题](http://en.wikipedia.org/wiki/Non-blocking_synchronization)
+- [Herb Sutter的个人主页](http://www.gotw.ca)
+- [Doug Lea的个人主页](http://g.oswego.edu/)
+- [非阻塞同步算法论文](http://www.cs.wisc.edu/trans-memory/biblio/swnbs.html)
+- [ACE关于并发和网络的指南](http://www.cs.wustl.edu/~schmidt/tutorials-patterns.html)
+- [透过 Linux 内核看无锁编程](http://www.ibm.com/developerworks/cn/linux/l-cn-lockfree/)
+- [OpenCL官方网站](http://www.khronos.org/opencl/)
