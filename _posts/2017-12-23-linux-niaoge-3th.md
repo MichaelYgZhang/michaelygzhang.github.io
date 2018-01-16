@@ -168,3 +168,33 @@ cat (concatenate)
 -A : 相当于-vET的整合参数，可以列出一些特殊字符，而不是空白而已
 -b : 列出行号
 ```
+
+#### 第8章 Linux磁盘与文件系统管理
+
+- TODO 未完成
+- 基本上Linux的主要的文件系统为Ext2,该文件系统的信息主要有:
+  - superblock:记录此文件系统的整体信息，包括inode/block的总量，使用量，剩余量，以及文件系统的格式与相关信息等
+  - inode：记录文件的属性，一个文件占用一个inode，同时记录此文件的数据所在的block号码。
+  - block：实际记录文件的内容，若文件太大时，会占用多个block
+- Ext2文件系统的数据访问为索引式文件系统
+- 需要碎片整理的原因是文件写入的block太过于离散了，此时文件读取的性能将会变得很差所致。这个时候可以通过碎片整理将同一个文件所属的blocks汇集在一起。
+- Ext2文件系统主要有boot sector, superblock, inode bitmap, block bitmap, inode table, data block等六大部分
+- data block 是用来放置文件内容数据的地方，在Ext2文件系统中所支持的block大小有1KB，2KB，4KB三种
+- inode记录文件的属性/权限等数据，每个inode大小均固定为128bytes;每个文件都仅会占用一个inode而已；因此文件系统能够新建的文件数量与inode的数量有关
+- 文件的block记录文件的实际数据，目录的block则记录该目录下面文件名与其inode号码的对照表。
+- 日志(journal)文件系统会多出一块记录区，随时记载文件系统的主要活动，可加快系统恢复时间。
+- Linux文件系统为增加性能，会让主存储器作为大量的磁盘告诉缓存。
+- 实际连接只是多了一个文件名对该inode号码的连接而已
+- 符号连接类似Windows的快捷方式功能
+- 磁盘的使用必须要经过分区，格式化，挂载，分别惯用的命令为fdisk，mkfs和mount
+- 开机自动挂载可参考/etc/fstab的设置，设置完毕务必使用mount -a 测试语法正确否
+
+#### 第9章 文件与文件系统的压缩与打包
+
+- tar -j 采用bzip2的压缩方式占用空间更小，相比-z要好；常用命令`tar -jpcv -f /xxx/xx.tar.bz2 /xxx/目标目录文件`
+- 解压缩到制定目录`tar -jxv -f /xxx/xx.tar.bz2 -C /xxx/要解压缩的到的目录`
+- 查询: `tar -jtv -f filename.tar.bz2 | grep 'targetfilename'`
+- 打包目录但不包含某些文件: `tar -jcv -f /xxx/xx.tar.bz2 --exclude=filepath`
+- tarfile, tarball区别就是是否压缩
+- `tar -cv -f /dev/st0 /home/xxx` 将`/home/xx`备份到`/dev/st0`磁带机上
+- TODO 259
