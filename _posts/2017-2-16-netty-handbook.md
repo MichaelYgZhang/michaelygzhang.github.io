@@ -30,9 +30,8 @@ category: Java
 - 伪异步I/O编程
   - 弊端分析：读写IO都是同步阻塞的，只是对BIO线程模型进行了简单的优化，无法从跟不上解决同步I/O导致的通信线程阻塞问题。
 - NIO(Non-block I/O): 以下是NIO类库和相关概念
-  - 缓冲区Buffer：包含了一些要写入或者要写出的数据。本质就是字节数组，提供了对数据的结构化访问以及维护读写位置等信息。
-    ByteBuffer、CharBuffer、ShortBuffer、IntBuffer、LongBuffer、FloatBuffer、DoubleBuffer。
-  - 通道Channel：通过它来读取和写入数据，网络数据通过Channel读取和写入，通道与流的不同之处在于通道是双工的，流只有一个方向。通道可以用于读、写或者同时读写。分为两大类：用于网络读写的SelectableChannel和文档操作FileChannel。
+  - 缓冲区Buffer：包含了一些要写入或者要写出的数据。本质就是字节数组，提供了对数据的结构化访问以及维护读写位置等信息。`ByteBuffer, CharBuffer, DoubleBuffer, FloatBuffer, IntBuffer, LongBuffer, ShortBuffer`，分别对应基本数据类型: `byte, char, double, float, int, long, short`。当然NIO中还有MappedByteBuffer, HeapByteBuffer, DirectByteBuffer等
+  - 通道Channel：通过它来读取和写入数据，网络数据通过Channel读取和写入，通道与流的不同之处在于通道是双工的，流只有一个方向。通道可以用于读、写或者同时读写。分为两大类：用于网络读写的SelectableChannel和文档操作FileChannel。主要实现有`FileChannel,DatagramChannel,SocketChannel,ServerSocketChannel`分别可以对应文件IO、UDP和TCP(Server和Client)。
   - 多路复用器Selector：简单来讲，Selector会不断地轮训注册在其上的Channel，如果某个Channel上面有新的TCP连接接入、读写事件，这个Channel就处于就绪状态，会被Selector轮训出来，然后通过SelectionKey可以获取就绪Channel的集合，进行后续的I/O操作。一个多路复用器Selector可以同时轮训多个Channel，由于JDK采用了epoll()代替了传统的select实现，所以它并没有最大连接句柄1024/2048的限制，意味着只需要一个线程负责Selector的轮询就可以接入成千上万的客户端。
 - NIO服务端序列图
   1. 打开ServerSocketChannel
@@ -80,7 +79,7 @@ category: Java
   6. 经历了大规模的商业应用考验，质量得到验证。
 
 
-#### 入门篇 Ntty NIO开发指南
+#### 入门篇 Netty NIO开发指南
 
 ##### 第3章 Netty入门应用
 
@@ -203,3 +202,46 @@ os.close;
 ##### 第13章 文件传输
 
 ##### 第14章 私有协议栈开发
+
+#### Netty高性能之道
+
+- 传统RPC调用采用BIO即阻塞IO，线程模型问题：由于采用同步阻塞IO，会导致每个TCP连接都占用一个线程，由于线程资源是JVM虚拟机非常宝贵的资源，当IO读写阻塞导致无法及时释放时，会导致系统性能急剧下降，严重的甚至会导致虚拟机无法创建新的线程。
+- 高性能RPC三个主题
+  1. 传输:用什么样的通道将数据传输给对方，BIO、NIO、AIO，IO模型很大程度上决定了框架的性能。
+  2. 协议：采用什么样的通信协议，HTTP或者内部私有自定义协议，协议的不同，性能也有不同。相比公有协议，内部私有协议的性能通常可以被设计的更优。
+  3. 线程:数据报如何读取，读取后编解码在那个线程进行，编解码后的消息如何派发，Reactor线程模型的不同，对性能影响也非常大。
+- 零拷贝。
+  1. Netty的接收和发送ByteBuffer采用Direct Buffers，使用堆外直接内存进行Socket读写，不需要进行字节缓冲区的二次拷贝。如果使用传统的堆内存(Heap Buffers)进行Socket读写，JVM会将堆内存Buffer拷贝一份到直接内存中，然后才写入Socket中。相比堆外直接内存，消息在发送过程中多了一次缓冲区的内存拷贝。
+  2. Netty提供了组合Buffer对象，可以聚合多个ByteBuffer对象，用户可以像操作一个Buffer那样方便的对组合Buffer进行操作，避免了传统通过内存拷贝的方式将几个小Buffer合并成一个大Buffer。
+  3. Netty的文件传输采用了transferTo方法，它可以直接将文件缓冲区数据发送到目标Channel，避免了传统通过循环write方式导致的内存拷贝问题。
+- 高效的Reactor线程模型: 有三种。
+  1. Reactor单线程模型
+  2. Reactor多线程模型
+  3. 主从Reactor多线程模型.
+    - Reactor单线程模型，指的是所有IO操作都在同一个NIO线程上面完成，NIO线程职责如下:
+      1. 作为NIO服务端，接受客户端的TCP连接。
+      2. 作为NIO客户端，向服务端发起TCP连接。
+      3. 读取通信对端的请求或者应答。
+      4. 向通信对端发送消息请求或者应答消息。
+    - 单线程模型缺点:
+      1. 一个NIO线程同时处理成百上千的链路，性能上无法支撑，即便NIO线程的CPU负荷达到100%，也无法满足海量消息的编码、解码、读取和发送；
+      2. 当NIO线程负载过重之后，处理速度变慢，导致大量客户端连接超时，超时后往往会进行重发，这更加重了NIO线程的负载，最终导致大量消息积压和处理超时，NIO线程会成为系统的性能瓶颈。
+      3. 可靠性问题：一旦NIO线程意外跑飞，或者死循环，导致整个系统通信模块不可用，不能接收和处理外部消息，造成节点故障。
+    - Reactor多线程模型：
+      1. 有专门一个NIO线程Acceptor线程用于监听服务端，接收客户端的TCP连接请求。
+      2. 网络IO操作读、写等由一个NIO线程池负责，线程池可以采用标准的JDK线程池实现，它包含一个任务队列和N个可用线程，由这些NIO线程负责消息的读取、解码、编码和发送。
+      3. 1个NIO线程可以同时处理N条链路，但是1个链路只对应1个NIO线程，防止并发操作问题。
+    - 主从Reactor多线程模型：解决了1个服务端监听线程无法有效处理所有客户端连接的性能不足问题。
+    - Netty的线程模型并非固定不变，通过在启动辅助类中创建不同的EventLoopGroup实例并通过适当的参数配置，就可以支持上述三种Reactor线程模型。正是因为Netty 对Reactor线程模型的支持提供了灵活的定制能力，所以可以满足不同业务场景的性能诉求。
+- Netty无锁化的串行设计。
+- 高效的并发编程:主要体现在如下几点。
+  1. volatile的大量且正确使用。
+  2. CAS和原子累的广泛使用。
+  3. 线程安全容器的使用。
+  4. 通过读写锁提升并发性能。
+- 高性能的序列化框架:
+  1. 序列化后的码流大小(网络带宽的占用)
+  2. 序列化&反序列化的性能(CPU资源占用)
+  3. 是否支持跨语言(异构系统的对接口和开发语言的切换)
+  - Netty默认提供了堆Google Protobuf的支持，通过扩展Netty的编解码接口，可以实现其他高性能序列化框架。由于Java原生的序列化性能太差才催生了各种高性能开源序列化技术和框架。以及跨语言、IDL定义等其他原因。
+- Netty灵活的TCP参数配置能力，合理设置TCP参数在某些场景下对性能的提升可以起到显著地效果。
