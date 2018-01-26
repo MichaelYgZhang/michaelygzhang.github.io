@@ -15,10 +15,10 @@ category: Destributed
 6. 集群管理？
 7. 使用，如何区分两者的使用场景？以及使用过程中的问题？
 
-###### Redis/Memcached 是什么? 
+#### Redis/Memcached 是什么? 
 
 
-###### 网络模型？
+#### 网络模型？
 
 ##### Redis
 1. 单线程的IO复用模型. 封装AeEvent事件处理框架，主要实现了epoll, kqueue和select。
@@ -28,7 +28,7 @@ category: Destributed
 1. 多线程，非阻塞IO复用网络模型 
 2. Master主线程/Worker子线程，多线程能更好利用多核带来数据一致性，与锁同步问题比如stats命令需要加锁,性能损耗
 
-###### 数据类型？
+#### 数据类型？
 
 ##### Redis
 1. String,list,set,zset,sorted set, hash,pub/sub, Transactions
@@ -36,7 +36,7 @@ category: Destributed
 ##### Memcached
 1. key-value形式存储和访问数据，在内存中维护一张巨大的HashTable，使得对数据查询的时间复杂度降低到O(1)，保证了对数据的高性能访问。
 
-###### 数据存储及持久化？
+#### 数据存储及持久化？
 
 ##### Redis
 1. 支持持久化操作。redis提供了两种不同的持久化方法来讲数据存储到硬盘里面，一种是快照（snapshotting)，它可以将存在于某一时刻的所有数据都写入硬盘里面。另一种方法叫只追加文件（append-only file， AOF),它会在执行写命令时，将被执行的写命令复制到硬盘里面。
@@ -44,7 +44,7 @@ category: Destributed
 ##### Memcached
 1. 不支持内存数据的持久化操作，所有的数据都以in-memory的形式存储。
 
-###### 数据一致性？
+#### 数据一致性？
 
 ##### Redis
 1. 没有提供cas 命令，并不能保证这点，不过Redis提供了事务的功能，可以保证一串 命令的原子性，中间不会被任何操作打断. Redis事务提供了一种将多个命令请求打包，然后一次性、按照顺序地执行多个命令的机制，并且在事务执行的期间，服务器不会中断事务而去执行其他不在事务中的命令请求，它会把事务中所有的命令都执行完毕才会去执行其他的命令。multi、discard、exec、watch、unwatch命令实现Redis不提供事务回滚机制。
@@ -53,7 +53,7 @@ category: Destributed
 ##### Memcached
 1. Memcached提供了cas命令，可以保证多个并发访问操作同一份数据的一致性问题。
 
-###### 内存管理？
+#### 内存管理？
 
 ##### Redis
 - Redis的内存管理主要通过源码中zmalloc.h和zmalloc.c两个文件来实现的。
@@ -79,7 +79,7 @@ category: Destributed
 
 - 从以上过程我们可以看出Memcached的内存管理制效率高，而且不会造成内存碎片，但是它最大的缺点就是会导致空间浪费。因为每个Chunk都分配了特定长度的内存空间，所以变长数据无法充分利用这些空间，将100个字节的数据缓存到128个字节的Chunk中，剩余的28个字节就浪费掉了。Memcached使用预分配的内存池的方式，使用slab和大小不同的chunk来管理内存，Item根据大小选择合适的chunk存储，内存池的方式可以省去申请/释放内存的开销，并且能减小内存碎片产生，但这种方式也会带来一定程度上的空间浪费，并且在内存仍然有很大空间时，新的数据也可能会被剔除，原因可以参考[Timyang的文章](http://timyang.net/data/Memcached-lru-evictions/)
 
-###### 集群管理？
+#### 集群管理？
 
 ##### Redis
 - Redis更偏向于在服务器端构建分布式存储。最新版本的Redis已经支持了分布式存储功能。
@@ -91,7 +91,7 @@ category: Destributed
 ##### Memcached
 - Memcached本身并不支持分布式，因此只能在客户端通过像一致性哈希这样的分布式算法来实现Memcached的分布式存储。
 
-###### 使用，如何区分两者的使用场景？以及使用过程中的问题？
+#### 使用，如何区分两者的使用场景？以及使用过程中的问题？
 
 ##### Redis
 
