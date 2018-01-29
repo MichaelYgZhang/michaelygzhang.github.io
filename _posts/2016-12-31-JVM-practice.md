@@ -217,3 +217,34 @@ java -Xmx3550m -Xms3550m -Xss128k -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxPerm
 ###### 堆溢时会将堆栈信息输出到文件中的配置
 
 - -XX:+HeapDumpOnOutOfMemoryError-XX:HeapDumpPath=/path/to/heap/dump
+
+
+##### G1 2018-01-29 [G1-doc](http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/index.html)
+
+- 由于CMS有以下缺点所以引出了G1垃圾收集器
+  - 缺点：
+  - GC过程中会出现STW(Stop-The-World)，若Old区对象太多，STW耗费大量时间。
+  - CMS收集器对CPU资源很敏感。
+  - CMS收集器无法处理浮动垃圾，可能出现“Concurrent Mode Failure”失败而导致另一次Full GC的产生。
+  - CMS导致内存碎片问题。
+
+- 在G1中,堆被划分成 许多个连续的区域(region).每个区域大小相等，在1M~32M之间。JVM最多支持2000个区域，可推算G1能支持的最大内存为2000*32M=62.5G。区域(region)的大小在JVM初始化的时候决定，也可以用-XX:G1HeapReginSize设置。
+
+- 在G1中没有物理上的Yong(Eden/Survivor)/Old Generation，它们是逻辑的，使用一些非连续的区域(Region)组成的。
+
+- 初始并行阶段（Initial Marking Phase） 属于Young GC范畴，是stop-the-world活动。对持有老年代对象引用的Survivor区（Root区）进行标记。
+
+- Root区扫描（Root Region Scanning） 扫描Survivor区中的老年代对象引用，该阶段发生在应用运行时，必须在Young GC前完成。
+
+- 并行标记（Concurrent Marking） 找出整个堆中存活的对象，对于空区标记为“X”。该阶段发生在应用运行时，同时该阶段活动会被Young GC打断。
+
+- 重标记（Remark） 清除空区，重计算所有区的存活状态（liveness），是stop-the-world活动。
+
+- 清除（Cleanup）
+  - 选择出存活状态低的区进行收集。
+  - 计算存活对象和空区，是stop-the-world活动。
+  - 更新记录表，是stop-the-world活动。
+  - 重置空区，将其加入空闲列表，是并行活动。
+
+- 复制（Copying）该阶段是stop-the-world活动，负责将存活对象复制到新的未使用的区。可以发生在年轻代区，日志记录为[GC pause (young)]。
+也可以同时发生在年轻代区和老年代区，日志记录为[GC Pause (mixed)]。
