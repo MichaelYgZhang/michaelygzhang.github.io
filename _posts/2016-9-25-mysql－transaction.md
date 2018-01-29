@@ -2,7 +2,7 @@
 layout: post
 title: MySQL Transaction
 excerpt: MySQL 事务
-category: MySQL
+category: DB
 ---
 
 ##### 事务基本要素 `ACID`
