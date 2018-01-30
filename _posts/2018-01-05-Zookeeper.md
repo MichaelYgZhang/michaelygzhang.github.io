@@ -118,8 +118,18 @@ ZooKeeper host:port cmd args
 
 ###### TODO Zookeeper 源码分析
 
+##### Zookeeper 服务注册与发现的问题
+
+- [zookeeper作为服务注册与发现的问题](http://dockone.io/article/78)
+- [](http://www.cnblogs.com/sunddenly/articles/4072987.html)
+
 - [zookeeperProgrammers](http://zookeeper.apache.org/doc/r3.4.11/zookeeperProgrammers.html)
 - [ZooKeeper-](https://github.com/liwanghong/ZooKeeper-)
 - [BugHT-Zookeeper](https://github.com/BugHT/Zookeeper)
 - [zookeeper-source](https://github.com/ChaseSuccesser/Zookeeper-SourceAnalysis)
 - [zookeeper](https://yuzhouwan.com/posts/31915/)
+
+
+##### 总结
+
+- TODO
