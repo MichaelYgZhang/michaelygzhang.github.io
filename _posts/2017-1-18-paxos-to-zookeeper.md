@@ -35,7 +35,7 @@ category: Destributed
 - 2PC与3PC
   - 2PC: 
  
- ```js
+ ```
 1. 提交事务请求(投票阶段)
     	1. 事务询问
     	2. 执行事务,各参与者节点执行事务操作并将Undo和Redo信息记入事务日志中
@@ -109,10 +109,87 @@ category: Destributed
 
 - Zookeeper并未采用Paxos算法,而是采用了一种ZAB(Zookeeper Atomic Broadcast)的一致性协议
 - Zookeeper保证如下分布式一致性特征,`顺序一致性`,`原子性`,`单一视图`，`可靠性`,`实时性`
-- Zookeeper四个设计目标: 简单的数据模型，
+- Zookeeper四个设计目标: 简单的数据模型，可以构建集群，顺序访问，高性能
+- Zookeeper集群角色，没有沿用传统的Master/Slave概念，采用Leader,Follower,Observer三种角色。Leader提供`读写`服务,Follower、Observer都提供`读`服务，区别在于，`Observer不参与Leader的选举过程,也不参与写操作的，"写过半成功"策略`,因此Observer在不影响写性能的情况提升了集群的读性能。
+- 会话Session,客户端和服务器创建TCP的长连接开始即会话开始，只要网络断开时间小于sessionTimeout时间值能重新连接上集群中的任意一台服务器，则之前的会话仍然有效。
+- 数据节点Znode,分为持久节点和临时节点。Watcher，ACL(Access Control Lists)
 
+###### ZAB协议
+- ZAB核心是定义了对于那些会改变Zookeeper服务器数据状态的事务请求的处理方式,即:
+
+```
+所有事务请求必须由一个全局唯一的服务器来协调处理，这样的服务器被称为Leader服务器，而余下的其他服务器则称为Follower服务器。Leader服务器负责将一个客户端事务请求转换成一个事务Proposal提议，并将该Proposal分发给集群中所有的Follower服务器，之后Leader服务器需要等待所有Follower服务器的反馈，一旦超过半数Follower服务器进行正确的反馈后，那么Leader就会再次向所有的Follower服务器分发Commit消息，要求其将前一个Proposal进行提交
+```
+
+- ZAB两种基本模式:崩溃恢复和消息广播
+
+```
+恢复模式: 当整个服务框架在启动过程中，或是当Leader服务器出现网络中断，崩溃退出或重启等异常情况，ZAB协议就进入恢复模式并选举产生新的Leader服务器，然后同步数据状态给所有Follower，当集群中有过半的机器与Leader完成状态同步则ZAB退出恢复模式，从而进入消息广播模式。
+```
+
+- 超过半数投票机制,指自己也算一票。比如3台，一台挂了，是可以产生Leader的。
+- 消息广播,可以类比2PC阶段
+- ZAB协议规定:任何时候都需要保证只有一个主进程负责进行消息广播，而如果主进程崩溃了，就需要选举出一个新的主进程，主进程的选举机制和消息广播机制是紧密相关的。
+- ZAB协议主要包括消息广播和崩溃恢复两个过程。进一步可以细分为三个阶段，发现Discovery,同步Synchronization和广播Broadcast阶段，组成ZAB协议的每一个分布式进程会循环地执行这三个阶段，我们将这样一个循环称为一个主进程周期。
+- ZAB协议的设计中，每一个进程都有可能处于以下三种状态之一。
+
+```
+LOOKING: Leader选举阶段，启动的初始状态
+FOLLOWING: Follower服务器和Leader保持同步状态
+LEADING: Leader服务器作为主进程领导状态
+```
+
+- ZAB与Paxos算法的联系与区别
+
+```
+两者的联系: 
+1. 都存在一个类似Leader进程的角色，由其负责协调多个Follower进程的运行
+2. Leader进程都会等待超过半数的Follower做出正确的反馈后，才会将一个提案进行提交
+3. 在ZAB协议中，每个Proposal中都包含了一个epoch值，用来代表当前的Leader周期，在Paxos算法中，同样存在这样一个标识，名字Ballot
+
+两者的区别:
+1. 在Paxos算法中，一个新选举产生的主进程会进行两个阶段的工作。第一阶段被称为读阶段，这个阶段中新的主进程会通过和所有其他进程进行通信的方式收集上一个主进程提出的提案并将它们提交。第二阶段被称为写阶段，这个阶段，当前主进程开始提出它自己的提案。在Paxos算法设计的基础上，ZAB协议额外添加了一个同步阶段，有效保证Leader在新的周期中提出事务Proposal之前，所有进程都已经完成了对之前所有事务Proposal的提交，一旦完成同步阶段后，那么ZAB就会执行和Paxos算法类似的写阶段。
+2. ZAB协议主要用来构建一个高可用的分布式数据主备系统，比如Zookeeper。而Paxos算法则用于构建一个分布式的一致性状态系统。
+```
 
 ##### 第5章 使用Zookeeper
+
+```
+zoo.cfg
+集群配置:
+server.id=host:port:port //id标识集群机器序号,范围1~255
+```
+
+- ZK节点ACL权限，CREATE,READ,WRITE,DELETE,ADMIN。注意删除，指对子节点的删除权限，其他4中指对自身节点的操作权限
+- 身份认证,world,auth,digest(用户名:密码),ip
+- 其他需要多练习,开源客户端，ZkClient, Curator
+
 ##### 第6章 Zookeeper的典型应用场景
+
+- 数据发布/订阅，即配置中心
+
+```
+特点:
+1. 数据量通常比较小
+2. 数据内容在运行时会发生变化
+3. 集群各机器共享，配置一致
+```
+
+- 负载均衡(Load Balance)
+- 命名服务(Name Service)
+- 分布式协调/通知
+- 心跳监测
+- 工作进度汇报
+- 系统调度
+- 利用客户端Zookeeper的Watcher监听与Zookeeper上创建临时节点可以监测机器存活性监控的系统
+- 分布式日志收集系统
+- Master选举
+- 分布式锁
+- 分布式队列
+- 分布式屏障
+
+#### TODO 198
+
+
 ##### 第7章 Zookeeper技术内幕
 ##### 第8章 Zookeeper运维
