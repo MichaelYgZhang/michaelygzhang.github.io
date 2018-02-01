@@ -58,7 +58,8 @@ category: Destributed
 
 - 3PC: 将2PC协议的第二个阶段过程一分为二，形成由`CanCommit`、`PreCommit`和`do Commit`三个阶段组成的事务处理协议。
 
-```js    
+
+```
     1. CanCommit
       1. 事务询问
       2. 各参与者向协调者反馈事务询问的响应
@@ -105,9 +106,15 @@ category: Destributed
 
 ##### 第3章 Paxos的工程实践
 
-- Google Chubby P52
+- Google Chubby P52 TODO
 
 ##### 第4章 ZooKeeper与Paxos
+
+- Zookeeper并未采用Paxos算法,而是采用了一种ZAB(Zookeeper Atomic Broadcast)的一致性协议
+- Zookeeper保证如下分布式一致性特征,`顺序一致性`,`原子性`,`单一视图`，`可靠性`,`实时性`
+- Zookeeper四个设计目标: 简单的数据模型，
+
+
 ##### 第5章 使用Zookeeper
 ##### 第6章 Zookeeper的典型应用场景
 ##### 第7章 Zookeeper技术内幕
