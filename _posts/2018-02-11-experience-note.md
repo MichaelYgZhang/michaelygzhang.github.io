@@ -2,8 +2,9 @@
 layout: post
 title: 小经验笔记
 excerpt: 小经验笔记
-category: 
+category: Experience 
 ---
 
 ##### 记录一次回疆github不能登录小技巧
-- 由于回家，发现回疆以后github不能登录了，现记录是如何解决的。1. 在乌鲁木齐多次刷新之后是能登录的。 2. 记录github.com 对应的域名 3. 直接修改 `sudo vi /etc/hosts` 4. 完成✅
+
+- 由于回家，发现回疆以后github不能登录了，现记录是如何解决的。1. 在乌鲁木齐多次刷新之后是能登录的。 2. 记录github.com 对应的域名 3. 直接修改 `sudo vi /etc/hosts` 4. 完成✅   以此类推其他也可以这么处理。不过这种方式还是不太好，最好是能写个脚本，先爬出常用网站部署的服务器。然后在看这边网络能连接那些。然后再生成一份host文件。TODO
