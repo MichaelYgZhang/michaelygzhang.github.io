@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #### Blog 成长线
 
 ##### 2018-01-17
@@ -10,7 +9,3 @@
 ##### 以下记录内容是2018-01-17日以后的新增的日志以及注意事项
 
 - 新的[Blog](https://michaelygzhang.github.io)
-=======
-# michaelygzhang.github.io
-blog
->>>>>>> b095715371bf145296a1ce5f8a3dae8c489a4656
