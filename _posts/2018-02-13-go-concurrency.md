@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Go并发原理以及例子
+title: Go并发原理
 excerpt: Go并发
 category: Go
 ---
