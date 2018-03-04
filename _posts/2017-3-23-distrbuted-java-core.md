@@ -117,6 +117,6 @@ remove(E)，首先创建一个比当前数组小1的数组，遍历比较，并�
     2. 长连接
 - 软件负载方案
   - LVS Linux Virtual Server + Keepalived
-  p253
+  - p253
 
 #### 构建可伸缩的系统
