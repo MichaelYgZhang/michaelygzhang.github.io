@@ -6,6 +6,7 @@ category: Interview
 ---
 
 - 写在最前面: 问题主要从这几个方面来讲what？how？why？是什么？怎么用说一下使用场景？为什么这么样用？对比其它方案是否有更好的方案？
+- 总结：多思考什么场景适合用什么技术，以及是否有更好的技术方案。做过的事情需要总结成一句话来说，心得！！！！
 
 ##### 自我介绍 5min
 
@@ -17,7 +18,7 @@ category: Interview
 - 简历中的核心点多聊聊关于技术的。系统技术框架是怎么样的？为何采用这种技术方案？ 是否有更好的技术方案？
 - 项目技术技术技术难点？ 如何解决的？   
 - 动态检测模块？为啥不融合到业务中？
-- 做过的事情需要总结成一句话来说，心得！！！！
+
 - 监控告警，有误报率？比如话单量下降20%的告警？节假日如何处理的？ 等等。。可以展开思路多思考。。
 
 ##### JavaCore
@@ -29,16 +30,12 @@ category: Interview
 - 线程是如何通信的？ awrit/notify? 是吗？还是阻塞队列？ 还是主内存共享？CSP？Java的线程通信与Gorutine最根本的区别是什么？
 - 同步锁
 - 线程有哪些状态
-- 线程池子,每一种线程池子的优缺点,比如fix，cache....
-- 分布式的中间件，使用场景，遇到的问题，优缺点
-- Redis为什么高效,原理是什么，为什么使用跳表结构存储
-- 数据库分表怎么分的，为什么这么分？如果查询维度很多该怎么办
-- 总结：多思考什么场景适合用什么技术，以及是否有更好的技术方案。
+- 
 - aqs，threadlocal,aqs,cas,ThreadLocal，AQS，CAS，
 - synchorized两个方法同时被访问，是否等待阻塞方法? synchronized、lock、volatile
     - https://www.jianshu.com/p/2344a3e68ca9
     - http://www.leocook.org/2017/07/16/Java%E5%B9%B6%E5%8F%91(%E5%85%AD)-ReentrantLock-synchronized/
-- 线程有哪些状态，线程池子？
+- 线程有哪些状态，线程池子,每一种线程池子的优缺点,比如fix，cache....ThreadPoolExecutor自定义？
 - cannable,future,futuretask,runable区别
 - 字符串不变性的好处，效率高，字符串池可复用节约内存高效，安全性，多线程安全，hashcode在字符串生成时就计算好了比如作为map的key值更高效
 - volitile修饰long,double可以原子性，内存屏障会将所有写的值更新到缓存，顺序性可见性, 否则出现`伪共享缓存`问题。
@@ -77,8 +74,6 @@ Netty长链接和短链接 ：
 
 
 
-
-
 #### 框架
 - springmvc,boot，mybatis框架
 - tomcat与spring容器关联的点？ web.xml?
@@ -109,7 +104,8 @@ jvm,加载，链接，初始化，使用，卸载。
 ###### 问题排除 jvm内存溢出？CPU100%？堆内存溢出？栈异常死锁？涉及哪些Linux命令？机器负载高，怎么办，用那些命令可以解决。
 - http://masutangu.com/2017/02/linux-performance-monitor/
 ###### g1垃圾为啥时间可控的？
-
+###### GC算法？JVM优化手段？常见的优化场景？
+- https://michaelygzhang.github.io/java/2018/02/09/java-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.html
 
 
 
@@ -117,7 +113,7 @@ jvm,加载，链接，初始化，使用，卸载。
 
 #### 中间件
 ###### Redis VS Memcached 优缺点？ 如何选型？https://kb.cnblogs.com/page/69074/
-###### redis高效点？redis数据结构？跳表？Redis数据结构，持久化实现方式？
+###### redis高效点？redis数据结构？Redis为什么高效,原理是什么，为什么使用跳表结构存储？持久化实现方式？
 ###### 分布式锁都用哪些？ Memcached ? Redis ? Zookeeper?  
 ###### 优缺点是什么？什么场景下用那种，还有底层内部实现是什么？ 具体实现锁调用的API是什么？
 ###### Google Protocol Buffer 高性能原因？ 
@@ -141,7 +137,7 @@ jvm,加载，链接，初始化，使用，卸载。
 ###### 大数据量如何做分布式存储？分库分表？如何分怎么设计？还是利用HDFS？
 ###### mysql优化？MySQL数据存储？MySQL数据结构存储方式以及读写锁？
 ###### 分库分表查询，业务拼装，多线程查询，热点数据放一起，冗余数据，防止攻击接口幂等，分库分表事务？
-###### 比如找第200页数据每页5条，三个库，怎么查？
+###### 比如找第200页数据每页5条，三个库，怎么查？如果查询维度很多该怎么办?
 
 ```html
 1 order by time offset x limit y 改写为offset 0 limit x+y 内存中排序，少可以多性能差
