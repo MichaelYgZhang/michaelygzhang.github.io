@@ -162,7 +162,7 @@ volatile类型的变量baseCount计算size值，因为元素个数保存baseCoun
 - [LOCK-2](http://www.leocook.org/2017/07/16/Java%E5%B9%B6%E5%8F%91(%E5%85%AD)-ReentrantLock-synchronized/)
 - volitile修饰long,double可以原子性，内存屏障会将所有写的值更新到缓存，顺序性可见性, 否则出现`伪共享缓存`问题。
 
-##### 线程池 [资料](https://www.jianshu.com/p/87bff5cc8d8c)
+##### 线程池 [资料](https://www.jianshu.com/p/87bff5cc8d8c)  场景?优势/缺点是什么?
 
 - ThreadLocal 内存何时情况有可能发生内存泄漏？ 如何解决？答得是remove? 待核实！！threadlocal使用线程局部变量，注意使用后释放？static修饰？
     - [http://blog.xiaohansong.com/2016/08/06/ThreadLocal-memory-leak/](http://blog.xiaohansong.com/2016/08/06/ThreadLocal-memory-leak/)
@@ -278,6 +278,8 @@ volatile类型的变量baseCount计算size值，因为元素个数保存baseCoun
 ###### GC算法？JVM优化手段？常见的优化场景？
 - [资料-Java优化](https://michaelygzhang.github.io/java/2018/02/09/java-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.html)
 
+###### Tomcat/Netty Server相关
+- TODO
 
 
 #### 中间件
@@ -393,7 +395,17 @@ bool idempotent_withdraw(ticket_id, account_id, amount);
 ###### 想问的问题？
 ###### 你有哪些优点？有哪些缺点？ 有哪些这次面试过程中没表现出来的？
 ###### 对公司是否有些诉求？比如期待未来进入什么样的团队？
+###### 优化题: 
+```js
+规则:
+1, A,B,C
+2, C,D
+3, E,F
+....
 
+输入: ACD -> true; ACEF -> true; 任意命中一个规则返回true/false;
+TODO
+```
 
 
 
