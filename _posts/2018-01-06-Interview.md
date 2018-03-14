@@ -171,6 +171,7 @@ volatile类型的变量baseCount计算size值，因为元素个数保存baseCoun
     - 如果你的代码所在的进程中有多个线程在同时运行，而这些线程可能会同时运行这段代码。如果每次运行结果和单线程运行的结果是一样的，而且其他的变量的值也和预期的是一样的，就是线程安全的。
     - 
 - 并发集合容器,线程安全的非线程安全的分别都有哪些?
+- 如何看当前线程是否是线程安全的? 特征是什么? 【资料](https://yq.aliyun.com/articles/75403)
 
 ##### IO/BIO/NIO/AIO Netty
 - NIO最底层与操作系统是如何交互的？ 最底层 ！ 或者是AIO 最底层是与操作系统交互的？？
@@ -186,6 +187,7 @@ volatile类型的变量baseCount计算size值，因为元素个数保存baseCoun
 3. 服务器是接收客户端的 PING 消息的, 因此服务器关注的是 READER_IDLE 事件, 并且服务器的 READER_IDLE 间隔需要比客户端的 ALL_IDLE 事件间隔大(例如客户端ALL_IDLE 是5s 没有读写时触发, 因此服务器的 READER_IDLE 可以设置为10s)
 4. 当服务器收到客户端的 PING 消息时, 会发送一个 PONG 消息作为回复. 一个 PING-PONG 消息对就是一个心跳交互.
 - [资料]( https://segmentfault.com/a/1190000006931568)
+- [资料IO](https://yq.aliyun.com/articles/75397?spm=a2c4e.11153940.blogrightarea75403.22.118338cc05ruap)
 
 
 ##### 线程是如何通信的？ 
@@ -384,6 +386,7 @@ bool idempotent_withdraw(ticket_id, account_id, amount);
 
 
 #### CS
+###### TODO 复习数据结构
 ###### B树与B+树区别？
 ###### 跳表?
 
