@@ -477,6 +477,118 @@ cat /home/admin/logs/webx.log | grep "login" | awk '{print $6}' | sort | uniq -c
         
 ```
 
+
+- 二叉树的遍历，深度/广度/查找
+
+```java
+
+static class TreeNode{
+        Object val = null;
+        TreeNode left = null;
+        TreeNode right = null;
+        public TreeNode(Object val) {
+            this.val = val;
+        }
+
+        public TreeNode(TreeNode left, TreeNode right, Object val) {
+            this.left = left;
+            this.right = right;
+            this.val = val;
+        }
+    }
+    /**
+    *   🌲结构
+    *                   A
+    *           B             C
+    *      D        E
+    *         F
+    *      G    H   
+    */
+    static TreeNode builderTree(){
+        TreeNode G = new TreeNode(null, null, 'G');
+        TreeNode H = new TreeNode(null, null, 'H');
+        TreeNode F = new TreeNode(G, H, 'F');
+        TreeNode D = new TreeNode(null, F, 'D');
+        TreeNode E = new TreeNode(null, null, 'E');
+        TreeNode B = new TreeNode(D, E, 'B');
+        TreeNode C = new TreeNode(null, null, 'C');
+        TreeNode A = new TreeNode(B, C, 'A');
+        return A;
+    }
+    
+    /**
+    *   ->A->B->D->F->G->H->E->C
+    */
+    static void 深度优先遍历(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();//为什么用栈？先进后出特点
+        if (root != null){
+            stack.push(root);
+        } else {
+            return;
+        }
+        while (!stack.empty()) {
+            TreeNode treeNode = stack.pop();
+            System.out.print("->"+  treeNode.val);
+
+            if (treeNode.right != null) { //注意是先右边,为什么？因为栈先进后出
+                stack.push(treeNode.right);
+            }
+
+            if (treeNode.left != null) {
+                stack.push(treeNode.left);
+            }
+        }
+    }
+    /** 
+    * ->A->B->C->D->E->F->G->H 
+    */
+    static void 广度优先遍历(TreeNode root) {
+        Queue<TreeNode> queue = new ArrayBlockingQueue<TreeNode>(10);//先进先出特点
+        if (root != null) {
+            queue.add(root);
+        } else {
+            return;
+        }
+        while (!queue.isEmpty()) {
+            TreeNode treeNode = queue.poll();
+            System.out.print("->"+ treeNode.val);
+            if (treeNode.left != null) {
+                queue.add(treeNode.left);
+            }
+            if (treeNode.right != null) {
+                queue.add(treeNode.right);
+            }
+        }
+
+    }
+
+    //二叉树查询就很简单了，在遍历的基础上，加判断条件就可以了，比如:
+    static TreeNode 深度优先遍历_查询(TreeNode root, Object target) {
+        Stack<TreeNode> stack = new Stack<>();//为什么用栈？先进后出特点
+        if (root != null){
+            stack.push(root);
+        } else {
+            return null;
+        }
+        while (!stack.empty()) {
+            TreeNode treeNode = stack.pop();
+            if (treeNode.val.equals(target)) {
+                System.out.println("找到了!!");
+                return treeNode;
+            }
+            if (treeNode.right != null) { //注意是先右边,为什么？因为栈先进后出
+                stack.push(treeNode.right);
+            }
+
+            if (treeNode.left != null) {
+                stack.push(treeNode.left);
+            }
+        }
+        return null;
+    }
+
+```
+
 - 写一个死锁的例子。
 - 实现令牌限流/ 另一种方式限流{漏桶,令牌桶算法(Guava中的Ratelimiter来实现控制速率),信号量(Semaphore)};
 - wait/notify 实现生产者/消费之模式
