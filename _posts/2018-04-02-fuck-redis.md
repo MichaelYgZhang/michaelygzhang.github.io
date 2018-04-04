@@ -53,7 +53,7 @@ Redis对于这两种事件的处理优先级是，文件事件优先于时间事
 - 文件事件(fileEvent):Redis通过套接字与客户端进行连接，而文件事件就是服务器对套接字操作的抽象。
 - 时间事件: Redis一些操作需要在给定的事件点执行，而时间事件就是服务器对这类定时操作的抽象。
 
-```cgo
+```java
 /* File event structure */
 typedef struct aeFileEvent {
     // 文件时间类型：AE_NONE，AE_READABLE，AE_WRITABLE
@@ -67,7 +67,7 @@ typedef struct aeFileEvent {
 } aeFileEvent;  //文件事件
 ```
 
-```cgo
+```java
 /* Time event structure */
 typedef struct aeTimeEvent {
     // 时间事件的id
@@ -87,7 +87,7 @@ typedef struct aeTimeEvent {
 } aeTimeEvent;  //时间事件
 ```
 
-```cgo
+```java
 /* State of an event based program */
 typedef struct aeEventLoop {
     // 当前已注册的最大的文件描述符
@@ -113,7 +113,7 @@ typedef struct aeEventLoop {
 } aeEventLoop;  //事件轮询的状态结构
 ```
 
-```cgo
+```java
 // 事件轮询的主函数
 void aeMain(aeEventLoop *eventLoop) {
     eventLoop->stop = 0;
@@ -145,7 +145,7 @@ void aeMain(aeEventLoop *eventLoop) {
 操作很频繁，所以不应该成为性能瓶颈。以及Redis字符串还应该是`二进制安全的`数据可以以任意结尾不一定就是`\0`;
 归结以上原因所以替换了C默认的`char*`;
 
-```cgo
+```java
 #define SDS_MAX_PREALLOC (1024*1024)    //预先分配内存的最大长度1MB
 typedef char *sds;  //sds兼容传统C风格字符串，所以起了个别名叫sds，并且可以存放sdshdr结构buf成员的地址
 struct sdshdr {
@@ -156,7 +156,7 @@ struct sdshdr {
 
 ```
 
-```cgo
+```java
 //举例
 struct sdshdr {
     len = 11; // O(1) 计算长度
@@ -173,7 +173,7 @@ struct sdshdr {
 
 - 扩容逻辑
 
-```cgo
+```java
 /* Enlarge the free space at the end of the sds string so that the caller
  * is sure that after calling this function can overwrite up to addlen
  * bytes after the end of the string, plus one more byte for nul term.
@@ -227,7 +227,7 @@ sds sdsMakeRoomFor(sds s, size_t addlen) {
 
 - 具体数据结构，以及对应的特点
 
-```cgo
+```java
 typedef struct listNode {
     struct listNode *prev;  //前驱节点，如果是list的头结点，则prev指向NULL
     struct listNode *next;  //后继节点，如果是list尾部结点，则next指向NULL
@@ -253,7 +253,7 @@ typedef struct list {
 
 #### 字典 dictionary
 
-```cgo
+```java
 typedef struct dictEntry {
     void *key;          //key
     union {
@@ -266,7 +266,7 @@ typedef struct dictEntry {
 } dictEntry;
 ```
 
-```cgo
+```java
 typedef struct dictType {
     unsigned int (*hashFunction)(const void *key);  //计算hash值的函数
     void *(*keyDup)(void *privdata, const void *key);   //复制key的函数
@@ -277,7 +277,7 @@ typedef struct dictType {
 } dictType;
 ```
 
-```cgo
+```java
 /* This is our hash table structure. Every dictionary has two of this as we
  * implement incremental rehashing, for the old to the new table. */
 typedef struct dictht { //哈希表
