@@ -208,7 +208,7 @@ sds sdsMakeRoomFor(sds s, size_t addlen) {
 - 1. 高效执行长度计算(strlen)
 - 2. 高效进行追加操作(append)
 - 3. 二进制安全? 怎么理解,简单讲不以任何特殊格式为结尾就是二进制安全的，比如C以`\0`就不是二进制安全的。
-- ![二进制安全](http://www.cnblogs.com/Alight/p/4123043.html)  ![wiki-binary-safe](https://en.wikipedia.org/wiki/Binary-safe)
+- [二进制安全](http://www.cnblogs.com/Alight/p/4123043.html)  [wiki-binary-safe](https://en.wikipedia.org/wiki/Binary-safe)
 - sds可能会在做APPEND操作时进行扩容操作，从而加快追加操作速度，并降低内存分配次数，代价时多占用了些内存。
 
 #### 双端链表 
