@@ -302,7 +302,7 @@ typedef struct dict {
 
 #### 核心流程
 1. 计算key的hash值，找到hash映射到table数组的下标。
-2. 如果key已经存在，则hash碰撞，链表处理
+2. 如果key已经存在，则hash碰撞，链表处理,头插。
 3. 如果key多次发生碰撞，链表将越来越长，查询速度越来越慢，为了维持正常的负载，Redis将会进行`渐进式rehash`操作，增加table数组长度。步骤如下:
 - 1. 根据ht[0]的数据和操作的类型(扩容/缩小)，分配ht[1]大小,并修改rehashidx值
 - 2. 将ht[0]的数据rehash到ht[1]上
@@ -315,8 +315,126 @@ typedef struct dict {
 5. 在进行rehash过程中，如果进行了delete和update等操作，会在两个哈希表上进行，如果是查询则优先在ht[0]上积习难改，如果没有，再去ht[1]中查找。如果是insert则只会在ht[1]中插入数据，这样保证了ht[1]的数据只增不减，ht[0]的数据不增。
 > 思考: 1. rehash触发有哪些情况? 3. 如果扩容的时候，rehash还未结束，有发生了rehash会怎么样? 
 
+#### rehash触发条件
+###### 每次添加新的K/V之前，将会对哈希表进行检查,`ratio=used/size`满足以下任何一个条件,rehash过程被触发:
+- 自然rehash: ratio >= 1,且dict_can_resize=true,默认为1即,为真；注意: 当Redis使用子进程对数据库执行后台持久化任务时，比如BGSAVE或BGREWRITEAOF时，为最大化利用系统的copy on write 机制，则将dict_can_resize修改为假，避免执行自然rehash，提高性能，当持久化任务完成将恢复为真。当满足强制rehash条件，即时dict_can_resize不为真，有BGSAVE或BGREWRITEAOF正执行，这个字典一样被进行rehash操作。
+- 强制rehash: ratio > dict_force_resize_ration(默认5)
+- dictRehashMilliseconds 可以在指定的毫秒数内，对字典进行 rehash 。可以加速整体rehash速度。
+- 当哈希表大小大于DICT_HT_INITIAL_SIZE(默认4),且(used/size)小于10%将进行`缩容`,释放内存空间。
+> 思考: 渐进式rehash,是一种分散集中处理数据迁移的思路。
 
 
+#### 跳表 skiplist
+![skiplist](https://upload.wikimedia.org/wikipedia/commons/8/86/Skip_list.svg)
+- 表头: 维护跳表的节点指针
+- 跳表节点: 保存元素，以及多个层
+- 层: 保存指向其它元素的指针。搞成的指针越过的元素数量大于等于底层指针，为了提高查询效率，程序总先从高层开始访问，然后随着元素值范围的缩小，慢慢降低层次。
+- 表尾: 全部由NULL组成，表示跳跃表的末尾
+
+```java
+typedef struct zskiplist {
+    struct zskiplistNode *header, *tail;//header指向跳跃表的表头节点，tail指向跳跃表的表尾节点
+    unsigned long length;//跳跃表的长度或跳跃表节点数量计数器，除去第一个节点
+    int level;//跳跃表中节点的最大层数，除了第一个节点
+} zskiplist;
+
+/* ZSETs use a specialized version of Skiplists */
+typedef struct zskiplistNode {
+    robj *obj;  //保存成员对象的地址
+    double score;//分值
+    struct zskiplistNode *backward;//后退指针
+    struct zskiplistLevel {
+        struct zskiplistNode *forward;//前进指针
+        unsigned int span;//跨度
+    } level[];//层级，柔型数组
+} zskiplistNode;
+
+```
+
+- 跳表的应用主要是实现有序数据类型，是一种随机化数据结构，它的查找，添加，删除操作都可以在对数期间完成。
+为适应Redis自身需求，作者作出如下修改1. score值可重复。 2. 对比一个元素需要同时检查它的score和member。 3. 每个节点带有高度为1层的后退指针，用于从表尾方向向表头方向迭代。
+
+#### Redis内存映射数据结构
+- 内存映射数据结构是一系列经过特殊编码的字节序列。创建它们所消耗的内存通常比作用类似的内部数据结构要少得多，若果使用得当，内存映射数据结构可以为用户节约大量内存。不过，内存映射数据结构的编码和操作方式比内部数据结构要复杂得多，所以内存映射数据结构占用CPU时间会比作用类似的内部数据结构要多。
+
+##### 整数集合 intset
+- 用于有序，无重复地保存多个整数值，它会根据元素的值，自动选择该用什么长度的整数类型来保存元素。
+- 当一个位长度更长的整数值添加到intset时，需要对intset进行升级，新intset中每个元素的位长度都等于新添加值的位长度比如从32->64,但原有元素的值不变。
+- 升级会引起整个intset进行内存重分配，并移动集合中的所有元素，这个操作的复杂度O(N)
+- intset只支持升级不支持降级
+- intset为有序的，采用二分查找算法实现查找，复杂度O(lgN)
+
+##### 压缩列表 ziplist
+- ziplist可以包含多个节点(entry),每个节点可以保存一个长度受限的字符数组。
+- TODO 好好研究以下
+
+#### Redis数据类型
+- 核心结构体redisObject
+
+```java
+typedef struct redisObject {
+    unsigned type:4; // 类型
+    unsigned encoding:4; //编码方式
+    unsigned lru:REDIS_LRU_BITS; /* lru time (relative to server.lruclock) */
+    int refcount; // 引用计数
+    void *ptr; //指向保存对象的地址
+} robj;
+
+```
+
+```
+//type对象类型
+/* Object types */
+#define REDIS_STRING 0
+#define REDIS_LIST 1
+#define REDIS_SET 2
+#define REDIS_ZSET 3
+#define REDIS_HASH 4
+
+//对象编码
+/* Objects encoding. Some kind of objects like Strings and Hashes can be
+ * internally represented in multiple ways. The 'encoding' field of the object
+ * is set to one of this fields for this object. */
+#define REDIS_ENCODING_RAW 0     /* Raw representation */
+#define REDIS_ENCODING_INT 1     /* Encoded as integer */
+#define REDIS_ENCODING_HT 2      /* Encoded as hash table */
+#define REDIS_ENCODING_ZIPMAP 3  /* Encoded as zipmap */
+#define REDIS_ENCODING_LINKEDLIST 4 /* Encoded as regular linked list */
+#define REDIS_ENCODING_ZIPLIST 5 /* Encoded as ziplist */
+#define REDIS_ENCODING_INTSET 6  /* Encoded as intset */
+#define REDIS_ENCODING_SKIPLIST 7  /* Encoded as skiplist */
+#define REDIS_ENCODING_EMBSTR 8  /* Embedded sds string encoding */
+
+```
+
+- ![Redis-redisObject](https://raw.githubusercontent.com/MichaelYgZhang/michaelygzhang.github.io/master/images/redis-redisObject.png)
+###### Redis处理数据时的核心逻辑
+1. 根据给定的key，在数据字典中查找到redisObject,如果没有返回NULL
+2. 检查redisObject和type属性和执行命令所需的类型是否相符，如果不相符，返回类型错误
+3. 根据redisObject的encoding属性所指定的编码，选择合适的操作函数来处理底层的数据结构
+4. 返回数据结构的操作结果作为命令的返回值
+
+###### Redis对象共享
+- Flyweight模式预先分配一些常见的额值对象，并在多个数据结构之间共享这些对象，节约内存空间以及CPU时间。预分配的值对象如下:
+- 1. 各种命令的返回值，比如执行成功时返回的OK，执行错误时返回的ERROR，类型错误返回WRONGTYPE等等
+- 2. 包括0在内，小于REDIS_SHARED_INTEGERS 10000的所有整数
+- 注意:共享对象只能被带指针的数据结构使用，比如字典，双端链表这类数据结构。比如整数集合和压缩链表这些只能保存字符串，整数字面值的内存数据结构，不能使用共享对象。
+
+###### Redis引用计数以及对象的销毁,运行机制如下:
+- 每个redisObject结构都有一个refcount属性，指示这个对象被引用了多少次。当创建一个对象时，refcount=1
+- 当对一个对象进行共享时，refcount++; 使用完或者取消共享引用时，将对象refcount--;当refcount=0时，这个redisObject结构以及它所应用的数据结构的内存都将被销毁释放。
+
+###### 字符串
+- 字符串类型分别使用 REDIS_ENCODING_INT 和 REDIS_ENCODING_RAW(默认编码) 两种编码:
+• REDIS_ENCODING_INT 使用 long 类型来保存 long 类型值。
+• REDIS_ENCODING_RAW 则使用 sdshdr 结构来保存 sds (也即是 char* )、long long 、 double 和 long double 类型值。
+###### 哈希表
+- REDIS_HASH使用REDIS_ENCODING_ZIPLIST(默认编码)和 REDIS_ENCODING_HT 两种编码方式。当满足以下情况，将被切换到REDIS_ENCODING_HT编码：
+- 1. 哈希表中某个键或某个值长度大于server.hash_max_ziplist_value(默认64) 
+- 2. 压缩列表中节点数量大于server.hash_max_ziplist_entries(默认512)
+> 思考为什么满足如上提交则切换编码格式? 主要时过长和节点过多时其综合性能低下？
+###### 列表 REDIS__LIST
+- 使用REDIS_ENCODING_ZIPLIST 和 REDIS_ENCODING_LINKEDLIST 这两种方式编码
 
 
 
