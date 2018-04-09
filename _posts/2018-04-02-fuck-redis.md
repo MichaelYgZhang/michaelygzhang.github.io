@@ -8,6 +8,8 @@ category: Destributed
 - [Redis命令参考](http://doc.redisfans.com/)
 - [Redis命令参考2](http://redisdoc.com/)
 - 注意: 源码版本3.2.8
+- [面试Redis](https://maimai.cn/article/detail?fid=305879478)
+
 
 ##### 总结Redis使用以及底层实现原理
 
