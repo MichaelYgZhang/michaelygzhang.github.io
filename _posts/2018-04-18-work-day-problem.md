@@ -2,7 +2,7 @@
 layout: post
 title: 工作日常问题记录
 excerpt: 日常工作小问题记录
-category: Tools
+category: Experience
 ---
 
 #### FastJson value为null时不输出结果的处理方法
