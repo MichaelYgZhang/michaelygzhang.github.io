@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Git常用命令
-excerpt: 记录积累Git日常命令
+title: 工作日常问题记录
+excerpt: 日常工作小问题记录
 category: Tools
 ---
 
