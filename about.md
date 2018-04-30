@@ -37,6 +37,6 @@ permalink: /about/
 - ❌ 集体智慧编程
 - ❌ Python语言
 - ❌ Nginx
-- ❌ Zookeeper
+- ✅ Zookeeper
 
 ##### 莫道伊始晚,人勤尚可期😁💪
