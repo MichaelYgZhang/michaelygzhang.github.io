@@ -38,5 +38,6 @@ permalink: /about/
 - ❌ Python语言
 - ❌ Nginx
 - ✅ Zookeeper
+- ❌ Hadoop权威指南
 
 ##### 莫道伊始晚,人勤尚可期😁💪
