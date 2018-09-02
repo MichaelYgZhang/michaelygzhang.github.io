@@ -211,7 +211,7 @@ func main()  {
 
 - `Index`
 
-```
+```sql
 {{  define "Index"  }}
     {{  template "Header"    }}
         {{  template "Menu" }}
@@ -244,7 +244,7 @@ func main()  {
 
 - `Header`
 
-```
+```sql
 {{ define "Header" }}
 <!DOCTYPE html>
 <html lang="en-US">
@@ -259,7 +259,7 @@ func main()  {
 
 - `Menu`
 
-```
+```sql
 {{ define "Menu" }}
     <a href="/">HOME</a> |
     <a href="/new">NEW</a>
@@ -268,7 +268,7 @@ func main()  {
 
 - `Footer`
 
-```
+```sql
 {{ define "Footer" }}
     </body>
 </html>
@@ -277,7 +277,7 @@ func main()  {
 
 - `Show`
 
-```
+```sql
 {{ define "Show" }}
   {{ template "Header" }}
     {{ template "Menu"  }}
@@ -290,7 +290,7 @@ func main()  {
 
 - `New`
 
-```
+```sql
 {{ define "New" }}
   {{ template "Header" }}
     {{ template "Menu" }}
@@ -306,7 +306,7 @@ func main()  {
 
 - `Edit`
 
-```
+```sql
 {{ define "Edit" }}
   {{ template "Header" }}
     {{ template "Menu" }}
