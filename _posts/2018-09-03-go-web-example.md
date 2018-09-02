@@ -6,13 +6,14 @@ category: Go
 ---
 
 ####  Example-Golang-CRUD-Gin
-> 涉及内容,Golang, http/template, database/sql, go-sql-driver/mysql, net/http, gin;
-> 目标: step1完成CRUD，step2结合Gin完成权限管理,文本上传等
+- 涉及内容,Golang, http/template, database/sql, go-sql-driver/mysql, net/http, gin;
+- 目标: step1完成CRUD，step2结合Gin完成权限管理,文本上传等
 ##### step 1 完成基本的CRUD
 
 > go get -u github.com/go-sql-driver/mysql //安装依赖
 
-> 创建表
+- 创建表
+
 ```sql
 CREATE TABLE `employee` (
   `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
@@ -22,7 +23,7 @@ CREATE TABLE `employee` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 ```
 
-> 创建main.go，写CRUD逻辑
+- 创建main.go，写CRUD逻辑
 
 ```golang
 package main
@@ -205,12 +206,12 @@ func main()  {
 
 ```
 
-> 创建`page`目录与main.go同级目录,并写好模版
+- 创建`page`目录与main.go同级目录,并写好模版
 
 
-> `Index`
+- `Index`
 
-```html
+```
 {{  define "Index"  }}
     {{  template "Header"    }}
         {{  template "Menu" }}
@@ -241,9 +242,9 @@ func main()  {
 {{  end }}
 ```
 
-> `Header`
+- `Header`
 
-```html
+```
 {{ define "Header" }}
 <!DOCTYPE html>
 <html lang="en-US">
@@ -256,27 +257,27 @@ func main()  {
 {{ end }}
 ```
 
-> `Menu`
+- `Menu`
 
-```html
+```
 {{ define "Menu" }}
     <a href="/">HOME</a> |
     <a href="/new">NEW</a>
 {{ end }}
 ```
 
-> `Footer`
+- `Footer`
 
-```html
+```
 {{ define "Footer" }}
     </body>
 </html>
 {{ end }}
 ```
 
-> `Show`
+- `Show`
 
-```html
+```
 {{ define "Show" }}
   {{ template "Header" }}
     {{ template "Menu"  }}
@@ -287,9 +288,9 @@ func main()  {
 {{ end }}
 ```
 
-> `New`
+- `New`
 
-```html
+```
 {{ define "New" }}
   {{ template "Header" }}
     {{ template "Menu" }}
@@ -303,9 +304,9 @@ func main()  {
 {{ end }}
 ```
 
-> `Edit`
+- `Edit`
 
-```html
+```
 {{ define "Edit" }}
   {{ template "Header" }}
     {{ template "Menu" }}
