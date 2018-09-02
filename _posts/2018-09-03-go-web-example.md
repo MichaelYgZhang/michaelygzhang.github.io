@@ -1,11 +1,11 @@
 ---
 layout: post
-title: GoWebExample
-excerpt: GoWebExample
+title: Example-Golang-CRUD-Gin
+excerpt:  Example-Golang-CRUD-Gin
 category: Go
 ---
 
-#### Example-Golang-Web
+####  Example-Golang-CRUD-Gin
 > 涉及内容,Golang, http/template, database/sql, go-sql-driver/mysql, net/http, gin;
 > 目标: step1完成CRUD，step2结合Gin完成权限管理,文本上传等
 ##### step 1 完成基本的CRUD
