@@ -211,7 +211,9 @@ func main()  {
 
 - `Index`
 
-```sql
+{% highlight liquid linenos%}
+{% raw %}
+
 {{  define "Index"  }}
     {{  template "Header"    }}
         {{  template "Menu" }}
@@ -240,11 +242,15 @@ func main()  {
             {{  end }}
         {{ template "Footer" }}
 {{  end }}
-```
+
+{% endraw %}
+{% endhighlight %}
 
 - `Header`
 
-```sql
+{% highlight liquid linenos%}
+{% raw %}
+
 {{ define "Header" }}
 <!DOCTYPE html>
 <html lang="en-US">
@@ -255,29 +261,41 @@ func main()  {
     <body>
       <h1>Golang Mysql Curd Example</h1>
 {{ end }}
-```
+
+{% endraw %}
+{% endhighlight %}
 
 - `Menu`
 
-```sql
+{% highlight liquid linenos%}
+{% raw %}
+
 {{ define "Menu" }}
     <a href="/">HOME</a> |
     <a href="/new">NEW</a>
 {{ end }}
-```
+
+{% endraw %}
+{% endhighlight %}
 
 - `Footer`
 
-```sql
+{% highlight liquid linenos%}
+{% raw %}
+
 {{ define "Footer" }}
     </body>
 </html>
 {{ end }}
-```
+
+{% endraw %}
+{% endhighlight %}
 
 - `Show`
 
-```sql
+{% highlight liquid linenos%}
+{% raw %}
+
 {{ define "Show" }}
   {{ template "Header" }}
     {{ template "Menu"  }}
@@ -286,11 +304,15 @@ func main()  {
       <p>City:  {{ .City }}</p><br /> <a href="/edit?id={{ .Id }}">Edit</a></p>
   {{ template "Footer" }}
 {{ end }}
-```
+
+{% endraw %}
+{% endhighlight %}
 
 - `New`
 
-```sql
+{% highlight liquid linenos%}
+{% raw %}
+
 {{ define "New" }}
   {{ template "Header" }}
     {{ template "Menu" }}
@@ -302,11 +324,15 @@ func main()  {
     </form>
   {{ template "Footer" }}
 {{ end }}
-```
+
+{% endraw %}
+{% endhighlight %}
 
 - `Edit`
 
-```sql
+{% highlight liquid linenos%}
+{% raw %}
+
 {{ define "Edit" }}
   {{ template "Header" }}
     {{ template "Menu" }}
@@ -319,7 +345,9 @@ func main()  {
     </form><br />
   {{ template "Footer" }}
 {{ end }}
-```
+
+{% endraw %}
+{% endhighlight %}
 
 ##### step2 结合Gin完成权限管理,文本上传等
 
