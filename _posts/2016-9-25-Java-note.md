@@ -163,8 +163,31 @@ public void a() {
     }
 ```
 
-##### 情况5
+###### 情况5
 
+```java
+@Transactional(propagation = Propagation.REQUIRED)
+    public void a() {
+        try {
+            System.out.println("a:" + epsxSupplierMapper.insertTest("a", 1)); //入库成功
+            TransTest a = (TransTest) AopContext.currentProxy();
+            a.b();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void b() throws Exception{
+        try {
+            System.out.println("b:" + epsxSupplierMapper.insertTest("b", 2));  // 入库成功
+            int x = 10/0;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+```
+
+###### 情况6  `正确方式, 注意: spring.aop.proxy-target-class=true`
 ```java
 @Transactional(propagation = Propagation.REQUIRED)
     public void a() {
