@@ -187,7 +187,7 @@ public void a() {
     }
 ```
 
-###### 情况6  `正确方式, 注意: spring.aop.proxy-target-class=true`
+###### 情况6  `正确方式, 注意: spring.aop.proxy-target-class=true; @EnableTransactionManagement`
 ```java
 @Transactional(propagation = Propagation.REQUIRED)
     public void a() {
