@@ -76,137 +76,75 @@ public class Test {
 
 ##### Transactional 使用
 > mysql的表是有事务安全( 比如：InnoDB)和非事务安全(比如：ISAM、MyISAM)之分的 注意
-###### 情况1
+###### 情况1: 不加事务控制,都成功
 ```java
 public void a() {
-        try {
-            System.out.println("a:" + epsxSupplierMapper.insertTest("a", 1)); //入库成功
-	     b();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        System.out.println("a:" + epsxSupplierMapper.insertTest("a", 1)); //入库成功
+	b();
     }
 
     public void b() throws Exception{
-        try {
-            System.out.println("b:" + epsxSupplierMapper.insertTest("b", 2)); //入库成功
-            int x = 10/0;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        System.out.println("b:" + epsxSupplierMapper.insertTest("b", 2)); //入库成功
+       int x = 10/0;
     }
 ```
 
 
-###### 情况2
+###### 情况2: b()加失效,原因是动态代理控制事务切面在a()上
 ```java
-
     public void a() {
-        try {
-            System.out.println("a:" + epsxSupplierMapper.insertTest("a", 1)); //入库成功
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        System.out.println("a:" + epsxSupplierMapper.insertTest("a", 1)); //入库成功
+	b();
     }
-    @Transactional
+    @Transactional	// `失效`
     public void b() throws Exception{
-        try {
-            System.out.println("b:" + epsxSupplierMapper.insertTest("b", 2));//入库成功
-            int x = 10/0;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        System.out.println("b:" + epsxSupplierMapper.insertTest("b", 2)); //入库成功
+       int x = 10/0;
     }
 ```
 
-###### 情况2
+###### 情况3: 
 ```java
     @Transactional
     public void a() {
-        try {
-            System.out.println("a:" + epsxSupplierMapper.insertTest("a", 1)); //入库成功
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        System.out.println("a:" + epsxSupplierMapper.insertTest("a", 1)); //入库回滚
+	b();
     }
     
     public void b() throws Exception{
-        try {
-            System.out.println("b:" + epsxSupplierMapper.insertTest("b", 2));//入库成功
-            int x = 10/0;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        System.out.println("b:" + epsxSupplierMapper.insertTest("b", 2)); //入库回滚
+       int x = 10/0;
     }
 ```
 
-###### 情况4
+###### 情况4  `正确方式, 注意: spring.aop.proxy-target-class=true; @EnableTransactionManagement`
 ```java
-@Transactional(rollbackFor = Exception.class)
     public void a() {
-        try {
-            System.out.println("a:" + epsxSupplierMapper.insertTest("a", 1)); //入库成功
-            b();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        System.out.println("a:" + epsxSupplierMapper.insertTest("a", 1)); //入库成功
+	Test aTest = (Test) AopContext.currentProxy();   // 注意这里
+        aTest.b();
     }
-
-    @Transactional(rollbackFor = Exception.class)
+    
+    @Transactional
     public void b() throws Exception{
-        try {
-            System.out.println("b:" + epsxSupplierMapper.insertTest("b", 2)); //入库成功
-            int x = 10/0;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        System.out.println("b:" + epsxSupplierMapper.insertTest("b", 2)); // 入库回滚
+       int x = 10/0;
     }
 ```
 
 ###### 情况5
-
 ```java
-@Transactional(propagation = Propagation.REQUIRED)
+    @Transactional	//只要这里加上,不论b()是否增加@Transactional,只要b失败,a就回滚
     public void a() {
-        try {
-            System.out.println("a:" + epsxSupplierMapper.insertTest("a", 1)); //入库成功
-            TransTest a = (TransTest) AopContext.currentProxy();
-            a.b();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        System.out.println("a:" + epsxSupplierMapper.insertTest("a", 1)); // 入库回滚
+	Test aTest = (Test) AopContext.currentProxy();   // 注意这里
+        aTest.b();
     }
-    @Transactional(propagation = Propagation.REQUIRED)
+    
+    @Transactional
     public void b() throws Exception{
-        try {
-            System.out.println("b:" + epsxSupplierMapper.insertTest("b", 2));  // 入库成功
-            int x = 10/0;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-```
-
-###### 情况6  `正确方式, 注意: spring.aop.proxy-target-class=true; @EnableTransactionManagement`
-```java
-@Transactional(propagation = Propagation.REQUIRED)
-    public void a() {
-        try {
-            System.out.println("a:" + epsxSupplierMapper.insertTest("a", 1)); //入库成功
-            TransTest a = (TransTest) AopContext.currentProxy();
-            a.b();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void b() throws Exception{
-        try {
-            System.out.println("b:" + epsxSupplierMapper.insertTest("b", 2));  // `入库失败`
-            int x = 10/0;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        System.out.println("b:" + epsxSupplierMapper.insertTest("b", 2)); // 入库回滚
+       int x = 10/0;
     }
 ```
 
