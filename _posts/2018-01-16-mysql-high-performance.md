@@ -8,6 +8,7 @@ category: DB
 ##### 表设计指南
 - 业务合理情况下通常约小约好，考虑长远性。
 - 整数类型
+
 |类型  | 存储占用空间  |
 |:---|:-----|
 |TINYINT | 1Byte|
@@ -15,7 +16,9 @@ category: DB
 |MEDIUMINT| 3Byte|
 |INT| 4Byte|
 |BIGINT| 8Byte|
+
 - 实数类型
+
 |类型| 存储占用空间|
 
 
