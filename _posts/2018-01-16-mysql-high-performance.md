@@ -1,7 +1,7 @@
 ---
 layout: post
-titile: 高性能MySQL
-excerpt: 高性能MySQL
+titile: 高性能MySQL开发
+excerpt: 高性能MySQL开发
 category: DB
 ---
 
@@ -16,10 +16,12 @@ category: DB
 |MEDIUMINT| 3Byte|
 |INT| 4Byte|
 |BIGINT| 8Byte|
+|VARCHAR(n)| 可变长度,支持到65535B，需要额外补充1-2字节记录长度，原数据位置更细切可变，易产生碎片，使用场景，字符串的最大长度比平均长度大很对，比如评价，字段更新少，碎片化问题不严重。|
+|CHAR(n)| 定长，支持到255B， 无需额外空间，定长不易产生碎片问题。使用场景，存储固定长度数据，比如MD5值，身份证ID，经常变更数据，也不易产生碎片，对于短的列，CHAR比VARCHAR在存储上更有效率|
 
-- 实数类型
 
-|类型| 存储占用空间|
+
+
 
 
 ##### 索引设计指南
