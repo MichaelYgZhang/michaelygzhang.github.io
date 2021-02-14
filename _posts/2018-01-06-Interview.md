@@ -151,6 +151,7 @@ testClient -> testService:helloWorld
 - 资料：
     - https://blog.anoff.io/2018-07-31-diagrams-with-plantuml/
     - https://plantuml.com/zh/
+![plant-uml](http://www.plantuml.com/plantuml/png/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000)
 
 ### 工程能力
 #### 服务稳定性保障？
