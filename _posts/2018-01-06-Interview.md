@@ -33,7 +33,295 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
     4. 流量激增增加副本, 数据激增分库分表或者引入大数据HDFS
 
 
-##### JavaCore 以下JDK版本1.9
+
+##### 项目介绍
+###### 框架
+- 框架分层
+- 框架思考
+- 框架总结
+###### 数据层面
+- 数据沉淀
+###### 监控告警能力
+
+
+### 计算机基础
+#### HTTP
+#### TCP/IP
+
+### Java
+#### Java语言基础类原理
+- equals vs ==
+- Arraylist
+- Volitatie
+- Synchronized
+- HashMap
+- ConcurrentHashMap
+- sleep vs wait，join
+- notify vs notifyAll
+- 等待池，锁池？
+- Semphore
+- CountDownLatch（以下简称 CDL）
+- CyclicBarrier    https://sa.sogou.com/sgsearch/sgs_tc_news.php?req=hobzKjkKLynRWJ4khJJLjdhp2-ixRXMKcc56sdMEWvE=
+- ReentrantLock
+- AQS
+- 公平锁？非公平锁？
+- CAS
+- ThreadLocal
+- 线程池。https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html
+- ThreadPoolExecutor
+- 原理
+- 参数如何设置
+- CPU密集，IO密集
+- 如何进行监控
+- Callerrunspolicy风险？
+- 锁
+- 偏向锁，轻量锁，重量锁，锁升级过程
+- 锁粗化？锁消除？
+- 可重入锁
+- TODO
+- AQS框架
+- 并发
+- 单机
+- 集群处理
+#### JVM
+- 对象分配？
+- 栈帧？
+- 如何将对象直接初始化到老年代？
+- 大对象？年轻代配置大小。
+- 类加载原理？
+- JVM内存模型？
+- JVM常用命令？
+- https://my.oschina.net/feichexia/blog/196575
+- GC，算法
+- 为什么年轻代用复制算法，年老代用标记-清除/压缩算法？
+- GCRoot 对象？
+- 常量，静态对象。。。
+- 标记清除
+- 复制
+- 标记压缩
+- JVM调优
+- 项目中JVM调优都调整那些参数？回收器？内存大小？CMS分代比例？日志打印信息？压缩针？
+- JVM垃圾回收机制有几种？工作原理是什么？CMS清理步骤？G1？
+- JVM内存模型类加载机制？为什么这么设计？
+- 堆栈，对象分析？
+- Serial 与 Parallel GC对别？
+- CMS？
+- 框架
+#### Spring
+- 事务传播机制
+- 原理
+- 回滚机制？
+- Spring中用到的设计模式
+- Interceptor，filter各自的使用场景
+- Spring启动流程
+- https://www.cnblogs.com/shamo89/p/8184960.html
+- Spring注解声明和xml方式声明的区别？
+- AOP的实现原理？
+- 2种动态代理模式？
+- 如何解决循环依赖问题？如果是构造方法注入能解决循环引用吗？
+- 3级缓存？
+- 大事务优化？
+#### Mybatis
+- $ vs # 区别？
+#### Netty
+
+
+### 工程能力
+#### 服务稳定性保障？
+- 巡检？
+#### git
+- git rebase
+- git
+#### 服务稳定性保障？
+- Maven-jar包冲突如何处理？
+- 子pom > 父pom
+- 浅层依赖 > 深层依赖
+- 声明前 > 声明后
+#### 线上问题排查？
+- CPU负载高如何排查？  服务注册与发现 + 服务器本身可能性能不足导致
+- CPU负载定义是什么？哪些因素可能导致CPU负载变高？
+- 如何找到CPU占用最高的线程？
+- top 得到cpu使用率最高的进程 pid
+- top -H -p$pid 在进程下找到使用率比较高的线程号
+- top -Hp pid shift +p 按cpu使用情况排序 
+- shift +m 按照内存使用情况排序
+- Printf %x $tid  输出 十六进制 线程id
+- jstack $pid | grep $tip 十六进制数据，ps：如果线上没有权限需要申请sudo 权限
+- 如果使用dump内存
+- jmap -dump:format=b,file=dumpFileName pid
+- 举例子：jmap -dump:format=b,file=/tmp/dump.dat 21711 
+- 内存泄漏问题？
+- TODO
+#### 其他坑
+- 服务迁移的坑？服务注册与发现Zookeeper目前只发现到 service，不到方法层面，导致服务打错服务调用自己的服务了。
+
+### 中间价
+- 持久化
+#### ES
+- 原理
+#### MySQL
+- 原理
+- 索引
+- 聚集索引 vs 非聚聚索引？
+- filesort？
+- 索引数据结构
+- B+Tree
+- 为什么这么设计？
+- 索引失效举例？
+- update加锁过程？
+- 事务隔离
+- 默认什么隔离级别？
+- RR
+- 锁
+- 锁种类？
+- 记录锁
+- 间隙锁
+- 表锁
+- 意向锁？
+- 死锁
+- 间隙锁插入意向锁？
+- 死锁分析？死锁解决处理？
+- 场景举例？
+- 2PL，两段锁
+- https://blog.csdn.net/qq4165498/article/details/76855139
+- https://segmentfault.com/a/1190000012513286
+- SQL优化
+- 慢SLQ分析步骤？
+- 慢SQL优化案例？
+- mysql InnoDB为什选择自增主键做主键？
+- 聚簇索引每个页面装载因子（innodb 默认为 15/16）
+- 双写机制？
+- redolog，undolog，binlog这几个文件都有什么用？
+- 面试问题
+- RR，每一种隔离级别为解决什么问题？
+- MVCC
+- 当前读
+- 快照读
+- grap锁
+- explain  参数
+- 资料
+- https://zhuanlan.zhihu.com/p/76494612
+- https://tech.meituan.com/
+#### Redis
+- 数据一致性问题
+- 监听binlong
+- 缓存，穿透，击穿，雪崩？
+- 雪崩？不过期，随机，降级
+- 击穿：更新DB加互斥锁，其他线程等待。
+- redis持久化？
+- RDB
+- AOF
+- redis扩容机制？
+- Redis数据结构和使用场景
+- 分布式锁实现，有什么问题？是否有更好的解决方案？
+- setnx
+- px
+- 集群？
+- 哨兵
+- 集群
+- 公司集群方式？几主几丛？
+- 主从同步机制？
+- 缓存击穿应急方案？
+- 原子命令？
+- 布隆过滤器？
+- zset？
+#### 消息队列
+- MQ如何实现延迟队列？
+- Kafka
+- 框架
+- 顺序消息是如何实现的？局部顺序？全局顺序？
+- 死信的使用场景？
+- 消费挤压如何处理？
+- 消费失败处理，消息挤压问题处理？
+- https://honeypps.com/mq/deep-interpretation-of-kafka-data-reliability/
+- https://www.infoq.cn/article/depth-interpretation-of-kafka-data-reliability
+- Mtrace
+- LeafId
+- RPC框架
+- 框架
+- RPC原理？
+- 负载均衡？
+- 容错策略？
+- Pigeon
+- Dubbo
+- GRPC
+- 序列化
+- thirft
+
+#### 分库分表
+- 如何进行？
+- 解决什么问题？
+- 怎么改造的？
+- Zebra
+#### Zookeeper
+
+
+### 分布式
+- 架构能力，分布式
+- 分布式系统设计开发
+- 分布式原理
+- BASE
+- CAP
+- 一致性Hash
+- Paxos
+- Raft
+- 2PC
+- 3PC
+- DDD理解
+- 并发
+- 单机并发
+- 集群并发
+- 高并发流量处理
+- 读多写少
+- 读少写多
+- 设计模式
+- 抽象思维
+- 可扩展性
+- 设计模式举例子？
+- 缓存，选型
+- 微服务架构
+- 服务治理
+- 服务性能度量和优化思考
+- 常见架构问题
+- 常见限流算法和优缺点？
+- https://xie.infoq.cn/article/32606ec229eb96f3bb4b295ee
+- 服务出现大量接口超市的问题排查和处理？
+- 分布式锁问题？分布式锁怎么实现的？锁的各种使用场景？需要注意什么问题？
+- ZK VS Redis
+- 常见ES问题？
+- ES设计时，索引如何设计的？索引的存储和查询原理和步骤？如何进行优化慢查询？深度分页问题如何解决？
+- 常见分库分表问题？
+- 分库分表使用场景，解决什么问题？
+- 如何进行分库分表
+- 分库分表一般都是跟随者业务量来进行的，改造过程会有什么坑吗？
+- 同步 VS 异步 ；阻塞  VS 非阻塞
+- https://www.zhihu.com/question/19732473
+- https://michaelygzhang.github.io/architecture/2020/10/11/concept.html
+- 服务注册中心？
+- zookeeper
+- nacos
+- 布隆过滤器
+- 原理？优缺点？解决什么问题？
+- 幂等问题场景？
+- 系统高可用
+- 系统高性能
+- 系统可扩展
+- 系统可伸缩
+
+### 大数据
+- Hadoop
+- Hive
+- Spark
+
+### DevOps
+- Docker
+- Kubernetes
+- jekines
+
+
+### 算法
+- 二分查找
+
 
 ###### Java Collections Framework（JCF）  
 
