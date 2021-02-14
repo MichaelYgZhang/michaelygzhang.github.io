@@ -55,8 +55,16 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 - equals vs ==
 - Arraylist
 - Volitatie
+- transient vs serialization vs Externalizable
+    - 1）一旦变量被transient修饰，变量将不再是对象持久化的一部分，该变量内容在序列化后无法获得访问。
+    - 2）transient关键字只能修饰变量，而不能修饰方法和类。注意，本地变量是不能被transient关键字修饰的。变量如果是用户自定义类变量，则该类需要实现Serializable接口。
+    - 3）被transient关键字修饰的变量不再能被序列化，一个静态变量不管是否被transient修饰，均不能被序列化。
+    - 对象的序列化可以通过实现两种接口来实现，若实现的是Serializable接口，则所有的序列化将会自动进行，若实现的是Externalizable接口，则没有任何东西可以自动序列化，需要在writeExternal方法中进行手工指定所要序列化的变量，这与是否被transient修饰无关
 - Synchronized
 - HashMap
+    - https://juejin.cn/post/6927211419918319630?utm_source=gold_browser_extension
+    - https://www.cnblogs.com/williamjie/p/9099141.html
+    - https://blog.csdn.net/ns_code/article/details/36034955
 - ConcurrentHashMap
 - sleep vs wait，join
 - notify vs notifyAll
@@ -76,7 +84,7 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 - CPU密集，IO密集
 - 如何进行监控
 - Callerrunspolicy风险？
-- 锁
+- 锁，锁的原理，synchronized 和 reentrantlock的区别，偏向锁/轻量级锁/重量级锁的原理，能否从偏向锁直接升级成重量级锁
 - 偏向锁，轻量锁，重量锁，锁升级过程
 - 锁粗化？锁消除？
 - 可重入锁
@@ -91,7 +99,8 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 - 如何将对象直接初始化到老年代？
 - 大对象？年轻代配置大小。
 - 类加载原理？
-- JVM内存模型？
+- JMM内存模型？
+    - https://juejin.cn/post/6926715555760046087
 - JVM常用命令？
 - https://my.oschina.net/feichexia/blog/196575
 - GC，算法
@@ -125,7 +134,12 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 - 大事务优化？
 #### Mybatis
 - $ vs # 区别？
+- https://www.cnblogs.com/williamjie/p/11188716.html
 #### Netty
+
+- java资料
+- https://mp.weixin.qq.com/s?__biz=MzkwMDE1MzkwNQ==&mid=2247495973&idx=1&sn=a18538bc3d9a3e92db729b4d347efb84&chksm=c04ae67bf73d6f6d6381cd21f164f5c9192215040f91f7403e20acb8d54976bc033e7c5dda05&token=549878447&lang=zh_CN#rd
+- https://www.cnblogs.com/williamjie/p/11139302.html
 
 
 ### 工程能力
@@ -142,7 +156,8 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 #### 线上问题排查？
 - CPU负载高如何排查？  服务注册与发现 + 服务器本身可能性能不足导致
 - CPU负载定义是什么？哪些因素可能导致CPU负载变高？
-- 如何找到CPU占用最高的线程？
+- 如何找到CPU占用最高的线程？ 
+    - https://juejin.cn/post/6927291610732429325
 - top 得到cpu使用率最高的进程 pid
 - top -H -p$pid 在进程下找到使用率比较高的线程号
 - top -Hp pid shift +p 按cpu使用情况排序 
@@ -153,7 +168,8 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 - jmap -dump:format=b,file=dumpFileName pid
 - 举例子：jmap -dump:format=b,file=/tmp/dump.dat 21711 
 - 内存泄漏问题？
-- TODO
+- 资料
+    - https://juejin.cn/post/6911624328472133646
 #### 其他坑
 - 服务迁移的坑？服务注册与发现Zookeeper目前只发现到 service，不到方法层面，导致服务打错服务调用自己的服务了。
 
@@ -162,11 +178,20 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 #### ES
 - 原理
 #### MySQL
+- https://mp.weixin.qq.com/s?__biz=MzAxNTM4NzAyNg==&mid=2247491894&idx=1&sn=05e52c044f20aeda15d6e0d046ffda4d&chksm=9b8671cbacf1f8ddffd0759eb69f7fe39e466273b1c895ac1620eada69c9fafcf46c8cb344f7&scene=132#wechat_redirect
+- https://mp.weixin.qq.com/s?__biz=MzU3MTAzNTMzMQ==&mid=2247485938&idx=1&sn=1a3525cb38e97f67f513dbbbf6cbd732&chksm=fce7125ecb909b48135cf8fc0be669cbbaedddb00965fd2aac17c18533a516d4004f26efba62&token=1066766011&lang=zh_CN#rd
+- http://blog.codinglabs.org/articles/theory-of-mysql-index.html
+- https://www.cnblogs.com/williamjie/p/11081592.html
+- https://www.cnblogs.com/williamjie/p/11080893.html
+- https://www.cnblogs.com/williamjie/p/11081081.html
+- https://baijiahao.baidu.com/s?id=1598257553176708891&wfr=spider&for=pc
+- http://neoremind.com/2020/01/inside_innodb_file/
+- https://www.cnblogs.com/yyjie/p/7486975.html
 - 原理
 - 索引
 - 聚集索引 vs 非聚聚索引？
 - filesort？
-- 索引数据结构
+- 索引数据结构？
 - B+Tree
 - 为什么这么设计？
 - 索引失效举例？
@@ -216,6 +241,7 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 - redis扩容机制？
 - Redis数据结构和使用场景
 - 分布式锁实现，有什么问题？是否有更好的解决方案？
+    - https://www.cnblogs.com/williamjie/p/9395659.html
 - setnx
 - px
 - 集群？
@@ -227,9 +253,12 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 - 原子命令？
 - 布隆过滤器？
 - zset？
+- 资料
+- - https://www.cnblogs.com/williamjie/p/11080889.html
 #### 消息队列
 - MQ如何实现延迟队列？
 - Kafka
+    - https://www.cnblogs.com/williamjie/p/11102282.html
 - 框架
 - 顺序消息是如何实现的？局部顺序？全局顺序？
 - 死信的使用场景？
@@ -301,6 +330,7 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 - https://michaelygzhang.github.io/architecture/2020/10/11/concept.html
 - 服务注册中心？
 - zookeeper
+- eureka
 - nacos
 - 布隆过滤器
 - 原理？优缺点？解决什么问题？
@@ -309,6 +339,9 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 - 系统高性能
 - 系统可扩展
 - 系统可伸缩
+##### 相关资料
+- https://juejin.cn/post/6922447992452710414?utm_source=gold_browser_extension
+- https://www.xuxueli.com/page/projects.html
 
 ### 大数据
 - Hadoop
@@ -323,6 +356,13 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 
 ### 算法
 - 二分查找
+- https://blog.csdn.net/ym123456677/article/details/112260079
+
+
+#### 面试资料
+- https://www.cnblogs.com/williamjie/category/1485042.html
+- https://www.cnblogs.com/williamjie/p/12532685.html
+- https://www.cnblogs.com/williamjie/p/11139302.html
 
 
 ###### Java Collections Framework（JCF）  
