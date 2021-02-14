@@ -5,6 +5,9 @@ excerpt: Interview-2018
 category: Interview
 ---
 
+- 20210214 update
+
+
 - 写在最前面: 问题主要从这几个方面来讲what？how？why？是什么？怎么用说一下使用场景？为什么这么样用？对比其它方案是否有更好的方案？
 - 总结：多思考什么场景适合用什么技术，以及是否有更好的技术方案。做过的事情需要总结成一句话来说，心得！！！！
 
@@ -186,7 +189,7 @@ volatile类型的变量baseCount计算size值，因为元素个数保存baseCoun
 2. 一般是客户端负责发送心跳的 PING 消息, 因此客户端注意关注 ALL_IDLE 事件, 在这个事件触发后, 客户端需要向服务器发送 PING 消息, 告诉服务器"我还存活着".
 3. 服务器是接收客户端的 PING 消息的, 因此服务器关注的是 READER_IDLE 事件, 并且服务器的 READER_IDLE 间隔需要比客户端的 ALL_IDLE 事件间隔大(例如客户端ALL_IDLE 是5s 没有读写时触发, 因此服务器的 READER_IDLE 可以设置为10s)
 4. 当服务器收到客户端的 PING 消息时, 会发送一个 PONG 消息作为回复. 一个 PING-PONG 消息对就是一个心跳交互.
-- [资料]( https://segmentfault.com/a/1190000006931568)
+- [资料](https://segmentfault.com/a/1190000006931568)
 - [资料IO](https://yq.aliyun.com/articles/75397?spm=a2c4e.11153940.blogrightarea75403.22.118338cc05ruap)
 
 
