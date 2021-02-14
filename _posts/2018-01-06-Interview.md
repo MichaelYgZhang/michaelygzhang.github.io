@@ -142,6 +142,16 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 - https://www.cnblogs.com/williamjie/p/11139302.html
 
 
+
+```plantuml
+@startuml component
+testClient -> testService:helloWorld
+@enduml
+```
+- 资料：
+    - https://blog.anoff.io/2018-07-31-diagrams-with-plantuml/
+    - https://plantuml.com/zh/
+
 ### 工程能力
 #### 服务稳定性保障？
 - 巡检？
