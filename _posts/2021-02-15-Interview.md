@@ -24,8 +24,8 @@ category: Interview
 > 总结内容包括如下几个方面
 
 - 计算机基础部分
-    - [] TCP/IP
-    - [] HTTP
+    - [ ] TCP/IP
+    - [x] HTTP
 -  Java
     - [] JDK
     - [] 多线程
