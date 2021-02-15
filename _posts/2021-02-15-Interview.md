@@ -24,7 +24,7 @@ category: Interview
 ## 面试总结
 ### 资料
 
-- [x] TODOList
+- [ ] TODOList
 - [x] md文档资料: <https://www.jianshu.com/p/8c1b2b39deb0/>
 
 --- 
