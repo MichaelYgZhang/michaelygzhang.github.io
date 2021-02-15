@@ -72,12 +72,10 @@ category: Interview
 
 
 # 计算机基础部分
-
 ## TCP/IP
 ## HTTP
 
 # Java
-
 ## JDK
 ## 多线程
 # Java框架
@@ -85,7 +83,6 @@ category: Interview
 ## Mybatis
 
 # 中间件
-
 ## Zookeeper
 ## Eureka
 ## Nacos
@@ -94,7 +91,6 @@ category: Interview
 ## Elasticsearch
 
 # 存储
-
 ## MySQL
 ## Redis
 ## HDFS
@@ -116,12 +112,15 @@ category: Interview
 ## 服务监控告警
 
 # 算法相关
+
 # 工程能力
 ## 代码质量
 ## maven, jar包加载顺序, jar包排包问题
+
 # 问题排查方面
 ## CPU负载问题
 ## 内存泄漏问题
+
 # 项目总结
 ## 架构图，分析架构设计原因
 ## 遇到的问题和挑战，如何进行处理和解决的？最后进行总结提炼心得体会或者方法伦？SOP
