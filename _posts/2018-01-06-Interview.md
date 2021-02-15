@@ -363,6 +363,9 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 - https://www.cnblogs.com/williamjie/p/12532685.html
 - https://www.cnblogs.com/williamjie/p/11139302.html
 
+### 其他资料
+- ![分布式相关](https://www.processon.com/view/5990ed4ee4b06df72659f1fd#map)
+
 
 ###### Java Collections Framework（JCF）  
 
