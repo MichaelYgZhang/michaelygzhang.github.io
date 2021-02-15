@@ -77,76 +77,404 @@ category: Interview
 
 # Java
 ## JDK
-## 多线程
-# Java框架
-## Spring
-## Mybatis
+### Java基础部分
+- equals vs ==
+- Volitatie
+- transient vs serialization vs Externalizable
+    - 1）一旦变量被transient修饰，变量将不再是对象持久化的一部分，该变量内容在序列化后无法获得访问。
+    - 2）transient关键字只能修饰变量，而不能修饰方法和类。注意，本地变量是不能被transient关键字修饰的。变量如果是用户自定义类变量，则该类需要实现Serializable接口。
+    - 3）被transient关键字修饰的变量不再能被序列化，一个静态变量不管是否被transient修饰，均不能被序列化。
+    - 对象的序列化可以通过实现两种接口来实现，若实现的是Serializable接口，则所有的序列化将会自动进行，若实现的是Externalizable接口，则没有任何东西可以自动序列化，需要在writeExternal方法中进行手工指定所要序列化的变量，这与是否被transient修饰无关
+- Synchronized
+- 锁，锁升级，
+- sleep vs wait，join
+- notify vs notifyAll
+- 等待池，锁池？
+### JCF（Java Collections Framework）
 
-# 中间件
-## Zookeeper
-## Eureka
-## Nacos
-## Etcd
-## kafka
-## Elasticsearch
-
-# 存储
-## MySQL
-## Redis
-## HDFS
-## HBase
-## 分库分表
-
-# 分布式架构相关
-## 2PC, 3PC, TCC
-## 分布式相关算法
-### Raft
-### Paxos
-
-# 服务设计和服务治理相关
-## 分布式事务
-## 幂等问题以及解决方案
-## 唯一id问题
-## 熔断
-## 限流
-## 服务监控告警
-
-# 算法相关
-
-# 工程能力
-## 代码质量
-## maven, jar包加载顺序, jar包排包问题
-
-# 问题排查方面
-## CPU负载问题
-## 内存泄漏问题
-
-# 项目总结
-## 架构图，分析架构设计原因
-## 遇到的问题和挑战，如何进行处理和解决的？最后进行总结提炼心得体会或者方法伦？SOP
-## 系统是否还有什么问题未处理和解决？
-
-## JAVA
-
-### JDK
-
-#### JCF（Java Collections Framework）
-##### List
+#### List
 - ArrayList
 - Vector
 - LinkList
 
-- 
-#### 多线程
+#### Map
+- HashMap
+    - 高并发情况下可能存在CPU负载高问题？
+    - https://juejin.cn/post/6927211419918319630?utm_source=gold_browser_extension
+    - https://www.cnblogs.com/williamjie/p/9099141.html
+    - https://blog.csdn.net/ns_code/article/details/36034955
+    - 为什么总是 2^n次？
+        - 原因 `hashcode & (length -1)` 如果length为奇数根据hashmap计算下标的算法则必然导致有一半的数据无法存储数据，空间浪费，所以必须为偶数
+- ConcurrentHashMap
+    - 如何保证高并发下读写性能与线程安全？
+        - CAS + Synchronize volatile
 
-### JVM
-#### JMM
-#### GC
+## 多线程
+- `锁`
+    - 锁的原理，synchronized 和 reentrantlock的区别，偏向锁/轻量级锁/重量级锁的原理，能否从偏向锁直接升级成重量级锁
+    - 偏向锁，轻量锁，重量锁，锁升级过程
+    - 锁粗化？锁消除？可重入锁
+- volatile
+    - 保证多线程间的可见性, 不保证原子性
+    - 避免指令重排序，如何进行避免的？JMM，8个基本操作，lock, read, load, use, assign, store, write
+- Semphore
+- CountDownLatch（以下简称 CDL）
+- CyclicBarrier
+    - java并发辅助类: <https://sa.sogou.com/sgsearch/sgs_tc_news.php?req=hobzKjkKLynRWJ4khJJLjdhp2-ixRXMKcc56sdMEWvE=>
+- ReentrantLock
+- `Synchronized VS Lock`
+- `AQS框架`
+- `CAS`
+    - ABA问题
+- 公平锁？非公平锁？
+- `ThreadLocal`
+    - 使用场景？怎么用？使用注意事项，原理是什么？
+- `线程池`
+    - 美团Java线程池资料: <https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html>
+    - ThreadPoolExecutor
+    - 原理
+    - 参数如何设置
+    - CPU密集，IO密集
+    - 如何进行监控
+    - Callerrunspolicy 风险？交给主线程进行执行，其他线程进行等待，可能拖垮主线程
+## JVM
+### JVM原理
+- 对象分配？
+- 栈帧？
+- 如何将对象直接初始化到老年代？
+- 大对象？年轻代配置大小。
+- `类加载原理`
+- JVM常用命令？
+    - https://my.oschina.net/feichexia/blog/196575
+- JVM垃圾回收机制有几种？工作原理是什么？CMS清理步骤？G1？
+- JVM内存模型类加载机制？为什么这么设计？
+- 堆栈，对象分析？
+- Serial 与 Parallel GC对别？
+- CMS
+- G1
+### JMM
+- JMM内存模型？
+    - https://juejin.cn/post/6926715555760046087
+### GC
+- GC，算法
+- 为什么年轻代用复制算法，年老代用标记-清除/压缩算法？
+- GCRoot 对象？
+- 常量，静态对象。。。
+- 标记清除
+- 复制
+- 标记压缩
+- 如何主动进行GC？
+    - system.gc()
+### JVM调优
+- 项目中JVM调优都调整那些参数？回收器？内存大小？CMS分代比例？日志打印信息？压缩针？    
+
+# Java框架
+## Spring
+- `事务传播机制`
+    - 原理
+    - 回滚机制？回滚异常都有那些？如何进行处理？
+- Spring中用到的设计模式
+- Interceptor，filter各自的使用场景
+- Spring启动流程
+    - https://www.cnblogs.com/shamo89/p/8184960.html
+- Spring注解声明和xml方式声明的区别？
+- `AOP的实现原理`？
+    - 2种动态代理模式？
+- `如何解决循环依赖问题？如果是构造方法注入能解决循环引用吗`？
+    - 3级缓存？
+- `大事务优化`？
+- AOP/IOC
+- Spring Bean创建过程？
+## SpringCloud
+### Ribbon 负载均衡
+- 负载均衡策略
+    - 轮训，随机。。TODO
+## Mybatis
+- $ vs # 区别？
+- https://www.cnblogs.com/williamjie/p/11188716.html
+
+## Netty
+
+> Java相关资料库
+- https://mp.weixin.qq.com/s?__biz=MzkwMDE1MzkwNQ==&mid=2247495973&idx=1&sn=a18538bc3d9a3e92db729b4d347efb84&chksm=c04ae67bf73d6f6d6381cd21f164f5c9192215040f91f7403e20acb8d54976bc033e7c5dda05&token=549878447&lang=zh_CN#rd
+- https://www.cnblogs.com/williamjie/p/11139302.html
+
+# 中间件
+## Zookeeper
+- TODO
+## Eureka
+- TODO
+## Nacos
+## Etcd
+## MQ
+- MQ如何实现延迟队列？
+- 死信的使用场景？
+- `幂等消费问题`
+### kafka
+- kafka <https://www.cnblogs.com/williamjie/p/11102282.html>
+- 顺序消息是如何实现的？局部顺序？全局顺序？
+- `消费挤压如何处理`
+- `如何保证消息不丢失`
+    - 怎么做？参数是什么？
+- `Rebalance过程`
+- 消费失败处理，消息积压问题处理？
+- Leader选举机制？
+- https://honeypps.com/mq/deep-interpretation-of-kafka-data-reliability/
+- https://www.infoq.cn/article/depth-interpretation-of-kafka-data-reliability
+## Elasticsearch
+- 常见ES问题？
+- ES设计时，索引如何设计的？索引的存储和查询原理和步骤？如何进行优化慢查询？深度分页问题如何解决？
+## LeafId
+## RPC
+- 框架
+- RPC原理？
+- 负载均衡？
+- 容错策略？
+- Pigeon
+- Dubbo
+- GRPC
+- 序列化
+- thirft
+
+# 存储
+## MySQL
+- https://mp.weixin.qq.com/s?__biz=MzAxNTM4NzAyNg==&mid=2247491894&idx=1&sn=05e52c044f20aeda15d6e0d046ffda4d&chksm=9b8671cbacf1f8ddffd0759eb69f7fe39e466273b1c895ac1620eada69c9fafcf46c8cb344f7&scene=132#wechat_redirect
+- https://mp.weixin.qq.com/s?__biz=MzU3MTAzNTMzMQ==&mid=2247485938&idx=1&sn=1a3525cb38e97f67f513dbbbf6cbd732&chksm=fce7125ecb909b48135cf8fc0be669cbbaedddb00965fd2aac17c18533a516d4004f26efba62&token=1066766011&lang=zh_CN#rd
+- http://blog.codinglabs.org/articles/theory-of-mysql-index.html
+- https://www.cnblogs.com/williamjie/p/11081592.html
+- https://www.cnblogs.com/williamjie/p/11080893.html
+- https://www.cnblogs.com/williamjie/p/11081081.html
+- https://baijiahao.baidu.com/s?id=1598257553176708891&wfr=spider&for=pc
+- http://neoremind.com/2020/01/inside_innodb_file/
+- https://www.cnblogs.com/yyjie/p/7486975.html
+- 原理
+- 索引
+- 聚集索引 vs 非聚聚索引？
+- filesort？
+- `索引数据结构`
+    - Hash, 精确匹配查询
+    - B Tree, 数据在中间节点和叶子节点，内存一页可以加载的数据比较少
+    - B+Tree, 数据只存储在叶子节点, 内存可以加载比较多的中间节点数据, 从而可以减少磁盘IO, 可以支持范围查询
+    - 为什么这么设计？
+- mysql InnoDB为什选择自增主键做主键？
+    - 聚簇索引每个页面装载因子（innodb 默认为 15/16）
+- 双写机制？
+- `redolog，undolog，binlog`这几个文件都有什么用？
+- `MVCC`
+    - 当前读
+    - 快照读
+- `索引失效举例`？
+    - 非最左匹配
+    - not in 
+    - 函数
+    - 运算 加减乘除
+- limit分页慢？
+    - 原因是什么？
+    - 如何解决？
+- update加锁过程？
+- ACID
+    - ACID是什么？
+    - InnoDB引擎如何保障ACID？
+- `事务隔离`
+    - 默认什么隔离级别？
+    - RR，每一种隔离级别为解决什么问题？
+- `锁`
+    - 锁种类？
+    - 记录锁
+    - 间隙锁grap锁
+    - 表锁
+    - 意向锁？
+    - 死锁
+    - 间隙锁插入意向锁？
+    - `死锁分析`？死锁解决处理？
+    - 场景举例？
+    - 2PL，两段锁
+        - 资料1: <https://blog.csdn.net/qq4165498/article/details/76855139>
+        - 资料2: <https://segmentfault.com/a/1190000012513286
+- SQL执行过程
+    - 查询器
+    - 优化器，缓存
+    - 执行引擎
+        - Innodb
+        - MyISAM
+- SQL优化
+    - 慢SLQ分析步骤？
+    - 慢SQL优化案例？
+    - `explain`  参数
+    - 资料1 <https://zhuanlan.zhihu.com/p/76494612>
+    - 资料2 <https://tech.meituan.com/>
+## Redis
+- redis高性能原因？
+- `数据一致性问题`
+    - 监听binlong
+- `缓存中的问题以及解决方案`
+    - 穿透
+    - 击穿: 更新DB加互斥锁，其他线程等待。
+    - 雪崩？不过期，随机，降级
+- `redis持久化`
+    - RDB
+    - AOF
+- Redis数据结构和使用场景
+- redis扩容机制？
+- 锁
+    - 分布式锁实现，有什么问题？是否有更好的解决方案？
+    - setnx, px
+    - 正确使用锁姿势 <https://www.cnblogs.com/williamjie/p/9395659.html>
+    - 锁续租问题？
+- `集群`
+    - `主从 + 哨兵`
+        - 如何选主？如何调度？
+    - 集群
+    - 公司集群方式？几主几丛？
+    - 主从同步机制？
+- 缓存击穿应急方案？
+- `大key大value问题`
+- 原子命令？
+- 布隆过滤器？
+- `zset`？
+- 资料1: <https://www.cnblogs.com/williamjie/p/11080889.html>
+## HDFS
+## HBase
+## 分库分表
+- 如何进行？
+- 解决什么问题？
+- 怎么改造的？
+- Zebra
+- 分库分表使用场景，解决什么问题？
+- 如何进行分库分表
+- 分库分表一般都是跟随者业务量来进行的，改造过程会有什么坑吗？
+
+# 分布式架构相关
+## 分布式原理
+- BASE
+- CAP
+## 2PC, 3PC, TCC
+- 2PC
+- 3PC
+- TCC
+## 分布式相关算法
+### Raft
+### Paxos
+### 一致性Hash
+
+# 服务设计和服务治理
+- processOn总结: <https://www.processon.com/view/5990ed4ee4b06df72659f1fd#map>
+## 服务设计
+## DDD
+- 读多写少
+- 读少写多
+- 抽象思维
+- 可扩展性
+- 缓存，选型
+- 微服务架构
+- 服务性能度量和优化思考
+- 常见架构问题
+- 服务出现大量接口超市的问题排查和处理？
+- 分布式锁问题？分布式锁怎么实现的？锁的各种使用场景？需要注意什么问题？
+- 同步 VS 异步 ；阻塞  VS 非阻塞
+- https://www.zhihu.com/question/19732473
+- https://michaelygzhang.github.io/architecture/2020/10/11/concept.html
+- `系统高可用`
+- `系统高性能`
+- 系统可扩展
+- `系统可伸缩`
+## 服务治理
+### 分布式链路追踪
+- Mtrace
+### 分布式事务
+### 幂等问题以及解决方案
+### 唯一id问题
+### 分布式锁
+#### Redis实现
+#### ZK实现
+#### MySQL实现
+### `熔断`
+#### 资源隔离之术
+- Hystrix
+    - 信号量隔离 VS 线程池隔离
+### `限流`
+- 常见限流算法和优缺点？
+    - 令牌桶，等 <https://xie.infoq.cn/article/32606ec229eb96f3bb4b295ee>
+- 布隆过滤器
+### 多级缓存
+- TODO
+### 压测
+- 为什么做？目的？怎么做？事前准备什么？中间过程是什么？事后总结？
+- 压测工具？
+### 服务监控告警
+- 服务稳定性保障？
+- 巡检？
+
+### 大数据
+- Hadoop
+- Hive
+- Spark
+
+### DevOps
+- Docker
+- Kubernetes
+- jekines
+
+
+# 设计模式
+- 各种设计模式以及如何使用问题
+
+# 算法相关
+- 常见笔试题 <https://blog.csdn.net/ym123456677/article/details/112260079>
+
+# 工程能力
+## 代码质量
+## maven, jar包加载顺序, jar包排包问题
+- Maven-jar包冲突如何处理？
+- 子pom > 父pom
+- 浅层依赖 > 深层依赖
+- 声明前 > 声明后
+## Git
+- git rebase vs git merge
+
+# 问题排查方面
+## CPU负载问题
+- CPU负载高如何排查？  遇到的case：服务注册与发现 + 服务器本身可能性能不足导致
+    - CPU负载定义是什么？哪些因素可能导致CPU负载变高？
+    - 如何找到CPU占用最高的线程？ 
+        - 资料: <https://juejin.cn/post/6927291610732429325>
+    - top 得到cpu使用率最高的进程 pid
+    - top -H -p$pid 在进程下找到使用率比较高的线程号
+    - top -Hp pid shift +p 按cpu使用情况排序 
+    - shift +m 按照内存使用情况排序
+    - Printf %x $tid  输出 十六进制 线程id
+    - jstack $pid | grep $tip 十六进制数据，ps：如果线上没有权限需要申请sudo 权限
+## 内存泄漏问题
+- 如何使用dump内存
+    - jmap -dump:format=b,file=dumpFileName pid
+    - 举例子：jmap -dump:format=b,file=/tmp/dump.dat 21711 
+- 内存泄漏问题？
+## 问题排查工具
+- MAT <https://juejin.cn/post/6911624328472133646>
+- 火焰图 <http://neoremind.com/2017/09/%e4%bd%bf%e7%94%a8%e7%81%ab%e7%84%b0%e5%9b%be%e5%81%9a%e6%80%a7%e8%83%bd%e5%88%86%e6%9e%90/>
+
+# 项目总结
+## 项目介绍, 架构图,分析架构设计原因
+- 框架分层
+- 框架思考
+- 框架总结
+- 数据层面
+- 监控告警
+## 遇到的问题和挑战,如何进行处理和解决的？最后进行总结提炼心得体会或者方法伦？SOP
+## 系统是否还有什么问题未处理和解决？
+
+# 经验教训
+- 服务迁移的坑？服务注册与发现Zookeeper目前只发现到 service，不到方法层面，导致服务打错服务调用自己的服务了。
 
 
 # 资料
-
+- XXL开源社区项目：<https://www.xuxueli.com/page/projects.html>
 - [x] md文档资料: <https://www.jianshu.com/p/8c1b2b39deb0/>
+## 临时存储面试资料
+- 割肉机面试题目: <https://www.cnblogs.com/williamjie/category/1485042.html>
+- Java面试题: <https://www.cnblogs.com/williamjie/p/12532685.html>
+- Java面试题: <https://www.cnblogs.com/williamjie/p/11139302.html>
+
 
 --- 
 
@@ -186,336 +514,6 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
     2. 不相信任何第三方服务做好容错降级处理,系统做到小步快跑,做好测试用例方便今后的扩展
     3. 提高内存使用率,减少IO, 指数级调用减少常量级调用
     4. 流量激增增加副本, 数据激增分库分表或者引入大数据HDFS
-
-##### 项目介绍
-###### 框架
-- 框架分层
-- 框架思考
-- 框架总结
-###### 数据层面
-- 数据沉淀
-###### 监控告警能力
-
-
-### 计算机基础
-#### HTTP
-#### TCP/IP
-
-### Java
-#### Java语言基础类原理
-- equals vs ==
-- Arraylist
-- Volitatie
-- transient vs serialization vs Externalizable
-    - 1）一旦变量被transient修饰，变量将不再是对象持久化的一部分，该变量内容在序列化后无法获得访问。
-    - 2）transient关键字只能修饰变量，而不能修饰方法和类。注意，本地变量是不能被transient关键字修饰的。变量如果是用户自定义类变量，则该类需要实现Serializable接口。
-    - 3）被transient关键字修饰的变量不再能被序列化，一个静态变量不管是否被transient修饰，均不能被序列化。
-    - 对象的序列化可以通过实现两种接口来实现，若实现的是Serializable接口，则所有的序列化将会自动进行，若实现的是Externalizable接口，则没有任何东西可以自动序列化，需要在writeExternal方法中进行手工指定所要序列化的变量，这与是否被transient修饰无关
-- Synchronized
-- HashMap
-    - https://juejin.cn/post/6927211419918319630?utm_source=gold_browser_extension
-    - https://www.cnblogs.com/williamjie/p/9099141.html
-    - https://blog.csdn.net/ns_code/article/details/36034955
-- ConcurrentHashMap
-- sleep vs wait，join
-- notify vs notifyAll
-- 等待池，锁池？
-- Semphore
-- CountDownLatch（以下简称 CDL）
-- CyclicBarrier    https://sa.sogou.com/sgsearch/sgs_tc_news.php?req=hobzKjkKLynRWJ4khJJLjdhp2-ixRXMKcc56sdMEWvE=
-- ReentrantLock
-- AQS
-- 公平锁？非公平锁？
-- CAS
-- ThreadLocal
-- 线程池。https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html
-- ThreadPoolExecutor
-- 原理
-- 参数如何设置
-- CPU密集，IO密集
-- 如何进行监控
-- Callerrunspolicy风险？
-- 锁，锁的原理，synchronized 和 reentrantlock的区别，偏向锁/轻量级锁/重量级锁的原理，能否从偏向锁直接升级成重量级锁
-- 偏向锁，轻量锁，重量锁，锁升级过程
-- 锁粗化？锁消除？
-- 可重入锁
-- TODO
-- AQS框架
-- 并发
-- 单机
-- 集群处理
-#### JVM
-- 对象分配？
-- 栈帧？
-- 如何将对象直接初始化到老年代？
-- 大对象？年轻代配置大小。
-- 类加载原理？
-- JMM内存模型？
-    - https://juejin.cn/post/6926715555760046087
-- JVM常用命令？
-- https://my.oschina.net/feichexia/blog/196575
-- GC，算法
-- 为什么年轻代用复制算法，年老代用标记-清除/压缩算法？
-- GCRoot 对象？
-- 常量，静态对象。。。
-- 标记清除
-- 复制
-- 标记压缩
-- JVM调优
-- 项目中JVM调优都调整那些参数？回收器？内存大小？CMS分代比例？日志打印信息？压缩针？
-- JVM垃圾回收机制有几种？工作原理是什么？CMS清理步骤？G1？
-- JVM内存模型类加载机制？为什么这么设计？
-- 堆栈，对象分析？
-- Serial 与 Parallel GC对别？
-- CMS？
-- 框架
-#### Spring
-- 事务传播机制
-- 原理
-- 回滚机制？
-- Spring中用到的设计模式
-- Interceptor，filter各自的使用场景
-- Spring启动流程
-- https://www.cnblogs.com/shamo89/p/8184960.html
-- Spring注解声明和xml方式声明的区别？
-- AOP的实现原理？
-- 2种动态代理模式？
-- 如何解决循环依赖问题？如果是构造方法注入能解决循环引用吗？
-- 3级缓存？
-- 大事务优化？
-#### Mybatis
-- $ vs # 区别？
-- https://www.cnblogs.com/williamjie/p/11188716.html
-#### Netty
-
-- java资料
-- https://mp.weixin.qq.com/s?__biz=MzkwMDE1MzkwNQ==&mid=2247495973&idx=1&sn=a18538bc3d9a3e92db729b4d347efb84&chksm=c04ae67bf73d6f6d6381cd21f164f5c9192215040f91f7403e20acb8d54976bc033e7c5dda05&token=549878447&lang=zh_CN#rd
-- https://www.cnblogs.com/williamjie/p/11139302.html
-
-### 工程能力
-#### 服务稳定性保障？
-- 巡检？
-#### git
-- git rebase
-- git
-#### 服务稳定性保障？
-- Maven-jar包冲突如何处理？
-- 子pom > 父pom
-- 浅层依赖 > 深层依赖
-- 声明前 > 声明后
-#### 线上问题排查？
-- CPU负载高如何排查？  服务注册与发现 + 服务器本身可能性能不足导致
-- CPU负载定义是什么？哪些因素可能导致CPU负载变高？
-- 如何找到CPU占用最高的线程？ 
-    - https://juejin.cn/post/6927291610732429325
-- top 得到cpu使用率最高的进程 pid
-- top -H -p$pid 在进程下找到使用率比较高的线程号
-- top -Hp pid shift +p 按cpu使用情况排序 
-- shift +m 按照内存使用情况排序
-- Printf %x $tid  输出 十六进制 线程id
-- jstack $pid | grep $tip 十六进制数据，ps：如果线上没有权限需要申请sudo 权限
-- 如果使用dump内存
-- jmap -dump:format=b,file=dumpFileName pid
-- 举例子：jmap -dump:format=b,file=/tmp/dump.dat 21711 
-- 内存泄漏问题？
-- 资料
-    - https://juejin.cn/post/6911624328472133646
-#### 其他坑
-- 服务迁移的坑？服务注册与发现Zookeeper目前只发现到 service，不到方法层面，导致服务打错服务调用自己的服务了。
-
-### 中间价
-- 持久化
-#### ES
-- 原理
-#### MySQL
-- https://mp.weixin.qq.com/s?__biz=MzAxNTM4NzAyNg==&mid=2247491894&idx=1&sn=05e52c044f20aeda15d6e0d046ffda4d&chksm=9b8671cbacf1f8ddffd0759eb69f7fe39e466273b1c895ac1620eada69c9fafcf46c8cb344f7&scene=132#wechat_redirect
-- https://mp.weixin.qq.com/s?__biz=MzU3MTAzNTMzMQ==&mid=2247485938&idx=1&sn=1a3525cb38e97f67f513dbbbf6cbd732&chksm=fce7125ecb909b48135cf8fc0be669cbbaedddb00965fd2aac17c18533a516d4004f26efba62&token=1066766011&lang=zh_CN#rd
-- http://blog.codinglabs.org/articles/theory-of-mysql-index.html
-- https://www.cnblogs.com/williamjie/p/11081592.html
-- https://www.cnblogs.com/williamjie/p/11080893.html
-- https://www.cnblogs.com/williamjie/p/11081081.html
-- https://baijiahao.baidu.com/s?id=1598257553176708891&wfr=spider&for=pc
-- http://neoremind.com/2020/01/inside_innodb_file/
-- https://www.cnblogs.com/yyjie/p/7486975.html
-- 原理
-- 索引
-- 聚集索引 vs 非聚聚索引？
-- filesort？
-- 索引数据结构？
-- B+Tree
-- 为什么这么设计？
-- 索引失效举例？
-- update加锁过程？
-- 事务隔离
-- 默认什么隔离级别？
-- RR
-- 锁
-- 锁种类？
-- 记录锁
-- 间隙锁
-- 表锁
-- 意向锁？
-- 死锁
-- 间隙锁插入意向锁？
-- 死锁分析？死锁解决处理？
-- 场景举例？
-- 2PL，两段锁
-- https://blog.csdn.net/qq4165498/article/details/76855139
-- https://segmentfault.com/a/1190000012513286
-- SQL优化
-- 慢SLQ分析步骤？
-- 慢SQL优化案例？
-- mysql InnoDB为什选择自增主键做主键？
-- 聚簇索引每个页面装载因子（innodb 默认为 15/16）
-- 双写机制？
-- redolog，undolog，binlog这几个文件都有什么用？
-- 面试问题
-- RR，每一种隔离级别为解决什么问题？
-- MVCC
-- 当前读
-- 快照读
-- grap锁
-- explain  参数
-- 资料
-- https://zhuanlan.zhihu.com/p/76494612
-- https://tech.meituan.com/
-#### Redis
-- 数据一致性问题
-- 监听binlong
-- 缓存，穿透，击穿，雪崩？
-- 雪崩？不过期，随机，降级
-- 击穿：更新DB加互斥锁，其他线程等待。
-- redis持久化？
-- RDB
-- AOF
-- redis扩容机制？
-- Redis数据结构和使用场景
-- 分布式锁实现，有什么问题？是否有更好的解决方案？
-    - https://www.cnblogs.com/williamjie/p/9395659.html
-- setnx
-- px
-- 集群？
-- 哨兵
-- 集群
-- 公司集群方式？几主几丛？
-- 主从同步机制？
-- 缓存击穿应急方案？
-- 原子命令？
-- 布隆过滤器？
-- zset？
-- 资料
-- - https://www.cnblogs.com/williamjie/p/11080889.html
-#### 消息队列
-- MQ如何实现延迟队列？
-- Kafka
-    - https://www.cnblogs.com/williamjie/p/11102282.html
-- 框架
-- 顺序消息是如何实现的？局部顺序？全局顺序？
-- 死信的使用场景？
-- 消费挤压如何处理？
-- 消费失败处理，消息挤压问题处理？
-- https://honeypps.com/mq/deep-interpretation-of-kafka-data-reliability/
-- https://www.infoq.cn/article/depth-interpretation-of-kafka-data-reliability
-- Mtrace
-- LeafId
-- RPC框架
-- 框架
-- RPC原理？
-- 负载均衡？
-- 容错策略？
-- Pigeon
-- Dubbo
-- GRPC
-- 序列化
-- thirft
-
-#### 分库分表
-- 如何进行？
-- 解决什么问题？
-- 怎么改造的？
-- Zebra
-#### Zookeeper
-
-
-### 分布式
-- 架构能力，分布式
-- 分布式系统设计开发
-- 分布式原理
-- BASE
-- CAP
-- 一致性Hash
-- Paxos
-- Raft
-- 2PC
-- 3PC
-- DDD理解
-- 并发
-- 单机并发
-- 集群并发
-- 高并发流量处理
-- 读多写少
-- 读少写多
-- 设计模式
-- 抽象思维
-- 可扩展性
-- 设计模式举例子？
-- 缓存，选型
-- 微服务架构
-- 服务治理
-- 服务性能度量和优化思考
-- 常见架构问题
-- 常见限流算法和优缺点？
-- https://xie.infoq.cn/article/32606ec229eb96f3bb4b295ee
-- 服务出现大量接口超市的问题排查和处理？
-- 分布式锁问题？分布式锁怎么实现的？锁的各种使用场景？需要注意什么问题？
-- ZK VS Redis
-- 常见ES问题？
-- ES设计时，索引如何设计的？索引的存储和查询原理和步骤？如何进行优化慢查询？深度分页问题如何解决？
-- 常见分库分表问题？
-- 分库分表使用场景，解决什么问题？
-- 如何进行分库分表
-- 分库分表一般都是跟随者业务量来进行的，改造过程会有什么坑吗？
-- 同步 VS 异步 ；阻塞  VS 非阻塞
-- https://www.zhihu.com/question/19732473
-- https://michaelygzhang.github.io/architecture/2020/10/11/concept.html
-- 服务注册中心？
-- zookeeper
-- eureka
-- nacos
-- 布隆过滤器
-- 原理？优缺点？解决什么问题？
-- 幂等问题场景？
-- 系统高可用
-- 系统高性能
-- 系统可扩展
-- 系统可伸缩
-##### 相关资料
-- https://juejin.cn/post/6922447992452710414?utm_source=gold_browser_extension
-- https://www.xuxueli.com/page/projects.html
-
-### 大数据
-- Hadoop
-- Hive
-- Spark
-
-### DevOps
-- Docker
-- Kubernetes
-- jekines
-
-
-### 算法
-- 二分查找
-- https://blog.csdn.net/ym123456677/article/details/112260079
-
-
-#### 面试资料
-- https://www.cnblogs.com/williamjie/category/1485042.html
-- https://www.cnblogs.com/williamjie/p/12532685.html
-- https://www.cnblogs.com/williamjie/p/11139302.html
-
-### 其他资料
-- ![分布式相关](https://www.processon.com/view/5990ed4ee4b06df72659f1fd#map)
 
 
 ###### Java Collections Framework（JCF）  
