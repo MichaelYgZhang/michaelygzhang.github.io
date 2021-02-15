@@ -812,17 +812,6 @@ bool idempotent_withdraw(ticket_id, account_id, amount);
 - 服务迁移的坑？服务注册与发现Zookeeper目前只发现到 service，不到方法层面，导致服务打错服务调用自己的服务了。
 
 
-# 资料
-- XXL开源社区项目：<https://www.xuxueli.com/page/projects.html>
-- [x] md文档资料: <https://www.jianshu.com/p/8c1b2b39deb0/>
-
-## 临时存储面试资料
-- 割肉机面试题目: <https://www.cnblogs.com/williamjie/category/1485042.html>
-- Java面试题: <https://www.cnblogs.com/williamjie/p/12532685.html>
-- Java面试题: <https://www.cnblogs.com/williamjie/p/11139302.html>
-
-
-
 --- 
 
 技术问题套路：原理是什么？可以解决什么问题？怎么用的？为什么这么用？是否还有其他更好的方案？
@@ -1082,3 +1071,12 @@ _id=x
 - [Google Interview University 一套完整的学习手册帮助自己准备 Google 的面试](https://github.com/jwasham/coding-interview-university/blob/master/translations/README-cn.md)
 - [technology-talk](https://github.com/aalansehaiyang/technology-talk)
 - [Interview-Notebook](https://github.com/CyC2018/Interview-Notebook)
+
+# 资料
+- XXL开源社区项目：<https://www.xuxueli.com/page/projects.html>
+- [x] md文档资料: <https://www.jianshu.com/p/8c1b2b39deb0/>
+
+## 临时存储面试资料
+- 割肉机面试题目: <https://www.cnblogs.com/williamjie/category/1485042.html>
+- Java面试题: <https://www.cnblogs.com/williamjie/p/12532685.html>
+- Java面试题: <https://www.cnblogs.com/williamjie/p/11139302.html>
