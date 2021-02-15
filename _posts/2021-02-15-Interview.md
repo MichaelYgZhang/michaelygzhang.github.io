@@ -72,11 +72,15 @@ category: Interview
 
 
 # 计算机基础部分
+
 ## TCP/IP
+
 ## HTTP
 
 # Java
+
 ## JDK
+
 ### Java基础部分
 - equals vs ==
 - transient vs serialization vs Externalizable
@@ -84,6 +88,8 @@ category: Interview
     - 2）transient关键字只能修饰变量，而不能修饰方法和类。注意，本地变量是不能被transient关键字修饰的。变量如果是用户自定义类变量，则该类需要实现Serializable接口。
     - 3）被transient关键字修饰的变量不再能被序列化，一个静态变量不管是否被transient修饰，均不能被序列化。
     - 对象的序列化可以通过实现两种接口来实现，若实现的是Serializable接口，则所有的序列化将会自动进行，若实现的是Externalizable接口，则没有任何东西可以自动序列化，需要在writeExternal方法中进行手工指定所要序列化的变量，这与是否被transient修饰无关
+
+
 ### JCF（Java Collections Framework）
 
 #### List
@@ -138,6 +144,7 @@ category: Interview
     - Callerrunspolicy 风险？交给主线程进行执行，其他线程进行等待，可能拖垮主线程
 
 ## JVM
+
 ### JVM原理
 - 对象分配？
 - 栈帧？
@@ -152,9 +159,13 @@ category: Interview
 - Serial 与 Parallel GC对别？
 - CMS
 - G1
+
+
 ### JMM
 - `JMM内存模型`？
     - JMM内存模型: <https://juejin.cn/post/6926715555760046087>
+
+
 ### GC
 - GC，算法
 - 为什么年轻代用复制算法，年老代用标记-清除/压缩算法？
@@ -165,10 +176,14 @@ category: Interview
 - 标记压缩
 - 如何主动进行GC？
     - system.gc()
+
+
 ### JVM调优
 - `项目中JVM调优都调整那些参数`？回收器？内存大小？CMS分代比例？日志打印信息？压缩针？    
 
+
 # Java框架
+
 ## Spring
 - `事务传播机制`
     - 原理
@@ -185,31 +200,47 @@ category: Interview
 - `大事务优化`？
 - `AOP/IOC`
 - `Spring Bean创建过程`？
+
+
 ## SpringCloud
+
+
 ### Ribbon 负载均衡
 - `负载均衡策略`
     - 轮训，随机。。TODO
+
+
 ## Mybatis
 - `$ vs # 区别`？
     - https://www.cnblogs.com/williamjie/p/11188716.html
 
+
 ## Netty
+
 
 > Java相关资料库
 - https://mp.weixin.qq.com/s?__biz=MzkwMDE1MzkwNQ==&mid=2247495973&idx=1&sn=a18538bc3d9a3e92db729b4d347efb84&chksm=c04ae67bf73d6f6d6381cd21f164f5c9192215040f91f7403e20acb8d54976bc033e7c5dda05&token=549878447&lang=zh_CN#rd
 - https://www.cnblogs.com/williamjie/p/11139302.html
 
+
 # 中间件
+
 ## Zookeeper
 - TODO
+
 ## Eureka
 - TODO
+
 ## Nacos
+
 ## Etcd
+
 ## MQ
 - MQ如何实现延迟队列？
 - 死信的使用场景？
 - `幂等消费问题`
+
+
 ### kafka
 - kafka <https://www.cnblogs.com/williamjie/p/11102282.html>
 - `顺序消息是如何实现的？局部顺序？全局顺序`？
@@ -222,13 +253,16 @@ category: Interview
     - https://honeypps.com/mq/deep-interpretation-of-kafka-data-reliability/
     - https://www.infoq.cn/article/depth-interpretation-of-kafka-data-reliability
 
+
 ## Elasticsearch
 - 常见ES问题？
 - `ES设计时，索引如何设计的`？
 - 索引的存储和查询原理和步骤？
 - 如何进行优化慢查询？深度分页问题如何解决？
 
+
 ## LeafId
+
 ## RPC
 - 框架
 - `RPC原理`？
@@ -241,6 +275,7 @@ category: Interview
 - thirft
 
 # 存储
+
 ## MySQL
 - https://mp.weixin.qq.com/s?__biz=MzAxNTM4NzAyNg==&mid=2247491894&idx=1&sn=05e52c044f20aeda15d6e0d046ffda4d&chksm=9b8671cbacf1f8ddffd0759eb69f7fe39e466273b1c895ac1620eada69c9fafcf46c8cb344f7&scene=132#wechat_redirect
 - https://mp.weixin.qq.com/s?__biz=MzU3MTAzNTMzMQ==&mid=2247485938&idx=1&sn=1a3525cb38e97f67f513dbbbf6cbd732&chksm=fce7125ecb909b48135cf8fc0be669cbbaedddb00965fd2aac17c18533a516d4004f26efba62&token=1066766011&lang=zh_CN#rd
@@ -306,6 +341,8 @@ category: Interview
     - `explain`  参数
     - 资料1 <https://zhuanlan.zhihu.com/p/76494612>
     - 资料2 <https://tech.meituan.com/>
+
+
 ## Redis
 - `redis高性能原因`？
 - `数据一致性问题`
@@ -337,8 +374,11 @@ category: Interview
 - `zset`？
 - 资料1: <https://www.cnblogs.com/williamjie/p/11080889.html>
 
+
 ## HDFS
+
 ## HBase
+
 ## 分库分表
 - 如何进行？
 - 解决什么问题？
@@ -349,21 +389,29 @@ category: Interview
 - 分库分表一般都是跟随者业务量来进行的，改造过程会有什么坑吗？
 
 # 分布式架构相关
+
 ## 分布式原理
 - `BASE`
 - `CAP`
+
 ## 2PC, 3PC, TCC
 - 2PC
 - 3PC
 - TCC
+
 ## 分布式相关算法
+
 ### `Raft`
+
 ### Paxos
+
 ### `一致性Hash`
 
 # 服务设计和服务治理
 - processOn总结: <https://www.processon.com/view/5990ed4ee4b06df72659f1fd#map>
+
 ## 服务设计
+
 ## DDD
 - 读多写少
 - 读少写多
@@ -392,36 +440,50 @@ category: Interview
 
 ### 分布式事务
 - TODO
+
 ### `幂等问题以及解决方案`
 - TODO
+
 ### 唯一id问题
 
 ### `分布式锁`
+
 #### Redis实现
+
 #### ZK实现
+
 #### MySQL实现
 
 ### `熔断`
+
 #### `资源隔离之术`
 - Hystrix
     - 信号量隔离 VS 线程池隔离
+
 ### `限流`
 - 常见限流算法和优缺点？
     - 令牌桶，等 <https://xie.infoq.cn/article/32606ec229eb96f3bb4b295ee>
 - 布隆过滤器
+
 ### 多级缓存
 - TODO
+
+
 ### `压测`
 - 为什么做？目的？怎么做？事前准备什么？中间过程是什么？事后总结？
 - 压测工具？
+
+
 ### `服务监控告警`
 - 服务稳定性保障？
 - 巡检？
+
 
 ### 大数据
 - Hadoop
 - Hive
 - Spark
+
 
 ### DevOps
 - Docker
@@ -432,20 +494,26 @@ category: Interview
 # `设计模式`
 - 各种设计模式以及如何使用问题
 
+
 # `算法相关`
 - 常见笔试题 <https://blog.csdn.net/ym123456677/article/details/112260079>
 
+
 # 工程能力
+
 ## 代码质量
+
 ## maven, jar包加载顺序, jar包排包问题
 - Maven-jar包冲突如何处理？
     - 子pom > 父pom
     - 浅层依赖 > 深层依赖
     - 声明前 > 声明后
+
 ## Git
 - git rebase vs git merge
 
 # `问题排查方面`
+
 ## CPU负载问题
 - CPU负载高如何排查？  遇到的case：服务注册与发现 + 服务器本身可能性能不足导致
     - CPU负载定义是什么？哪些因素可能导致CPU负载变高？
@@ -457,23 +525,32 @@ category: Interview
     - shift +m 按照内存使用情况排序
     - Printf %x $tid  输出 十六进制 线程id
     - jstack $pid | grep $tip 十六进制数据，ps：如果线上没有权限需要申请sudo 权限
+
+
 ## 内存泄漏问题
 - 如何使用dump内存
     - jmap -dump:format=b,file=dumpFileName pid
     - 举例子：jmap -dump:format=b,file=/tmp/dump.dat 21711 
 - 内存泄漏问题？
+
+
 ## 问题排查工具
 - MAT <https://juejin.cn/post/6911624328472133646>
 - 火焰图 <http://neoremind.com/2017/09/%e4%bd%bf%e7%94%a8%e7%81%ab%e7%84%b0%e5%9b%be%e5%81%9a%e6%80%a7%e8%83%bd%e5%88%86%e6%9e%90/>
 
+
 # 项目总结
+
 ## 项目介绍, 架构图,分析架构设计原因
 - 框架分层
 - 框架思考
 - 框架总结
 - 数据层面
 - 监控告警
+
+
 ## 遇到的问题和挑战,如何进行处理和解决的？最后进行总结提炼心得体会或者方法伦？SOP
+
 ## 系统是否还有什么问题未处理和解决？
 
 # 经验教训
@@ -483,6 +560,7 @@ category: Interview
 # 资料
 - XXL开源社区项目：<https://www.xuxueli.com/page/projects.html>
 - [x] md文档资料: <https://www.jianshu.com/p/8c1b2b39deb0/>
+
 ## 临时存储面试资料
 - 割肉机面试题目: <https://www.cnblogs.com/williamjie/category/1485042.html>
 - Java面试题: <https://www.cnblogs.com/williamjie/p/12532685.html>
