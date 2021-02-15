@@ -12,7 +12,7 @@ category: Interview
 
 ---
 
-#### ChangeLog
+# ChangeLog
 
 |版本 | 备注|
 |:-|:-|
@@ -20,11 +20,16 @@ category: Interview
 
 ---
 
-# 面试
-## 面试总结
-### 资料
+# 面试总结
+> 概述: 总结内容包括如下几个方面, `计算机基础部分: TCP/IP/HTTP`; `Java: JDK, 多线程`; `框架: Spring, Mybatis`; `中间件: Zookeeper, Eureka, Nacos, Etcd, 消息中间件: kafka, Elasticsearch`; `存储: MySQL, Redis, HDFS, HBase`; `分布式架构相关: 2PC, 3PC, TCC, 算法, 分布式事务, 等以及分布式架构情况的幂等问题，唯一id问题，熔断，限流, 服务监控告警, 数据读写分离等`, `算法: 常考算法题`
 
-- [ ] TODOList
+## JAVA
+### JDK
+#### [] JUC
+#### [] 多线程
+
+# 资料
+
 - [x] md文档资料: <https://www.jianshu.com/p/8c1b2b39deb0/>
 
 --- 
