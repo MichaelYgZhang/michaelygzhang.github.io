@@ -88,10 +88,11 @@ category: Interview
     - 2）transient关键字只能修饰变量，而不能修饰方法和类。注意，本地变量是不能被transient关键字修饰的。变量如果是用户自定义类变量，则该类需要实现Serializable接口。
     - 3）被transient关键字修饰的变量不再能被序列化，一个静态变量不管是否被transient修饰，均不能被序列化。
     - 对象的序列化可以通过实现两种接口来实现，若实现的是Serializable接口，则所有的序列化将会自动进行，若实现的是Externalizable接口，则没有任何东西可以自动序列化，需要在writeExternal方法中进行手工指定所要序列化的变量，这与是否被transient修饰无关
+
+
 #### 字符串不变性的好处/不变性编程 常量池
 - 谈到了不可变类和String，大意就是 他会更倾向于使用不可变类，它能够缓存结果，当你在传参的时候，使用不可变类不需要去考虑谁可能会修改其内部的值，这个问题不存在的。如果使用可变类的话，可能需要每次记得重新拷贝出里面的值，性能会有一定的损失。
 - 迫使String类设计成不可变的另一个原因是安全，当你在调用其他方法，比如调用一些系统级操作之前，可能会有一系列校验，如果是可变类的话，可能在你校验过后，其内部的值被改变了，可能引起严重的系统崩溃问题，这是迫使String类设计成不可变类的重要原因。
-    
 1. 效率高，字符串池可复用节约内存高效
 2. 安全性(因为字符串是不可变的，所以它的值是不可改变的，否则黑客们可以钻到空子，改变字符串指向的对象的值，造成安全漏洞。)
 3. 因为字符串是不可变的，所以是多线程安全的，同一个字符串实例可以被多个线程共享。这样便不用因为线程安全问题而使用同步。字符串自己便是线程安全的。
@@ -104,10 +105,8 @@ category: Interview
 - final／static？TODO
 
 ### JCF（Java Collections Framework）
-
 - <http://java-performance.com/>
 - <https://docs.oracle.com/javase/8/docs/technotes/guides/collections/overview.html>
-
 ![JCF](https://upload-images.jianshu.io/upload_images/2243690-9cd9c896e0d512ed.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/643)
 ![java.util.Collection class and interface hierarchy](https://upload.wikimedia.org/wikipedia/commons/a/ab/Java.util.Collection_hierarchy.svg)
 ![Java's java.util.Map class and interface hierarchy](https://upload.wikimedia.org/wikipedia/commons/7/7b/Java.util.Map_hierarchy.svg)
@@ -436,8 +435,10 @@ category: Interview
 - MQ如何实现延迟队列？
 - 死信的使用场景？
 - `幂等消费问题`
+
 ### mq如何保证幂等
 - a,mq,落地db,b。a生成一个业务相关全局唯一biz_id,a发给mq,mq落地db,返回给a说成功了，若失败a重试,mq生成内部一个唯一msg_id业务无关的,这样保证b接受的幂等,会有定时删除重复的数据。b接受消息时，根据a生成的id,判断以此保证b幂等，mq重复策略，可以是1s,3s,5s重复发送机制。
+
 ### 环行队列实现延迟消息，可以很好避免定时任务的扫库的效率低的问题? RingBuffer?
 
 - [资料-cache](https://timyang.net/data/cache-failure/)
@@ -610,8 +611,10 @@ select * from table_name where id = ‘xxx’ for update;
 - `布隆过滤器`？
 - `zset`？
 - 资料1: <https://www.cnblogs.com/williamjie/p/11080889.html>
+
 ### Redis VS Memcached 优缺点？ 如何选型？
 - [redisVSMemcached](https://michaelygzhang.github.io/destributed/2018/01/26/redis-memcached.html)
+
 ### redis高效点？redis数据结构？Redis为什么高效,原理是什么，为什么使用跳表结构存储？持久化实现方式？
 - [redis源码](https://github.com/menwengit/redis_source_annotation)
 
