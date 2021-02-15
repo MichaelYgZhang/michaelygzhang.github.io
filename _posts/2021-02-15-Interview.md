@@ -2,7 +2,7 @@
 layout: post
 title: 面试总结
 excerpt: 面试总结
-category: 面试总结
+category: Interview
 ---
 
 
