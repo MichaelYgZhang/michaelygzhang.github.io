@@ -158,7 +158,7 @@ category: Interview
         1. 线程A执行tryLock()方法成功获取锁，则把HashEntry对象插入到相应的位置；
         2. 线程B获取锁失败，则执行scanAndLockForPut()方法，在scanAndLockForPut方法中，会通过重复执行tryLock()方法尝试获取锁，在多处理器环境下，重复次数为64，单处理器重复次数为1，当执行tryLock()方法的次数超过上限时，则执行lock()方法挂起线程B；
         3. 当线程A执行完插入操作时，会通过unlock()方法释放锁，接着唤醒线程B继续执行；
-    - ConcurrentHashMap JDK1.8 Node数组 + CAS + Synchronized | 数组+链表+红黑树
+    - ConcurrentHashMap JDK1.8 Node数组 + CAS + Synchronized 数组+链表+红黑树
         - volatile类型的变量baseCount计算size值，因为元素个数保存baseCount中，部分元素的变化个数保存在CounterCell数组中，通过累加baseCount和CounterCell数组中的数量，即可得到元素的总个数；
         - 扩容时优先扩容数组(<64时),2倍数组进行扩容; 然后才是当单链>8时转化红黑树；
 
