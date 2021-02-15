@@ -6,6 +6,36 @@ category: Interview
 ---
 
 
+* TOC
+{:toc}
+
+
+---
+
+#### ChangeLog
+
+|版本 | 备注|
+|:-|:-|
+|1.0.0|2021-02-15第一个版本，系统化总结面试相关内容，完成大纲|
+
+---
+
+### 资料
+
+- [x] TODOList
+- [x] md文档资料: <https://www.jianshu.com/p/8c1b2b39deb0/>
+
+
+```flow
+st=>start: 开始
+op=>operation: My Operation
+cond=>condition: Yes or No?
+e=>end
+st->op->cond
+cond(yes)->e
+cond(no)->op
+&```
+
 
 - 写在最前面: 问题主要从这几个方面来讲what？how？why？是什么？怎么用说一下使用场景？为什么这么样用？对比其它方案是否有更好的方案？
 - 总结：多思考什么场景适合用什么技术，以及是否有更好的技术方案。做过的事情需要总结成一句话来说，心得！！！！
