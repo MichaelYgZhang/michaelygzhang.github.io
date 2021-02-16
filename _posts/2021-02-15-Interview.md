@@ -83,13 +83,17 @@ category: Interview
 
 ### Java基础部分
 - equals vs ==
-    - 对于字符串String：equlas: 比较对象内容（JDK String重写了equals方法），== 比较对象内存首地址
-    - 对于非字符串变量来说，==和equals方法的作用是相同的都是用来比较其对象在堆内存的首地址，即用来比较两个引用变量是否指向同一个对象。
-    - 如果是基本类型（byte, short, int, long, float, double, char,boolean）比较，那么只能用==来比较，不能用equals();
-    - 对于基本类型的包装类型，比如Boolean、Character、Byte、Shot、Integer、Long、Float、Double等的引用变量，==是比较地址的，而equals是比较内容的。
-    - 注意一个基本的原则：在定义一个类的时候，如果涉及到对象的比较，应该重写equals()方法。同时需要重写hashcode方法。
-        - 两个对象equals方法相同则hashcode方法一定相同，反之hashcode相同可能为hash冲突equlas方法不一定相同。
-        - 如何重写equals？如何重写hashcode？hashcode重写通常质数（31 * 对象的filed hashcode）
+    - == 
+        1. 用于基本数据类型比较的是值，基础类型（byte, short, int, long, float, double, char,boolean）
+        2. 用于包装类型（引用类）比较的是对象内存地址
+    - equals
+        1. equals方法如果没有重写，比较的是对象内存地址
+        2. equals方法如果重写，则根据重写内容进行比较
+            - String：重写了equals方法，比较的是内容
+    - 扩展：
+        - 注意一个基本的原则：重写equals()方法同时需要重写hashcode()方法。
+            - 两个对象equals方法相同则hashcode方法一定相同，反之hashcode相同可能为hash冲突equlas方法不一定相同。
+            - 如何重写equals？如何重写hashcode？hashcode重写通常质数（31 * 对象的filed hashcode）
         ```java
         @Override
         public boolean equals(Object obj) {
@@ -115,9 +119,9 @@ category: Interview
         ```
 
 - transient vs serialization vs Externalizable
-    - 一旦变量被transient修饰，变量将不再是对象持久化的一部分，该变量内容在序列化后无法获得访问。
+    - 变量被transient修饰，变量将不再是对象持久化的一部分，该变量内容在序列化后无法获得访问。
     - transient关键字只能修饰变量，而不能修饰方法和类。注意，本地变量是不能被transient关键字修饰的。变量如果是用户自定义类变量，则该类需要实现Serializable接口。
-    - 被transient关键字修饰的变量不再能被序列化，一个静态变量不管是否被transient修饰，均不能被序列化。
+    - 一个静态变量不管是否被transient修饰，均不能被序列化。
     - 对象的序列化可以通过实现两种接口来实现，若实现的是Serializable接口，则所有的序列化将会自动进行，若实现的是Externalizable接口，则没有任何东西可以自动序列化，需要在writeExternal方法中进行手工指定所要序列化的变量，这与是否被transient修饰无关
 
 - 字符串不变性的好处/不变性编程 常量池
@@ -129,8 +133,11 @@ category: Interview
     4. hashcode在字符串生成时就计算好了比如作为map的key值更高效
     5. 因为字符串是不可变的，所以在它创建的时候hashcode就被缓存了，不需要重新计算。这就使得字符串很适合作为Map中的键，字符串的处理速度要快过其它的键对象。这就是HashMap中的键往往都使用字符串。
 
-- 异常处理
-    - 异常处理，主要在异常时最后关闭回收资源，定期分析异常日志找到问题处理问题，具体明确是那类异常提早抛出延迟捕获？
+- 异常
+![java-exception-error](https://raw.githubusercontent.com/MichaelYgZhang/michaelygzhang.github.io/master/images/java-exception-error.png)
+    - 异常处理: 主要在异常时最后关闭回收资源，定期分析异常日志找到问题处理问题，具体明确是那类异常提早抛出延迟捕获？
+
+
 
 - final／static？TODO
 
