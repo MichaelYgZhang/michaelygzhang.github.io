@@ -134,12 +134,215 @@ category: Interview
     5. 因为字符串是不可变的，所以在它创建的时候hashcode就被缓存了，不需要重新计算。这就使得字符串很适合作为Map中的键，字符串的处理速度要快过其它的键对象。这就是HashMap中的键往往都使用字符串。
 
 - 异常
-![java-exception-error](https://raw.githubusercontent.com/MichaelYgZhang/michaelygzhang.github.io/master/images/java-exception-error.png)
+    - ![java-exception-error](https://raw.githubusercontent.com/MichaelYgZhang/michaelygzhang.github.io/master/images/java-exception-error.png)
+    - Exception VS Error
+        - Exception 和 Error 都是继承了 Throwable 类，在 Java 中只有 Throwable 类型的实例才可以被抛出（throw）或者捕获（catch），它是异常处理机制的基本组成类型。
+        - Exception 和 Error 体现了 Java 平台设计者对不同异常情况的分类。Exception 是程序正常运行中，可以预料的意外情况，可能并且应该被捕获，进行相应处理。
+        - Error 是指在正常情况下，不大可能出现的情况，绝大部分的 Error 都会导致程序（比如 JVM 自身）处于非正常的、不可恢复状态。既然是非正常情况，所以不便于也不需要捕获，常见的比如 OutOfMemoryError 之类，都是 Error 的子类。
+        - Exception 又分为可检查（checked）异常和不检查（unchecked）异常，可检查异常在源代码里必须显式地进行捕获处理，这是编译期检查的一部分。前面我介绍的不可查的 Error，是 Throwable 不是 Exception。
+        - 不检查异常就是所谓的运行时异常，类似 NullPointerException、ArrayIndexOutOfBoundsException 之类，通常是可以编码避免的逻辑错误，具体根据需要来判断是否需要捕获，并不会在编译期强制要求。
     - 异常处理: 主要在异常时最后关闭回收资源，定期分析异常日志找到问题处理问题，具体明确是那类异常提早抛出延迟捕获？
+    - 异常处理准则
+        - 第一，尽量不要捕获类似 Exception 这样的通用异常，而是应该捕获特定异常
+        - 第二，不要生吞（swallow）异常。这是异常处理中要特别注意的事情，因为很可能会导致非常难以诊断的诡异情况。
+    ```java
+    try { 
+        // 业务代码 
+        // … 
+        Thread.sleep(1000L);
+    } catch (Exception e) { //这里存在2个错误，Thread.sleep() 抛出的 InterruptedException。
+        // Ignore it
+    }
+    ```
+    - try-catch 代码段会产生额外的性能开销，或者换个角度说，它往往会影响 JVM 对代码进行优化，所以建议仅捕获有必要的代码段，尽量不要一个大的 try 包住整段的代码；与此同时，利用异常控制代码流程，也不是一个好主意，远比我们通常意义上的条件语句（if/else、switch）要低效。
+    - Java 每实例化一个 Exception，都会对当时的栈进行快照，这是一个相对比较重的操作。如果发生的非常频繁，这个开销可就不能被忽略了。
+    - NoClassDefFoundError VS ClassNotFoundException
+        - NoClassDefFoundError 是个Error，是指一个class在编译时存在，在运行时找不到了class文件了；ClassNotFoundException 是个Exception，是使用类似Class.foName()等方法时的checked exception。
+        - NoClassDefFoundError是一个错误(Error)，而ClassNOtFoundException是一个异常，在Java中对于错误和异常的处理是不同的，我们可以从异常中恢复程序但却不应该尝试从错误中恢复程序。
+        - ClassNotFoundException的产生原因主要是：
+            - Java支持使用反射方式在运行时动态加载类，例如使用Class.forName方法来动态地加载类时，可以将类名作为参数传递给上述方法从而将指定类加载到JVM内存中，如果这个类在类路径中没有被找到，那么此时就会在运行时抛出ClassNotFoundException异常。解决该问题需要确保所需的类连同它依赖的包存在于类路径中，常见问题在于类名书写错误。另外还有一个导致ClassNotFoundException的原因就是：当一个类已经某个类加载器加载到内存中了，此时另一个类加载器又尝试着动态地从同一个包中加载这个类。通过控制动态类加载过程，可以避免上述情况发生。
+        - NoClassDefFoundError产生的原因在于：
+            - 如果JVM或者ClassLoader实例尝试加载（可以通过正常的方法调用，也可能是使用new来创建新的对象）类的时候却找不到类的定义。要查找的类在编译的时候是存在的，运行的时候却找不到了。这个时候就会导致NoClassDefFoundError.造成该问题的原因可能是打包过程漏掉了部分类，或者jar包出现损坏或者篡改。解决这个问题的办法是查找那些在开发期间存在于类路径下但在运行期间却不在类路径下的类。
+
+- final、finally、finalize
+    - final
+        - 可以用来修饰类、方法、变量，分别有不同的意义，final 修饰的 class 代表不可以继承扩展，final 的变量是不可以修改的，而 final 的方法也是不可以重写的（override）。
+        - 并发安全性
+        - 提高性能？
+    - finally 
+        - 是 Java 保证重点代码一定要被执行的一种机制。我们可以使用 try-finally 或者 try-catch-finally 来进行类似关闭 JDBC 连接、保证 unlock 锁等动作。
+        - 扩展思考：栈帧（Stack Frame）是用于支持虚拟机进行方法调用和方法执行的数据结构。它存储了方法的局部变量表、操作数栈、动态链接和方法返回地址等信息。每一个方法从调用开始至执行完成的过程，都对应着一个栈帧在虚拟机栈里面从入栈到出栈的过程。
+        - 因为finally的出现，导致return的时候，需要先执行finally，所以需要在局部变量表指定一个位置存放要返回的结果信息。当finally执行完，再把结果取出来。所以finally中执行的语句不会改变局部变量表已存储的结果内容。
+        - 测试题目：如下结果为：30，finally执行时是在 return a; 之前执行的。
+        ```java
+        public static int getInt() {
+            int a = 10;
+            try {
+                System.out.println(a/0);
+                a = 20;
+            } catch(Exception e) {
+                a = 30;
+                return a;
+            } finally {
+                a = 40;
+            }
+            return a;
+        }
+        ```
+    - finalize 
+        - 是基础类 java.lang.Object 的一个方法，它的设计目的是`保证对象在被垃圾收集前完成特定资源的回收`。finalize 机制现在已经不推荐使用，并且在 JDK 9 开始被标记为 deprecated。
+        - java 平台目前在逐步使用 java.lang.ref.Cleaner 来替换掉原有的 finalize 实现。Cleaner 的实现利用了幻象引用（PhantomReference）
+        - 阻碍JVM进行垃圾回收
+- 强引用、软引用、弱引用、幻象引用
+    - 不同的引用类型，主要的区别是：对象不同的可达性状态和对垃圾收集器的影响
+    - 强引用StrongReference：普通的对象的引用，只要还有一个强引用存在则垃圾收集器不会进行回收。如果可以释放则可以进行赋值为 null，具体何时回收要看垃圾收集器的策略。
+    - 软引用SoftReference：当JVM认为内存不足时可以试图回收软引用对象。JVM会在抛出OutOfMemoryError之前清理软引用对象。软引用通常可以用来实现内存敏感的缓存。
+    - 弱引用WeakReference：弱引用的生命周期比软引用短。在垃圾回收器线程扫描它所管辖的内存区域的过程中，一旦发现了具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。
+    - 幻象引用，虚引用：提供一种确保对象被finalize以后，做某些事情的机制，比如利用幻象引用监控对象的创建和销毁。
+    - 可达性状态流转图
+        - ![可达性状态流转图](https://raw.githubusercontent.com/MichaelYgZhang/michaelygzhang.github.io/master/images/java-ssw-reference.png)
+    - 资料：<https://blog.csdn.net/OrPis/article/details/80852184>
+- String、StringBuffer、StringBuilder
+    - String：Immutable类，不可变性，线程安全，多线程情况下高性能
+        - intern() 方法可以字符串进行缓存，以备重复使用。风险：被缓存的字符串存在于“永久代”，基本不会被FullGC之外的垃圾收集器回收，所以如果使用不当，会造成OOM问题。
+    - StringBuffer：char[] 数组实现，初始值：16，利用arraycopy进行扩容，线程安全，性能开销大
+    - StringBuilder：char[] 数组实现，初始值：16，利用arraycopy进行扩容，线程不安全，性能开销相对小
+- Java反射机制，动态代理基于什么原理？
+    - 反射机制是 Java 语言提供的一种基础功能，赋予程序在运行时自省（introspect，官方用语）的能力。通过反射我们可以直接操作类或者对象，比如获取某个对象的类定义，获取类声明的属性和方法，调用方法或者构造对象，甚至可以运行时修改类定义。资料：<https://docs.oracle.com/javase/tutorial/reflect/index.html>
+        - AccessibleObject.setAccessible​(boolean flag)。它的子类也大都重写了这个方法，这里的所谓 accessible 可以理解成修饰成员的 public、protected、private，这意味着我们可以在运行时修改成员访问限制！
+    - 静态代理：事先写好代理类，可以手工编写，也可以用工具生成。缺点是每个业务类都要对应一个代理类，非常不灵活。如果类方法数量越来越多的时候，代理类的代码量是十分庞大的。
+
+    ```java
+    public interface Subject   
+    {   
+        public void doSomething();   
+    }
+    
+    public class RealSubject implements Subject   
+    {   
+        public void doSomething()   
+        {   
+            System.out.println( "call doSomething()" );   
+        }   
+    }
+
+    public class SubjectProxy implements Subject
+    {
+        Subject subimpl = new RealSubject();
+        public void doSomething()
+        {
+            subimpl.doSomething();
+        }
+    }
+
+    public class TestProxy 
+    {
+        public static void main(String args[])
+        {
+            Subject sub = new SubjectProxy();
+            sub.doSomething();
+        }
+    }
+    ```
+
+    - 动态代理是一种方便运行时动态构建代理、动态处理代理方法调用的机制，很多场景都是利用类似机制做到的，比如用来包装 RPC 调用、面向切面的编程（AOP）日志、用户鉴权、全局性异常处理、性能监控，甚至事务处理等。动态代理：运行时自动生成代理对象。缺点是生成代理代理对象和调用代理方法都要额外花费时间。
+    - 实现动态代理的方式很多，比如 JDK 自身提供的动态代理，就是主要利用了上面提到的反射机制。还有其他的实现方式，比如利用传说中更高性能的字节码操作机制，类似 ASM、cglib（基于 ASM）、Javassist 等。
+        - JDK动态代理 JDK Proxy：必须有个接口interface Hello，需要实现接口：implements InvocationHandler 重写invoke。JDK动态代理：基于Java反射机制实现，必须要实现了接口的业务类才能用这种办法生成代理对象。新版本也开始结合ASM机制。
+            - Proxy类的代码量被固定下来，不会因为业务的逐渐庞大而庞大；
+            - 可以实现AOP编程，实际上静态代理也可以实现，总的来说，AOP可以算作是代理模式的一个典型应用；
+            - 解耦，通过参数就可以判断真实类，不需要事先实例化，更加灵活多变。
+        ```java
+        public interface Subject   
+        {   
+            public void doSomething();   
+        }
+
+        public class RealSubject implements Subject   
+        {   
+            public void doSomething()   
+            {   
+                System.out.println( "call doSomething()" );   
+            } 
+        }
+
+
+        import java.lang.reflect.InvocationHandler;  
+        import java.lang.reflect.Method;  
+        import java.lang.reflect.Proxy;  
+
+        public class ProxyHandler implements InvocationHandler
+        {
+            private Object tar;
+
+            //绑定委托对象，并返回代理类
+            public Object bind(Object tar)
+            {
+                this.tar = tar;
+                //绑定该类实现的所有接口，取得代理类 
+                return Proxy.newProxyInstance(tar.getClass().getClassLoader(), tar.getClass().getInterfaces(), this);
+            }    
+
+            public Object invoke(Object proxy , Method method , Object[] args)throws Throwable
+            {
+                Object result = null;
+                //这里就可以进行所谓的AOP编程了
+                //在调用具体函数方法前，执行功能处理
+                result = method.invoke(tar,args);
+                //在调用具体函数方法后，执行功能处理
+                return result;
+            }
+        }
+
+        public static void main(String args[])
+        {
+            ProxyHandler proxy = new ProxyHandler();
+            //绑定该类实现的所有接口
+            Subject sub = (Subject) proxy.bind(new RealSubject());
+            sub.doSomething();
+        }
+        ```
+        - cglib：cglib 动态代理采取的是创建目标类的子类的方式，因为是子类化，我们可以达到近似使用被调用者本身的效果。在 Spring 编程中，框架通常会处理这种情况，当然我们也可以显式指定。cglib动态代理：基于ASM机制实现，通过生成业务类的子类作为代理类。资料：<https://cliffmeyers.com/blog/2006/12/29/spring-aop-cglib-or-jdk-dynamic-proxies.html>
+        - JDK Proxy 的优势：
+            - 最小化依赖关系，减少依赖意味着简化开发和维护，JDK 本身的支持，可能比 cglib 更加可靠。
+            - 平滑进行 JDK 版本升级，而字节码类库通常需要进行更新以保证在新版 Java 上能够使用。
+            - 代码实现简单。
+        - 基于类似 cglib 框架的优势：
+            - 有的时候调用目标可能不便实现额外接口，从某种角度看，限定调用者实现接口是有些侵入性的实践，类似 cglib 动态代理就没有这种限制。
+            - 只操作我们关心的类，而不必为其他相关类增加工作量。
+            - 高性能。
+- int vs Integer
+    - 源码: <http://hg.openjdk.java.net/jdk/jdk/file/26ac622a4cab/src/java.base/share/classes/java/lang/Integer.java>
+
+- static: 无论是变量，方法，还是代码块，只要用static修饰，就是在类被加载时就已经"准备好了",也就是可以被使用或者已经被执行，都可以脱离对象而执行。反之，如果没有static，则必须要依赖于对象实例。
+    - 执行步骤：静态代码块 > 成员变量初始化 > 构造方法，双亲委派机制
+
+
+## IO; Netty
+![java-io](https://raw.githubusercontent.com/MichaelYgZhang/michaelygzhang.github.io/master/images/java-io.png)
+### IO/BIO/NIO/AIO Netty
+- 同步 VS 异步 ；阻塞  VS 非阻塞
+    - 同步 vs 异步： 关注点在于消息通知的机制。
+    - 阻塞 vs 非阻塞：侧重点在于程序（线程）等待消息的状态。
+    - https://www.zhihu.com/question/19732473
+    - https://michaelygzhang.github.io/architecture/2020/10/11/concept.html
+- NIO最底层与操作系统是如何交互的？ 最底层 ！ 或者是AIO 最底层是与操作系统交互的？？
+- [IBM-NIO](https://www.ibm.com/developerworks/cn/education/java/j-nio/j-nio.html)
+- [NIO-1](https://juejin.im/entry/58e116f1da2f60005fd09881)
+- Netty 框架模块. NIO ？[Netty-1](http://blog.csdn.net/linxcool/article/details/7771952)
+
+### Netty长链接和短链接 ：
+基本思路：netty服务端通过一个Map保存所有连接上来的客户端SocketChannel,客户端的Id作为Map的key。每次服务器端如果要向某个客户端发送消息，只需根据ClientId取出对应的SocketChannel,往里面写入message即可。心跳检测通过IdleEvent事件，定时向服务端放送Ping消息，检测SocketChannel是否终断。Netty自带心跳检测功能，IdleStateHandler,客户端在写空闲时主动发起心跳请求，服务器接受到心跳请求后给出一个心跳响应。当客户端在一定时间范围内不能够给出响应则断开链接。
+ 心跳 机制. 心跳机制的工作原理是: 在服务器和客户端之间一定时间内没有数据交互时, 即处于 idle 状态时, 客户端或服务器会发送一个特殊的数据包给对方, 当接收方收到这个数据报文后, 也立即发送一个特殊的数据报文, 回应发送方, 此即一个 PING-PONG 交互. 自然地, 当某一端收到心跳消息后, 就知道了对方仍然在线, 这就确保 TCP 连接的有效性.
+在 Netty 中, 实现心跳机制的关键是 IdleStateHandler,
+1. 使用 Netty 实现心跳机制的关键就是利用 IdleStateHandler 来产生对应的 idle 事件.
+2. 一般是客户端负责发送心跳的 PING 消息, 因此客户端注意关注 ALL_IDLE 事件, 在这个事件触发后, 客户端需要向服务器发送 PING 消息, 告诉服务器"我还存活着".
+3. 服务器是接收客户端的 PING 消息的, 因此服务器关注的是 READER_IDLE 事件, 并且服务器的 READER_IDLE 间隔需要比客户端的 ALL_IDLE 事件间隔大(例如客户端ALL_IDLE 是5s 没有读写时触发, 因此服务器的 READER_IDLE 可以设置为10s)
+4. 当服务器收到客户端的 PING 消息时, 会发送一个 PONG 消息作为回复. 一个 PING-PONG 消息对就是一个心跳交互.
+- [资料](https://segmentfault.com/a/1190000006931568)
+- [资料IO](https://yq.aliyun.com/articles/75397?spm=a2c4e.11153940.blogrightarea75403.22.118338cc05ruap)
 
 
 
-- final／static？TODO
 
 ### JCF（Java Collections Framework）
 - <http://java-performance.com/>
@@ -149,17 +352,18 @@ category: Interview
 ![Java's java.util.Map class and interface hierarchy](https://upload.wikimedia.org/wikipedia/commons/7/7b/Java.util.Map_hierarchy.svg)
 
 #### List
+- Vector
+    - 顺序存储，线程安全数组，扩容调整1倍，除了尾插元素和删除其他操作往往性能比较差，比如中间插入一个元素需要移动后面的所有元素。
 - ArrayList
     - 实现List接口, 底层实现Object[],非线程安全,多线程安全考虑使用Vector/Collections.synchronizedList(List l)
     - 实现RandomAccess接口,可高效进行foreach(:){}
     - 构造集合时若不设置initialCapacity则第一次add操作时将开辟DEFAULT_CAPACITY = 10;的内存数组空间
-    - 当前数组集合大小若不足时将进行1.5倍的扩容,数组最大值为MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;即`2^32-1`;
-    注意扩容将调用public static native void arraycopy(Object src, int  srcPos, Object dest, int destPos, int length);性能消耗点.
+    - 当前数组集合大小若不足时将进行0.5倍的扩容,数组最大值为MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;即`2^32-1`;注意扩容将调用public static native void arraycopy(Object src, int  srcPos, Object dest, int destPos, int length);性能消耗点.
     - 迭代时fail-fast; 如有修改 the iterator will throw a ConcurrentModificationException.
+    - 缩容机制：trimToSize
  - `API简介`
     - public boolean add(E e) {};最后一位数组下标插入;
-    - public void add(int index, E element) {};指定下表插入需移动index之后的元素,当size比较大时index约小,需要移动数组的元素越多,性能越低.
-    最坏情况是1. 先扩容 2. 调用System.arraycopy(....)移动元素
+    - public void add(int index, E element) {};指定下表插入需移动index之后的元素,当size比较大时index约小,需要移动数组的元素越多,性能越低.最坏情况是1. 先扩容 2. 调用System.arraycopy(....)移动元素
     - public E set(int index, E element) {}; 替换指定位置元素
     - public E remove(int index) {}; 移除指定位置元素,index约小需要前移动的元素越多,性能消耗越大.注意elementData[--size] = null; // clear to let GC do its work
     - public boolean remove(Object o) {}; 1. 找到元素下标 2.移动元素 3.elementData[--size] = null; // clear to let GC do its work
@@ -168,44 +372,100 @@ category: Interview
     - 实现List<E>, Deque<E>双端队列，非线程安全, `插入/删除`高效,`遍历`性能低, 消耗更多的内存,产生更多对象,增加GC的次数/时间；
     - Collections.synchronizedList(new LinkedList(...));可做到线程安全
 
-- Vector
 - CopyOnWriteArrayList
 
 #### Set
-- HashSet无序,不重复,采用散列的存储方法，所以没有顺序; 其实就是一个hashmap,只是在在添加元素的时候对应的put(k,object),k就是要添加的值,而参数v就是一个final类型的object对象。
-此处需要注意的是:由于map允许有一个key为null的键值对，所以set也就允许有一个为null的对象，唯一的一个。
-- LinkedHashSet是HashSet的一个子类,只是HashSet底层用的HashMap,而LinkedHashSet底层用的LinkedHashMap; 元素有序.
+- HashSet
+    - 无序,不重复,采用散列的存储方法，所以没有顺序; 其实就是一个hashmap,只是在在添加元素的时候对应的put(k,object),k就是要添加的值,而参数v就是一个final类型的object对象。此处需要注意的是:由于map允许有一个key为null的键值对，所以set也就允许有一个为null的对象，唯一的一个。
+- LinkedHashSet
+    - 是HashSet的一个子类,只是HashSet底层用的HashMap,而LinkedHashSet底层用的LinkedHashMap; 元素有序.
+
+#### Queue/Deque
+- 在这个题目下，自然就会想到优先级队列了，但还需要额外考虑vip再分级，即同等级vip的平权的问题，所以应该考虑除了直接的和vip等级相关的优先级队列优先级规则问题，还得考虑同等级多个客户互相不被单一客户大量任务阻塞的问题，数据结构确实是基础，即便这个思考题考虑的这个场景，待调度数据估计会放在redis里面吧
+
+#### Sort
+- 原始数据类型采用的: 双轴快速排序 <http://hg.openjdk.java.net/jdk/jdk/file/26ac622a4cab/src/java.base/share/classes/java/util/DualPivotQuicksort.java>
+    - 优化算法 <http://mail.openjdk.java.net/pipermail/core-libs-dev/2018-January/051000.html>
+- 引用对象类型：TimSort ， 思路：归并+二分插入，查找数据集中已经排好序的分区，然后合并这些分区来达到排序的目的。 <http://hg.openjdk.java.net/jdk/jdk/file/26ac622a4cab/src/java.base/share/classes/java/util/TimSort.java>
+- Java8 引入并行排序parallelSort，数据量大时处理器多核有明显差异，后续验证下。
 
 #### Map
+- 哈希
+    - 哈希冲突，解决哈希冲突的常用方法有：
+        - 开放定址法
+            - 基本思想是：当关键字key的哈希地址p=H（key）出现冲突时，以p为基础，产生另一个哈希地址p1，如果p1仍然冲突，再以p为基础，产生另一个哈希地址p2，…，直到找出一个不冲突的哈希地址pi ，将相应元素存入其中。
+        - 再哈希法
+            - 这种方法是同时构造多个不同的哈希函数：Hi=RH1（key）  i=1，2，…，k，当哈希地址Hi=RH1（key）发生冲突时，再计算Hi=RH2（key）……，直到冲突不再产生。这种方法不易产生聚集，但增加了计算时间。
+        - 链地址法
+            - 这种方法的基本思想是将所有哈希地址为i的元素构成一个称为同义词链的单链表，并将单链表的头指针存在哈希表的第i个单元中，因而查找、插入和删除主要在同义词链中进行。链地址法适用于经常进行插入和删除的情况。
+        - 建立公共溢出区
+            - 这种方法的基本思想是：将哈希表分为基本表和溢出表两部分，凡是和基本表发生冲突的元素，一律填入溢出表。
+- Hashtable 
+    - 线程安全; HashTable基于Dictionary类,HashTable中的key和value都不允许为null,HashMap仅支持Iterator的遍历方式;
 - HashMap
     - HashMap 数组的特点是：寻址容易，插入和删除困难；而链表的特点是：寻址困难，插入和删除容易。哈希表结合了两者的优点。哈希表有多种不同的实现方法，可以理解将此理解为“链表的数组”;哈希表是由数组+链表组成;HashMap是基于AbstractMap;HashMap可以允许存在一个为null的key和任意个为null的value; HashMap仅支持Iterator的遍历方式;
     - 高并发情况下可能存在CPU负载高问题？
-    - https://juejin.cn/post/6927211419918319630?utm_source=gold_browser_extension
-    - https://www.cnblogs.com/williamjie/p/9099141.html
-    - https://blog.csdn.net/ns_code/article/details/36034955
+        - HashMap在并发执行put操作时发生扩容，可能会导致节点丢失，产生环形链表等情况。 节点丢失，会导致数据不准 生成环形链表，会导致get()方法死循环。
+        - 在jdk1.7中，由于扩容时使用头插法，在并发时可能会形成环状列表，导致死循环，在jdk1.8中改为尾插法，可以避免这种问题，但是依然避免不了节点丢失的问题。
+        - <https://bugs.java.com/bugdatabase/view_bug.do?bug_id=6423457>
     - 为什么总是 2^n次？
         - 原因 `hashcode & (length -1)` 如果length为奇数根据hashmap计算下标的算法则必然导致有一半的数据无法存储数据，空间浪费，所以必须为偶数
-
+    - 资料：<https://juejin.cn/post/6927211419918319630?utm_source=gold_browser_extension>
+    - 资料：<https://blog.csdn.net/ns_code/article/details/36034955>
+- TreeMap 则是基于红黑树的一种提供顺序访问的 Map，和 HashMap 不同，它的 get、put、remove 之类操作都是 O（log(n)）的时间复杂度，具体顺序可以由指定的 Comparator 来决定，或者根据键的自然顺序来判断。
+- LinkedHashMap：重写`removeEldestEntry`方法可以实现简单的淘汰数据的容器
+    ```java
+    import java.util.LinkedHashMap;
+    import java.util.Map;  
+    public class LinkedHashMapSample {
+        public static void main(String[] args) {
+            LinkedHashMap<String, String> accessOrderedMap = new LinkedHashMap<String, String>(16, 0.75F, true){
+                @Override
+                protected boolean removeEldestEntry(Map.Entry<String, String> eldest) {
+                    // 实现自定义删除策略，否则行为就和普遍Map没有区别
+                    return size() > 3;
+                }
+            };
+            accessOrderedMap.put("Project1", "Valhalla");
+            accessOrderedMap.put("Project2", "Panama");
+            accessOrderedMap.put("Project3", "Loom");
+            accessOrderedMap.forEach( (k,v) -> {
+                System.out.println(k +":" + v);
+            });
+            // 模拟访问
+            accessOrderedMap.get("Project2");
+            accessOrderedMap.get("Project2");
+            accessOrderedMap.get("Project3");
+            System.out.println("Iterate over should be not affected:");
+            accessOrderedMap.forEach( (k,v) -> {
+                System.out.println(k +":" + v);
+            });
+            // 触发删除
+            accessOrderedMap.put("Project4", "Mission Control");
+            System.out.println("Oldest entry should be removed:");
+            accessOrderedMap.forEach( (k,v) -> {// 遍历顺序不变
+                System.out.println(k +":" + v);
+            });
+        }
+    }
+    ```
+- PriorityQueue：二叉堆实现的 
 - ConcurrentHashMap
-    - 如何保证高并发下读写性能与线程安全？
-        - CAS + Synchronize volatile
-    - ConcurrentHashMap JDK1.7 Segment[] + HashEntry[] + HashEntry单链
-        - 其中Segment在实现上继承了ReentrantLock，这样就自带了锁的功能。数组大小默认16,0.75增长因子,2^n次方大小.size计算方式:1不加锁连续计算元素个数最多3次,如果前后2次一样,则返回;否则给每个Segment进行加锁计算一次;
+    - ConcurrentHashMap JDK1.7 `Segment[] + HashEntry[] + HashEntry单链`
+        - 其中Segment在实现上继承了ReentrantLock，这样就自带了锁的功能。数组大小默认16,0.75增长因子,2^n次方大小.
+        - `size计算方式`: 先不加锁连续计算元素个数最多3次,如果前后2次一样,则返回;否则给每个Segment进行加锁计算一次;
         - 当执行put方法插入数据时，根据key的hash值，在Segment数组中找到相应的位置，如果相应位置的Segment还未初始化，则通过CAS进行赋值，接着执行Segment对象的put方法通过加锁机制插入数据，实现如下：场景：线程A和线程B同时执行相同Segment对象的put方法
         1. 线程A执行tryLock()方法成功获取锁，则把HashEntry对象插入到相应的位置；
         2. 线程B获取锁失败，则执行scanAndLockForPut()方法，在scanAndLockForPut方法中，会通过重复执行tryLock()方法尝试获取锁，在多处理器环境下，重复次数为64，单处理器重复次数为1，当执行tryLock()方法的次数超过上限时，则执行lock()方法挂起线程B；
         3. 当线程A执行完插入操作时，会通过unlock()方法释放锁，接着唤醒线程B继续执行；
-    - ConcurrentHashMap JDK1.8 Node数组 + CAS + Synchronized 数组+链表+红黑树
+    - ConcurrentHashMap JDK1.8 `Node数组 + CAS + Synchronized 数组+链表+红黑树`
         - volatile类型的变量baseCount计算size值，因为元素个数保存baseCount中，部分元素的变化个数保存在CounterCell数组中，通过累加baseCount和CounterCell数组中的数量，即可得到元素的总个数；
         - 扩容时优先扩容数组(<64时),2倍数组进行扩容; 然后才是当单链>8时转化红黑树；
+        - size计算: 通过对 baseCount 和 counterCell 进行 CAS 计算，最终通过 baseCount 和 遍历 CounterCell 数组得出 size。JDK 8 推荐使用mappingCount 方法，因为这个方法的返回值是 long 类型，不会因为 size 方法是 int 类型限制最大值。
 
 - ConcurrentSkipListMap 基于跳跃列表（Skip List）的ConcurrentNavigableMap实现。本质上这种集合可以当做一种TreeMap的线程安全版本来使用。
 
 - ConcurrentSkipListSet：使用 ConcurrentSkipListMap来存储的线程安全的Set。
-
-- TreeMap 对象必须实现equals方法和Comparable/Comparator 
-
-- Hashtable 线程安全; HashTable基于Dictionary类,HashTable中的key和value都不允许为null,HashMap仅支持Iterator的遍历方式;
 
 #### JDK集合总结:
 - 选择合适的集合，使用泛型避免出现ClassCastException
@@ -298,6 +558,7 @@ category: Interview
 - 公平锁？非公平锁？乐观锁？悲观锁？
 - `ThreadLocal`
     - 使用场景？怎么用？使用注意事项，原理是什么？
+    - InheritableThreadLocal，重写 childValue，解决父子线程数据传递问题。资料: <https://www.cnblogs.com/gxyandwmm/p/9471507.html>
     - ThreadLocal 内存何时情况有可能发生内存泄漏？ 如何解决？答得是remove? 待核实！！threadlocal使用线程局部变量，注意使用后释放？static修饰？
     - [http://blog.xiaohansong.com/2016/08/06/ThreadLocal-memory-leak/](http://blog.xiaohansong.com/2016/08/06/ThreadLocal-memory-leak/)
 - `线程池`
@@ -396,6 +657,8 @@ category: Interview
 - Spring注解声明和xml方式声明的区别？
 - `AOP的实现原理`？
     - 2种动态代理模式？
+    - 资料：<https://cliffmeyers.com/blog/2006/12/29/spring-aop-cglib-or-jdk-dynamic-proxies.html>
+    - 动态代理: <https://www.zhihu.com/question/20794107>
 - `如何解决循环依赖问题？如果是构造方法注入能解决循环引用吗`？
     - 3级缓存？
 - `大事务优化`？
@@ -417,27 +680,6 @@ category: Interview
 ## Mybatis
 - `$ vs # 区别`？
     - https://www.cnblogs.com/williamjie/p/11188716.html
-
-
-## IO; Netty
-
-### IO/BIO/NIO/AIO Netty
-- NIO最底层与操作系统是如何交互的？ 最底层 ！ 或者是AIO 最底层是与操作系统交互的？？
-- [IBM-NIO](https://www.ibm.com/developerworks/cn/education/java/j-nio/j-nio.html)
-- [NIO-1](https://juejin.im/entry/58e116f1da2f60005fd09881)
-- Netty 框架模块. NIO ？[Netty-1](http://blog.csdn.net/linxcool/article/details/7771952)
-
-### Netty长链接和短链接 ：
-基本思路：netty服务端通过一个Map保存所有连接上来的客户端SocketChannel,客户端的Id作为Map的key。每次服务器端如果要向某个客户端发送消息，只需根据ClientId取出对应的SocketChannel,往里面写入message即可。心跳检测通过IdleEvent事件，定时向服务端放送Ping消息，检测SocketChannel是否终断。Netty自带心跳检测功能，IdleStateHandler,客户端在写空闲时主动发起心跳请求，服务器接受到心跳请求后给出一个心跳响应。当客户端在一定时间范围内不能够给出响应则断开链接。
- 心跳 机制. 心跳机制的工作原理是: 在服务器和客户端之间一定时间内没有数据交互时, 即处于 idle 状态时, 客户端或服务器会发送一个特殊的数据包给对方, 当接收方收到这个数据报文后, 也立即发送一个特殊的数据报文, 回应发送方, 此即一个 PING-PONG 交互. 自然地, 当某一端收到心跳消息后, 就知道了对方仍然在线, 这就确保 TCP 连接的有效性.
-在 Netty 中, 实现心跳机制的关键是 IdleStateHandler,
-1. 使用 Netty 实现心跳机制的关键就是利用 IdleStateHandler 来产生对应的 idle 事件.
-2. 一般是客户端负责发送心跳的 PING 消息, 因此客户端注意关注 ALL_IDLE 事件, 在这个事件触发后, 客户端需要向服务器发送 PING 消息, 告诉服务器"我还存活着".
-3. 服务器是接收客户端的 PING 消息的, 因此服务器关注的是 READER_IDLE 事件, 并且服务器的 READER_IDLE 间隔需要比客户端的 ALL_IDLE 事件间隔大(例如客户端ALL_IDLE 是5s 没有读写时触发, 因此服务器的 READER_IDLE 可以设置为10s)
-4. 当服务器收到客户端的 PING 消息时, 会发送一个 PONG 消息作为回复. 一个 PING-PONG 消息对就是一个心跳交互.
-- [资料](https://segmentfault.com/a/1190000006931568)
-- [资料IO](https://yq.aliyun.com/articles/75397?spm=a2c4e.11153940.blogrightarea75403.22.118338cc05ruap)
-
 
 ## Tomcat
 - tomcat与spring容器关联的点？ web.xml?
@@ -708,9 +950,6 @@ select * from table_name where id = ‘xxx’ for update;
 - 常见架构问题
     - 服务出现大量接口超市的问题排查和处理？
     - 分布式锁问题？分布式锁怎么实现的？锁的各种使用场景？需要注意什么问题？
-    - 同步 VS 异步 ；阻塞  VS 非阻塞
-        - https://www.zhihu.com/question/19732473
-        - https://michaelygzhang.github.io/architecture/2020/10/11/concept.html
 - `系统高可用`
     - 事前
     - 事中
