@@ -426,6 +426,7 @@ category: Interview
     - 资料：<https://blog.csdn.net/ns_code/article/details/36034955>
 - TreeMap 则是基于红黑树的一种提供顺序访问的 Map，和 HashMap 不同，它的 get、put、remove 之类操作都是 O（log(n)）的时间复杂度，具体顺序可以由指定的 Comparator 来决定，或者根据键的自然顺序来判断。
 - LinkedHashMap：重写`removeEldestEntry`方法可以实现简单的淘汰数据的容器
+
     ```java
     import java.util.LinkedHashMap;
     import java.util.Map;  
@@ -461,6 +462,7 @@ category: Interview
         }
     }
     ```
+
 - PriorityQueue：二叉堆实现的 
 - ConcurrentHashMap
     - ConcurrentHashMap JDK1.7 `Segment[] + HashEntry[] + HashEntry单链`
@@ -513,10 +515,12 @@ category: Interview
         - `一个线程如果没有持有对象锁，将不能调用wait()，notify()或者notifyAll()。否则，会抛出IllegalMonitorStateException异常`。
     - notifyAll()：
     - join()：让“主线程”等待“子线程”结束之后才能继续运行，底层实现调用wait方法。
+
         ```java
         public final native void wait(long timeout) throws InterruptedException;
         ```
         - 举例子说明：
+
         ```java
         public static void main(String[] args){
             try {
@@ -550,8 +554,11 @@ category: Interview
         t1 finish
         main finish
         ```
+
         ![java-thread-join](https://raw.githubusercontent.com/MichaelYgZhang/michaelygzhang.github.io/master/images/java-thread-join.png)
+
     - CountdownLatch（以下简称 CDL）适用于一个线程去等待多个线程的情况：举例说明：D保护ABC先撤离，D最后撤离
+
     ```java
     int armyNum = 3;
     final CountDownLatch countDownLatch = new CountDownLatch(armyNum);
@@ -594,7 +601,9 @@ category: Interview
     C部队已经撤离
     ABC撤离完毕，D可以撤离了
     ```
+
     - CyclicBarrier为了实现线程间互相等待这种需求，我们可以利用 CyclicBarrier：
+
     ```java
     int runner = 3;
         final CyclicBarrier cyclicBarrier = new CyclicBarrier(runner);
@@ -634,12 +643,14 @@ category: Interview
     B比赛开始
     A比赛开始
     ```
+
     - CyclicBarrier与CountDownLatch比较
         - CountDownLatch: 一个线程(或者多个)，等待另外N个线程完成某个事情之后才能执行；
         - CyclicBarrier: N个线程相互等待，任何一个线程完成之前，所有的线程都必须等待。
         - CountDownLatch: 一次性的；CyclicBarrier:可以重复使用。
         - CountDownLatch基于AQS；CyclicBarrier基于锁和Condition。本质上都是依赖于volatile和CAS实现的
     - 多线程题目: 两个线程交替打印数字，你打印一个我打印一个
+
     ```java
     class Ticket implements Runnable {
         Object x = "90";
@@ -676,6 +687,7 @@ category: Interview
         }
     }
     ```
+
 - Semaphore
     - 是一个计数信号量，必须由获取它的线程释放。作用是控制并发的数量。内部实现：AbstractQueuedSynchronizer
 - Synchronized
