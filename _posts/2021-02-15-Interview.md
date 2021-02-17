@@ -79,6 +79,18 @@ category: Interview
 
 # Java
 
+## 面向对象设计
+- 封装
+- 继承
+- 多态
+    - 重写（override）和重载（overload）、向上转型。简单说，重写是父子类中相同名字和参数的方法，不同的实现；重载则是相同名字的方法，但是不同的参数，本质上这些方法签名是不一样的
+- SOLID
+    - 单一职责Single Responsibility
+    - 开关原则Open-Close Open for extension Close for modification
+    - 里氏替换Liskov Subsitution，进行继承关系抽象时，凡是可以用父类或者基类的地方，都可以用子类替换。
+    - 接口分离Interface Segregation
+    - 依赖反转Dependency Inversion，实体应该依赖于抽象而不是实现，高层次模块不应该依赖于低层次模块，而应该基于抽象。
+
 ## JDK
 
 ### Java基础部分
@@ -341,7 +353,7 @@ category: Interview
 - [资料](https://segmentfault.com/a/1190000006931568)
 - [资料IO](https://yq.aliyun.com/articles/75397?spm=a2c4e.11153940.blogrightarea75403.22.118338cc05ruap)
 
-
+### 零拷贝zero-copy
 
 
 ### JCF（Java Collections Framework）
@@ -488,48 +500,203 @@ category: Interview
 - 多线程与并发编程:
   进程: 一个计算机的运行实例，有自己独立的地址空间，包含程序内容和数据，不同进程间相互隔离，拥有各自的各种资源和状态信息，包括打开的文件，子进程和信号处理等。
   线程: 程序的执行流程，CPU调度的基本单位，线程拥有自己的程序计数器，寄存器，栈帧，同一进程中的线程拥有相同的地址空间，同时共享进程中的各种资源
-- excutorServer接口，继承自executor；提供了对任务的管理：submit()，可以吧Callable和Runnable作为任务提交，得到一个Future作为返回，可以获取任务结果或取消任务。
-  提供批量执行：invokeAll()和invokeAny()，同时提交多个Callable；invokeAll()，会等待所有任务都执行完成，返回一个包含每个任务对应Future的列表；
-  invokeAny()，任何一个任务成功完成，即返回该任务结果。超过时限后，任何尚未完成的任务都会被取消。
 - 多线程开发中应该优先使用高层API，如果无法满足，使用java.util.concurrent.atomic和java.util.concurrent.locks包提供的中层API，
   而synchronized和volatile，以及wait,notify和notifyAll等低层API 应该最后考虑。
 - 并发集合容器,线程安全的非线程安全的分别都有哪些?
 - 如何看当前线程是否是线程安全的? 特征是什么? 【资料](https://yq.aliyun.com/articles/75403)
-
-#### 线程是如何通信的？ 
-`wait()、notify()` 还是阻塞队列？ 还是主内存共享？CSP？Java的线程通信与Gorutine最根本的区别是什么？ [线程通信](http://www.importnew.com/26850.html)
-- CountDownLatch 适用于一个线程去等待多个线程的情况。
-- 为了实现线程间互相等待这种需求，我们可以利用 CyclicBarrier
-
-- 线程有哪些状态,继承thread,创建多个线程,是分别执行自己的任务。实现runnable，创建多个线程是多个线程对某一共同任务的执行。区别。
-    - [Thread](https://michaelygzhang.github.io/java/2016/09/25/Java-Thread.html)
-
-- `锁`
-    - 锁的原理，synchronized 和 reentrantlock的区别，偏向锁/轻量级锁/重量级锁的原理，能否从偏向锁直接升级成重量级锁
-    - 偏向锁，轻量锁，重量锁，锁升级过程
-    - 锁粗化？锁消除？可重入锁
-- 线程创建?
-- `线程状态`？
-- sleep vs wait，join
-- notify vs notifyAll
-- 等待池，锁池？
-- `volatile`
-    - 保证多线程间的可见性, 不保证原子性
-    - 避免指令重排序，如何进行避免的？JMM，8个基本操作，lock, read, load, use, assign, store, write
-    - volitile修饰long,double可以原子性，内存屏障会将所有写的值更新到缓存，顺序性可见性, 否则出现`伪共享缓存`问题。
 - Semphore
-- CountDownLatch（以下简称 CDL）
-- CyclicBarrier
-    - java并发辅助类: <https://sa.sogou.com/sgsearch/sgs_tc_news.php?req=hobzKjkKLynRWJ4khJJLjdhp2-ixRXMKcc56sdMEWvE=>
+
+- 线程是如何通信的？ 
+    ![java-thread-state](https://raw.githubusercontent.com/MichaelYgZhang/michaelygzhang.github.io/master/images/java-thread-state.png)
+    - wait()：wait()方法表示当前线程让出执行权
+    - notify()：notify()表示唤醒wait()状态的线程。
+        - `一个线程如果没有持有对象锁，将不能调用wait()，notify()或者notifyAll()。否则，会抛出IllegalMonitorStateException异常`。
+    - notifyAll()：
+    - join()：让“主线程”等待“子线程”结束之后才能继续运行，底层实现调用wait方法。
+        ```java
+        public final native void wait(long timeout) throws InterruptedException;
+        ```
+        - 举例子说明：
+        ```java
+        public static void main(String[] args){
+            try {
+                ThreadA t1 = new ThreadA("t1"); // 新建“线程t1”
+
+                t1.start();                     // 启动“线程t1”
+                t1.join();                        // 将“线程t1”加入到“主线程main”中，并且“主线程main()会等待它的完成”
+                System.out.printf("%s finish\n", Thread.currentThread().getName());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        static class ThreadA extends Thread{
+
+            public ThreadA(String name){
+                super(name);
+            }
+            public void run(){
+                System.out.printf("%s start\n", this.getName());
+
+                // 延时操作
+                for(int i=0; i <1000000; i++)
+                    ;
+
+                System.out.printf("%s finish\n", this.getName());
+            }
+        }
+        //输出
+        t1 start
+        t1 finish
+        main finish
+        ```
+        ![java-thread-join](https://raw.githubusercontent.com/MichaelYgZhang/michaelygzhang.github.io/master/images/java-thread-join.png)
+    - CountdownLatch（以下简称 CDL）适用于一个线程去等待多个线程的情况：举例说明：D保护ABC先撤离，D最后撤离
+    ```java
+    int armyNum = 3;
+    final CountDownLatch countDownLatch = new CountDownLatch(armyNum);
+        for (char army = 'A'; army <= 'C'; army++) {
+            final String name = String.valueOf(army);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println(name + "部队正在撤离");
+                    try {
+                        //模拟耗时
+                        Thread.sleep(100);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(name + "部队已经撤离");
+                    countDownLatch.countDown();
+                }
+            }).start();
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("D 正在断后（等待其他部队撤离）");
+                try {
+                    countDownLatch.await();
+                    System.out.println("ABC撤离完毕，D可以撤离了");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    //输出
+    A部队正在撤离
+    B部队正在撤离
+    C部队正在撤离
+    D 正在断后（等待其他部队撤离）
+    A部队已经撤离
+    B部队已经撤离
+    C部队已经撤离
+    ABC撤离完毕，D可以撤离了
+    ```
+    - CyclicBarrier为了实现线程间互相等待这种需求，我们可以利用 CyclicBarrier：
+    ```java
+    int runner = 3;
+        final CyclicBarrier cyclicBarrier = new CyclicBarrier(runner);
+        final Random random = new Random();
+        for (char runnerName = 'A'; runnerName <= 'C'; runnerName++) {
+            final String rN = String.valueOf(runnerName);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    long prepareTime = random.nextInt(10000) + 100;
+                    System.out.println("裁判等了" + prepareTime + "毫秒，" + rN + "选手到了");
+                    try {
+                        Thread.sleep(prepareTime);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        System.out.println(rN + "选手准备好了，在等其他人");
+                        cyclicBarrier.await(); // 当前选手准备好，等待其他人
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (BrokenBarrierException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(rN + "比赛开始"); // 人齐开始比赛
+                }
+            }).start();
+        }
+    //输出
+    裁判等了7075毫秒，A选手到了
+    裁判等了5433毫秒，B选手到了
+    裁判等了9676毫秒，C选手到了
+    B选手准备好了，在等其他人
+    A选手准备好了，在等其他人
+    C选手准备好了，在等其他人
+    C比赛开始
+    B比赛开始
+    A比赛开始
+    ```
+    - CyclicBarrier与CountDownLatch比较
+        - CountDownLatch: 一个线程(或者多个)，等待另外N个线程完成某个事情之后才能执行；
+        - CyclicBarrier: N个线程相互等待，任何一个线程完成之前，所有的线程都必须等待。
+        - CountDownLatch: 一次性的；CyclicBarrier:可以重复使用。
+        - CountDownLatch基于AQS；CyclicBarrier基于锁和Condition。本质上都是依赖于volatile和CAS实现的
+    - 多线程题目: 两个线程交替打印数字，你打印一个我打印一个
+    ```java
+    class Ticket implements Runnable {
+        Object x = "90";
+        static int total = 10;
+        static Ticket t1 = new Ticket();
+
+        public static void main(String[] args) {
+            printMethod();
+        }
+
+        static void printMethod() {
+            Thread A = new Thread(t1);
+            Thread B = new Thread(t1);
+            A.setName("A");
+            B.setName("B");
+            B.start();
+            A.start();
+        }
+
+        @Override
+        public void run() {
+            synchronized (x) {
+                for (; total < 20; total++) {
+                    System.out.println(Thread.currentThread().getName() + "------" + total);
+                    x.notify();
+                    try {
+                        x.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        }
+    }
+    ```
+    - 资料：<https://sa.sogou.com/sgsearch/sgs_tc_news.php?req=hobzKjkKLynRWJ4khJJLjdhp2-ixRXMKcc56sdMEWvE=>
+- Synchronized
+    - synchronized可以保证方法或代码块在运行时，同一时刻只有一个线程可以进入到临界区（互斥性），同时它还保证了共享变量的内存可见性，不公平的锁，可重入锁。
+    - monitorenter/monitorexit机制
+        - 线程一旦进入到被synchronized修饰的方法或代码块时，指定的锁对象通过某些操作将`类对象头中的LockWord指向Monitor` 的起始地址与之关联，同时monitor 中的Owner存放拥有该锁的线程的唯一标识，确保一次只能有一个线程执行该部分的代码，线程在获取锁之前不允许执行该部分的代码。
+    - [synchronized资料](https://www.jianshu.com/p/19f861ab749e)
+    - 偏向锁：不占用CPU，线程进入同步块，则为偏向锁，目的是减少同一线程获取锁的代价 CAS(Compare And Swap)，核心思想：如果一个线程获得了锁，那么锁就进入偏向锁，此时Mark Word的结构变为偏向锁结构，当该线程再次请求锁时，无需做任何同步操作，即获取锁的过程，只需要检查Mark Word的锁标记位为偏向锁以及当前线程Id等于Mard Word的ThreadId即可，这样就省去了大量有关锁申请的操作。注意：不适用于锁竞争比较激烈的多线程场合。偏向锁的目的是消除数据在无竞争情况下的同步原语，进一步提高程序的运行性能。如果说轻量级锁是在无竞争的情况下使用CAS操作去消除同步使用的互斥量，那偏向锁就是在无竞争的情况下把整个同步都消除掉，连 CAS 操作都不做了。偏向锁的“偏”，就是偏心的 “偏”、偏袒的 “偏”，它的意思是这个锁会偏向于第一个获得它的线程，如果在接下来的执行过程中，该锁没有被其他的线程获取，则持有偏向锁的线程将永远不需要再进行同步。虚拟机都可以不再进行任何同步操作（例如 Locking 、Unlocking 及对 Mark Word的Update 等）。
+    - 轻量级锁：由偏向锁升级而来，偏向锁运行在一个线程进入同步块的情况下，当第二个线程加入锁争用的时候，偏向锁就升级为轻量级锁。比如线程交替执行同步块情况。若存在多个线程同一时间访问同一锁的情况，就会导致轻量锁膨胀为重量级锁。它的本意是在没有多线程竞争的前提下，减少传统的重量级锁使用操作系统互斥量产生的性能消耗。
+    - 重量级锁：重量级锁也就是通常说synchronized的对象锁
+    - 自选锁：占用CPU资源，锁占用时间短，线程切换不值得，通过线程执行循环等待锁的释放，不让出CPU资源。如果锁竞争激烈，性能开销大。
+        - 自适应自选锁：自适应意味着自旋的时间不再固定了，而是由前一次在同一个锁上的自旋时间及锁的拥有者的状态来决定。如果在同一个锁对象上，自旋等待刚刚成功获得过锁，并且持有锁的线程正在运行中，那么虚拟机就会认为这次自旋也很有可能再次成功，进而它将允许自旋等待持续相对更长的时间，比如100个循环。另外，如果对于某个锁，自旋很少成功获得过，那在以后要获取这个锁时将可能省略掉自旋过程，以避免浪费处理部资源。有了自适应自旋，随着程序运行和性能监控信息的不断完善，虚拟机对程序锁的状况预测就会越来越准确。虚拟机就会变得越来越 “聪明” 了。
+    - `锁消除`：锁消除是指虚拟机即时编译器在运行时，对一些代码上要求同步，但是被检测到不可能存在共享数据竞争的锁进行消除。锁消除的主要判定依据来源于逃逸分析的数据支持，如果判断在一段代码中，堆上的所有数据都不会逃逸出去从而被其他线程访问到，那就可以把它们当做栈上数据对待，认为它们是线程私有的，同步加锁自然就无须进行。
+    - `锁粗化`：扩大加锁的范围，避免反复加锁和解锁。比如在循环内部反复进行加锁和释放锁，则可以进行锁粗化，提高性能。
+    - 资料: <https://www.cnblogs.com/softidea/p/12354042.html>
+    ![java-lock-state](https://raw.githubusercontent.com/MichaelYgZhang/michaelygzhang.github.io/master/images/java-lock-state.png)
+    ![java-lock-synchronized](https://raw.githubusercontent.com/MichaelYgZhang/michaelygzhang.github.io/master/images/java-lock-synchronized.png)
 - `ReentrantLock`
     - <https://www.jianshu.com/p/4358b1466ec9>
     - [LOCK](http://www.cnblogs.com/dolphin0520/p/3923167.html)
     - [LOCK-1](https://www.jianshu.com/p/2344a3e68ca9)
     - [LOCK-2](http://www.leocook.org/2017/07/16/Java%E5%B9%B6%E5%8F%91(%E5%85%AD)-ReentrantLock-synchronized/)
-- Synchronized
-    - synchronized可以保证方法或代码块在运行时，同一时刻只有一个线程可以进入到临界区（互斥性），同时它还保证了共享变量的内存可见性
-    - monitorenter/monitorexit
-    - [synchronized资料](https://www.jianshu.com/p/19f861ab749e)
 - `AQS框架(AbstractQueuedSynchronizer)`
     - 队列同步器AQS是用来构建锁或其他同步组件的基础框架，内部使用一个int成员变量表示同步状态，通过内置的FIFO队列来完成资源获取线程的排队工作，其中内部状态state，等待队列的头节点head和尾节点head，都是通过volatile修饰，保证了多线程之间的可见。
     - static final int CANCELLED =  1;SIGNAL = -1等待触发状态;CONDITION = -2等待条件状态;PROPAGATE = -3状态需要向后传播;
@@ -556,6 +723,18 @@ category: Interview
     - CAS存在一个很明显的问题，即ABA问题。AtomicStampedReference,它可以通过控制变量值的版本来保证CAS的正确性。
     - CAS 可以复用缓存
 - 公平锁？非公平锁？乐观锁？悲观锁？
+
+- 线程有哪些状态,继承thread,创建多个线程,是分别执行自己的任务。实现runnable，创建多个线程是多个线程对某一共同任务的执行。区别。
+    - [Thread](https://michaelygzhang.github.io/java/2016/09/25/Java-Thread.html)
+- 线程创建?
+- `线程状态`？
+- notify vs notifyAll
+- 等待池，锁池？
+- `volatile`
+    - happend-before原则
+    - 保证多线程间的可见性, 不保证原子性
+    - 避免指令重排序，如何进行避免的？JMM，8个基本操作，lock, read, load, use, assign, store, write
+    - volatile修饰long,double可以原子性，内存屏障会将所有写的值更新到缓存，顺序性可见性, 否则出现`伪共享缓存`问题。
 - `ThreadLocal`
     - 使用场景？怎么用？使用注意事项，原理是什么？
     - InheritableThreadLocal，重写 childValue，解决父子线程数据传递问题。资料: <https://www.cnblogs.com/gxyandwmm/p/9471507.html>
@@ -569,6 +748,7 @@ category: Interview
     - CPU密集，IO密集
     - 如何进行监控
     - Callerrunspolicy 风险？交给主线程进行执行，其他线程进行等待，可能拖垮主线程
+    - excutorServer接口，继承自executor；提供了对任务的管理：submit()，可以吧Callable和Runnable作为任务提交，得到一个Future作为返回，可以获取任务结果或取消任务。提供批量执行：invokeAll()和invokeAny()，同时提交多个Callable；invokeAll()，会等待所有任务都执行完成，返回一个包含每个任务对应Future的列表；invokeAny()，任何一个任务成功完成，即返回该任务结果。超过时限后，任何尚未完成的任务都会被取消。
 
 ## JVM
 
@@ -1031,7 +1211,32 @@ bool idempotent_withdraw(ticket_id, account_id, amount);
 
 
 # `设计模式`
-- 各种设计模式以及如何使用问题
+- 创建型模式，是对对象创建过程的各种问题和解决方案的总结，包括5种：
+    - 工厂模式（Factory）
+    - 抽象工厂模式（Abstract Factory）
+    - 单例模式（Singleton）
+    - 构建器模式（Builder）
+    - 原型模式（ProtoType）
+- 结构型模式，是针对软件设计结构的总结，关注于类、对象继承、组合方式的实践经验。常见的结构型模式，包括7种：
+    - 桥接模式（Bridge）
+    - 适配器模式（Adapter）
+    - 装饰者模式（Decorator）
+    - 代理模式（Proxy）
+    - 组合模式（Composite）
+    - 外观模式（Facade）
+    - 享元模式（Flyweight）
+- 行为型模式，是从类或对象之间交互、职责划分等角度总结的模式。比较常见的行为型模式有
+    - 策略模式（Strategy）
+    - 解释器模式（Interpreter）
+    - 命令模式（Command）
+    - 观察者模式（Observer）
+    - 迭代器模式（Iterator）
+    - 模板方法模式（Template Method）
+    - 访问者模式（Visitor）
+    - 责任链模式（Chain of Responsibility）
+    - 状态模式（State）
+    - 中介模式（Mediator）
+    - 备忘录（Memento）
 
 # 工程能力
 
