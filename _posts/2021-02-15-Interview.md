@@ -106,6 +106,7 @@ category: Interview
         - 注意一个基本的原则：重写equals()方法同时需要重写hashcode()方法。
             - 两个对象equals方法相同则hashcode方法一定相同，反之hashcode相同可能为hash冲突equlas方法不一定相同。
             - 如何重写equals？如何重写hashcode？hashcode重写通常质数（31 * 对象的filed hashcode）
+
         ```java
         @Override
         public boolean equals(Object obj) {
@@ -263,6 +264,7 @@ category: Interview
             - Proxy类的代码量被固定下来，不会因为业务的逐渐庞大而庞大；
             - 可以实现AOP编程，实际上静态代理也可以实现，总的来说，AOP可以算作是代理模式的一个典型应用；
             - 解耦，通过参数就可以判断真实类，不需要事先实例化，更加灵活多变。
+        
         ```java
         public interface Subject   
         {   
@@ -313,6 +315,7 @@ category: Interview
             sub.doSomething();
         }
         ```
+        
         - cglib：cglib 动态代理采取的是创建目标类的子类的方式，因为是子类化，我们可以达到近似使用被调用者本身的效果。在 Spring 编程中，框架通常会处理这种情况，当然我们也可以显式指定。cglib动态代理：基于ASM机制实现，通过生成业务类的子类作为代理类。资料：<https://cliffmeyers.com/blog/2006/12/29/spring-aop-cglib-or-jdk-dynamic-proxies.html>
         - JDK Proxy 的优势：
             - 最小化依赖关系，减少依赖意味着简化开发和维护，JDK 本身的支持，可能比 cglib 更加可靠。
@@ -695,6 +698,9 @@ category: Interview
     - monitorenter/monitorexit机制
         - 线程一旦进入到被synchronized修饰的方法或代码块时，指定的锁对象通过某些操作将`类对象头中的LockWord指向Monitor` 的起始地址与之关联，同时monitor 中的Owner存放拥有该锁的线程的唯一标识，确保一次只能有一个线程执行该部分的代码，线程在获取锁之前不允许执行该部分的代码。
     - [synchronized资料](https://www.jianshu.com/p/19f861ab749e)
+    - 两个问题：
+        - 1、为何所有的任意的对象都可以作为synchronized锁的对象？Java实例对象，包括Java对象头。Java对象头中存储了指向Monitor对象的指针。并且每一个实例对象都存在着一个Monitor对象与之关联。所以每一个对象，都可以作为锁的对象。
+        - 2、ObjectMonitor是如何实现同步的？而在Java虚拟机(HotSpot)中，monitor是由ObjectMonitor实现的，ObjectMonitor的结构如下：ObjectMonitor中有两个队列，_WaitSet 和 _EntryList，用来保存ObjectWaiter对象列表( 每个等待锁的线程都会被封装成ObjectWaiter对象)，_owner指向持有ObjectMonitor对象的线程，当多个线程同时访问一段同步代码时，首先会进入 _EntryList 集合，当线程获取到对象的monitor 后进入 _Owner 区域并把monitor中的owner变量设置为当前线程同时monitor中的计数器count加1，若线程调用 wait() 方法，将释放当前持有的monitor，owner变量恢复为null，count自减1，同时该线程进入 WaitSe t集合中等待被唤醒。若当前线程执行完毕也将释放monitor(锁)并复位变量的值，以便其他线程进入获取monitor(锁)。这种就保证了一次，同一个时刻只有一个线程在操作对象。
     - 偏向锁：不占用CPU，线程进入同步块，则为偏向锁，目的是减少同一线程获取锁的代价 CAS(Compare And Swap)，核心思想：如果一个线程获得了锁，那么锁就进入偏向锁，此时Mark Word的结构变为偏向锁结构，当该线程再次请求锁时，无需做任何同步操作，即获取锁的过程，只需要检查Mark Word的锁标记位为偏向锁以及当前线程Id等于Mard Word的ThreadId即可，这样就省去了大量有关锁申请的操作。注意：不适用于锁竞争比较激烈的多线程场合。偏向锁的目的是消除数据在无竞争情况下的同步原语，进一步提高程序的运行性能。如果说轻量级锁是在无竞争的情况下使用CAS操作去消除同步使用的互斥量，那偏向锁就是在无竞争的情况下把整个同步都消除掉，连 CAS 操作都不做了。偏向锁的“偏”，就是偏心的 “偏”、偏袒的 “偏”，它的意思是这个锁会偏向于第一个获得它的线程，如果在接下来的执行过程中，该锁没有被其他的线程获取，则持有偏向锁的线程将永远不需要再进行同步。虚拟机都可以不再进行任何同步操作（例如 Locking 、Unlocking 及对 Mark Word的Update 等）。
     - 轻量级锁：由偏向锁升级而来，偏向锁运行在一个线程进入同步块的情况下，当第二个线程加入锁争用的时候，偏向锁就升级为轻量级锁。比如线程交替执行同步块情况。若存在多个线程同一时间访问同一锁的情况，就会导致轻量锁膨胀为重量级锁。它的本意是在没有多线程竞争的前提下，减少传统的重量级锁使用操作系统互斥量产生的性能消耗。
     - 重量级锁：重量级锁也就是通常说synchronized的对象锁
@@ -1421,6 +1427,8 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 输入: ACD -> true; ACEF -> true; 任意命中一个规则返回true/false;
 TODO
 ```
+
+
 
 ## 算法
 - 一致性hash算法? 
