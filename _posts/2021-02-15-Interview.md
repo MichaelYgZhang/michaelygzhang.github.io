@@ -1083,7 +1083,55 @@ category: Interview
 - limit分页慢？
     - 原因是什么？
     - 如何解决？
-- update加锁过程？
+- update 过程分析如下？update T set c=c+1 where ID=2;
+
+```
+1.首先客户端通过tcp/ip发送一条sql语句到server层的SQL interface
+2.SQL interface接到该请求后，先对该条语句进行解析，验证权限是否匹配
+3.验证通过以后，分析器会对该语句分析,是否语法有错误等
+4.接下来是优化器器生成相应的执行计划，选择最优的执行计划
+5.之后会是执行器根据执行计划执行这条语句。在这一步会去open table,如果该table上有MDL，则等待。
+如果没有，则加在该表上加短暂的MDL(S)
+(如果opend_table太大,表明open_table_cache太小。需要不停的去打开frm文件)
+6.进入到引擎层，首先会去innodb_buffer_pool里的data dictionary(元数据信息)得到表信息
+7.通过元数据信息,去lock info里查出是否会有相关的锁信息，并把这条update语句需要的
+锁信息写入到lock info里(锁这里还有待补充)
+8.然后涉及到的老数据通过快照的方式存储到innodb_buffer_pool里的undo page里,并且记录undo log修改的redo
+(如果data page里有就直接载入到undo page里，如果没有，则需要去磁盘里取出相应page的数据，载入到undo page里)
+9.在innodb_buffer_pool的data page做update操作。并把操作的物理数据页修改记录到redo log buffer里
+由于update这个事务会涉及到多个页面的修改，所以redo log buffer里会记录多条页面的修改信息。
+因为group commit的原因，这次事务所产生的redo log buffer可能会跟随其它事务一同flush并且sync到磁盘上
+10.同时修改的信息，会按照event的格式,记录到binlog_cache中。(这里注意binlog_cache_size是transaction级别的,不是session级别的参数,
+一旦commit之后，dump线程会从binlog_cache里把event主动发送给slave的I/O线程)
+11.之后把这条sql,需要在二级索引上做的修改，写入到change buffer page，等到下次有其他sql需要读取该二级索引时，再去与二级索引做merge
+(随机I/O变为顺序I/O,但是由于现在的磁盘都是SSD,所以对于寻址来说,随机I/O和顺序I/O差距不大)
+12.此时update语句已经完成，需要commit或者rollback。这里讨论commit的情况，并且双1
+13.commit操作，由于存储引擎层与server层之间采用的是内部XA(保证两个事务的一致性,这里主要保证redo log和binlog的原子性),
+所以提交分为prepare阶段与commit阶段
+14.prepare阶段,将事务的xid写入，将binlog_cache里的进行flush以及sync操作(大事务的话这步非常耗时)
+15.commit阶段，由于之前该事务产生的redo log已经sync到磁盘了。所以这步只是在redo log里标记commit
+16.当binlog和redo log都已经落盘以后，如果触发了刷新脏页的操作，先把该脏页复制到doublewrite buffer里，把doublewrite buffer里的刷新到共享表空间，然后才是通过page cleaner线程把脏页写入到磁盘中
+
+二阶段提交理解:
+1 prepare阶段 2 写binlog 3 commit
+当在2之前崩溃时
+重启恢复：后发现没有commit，回滚。备份恢复：没有binlog 。
+一致
+当在3之前崩溃
+重启恢复：虽没有commit，但满足prepare和binlog完整，所以重启后会自动commit。备份：有binlog. 一致
+
+redo是物理的，binlog是逻辑的；现在由于redo是属于InnoDB引擎，所以必须要有binlog，因为你可以使用别的引擎
+保证数据库的一致性，必须要保证2份日志一致，使用的2阶段式提交；其实感觉像事务，不是成功就是失败，不能让中间环节出现，也就是一个成功，一个失败
+如果有一天mysql只有InnoDB引擎了，有redo来实现复制，那么感觉oracle的DG就诞生了，物理的速度也将远超逻辑的，毕竟只记录了改动向量
+binlog几大模式，一般采用row，因为遇到时间，从库可能会出现不一致的情况，但是row更新前后都有，会导致日志变大
+最后2个参数，保证事务成功，日志必须落盘，这样，数据库crash后，就不会丢失某个事务的数据了
+其次说一下，对问题的理解
+备份时间周期的长短，感觉有2个方便
+首先，是恢复数据丢失的时间，既然需要恢复，肯定是数据丢失了。如果一天一备份的话，只要找到这天的全备，加入这天某段时间的binlog来恢复，如果一周一备份，假设是周一，而你要恢复的数据是周日某个时间点，那就，需要全备+周一到周日某个时间点的全部binlog用来恢复，时间相比前者需要增加很多；看业务能忍受的程度
+其次，是数据库丢失，如果一周一备份的话，需要确保整个一周的binlog都完好无损，否则将无法恢复；而一天一备，只要保证这天的binlog都完好无损；当然这个可以通过校验，或者冗余等技术来实现，相比之下，上面那点更重要
+```
+
+
 - SQL执行过程
     - 查询器
     - 优化器，缓存
@@ -1117,7 +1165,6 @@ offset x\n limit y ,n 数据个数,
 select * from table_name where id = ‘xxx’ for update; 
 这样查询出来的这一行数据就被锁定了,在这个update事务提交之前其他外界是不能修改这条数据的，但是这种处理方式效率比较低，一般不推荐使用。
 ```
-
 
 ## Redis
 - `redis高性能原因`？
