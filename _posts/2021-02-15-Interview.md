@@ -693,7 +693,7 @@ category: Interview
 
 - Semaphore
     - 是一个计数信号量，必须由获取它的线程释放。作用是控制并发的数量。内部实现：AbstractQueuedSynchronizer
-- Synchronized
+- Synchronized, https://wiki.openjdk.java.net/display/HotSpot/Synchronization
     - synchronized可以保证方法或代码块在运行时，同一时刻只有一个线程可以进入到临界区（互斥性），同时它还保证了共享变量的内存可见性，不公平的锁，可重入锁。
     - monitorenter/monitorexit机制
         - 线程一旦进入到被synchronized修饰的方法或代码块时，指定的锁对象通过某些操作将`类对象头中的LockWord指向Monitor` 的起始地址与之关联，同时monitor 中的Owner存放拥有该锁的线程的唯一标识，确保一次只能有一个线程执行该部分的代码，线程在获取锁之前不允许执行该部分的代码。
