@@ -18,7 +18,7 @@ avatar:
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble:
-  email: michael_zhangyg@icloud.com
+  email: g.zhangyg@gmail.com
   facebook:
   flickr:
   github: MichaelYgZhang
@@ -26,10 +26,10 @@ footer-links:
   linkedin:
   pinterest:
   rss: # just type anything here for a working RSS icon
-  twitter: michaelygzhang
+  twitter: gang_gang_hao
   stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
   youtube:  # channel/<your_long_string> or user/<user-name>
-  googleplus: 115646538142388831563 # anything in your profile username that comes after plus.google.com/
+  googleplus: # anything in your profile username that comes after plus.google.com/
 
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
