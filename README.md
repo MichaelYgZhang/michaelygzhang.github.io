@@ -9,6 +9,3 @@
 ##### 以下记录内容是2018-01-17日以后的新增的日志以及注意事项
 
 - 新的[Blog](https://michaelygzhang.github.io)
-
-
-[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=MichaelYgZhang)](https://github.com/anuraghazra/github-readme-stats)
