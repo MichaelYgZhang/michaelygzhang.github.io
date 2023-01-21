@@ -91,6 +91,7 @@ if __name__ == '__main__': # 构造 Workflow 对象，运行完退出
 - 创建脚本，Language: `/usr/bin/python` ； `with input as {query}`
 - Script如下； 先配置一个全局参数: `idea_workspace_path`=`/User/xxx/project` 如何配置？在当前脚本UI右上角有个`{X}`按钮，点击之后选择`Environment Variables`，详细教程参见: `https://www.alfredapp.com/help/workflows/workflow-configuration/`
 - 最后在workflow中增加一个`Actions`，选择`Launch Apps/Files`配置IDEA即可；其他场景按需选择
+
 ```python
 #!/usr/bin/python
 #  -*- coding: utf-8 -*-
