@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Alfred Workflows使用总结
-excerpt: tools
-category: tools
+excerpt: Tools
+category: Tools
 ---
 
 ### Alfred
