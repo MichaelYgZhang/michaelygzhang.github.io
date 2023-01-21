@@ -78,12 +78,12 @@ if __name__ == '__main__': # 构造 Workflow 对象，运行完退出
 ```
 
 ##### 其他注意事项
-导入安装可能遇到的问题
-1.由于脚本使用的python开发需要对应的python环境。alfred 的工作流依赖 python 2.7，不支持python3
+- 导入安装可能遇到的问题
+1. 由于脚本使用的python开发需要对应的python环境。alfred 的工作流依赖 python 2.7，不支持python3
 2. 脚本中使用到了一些python的包，所以需要安装下。使用 pip install 进行安装就行，pip 没有安装的可以在网上查下
 3. 脚本中使用requests模块去请求接口，这里接口大部分是不要登录才能访问的，所以这里使用了一个包（browsercookie）来获取本地的浏览器 cookies。
 4. 在第一次发送请求的时候会提示授权，输入密码点击始终允许。
-5. 查看alfred工作的运行情况可以通过debug日志查看
+5. `查看alfred工作的运行情况可以通过debug日志查看`
 
 #### 资料
 - 官网：https://www.alfredapp.com/
