@@ -24,6 +24,7 @@ Your Workflow/
         notify.py
         Notify.tgz
         update.py
+        util.py
         version
         web.py
         workflow.py
