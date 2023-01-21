@@ -10,8 +10,8 @@ category: tools
 - WorkFlow，支持/bin/bash; /python等；
 
 ### Workflow 开发流程
-1. 创建脚本
-2. script 填写 /usr/bin/python script.py "{query}"；此处选择python开发，需要先学习一下python简单的语法
+1. 创建脚本：Language：`/bin/bash`，`with input as {query}`
+2. script 填写 `/usr/bin/python your_script.py "{query}"`；PS: 此处选择python开发，需要先学习一下python简单的语法
 3. 使用python开发工作流需要再工作流实例的根目录下安装python的依赖
 4. 选中对应的工作流右键，在 finder 中打开
 ```html
@@ -85,8 +85,49 @@ if __name__ == '__main__': # 构造 Workflow 对象，运行完退出
 4. 在第一次发送请求的时候会提示授权，输入密码点击始终允许。
 5. `查看alfred工作的运行情况可以通过debug日志查看`
 
+
+##### 常用
+- 快速查找某个目录下的IDEA项目；其他场景可以类比开发即可
+- 创建脚本，Language: `/usr/bin/python` ； `with input as {query}`
+- Script如下； 先配置一个全局参数: `idea_workspace_path`=`/User/xxx/project` 如何配置？在当前脚本UI右上角有个`{X}`按钮，点击之后选择`Environment Variables`，详细教程参见: `https://www.alfredapp.com/help/workflows/workflow-configuration/`
+- 最后在workflow中增加一个`Actions`，选择`Launch Apps/Files`配置IDEA即可；其他场景按需选择
+```python
+#!/usr/bin/python
+#  -*- coding: utf-8 -*-
+import json
+import os
+import re
+
+
+def search(paths, name):
+    """
+    查询指定目录下 所有文件夹
+    """
+    data = []
+    for path in paths:
+        files = os.listdir(path)
+        for file_name in files:
+            if re.search(name, file_name, re.I) and file_name.find(".") == -1:
+                file_path = path + "/" + file_name
+                data.append({"uid": file_name,
+                             "title": file_name,
+                             "subtitle": file_path,
+                             "arg": file_path})
+    print json.dumps({"items": data})
+
+
+# 配置idea_project工作空间
+path = os.getenv("idea_workspace_path")
+if not path:
+    data = []
+    data.append({"title": "未设置idea工作空间:idea_workspace_path"})
+    print json.dumps({"items": data})
+else:
+    search(path.split(","), '{query}')
+```
+
 #### 资料
 - 官网：https://www.alfredapp.com/
+- github：https://github.com/deanishe/alfred-workflow/blob/master/docs/tutorial_1.rst
 - workflows：https://www.alfredworkflows.store/
 - 中英文翻译：https://github.com/xfslove/alfred-google-translate
-
