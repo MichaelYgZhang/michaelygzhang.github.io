@@ -4,4 +4,85 @@ title: Home
 navigation_weight: 1
 ---
 
-2022-01-04：调整优化
+<!-- Stats Cards -->
+<div class="stats-container">
+  <div class="stat-card">
+    <span class="stat-number">{{ site.posts | size }}</span>
+    <span class="stat-label">Articles</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">{{ site.categories | size }}</span>
+    <span class="stat-label">Categories</span>
+  </div>
+  <div class="stat-card">
+    {% assign first_post = site.posts | last %}
+    {% assign years_active = site.time | date: "%Y" | minus: first_post.date | date: "%Y" | plus: 1 %}
+    <span class="stat-number">{{ site.time | date: "%Y" | minus: 2016 | plus: 1 }}</span>
+    <span class="stat-label">Years Writing</span>
+  </div>
+  <div class="stat-card">
+    {% assign total_words = 0 %}
+    {% for post in site.posts %}
+      {% assign words = post.content | number_of_words %}
+      {% assign total_words = total_words | plus: words %}
+    {% endfor %}
+    {% assign total_k = total_words | divided_by: 1000 %}
+    <span class="stat-number">{{ total_k }}K+</span>
+    <span class="stat-label">Words</span>
+  </div>
+</div>
+
+<!-- Recent Posts -->
+<div class="recent-posts">
+  <h2><i class="fa fa-pencil"></i> Recent Posts</h2>
+  <ul class="recent-posts-list">
+    {% for post in site.posts limit:8 %}
+    <li class="recent-post-item">
+      <div>
+        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+        {% if post.category %}
+        <span class="post-category">{{ post.category }}</span>
+        {% endif %}
+      </div>
+      <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<!-- Category Cloud -->
+<div class="category-cloud">
+  <h2><i class="fa fa-tags"></i> Categories</h2>
+  <div class="category-tags">
+    {% assign sorted_categories = site.categories | sort %}
+    {% for category in sorted_categories %}
+    <a href="{{ site.baseurl }}/category#{{ category[0] | slugify }}" class="category-tag">
+      {{ category[0] }}
+      <span class="tag-count">{{ category[1] | size }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Timeline Chart -->
+<div class="timeline-section">
+  <h2><i class="fa fa-line-chart"></i> Writing Timeline</h2>
+  <div class="timeline-chart">
+    {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+    {% assign max_posts = 0 %}
+    {% for year in posts_by_year %}
+      {% if year.items.size > max_posts %}
+        {% assign max_posts = year.items.size %}
+      {% endif %}
+    {% endfor %}
+    {% assign sorted_years = posts_by_year | sort: "name" %}
+    {% for year in sorted_years %}
+      {% assign height = year.items.size | times: 100 | divided_by: max_posts %}
+      {% if height < 10 %}{% assign height = 10 %}{% endif %}
+      <div class="timeline-bar" style="height: {{ height }}%;">
+        <span class="timeline-value">{{ year.items.size }}</span>
+        <span class="timeline-label">{{ year.name }}</span>
+      </div>
+    {% endfor %}
+  </div>
+</div>

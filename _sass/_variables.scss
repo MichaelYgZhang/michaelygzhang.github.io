@@ -3,7 +3,14 @@
 // VARIABLES
 //
 
-// Colors
+// Primary Colors (Professional Blue Theme)
+$primary: #1a365d;
+$primary-light: #2c5282;
+$primary-lighter: #4299e1;
+$accent: #38a169;
+$accent-light: #68d391;
+
+// Legacy Color (kept for compatibility)
 $blue: #4183C4;
 
 // Grays
@@ -11,8 +18,16 @@ $black: #000;
 $darkerGray: #222;
 $darkGray: #333;
 $gray: #666;
+$mediumGray: #999;
 $lightGray: #eee;
+$lighterGray: #f7fafc;
 $white: #fff;
+
+// Semantic Colors
+$success: #38a169;
+$warning: #d69e2e;
+$error: #e53e3e;
+$info: #3182ce;
 
 // Font stacks
 $helvetica: Helvetica, Arial, sans-serif;
