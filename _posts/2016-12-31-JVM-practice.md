@@ -1,8 +1,34 @@
 ---
 layout: post
-title: JVM Optimize Practice
-excerpt: JVM Optimize Practice
+title: JVM性能调优实战指南
+excerpt: 系统性介绍JVM内存分代、常用诊断命令、GC参数配置及G1收集器，提供生产环境调优方案
 category: Java
+tags: [JVM, GC, 性能调优, G1, CMS, 内存管理]
+---
+
+## Executive Summary
+
+### 核心观点（金字塔原理）
+> **结论先行**: JVM性能调优的核心在于理解内存分代机制，掌握诊断工具，合理配置GC参数，根据应用特性选择合适的收集器。
+>
+> **支撑论点**:
+> 1. 堆内存分代（年轻代、年老代、持久代）决定了对象生命周期管理策略
+> 2. jps/jstack/jmap/jstat等工具是JVM问题诊断的基础手段
+> 3. 收集器选择（Serial/Parallel/CMS/G1）需权衡吞吐量与响应时间
+
+### SWOT 分析
+| 维度 | 分析 |
+|------|------|
+| **S** 优势 | 提供完整的JVM调优知识体系，涵盖命令工具、参数配置、收集器对比，实战性强 |
+| **W** 劣势 | 基于JDK 6/7时代，部分参数（如PermGen）在JDK 8+已过时 |
+| **O** 机会 | 适用于遗留系统维护、JVM基础学习、面试准备 |
+| **T** 威胁 | 现代JVM（JDK 11+）默认G1，ZGC/Shenandoah等新收集器未涉及 |
+
+### 适用场景
+- 生产环境JVM参数调优与问题排查
+- 理解GC机制和收集器工作原理
+- 从CMS迁移到G1收集器的决策参考
+
 ---
 
 - JVM堆内存的分代: 虚拟机的堆内存共划分为三个代：年轻代（Young Generation）、年老代（Old Generation）和持久代（Permanent Generation）。其中持久代主要存放的是Java类的类信息，与垃圾收集器要收集的Java对象关系不大。所以，年轻代和年老代的划分才是对垃圾 收集影响比较大的。

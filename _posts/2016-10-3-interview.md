@@ -1,8 +1,34 @@
 ---
 layout: post
-title: Interview-2017
-excerpt: Interview-2017
+title: Java后端面试核心知识点(2017版)
+excerpt: 涵盖Java基础数据类型、变量作用域、并发指标、连接池设计及分布式一致性等核心面试知识点
 category: Interview
+tags: [Java, 面试, 并发, 分布式, 连接池]
+---
+
+## Executive Summary
+
+### 核心观点（金字塔原理）
+> **结论先行**: Java后端面试需要掌握基础数据类型、内存管理、并发编程和分布式系统设计四大核心领域
+>
+> **支撑论点**:
+> 1. Java 8种基本数据类型及其存储机制是编程基础，理解补码存储和Unicode编码至关重要
+> 2. 变量作用域和生命周期决定了内存使用效率，静态变量与实例变量的区别是面试高频考点
+> 3. 并发指标(PV/QPS/TPS/IOPS)和连接池设计是评估系统性能的关键维度
+
+### SWOT 分析
+| 维度 | 分析 |
+|------|------|
+| **S** 优势 | 覆盖Java基础到分布式系统的完整知识链，内容具有实战参考价值 |
+| **W** 劣势 | 部分内容标注TODO未完成，知识点之间缺乏系统性串联 |
+| **O** 机会 | 适用于初中级Java开发者面试准备，可作为知识查漏补缺的检查清单 |
+| **T** 威胁 | 技术演进快速，部分API和最佳实践可能需要更新 |
+
+### 适用场景
+- Java后端开发工程师面试准备
+- 系统设计和性能优化知识复习
+- 分布式系统入门学习参考
+
 ---
 
 ####  2016-10-12
@@ -11,7 +37,7 @@ Java 8种基本数据类型
 ```js
 基本类型 -> 数值类型 -> 整数类型: byte、short、int、long
                    -> 浮点数据类型: float、double
-                   -> 字符类型: char  
+                   -> 字符类型: char
 基本类型 -> boolean
 
 引用类型 -> 引用 -> 类类型
@@ -67,9 +93,7 @@ https://en.wikipedia.org/wiki/Java_(programming_language)
 - redis的setnx(), expire(), get(), getset()
 - 思考宕机情况如何解决
 - 跨表垮裤事务问题
-- 分库分表
-
-- RPC？底层？服务注册、获取？
+- - RPC？底层？服务注册、获取？
 - JVM, jmap, jstat, jps, jstack...
 - ConcurrencyHashMap, safe why? AQS, CAS, HashMap
 
@@ -110,7 +134,7 @@ https://en.wikipedia.org/wiki/Java_(programming_language)
   -  以用户菜单为例，不同角色的用户拥有不同的菜单权限。
   1. 菜单表: id, topid,menu_name,link,status ;编号key,菜单的上一级就是说这里只支持2级菜单，菜单对应的请求路径，状态
   2. 角色表:id,role_name,create_time ;编号key,角色名称比如超期管理员，管理员，经理，员工等,创建时间
-  3. 角色菜单表,意思就是那个角色分配哪些菜单,以id关联，字段为:id,role_id,menu_id    ;编号key,角色编号,菜单编号  
+  3意思就是那个角色分配哪些菜单,以id关联，字段为:id,role_id,menu_id    ;编号key,角色编号,菜单编号
   4. 用户表: id,account,pwd,name,sex,status,roles,create_time ;编号key,账号,密码,姓名,性别,状态,
   - 所属角色[1];[1,2]比如可能只有一个角色，也可能有多个角色
 - 总结:当一个用户登录时，先在用户表中获得所属角色，然后根据所属角色在角色菜单表中获得相应的菜单，然后再去菜单表中得到需要展现的数据。

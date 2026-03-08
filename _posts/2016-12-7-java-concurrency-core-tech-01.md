@@ -1,8 +1,34 @@
 ---
 layout: post
-title: Java Concurrency Core Tech 笔记
-excerpt: Java Concurrency Core Tech
+title: Java多线程编程核心技术：线程基础与同步机制详解
+excerpt: 系统梳理Java多线程核心API，涵盖线程生命周期、synchronized锁机制、线程间通信wait/notify、以及Lock接口使用
 category: Java
+tags: [Java, 多线程, synchronized, Lock, 线程通信, ThreadLocal]
+---
+
+## Executive Summary
+
+### 核心观点（金字塔原理）
+> **结论先行**: Java多线程编程的核心在于理解线程生命周期管理、掌握synchronized和Lock两种同步机制的使用场景，以及熟练运用wait/notify实现线程间通信。
+>
+> **支撑论点**:
+> 1. synchronized具有锁重入特性，可避免自身死锁；同步不具有继承性；static方法锁Class对象，非static方法锁实例对象
+> 2. wait()释放锁并进入阻塞队列，notify()随机唤醒一个等待线程，notifyAll()唤醒所有等待线程
+> 3. ReentrantLock结合Condition实现选择性通知，比synchronized的notifyAll更高效
+
+### SWOT 分析
+| 维度 | 分析 |
+|------|------|
+| **S** 优势 | API讲解清晰易懂；涵盖线程基础到高级特性；代码示例丰富 |
+| **W** 劣势 | 偏重API使用，底层原理讲解较少；入门级内容，深度有限 |
+| **O** 机会 | 适合多线程入门学习；可作为API速查手册 |
+| **T** 威胁 | 仅了解API不足以应对复杂并发场景；需结合实战加深理解 |
+
+### 适用场景
+- Java多线程编程入门学习
+- 并发API使用方法速查
+- 面试基础知识复习
+
 ---
 
 - println()内部是同步的。
@@ -34,7 +60,7 @@ public void println(String x){
 - A线程先持有object对象的Lock锁，B线程可以以异的方式调用object对象中的非synchronized类型的方法。
 - A线程先持有object对象的Lock锁，B线程如果在这时调用object对象中的synchronized类型方法则需要等待，就是同步。
 
-- 脏读一定会出现操作实例变量的情况下，这就是不同县城“争抢”实例变量的结果。
+- 脏读一定会出现操作实例变量的情况下，这就是不同县城"争抢"实例变量的结果。
 - `synchronized`锁重入，在使用`synchronized`时，当一个线程得到一个对象的锁后，再次请求此对象锁时是可以再次得到
   该对象的锁的。这也证明了一个`synchronized`方法/块的内部调用本类的其他`synchronized`方法/块时，是可以得到这个对象的锁的，
   从而避免了死锁。
@@ -63,7 +89,7 @@ public void println(String x){
 
 - wait()方法可以使用调用该方法的线程释放共享资源的锁，然后从运行状态退出，进入等待队列，直到再次唤醒。调用该方法后，该线程后续的代码
   不执行。
-- notify()方法可以随机唤醒等待队列中等待同一个共享资源的一个线程，并使该线程退出等待队列，进入就绪可运行状态，也就是notify()方法仅通知一个线程。在制定notify()方法后，当前线程不会马上释放该对象的线程，呈wait状态的线程也并不能马上获取该对象的锁，要等到执行notify()方法的线程将程序执行完，也就是退出synchronized代码块后，当前线程才会释放锁，而wait状态所在的线程才可以获取该对象锁。
+- notify()方法可以随机唤醒等待队列中等待同一个共享资源的一个线程，并使该线程退出等待队列，进入就绪可运行状态，也就是notify()方法仅通知一个线程。在制定notify()方法后，当前线程不会马上释放该对象的线程，呈wait状态的线程也并不能马上获取该对象锁，要等到执行notify()方法的线程将程序执行完，也就是退出synchronized代码块后，当前线程才会释放锁，而wait状态所在的线程才可以获取该对象锁。
 - notifyAll()方法可以使所有正在等待队列中等待同一个共享资源的全部线程从等待状态退出，进入可运行状态，此时，优先级最高的那个线程最先执行，但也有可能是随机执行，这取决与JVM虚拟机的实现。
 - 每个锁对象都有两个队列，一个就绪队列，一个阻塞队列。就绪队列存储了将要获得锁的线程，阻塞队列存储了被阻塞的线程。一个线程被唤醒后
 ，才会进入就绪队列，等待CPU的调度；反而一个线程被wait后，就会进入阻塞队列，等待下一次被唤醒。
@@ -76,7 +102,7 @@ public void println(String x){
 - 若notify没有需要唤醒的阻塞线程，则此命令被忽略。
 - C/P 设计
 - 通过管道进行线程间通信：字节流
-- join()的作用是等待线程对象销毁，使所属的线程对象x正常执行run()方法中的任务，而使当前线程z进行无限期的阻塞，等待线程x销毁后再继续执行线程z后面的代码。方法join具有使线程排队运行的作用，有些类似同步的运行效果。join与synchronized的区别是:join在内部使用
+- join()的作用是等待线程对象销毁，使所属的线程对象x正常执行run()方法中的任务，而使当前线程z进行无限期的阻塞，等待线程x销毁后再继续执行线程z后面的代码。方法join具有使线程排队运行的作用，有些类似同步的运行效果。jronized的区别是:join在内部使用
 wait()方法进行等待，而synchronized关键字使用的是"对象监视器"原理作为同步。
 - join(long)与sleep(long)的区别：join(long)的功能在内部是使用wait(long)方法实现的，所以具有释放锁的特点。而sleep(long)不释放锁。
 - ThreadLocal主要解决的就是每个线程绑定自己的值，可以将ThreadLocal类比喻成全局存放数据的盒子，盒子中可以存储每个线程的私有数据。
@@ -85,11 +111,11 @@ wait()方法进行等待，而synchronized关键字使用的是"对象监视器"
 
 
 ###### Lock的使用
-- ReentrantLock: lock()获取锁，unlock()释放锁；lock.lock()代码的线程持有“对象监视器”其他线程只有等待锁被释放时再次
+- ReentrantLock: lock()获取锁，unlock()释放锁；lock.lock()代码的线程持有"对象监视器"其他线程只有等待锁被释放时再次
   争抢，效果和使用synchronized关键字一样，线程之前还是顺序执行。
 - Condition实现等待／通知，在使用notify/notifyAll方法进行通知时，被通知的线程是由JVM随机选择的，所有线程都注册在它一个
 对象身上，线程开始notifyAll时，需要通知所有的WAITING线程，没有选择全，会出现相当大的效率问题。使用ReentrantLock结合
-Condition类可以实现“选择性通知”，这个功能非常重要，而且在Condition类中默认提供的。Condition.await()/Condition.signal()；
+Condition类可以实现"选择性通知"，这个功能非常重要，而且在Condition类中默认提供的。Condition.await()/Condition.signal()；
 - 公平锁与非公平锁，公平锁即先到先得FIFO先进先出顺序，而非公平锁就是一中获取锁的抢占机制，时随机获取锁的。这个方式可能造成
 某些线程一直拿不到锁，结果也就时不公平的了。
 - ReentrantLock:方法，getHoldCount()查询当前线程保持此锁定的个数，也就是调用lock()方法的次数；getQueueLength()返回正等待获取此锁定的线程数； getWaitQueueLength()返回等待与此锁定相关的给定条件Condition的线程估计数。

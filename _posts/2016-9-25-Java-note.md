@@ -1,8 +1,34 @@
 ---
 layout: post
-title: Java work note
-excerpt: Java work note
+title: Java单元测试与事务控制实战笔记
+excerpt: 深入解析Java单元测试中的SQL返回值陷阱、try-finally返回值机制及Spring事务@Transactional的正确使用方式
 category: Java
+tags: [Java, 单元测试, Spring, 事务, Transactional]
+---
+
+## Executive Summary
+
+### 核心观点（金字塔原理）
+> **结论先行**: Java开发中需要正确理解SQL执行返回值、try-finally执行机制以及Spring事务控制的代理原理，才能避免常见的测试和事务失效问题。
+>
+> **支撑论点**:
+> 1. SQL UPDATE返回值是matched行数而非changed行数，单测断言需注意
+> 2. try-finally中return的值在finally执行前已保存到栈帧slot，基本类型不受finally修改影响
+> 3. Spring @Transactional失效的根本原因是内部方法调用绕过了AOP代理
+
+### SWOT 分析
+| 维度 | 分析 |
+|------|------|
+| **S** 优势 | 通过具体代码示例揭示了三个容易被忽视的Java陷阱，实战性强 |
+| **W** 劣势 | 示例场景相对独立，缺乏系统性的最佳实践总结 |
+| **O** 机会 | 适用于代码审查、新人培训、单测规范制定 |
+| **T** 威胁 | 不理解这些细节可能导致测试用例误判、事务失效引发数据不一致 |
+
+### 适用场景
+- Java单元测试编写与调试
+- Spring事务配置与问题排查
+- 代码审查中的细节把控
+
 ---
 
 ###### Java单测注意事项
@@ -43,20 +69,20 @@ public interface UserMapper{
 ```java
 public class Test {
 	public static void main(String[] args) {
-		System.out.println("result=" + new Test().test());;  
+		System.out.println("result=" + new Test().test());;
 	}
-	static int test()  
-	{  
+	static int test()
+	{
 	    int x = 1;
       System.out.println("1111");
-	    try{  
+	    try{
 	    	  System.out.println("222");
-	        return x;  
-	    }  
-	    finally{  
+	        return x;
+	    }
+	    finally{
 	    	  System.out.println("333");
-	        ++x;  
-	    }  
+	        ++x;
+	    }
 	}
 }
 `111
@@ -103,14 +129,14 @@ public void a() {
     }
 ```
 
-###### 情况3: 
+###### 情况3:
 ```java
     @Transactional
     public void a() {
         System.out.println("a:" + epsxSupplierMapper.insertTest("a", 1)); //入库回滚
 	b();
     }
-    
+
     public void b() throws Exception{
         System.out.println("b:" + epsxSupplierMapper.insertTest("b", 2)); //入库回滚
        int x = 10/0;
@@ -124,7 +150,7 @@ public void a() {
 	Test aTest = (Test) AopContext.currentProxy();   // 注意这里
         aTest.b();
     }
-    
+
     @Transactional
     public void b() throws Exception{
         System.out.println("b:" + epsxSupplierMapper.insertTest("b", 2)); // 入库回滚
@@ -139,8 +165,7 @@ public void a() {
         System.out.println("a:" + epsxSupplierMapper.insertTest("a", 1)); // 入库回滚
 	Test aTest = (Test) AopContext.currentProxy();   // 注意这里
         aTest.b();
-    }
-    
+
     @Transactional
     public void b() throws Exception{
         System.out.println("b:" + epsxSupplierMapper.insertTest("b", 2)); // 入库回滚

@@ -1,8 +1,34 @@
 ---
 layout: post
-title: HashMap JDK1.7 源码分析
-excerpt: Java Collections HashMap JDK1.7 源码分析
+title: HashMap JDK1.7 源码深度解析：数据结构与核心算法
+excerpt: 深入分析JDK1.7版本HashMap的底层实现原理，包括数组+链表结构、hash算法、扩容机制及Fail-Fast策略
 category: Java
+tags: [Java, HashMap, 源码分析, 数据结构, JDK1.7]
+---
+
+## Executive Summary
+
+### 核心观点（金字塔原理）
+> **结论先行**: JDK1.7的HashMap采用数组+Entry链表结构实现，通过hash算法定位存储位置，结合负载因子控制扩容时机，实现O(1)的平均存取效率。
+>
+> **支撑论点**:
+> 1. 存储机制：通过hashCode()计算hash值，再用h&(length-1)定位数组索引，hash冲突时形成链表
+> 2. 性能优化：数组长度始终为2的n次方，配合0.75负载因子平衡空间与时间效率
+> 3. 线程安全：非线程安全设计，通过modCount实现Fail-Fast快速失败机制
+
+### SWOT 分析
+| 维度 | 分析 |
+|------|------|
+| **S** 优势 | 平均O(1)存取效率；内存利用率高；hash算法设计精巧（h&length-1） |
+| **W** 劣势 | 非线程安全；hash冲突严重时链表过长导致O(n)查询；扩容需要rehash全部数据 |
+| **O** 机会 | 单线程环境的键值存储；需要快速查找的场景；数据量可预估时预设容量 |
+| **T** 威胁 | 多线程并发访问导致数据不一致；恶意构造hash冲突引发DoS攻击 |
+
+### 适用场景
+- 单线程环境下的高效键值对存储与检索
+- 需要允许null键和null值的Map实现
+- 数据量可预估，可通过初始容量优化性能
+
 ---
 
 HashMap 和 HashSet 是 Java Collection Framework 的两个重要成员，其中 HashMap 是 Map 接口的常用实现类， 简单来说就是底层一个数组+Entry链来实现的。 下面通过源码来进行分析。
@@ -77,7 +103,7 @@ HashMap 和 HashSet 是 Java Collection Framework 的两个重要成员，其中
         // 把 table 对象的长度扩充到 2 倍。
         resize(2 * table.length);
     }
-```    
+```
 
 ##### 存储示意图
 
@@ -143,13 +169,13 @@ HashMap 和 HashSet 是 Java Collection Framework 的两个重要成员，其中
    }
 ```
 
-- 注解:table 的实质就是一个数组，一个长度为 capacity 的数组。当系统开始初始化 HashMap 时，系统会创建一个长度为 capacity 的 Entry 数组， 这个数组里可以存储元素的位置被称为“桶（bucket）”，每个 bucket 都有其指定索引，系统可以根据其索引快速访问该 bucket 里存储的元素。 无论何时，HashMap 的每个“桶”只存储一个元素（也就是一个 Entry），由于 Entry 对象可以包含一个引用变量（就是 Entry 构造器的的最后一个参数） 用于指向下一个 Entry，因此可能出现的情况是：HashMap 的 bucket 中只有一个 Entry，但这个 Entry 指向另一个 Entry ——这就形成了一个 Entry 链。
+- 注解:table 的实质就是一个数组，一个长度为 capacity 的数组。当系统开始初始化 HashMap 时，系统会创建一个长度为 capacity 的 Entry 数组， 这个数组里可以存储元素的位置被称为"桶（bucket）"，每个 bucket 都有其指定索引，系统可以根据其索引快速访问该 bucket 里存储的元素。 无论何时，HashMap 的每个"桶"只存储一个元素（也就是一个 Entry），由于 Entry 对象可以包含一个引用变量（就是 Entry 构造器的的最后一个参数） 用于指向下一个 Entry，因此可能出现的情况是：HashMap 的 bucket 中只有一个 Entry，但这个 Entry 指向另一个 Entry ——这就形成了一个 Entry 链。
 - initialCapacity：HashMap的最大容量，即为底层数组的长度。
 - loadFactor：负载因子loadFactor定义为：散列表的实际元素数目(n)/ 散列表的容量(m)。
 负载因子衡量的是一个散列表的空间的使用程度，负载因子越大表示散列表的装填程度越高，反之愈小。 对于使用链表法的散列表来说，查找一个元素的平均时间是O(1+a)，因此如果负载因子越大，对空间的利用更充分， 然而后果是查找效率的降低；如果负载因子太小，那么散列表的数据将过于稀疏，对空间造成严重浪费。 HashMap的实现中，通过threshold字段来判断HashMap的最大容量：threshold = (int)(capacity * loadFactor); 结合负载因子的定义公式可知，threshold就是在此loadFactor和capacity对应下允许的最大元素数目，超过这个数目就重新resize， 以降低实际的负载因子。默认的的负载因子0.75是对空间和时间效率的一个平衡选择。 当threshold超出此最大容量时， 修改resize后的HashMap容量是容量的两倍。 其实就是对Table数组的扩容，原数组中的数据必须重新计算其在新数组中的位置，并放进去，这就是resize。
 
 
-##### Key的hashCode()与equals()方法的重写   
+##### Key的hashCode()与equals()方法的重写
 
 在map.put(key,value);中首先是对key进行hashCode()取值,然后通过hash()取值，得到元素在数组中的位置，之后进行key的equals(); 方法，找到该链表中的所需元素。可以看出hashCode(),equals()在put(),get(),方法中都是关键方法。所以为了保证存取对象时的正确性，要修改其 hashCode()以及equals()方法。
 
@@ -207,4 +233,4 @@ java.util.HashMap不是线程安全的，因此如果在使用迭代器的过程
     }
 ```
 
-- 在迭代过程中，判断modCount跟expectedModCount是否相等，如果不相等就表示已经有其他线程修改了map。 注意到modCount声明为volatile，保证线程之间修改的可见性。（volatile之所以线程安全是因为被volatile修饰的变量不保存缓存，直接在内存中修改，因此能够保证线程之间修改的可见性）。    
+- 在迭代过程中，判断modCount跟expectedModCount是否相等，如果不相等就表示已经有其他线程修改了map。 注意到modCount声明为volatile，保证线程之间修改的可见性。（volatile之所以线程安全是因为被volatile修饰的变量不保存缓存，直接在内存中修改，因此能够保证线程之间修改的可见性）。

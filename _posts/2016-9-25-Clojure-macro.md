@@ -1,8 +1,34 @@
 ---
 layout: post
-title: Clojure macro
-excerpt: Clojure 宏
+title: Clojure 宏：元编程与代码生成实战
+excerpt: 深入理解Clojure宏的核心概念，包括quote、syntax-quote、unquote等符号的使用，以及宏与函数的本质区别
 category: Clojure
+tags: [Clojure, Macro, Metaprogramming, Lisp, FunctionalProgramming]
+---
+
+## Executive Summary
+
+### 核心观点（金字塔原理）
+> **结论先行**: Clojure宏是一种在编译期运行的元编程工具，通过"用代码生成代码"实现延迟求值和代码抽象
+>
+> **支撑论点**:
+> 1. 宏的参数不会被求值，这与函数的行为本质不同
+> 2. 掌握quote(')、syntax-quote(`)、unquote(~)、unquote-splicing(~@)四个核心符号是使用宏的关键
+> 3. 宏在编译时运行一次后，返回值会替换到代码相应位置，实现真正的元编程
+
+### SWOT 分析
+| 维度 | 分析 |
+|------|------|
+| **S** 优势 | 实现延迟求值，避免不必要的函数执行；编译期代码生成，运行时零开销 |
+| **W** 劣势 | 调试困难，需要理解编译期与运行期的区别；符号语法较为复杂 |
+| **O** 机会 | DSL构建、条件编译、性能优化场景 |
+| **T** 威胁 | 过度使用导致代码可读性下降，团队协作成本增加 |
+
+### 适用场景
+- 需要实现类似if语句的短路求值逻辑
+- 构建领域特定语言(DSL)
+- 调试工具开发（如文中的dbg宏）
+
 ---
 
 #### 宏
