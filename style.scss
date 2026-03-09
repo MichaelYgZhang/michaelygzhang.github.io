@@ -677,6 +677,100 @@ small {
   .swot-t { background-color: #feebc8; color: #744210; }
 }
 
+/* Trending Repo Card */
+.trending-repo-card {
+  background: $white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px 25px;
+  margin: 15px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  h4 {
+    margin: 0 0 8px;
+    font-size: 18px;
+
+    a {
+      color: $primary;
+      font-weight: 600;
+
+      &:hover {
+        color: $primary-lighter;
+      }
+    }
+  }
+
+  .repo-desc {
+    color: $darkGray;
+    font-size: 14px;
+    margin: 0 0 12px;
+    line-height: 1.6;
+  }
+
+  .repo-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 13px;
+    color: $gray;
+
+    span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .repo-lang {
+      color: $primary;
+      font-weight: 500;
+    }
+
+    .repo-today {
+      color: $accent;
+      font-weight: 600;
+    }
+  }
+}
+
+/* Trend Insight */
+.trend-insight {
+  border-left: 4px solid $primary-lighter;
+  background: #f7fafc;
+  padding: 20px 25px;
+  margin: 20px 0;
+  border-radius: 0 8px 8px 0;
+  line-height: 1.8;
+  color: $darkGray;
+
+  p {
+    margin: 10px 0;
+    font-size: 15px;
+  }
+}
+
+/* Direction Summary */
+.direction-summary {
+  background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
+  border-radius: 10px;
+  padding: 18px 24px;
+  margin: 15px 0 20px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: $darkGray;
+}
+
+/* Mermaid Charts */
+.mermaid {
+  text-align: center;
+  margin: 25px 0;
+}
+
 .reading-time {
   color: $gray;
   font-size: 14px;

@@ -183,10 +183,266 @@ def select_top_directions(repos, top_n=5):
     return sorted_cats[:top_n]
 
 
-def generate_markdown(top_directions, date_str):
-    """Generate a Jekyll-compatible Markdown blog post."""
+def _parse_star_count(text):
+    """Parse star count string like '1,234' or '1.2k' into an integer."""
+    if not text:
+        return 0
+    text = text.strip().replace(",", "")
+    # Handle "123 stars today" format
+    text = text.split()[0]
+    try:
+        if text.lower().endswith("k"):
+            return int(float(text[:-1]) * 1000)
+        return int(text)
+    except (ValueError, IndexError):
+        return 0
+
+
+def compute_stats(repos, top_directions):
+    """Compute aggregate statistics from scraped repos and classified directions."""
+    total_repos = len(repos)
+    total_stars = sum(_parse_star_count(r["stars"]) for r in repos)
+    total_today = sum(_parse_star_count(r["today_stars"]) for r in repos)
+
+    # Language distribution
+    lang_counter = {}
+    for r in repos:
+        lang = r["language"] if r["language"] != "Unknown" else "Other"
+        lang_counter[lang] = lang_counter.get(lang, 0) + 1
+    top_langs = sorted(lang_counter.items(), key=lambda x: x[1], reverse=True)[:3]
+
+    # Category stats (percentage)
+    direction_stats = []
+    for cat, cat_repos in top_directions:
+        pct = round(len(cat_repos) / total_repos * 100) if total_repos else 0
+        direction_stats.append((cat, len(cat_repos), pct))
+
+    # Hottest repo (most today stars)
+    hottest = max(repos, key=lambda r: _parse_star_count(r["today_stars"]))
+
+    # AI penetration rate
+    ai_categories = {"AI/ML"}
+    ai_count = sum(
+        len(cr) for cat, cr in top_directions if cat in ai_categories
+    )
+    ai_pct = round(ai_count / total_repos * 100) if total_repos else 0
+
+    # Top 5 by today stars
+    top5_today = sorted(
+        repos, key=lambda r: _parse_star_count(r["today_stars"]), reverse=True
+    )[:5]
+
+    return {
+        "total_repos": total_repos,
+        "total_stars": total_stars,
+        "total_today": total_today,
+        "top_langs": top_langs,
+        "direction_stats": direction_stats,
+        "hottest": hottest,
+        "ai_pct": ai_pct,
+        "top5_today": top5_today,
+        "num_directions": len(top_directions),
+    }
+
+
+def generate_executive_summary(stats, top_directions, date_str):
+    """Generate pyramid-principle Executive Summary with stat cards and charts."""
+    hottest = stats["hottest"]
+    hottest_today = hottest["today_stars"]
+    lines = []
+
+    # --- Opening div ---
+    lines.append('<div class="executive-summary">')
+    lines.append("")
+    lines.append("## Executive Summary")
+    lines.append("")
+
+    # 1. 结论先行
+    lines.append("### 结论先行")
+    top_cat = top_directions[0][0] if top_directions else "开源"
+    top_pct = stats["direction_stats"][0][2] if stats["direction_stats"] else 0
+    lines.append(
+        f"> {date_str}，**{top_cat}** 方向以 **{top_pct}%** 的占比主导今日 GitHub Trending，"
+        f"**{hottest['full_name']}** 以 {hottest_today} 领跑热度榜。"
+    )
+    lines.append("")
+
+    # 2. 支撑论点
+    lines.append("### 支撑论点")
+    points = []
+    # Point 1: dominant category
+    points.append(
+        f"**{top_cat}** 共收录 {stats['direction_stats'][0][1]} 个项目，"
+        f"占全部 {stats['total_repos']} 个趋势项目的 {top_pct}%，"
+        f"{'AI 技术持续引领开源创新' if top_cat == 'AI/ML' else '该方向热度居首'}。"
+    )
+    # Point 2: language
+    lang_parts = "、".join(f"{l}({c})" for l, c in stats["top_langs"])
+    points.append(
+        f"编程语言 Top 3 为 {lang_parts}，"
+        f"反映出当前主流技术栈偏好。"
+    )
+    # Point 3: total activity
+    points.append(
+        f"今日共计 **{stats['total_today']:,}** 新增 Stars，"
+        f"总 Stars 累计 **{stats['total_stars']:,}**，"
+        f"开源社区活跃度强劲。"
+    )
+
+    lines.append(">")
+    for i, pt in enumerate(points, 1):
+        lines.append(f"> {i}. {pt}")
+    lines.append("")
+
+    # Close executive-summary div
+    lines.append("</div>")
+    lines.append("")
+
+    # 3. 数据概览 stat cards
+    lines.append("### 数据概览")
+    lines.append("")
+    lines.append('<div class="stats-container">')
+    cards = [
+        (stats["total_repos"], "趋势项目"),
+        (f"{stats['total_stars']:,}", "总 Stars"),
+        (f"{stats['total_today']:,}", "今日新增 Stars"),
+        (stats["num_directions"], "技术方向"),
+    ]
+    for value, label in cards:
+        lines.append(f'  <div class="stat-card">')
+        lines.append(f'    <span class="stat-number">{value}</span>')
+        lines.append(f'    <span class="stat-label">{label}</span>')
+        lines.append(f"  </div>")
+    lines.append("</div>")
+    lines.append("")
+
+    # 4. Mermaid pie chart — 技术方向分布
+    lines.append("### 技术方向分布")
+    lines.append("")
+    lines.append('<div class="mermaid">')
+    lines.append("pie title 技术方向占比")
+    for cat, count, pct in stats["direction_stats"]:
+        lines.append(f'    "{cat}" : {count}')
+    lines.append("</div>")
+    lines.append("")
+
+    # 5. Top 5 热度排行 — CSS bar chart
+    lines.append("### 热度排行 Top 5")
+    lines.append("")
+    max_today = max(
+        _parse_star_count(r["today_stars"]) for r in stats["top5_today"]
+    ) or 1
+    lines.append('<div class="timeline-chart">')
+    for r in stats["top5_today"]:
+        val = _parse_star_count(r["today_stars"])
+        height_pct = round(val / max_today * 100)
+        short_name = r["full_name"].split("/")[-1][:12]
+        lines.append(
+            f'  <div class="timeline-bar" style="height:{height_pct}%">'
+            f'<span class="timeline-value">{val}</span>'
+            f'<span class="timeline-label">{short_name}</span></div>'
+        )
+    lines.append("</div>")
+    lines.append("")
+
+    return "\n".join(lines)
+
+
+def generate_trend_analysis(stats, top_directions):
+    """Generate macro trend analysis paragraphs based on today's data."""
+    lines = []
+    lines.append("## AI 发展趋势洞察")
+    lines.append("")
+    lines.append('<div class="trend-insight">')
+    lines.append("")
+
+    # Paragraph 1: Dominant direction
+    top_cat, top_repos = top_directions[0]
+    lines.append(
+        f"**主导方向与驱动力：** 今日 Trending 以 **{top_cat}** 方向最为突出，"
+        f"共 {len(top_repos)} 个项目上榜。"
+    )
+    hottest = stats["hottest"]
+    lines.append(
+        f"其中 [{hottest['full_name']}]({hottest['url']}) 热度最高"
+        f"（{hottest['today_stars']}），"
+        f"体现出社区对该领域的持续关注。"
+    )
+    lines.append("")
+
+    # Paragraph 2: Language preferences
+    lang_parts = "、".join(f"**{l}**({c} 项目)" for l, c in stats["top_langs"])
+    lines.append(
+        f"**编程语言偏好：** 今日热门项目中，{lang_parts} 位列前三。"
+    )
+    if stats["top_langs"] and stats["top_langs"][0][0] == "Python":
+        lines.append(
+            "Python 继续巩固其在 AI/数据领域的统治地位，"
+            "同时 Rust/Go 等系统级语言在基础设施方向保持增长。"
+        )
+    lines.append("")
+
+    # Paragraph 3: Emerging projects
+    top5 = stats["top5_today"]
+    if len(top5) >= 3:
+        names = "、".join(
+            f"[{r['full_name'].split('/')[-1]}]({r['url']})" for r in top5[:3]
+        )
+        lines.append(
+            f"**值得关注的项目：** {names} 等项目今日增长迅猛，"
+            f"建议开发者持续跟踪其发展动态。"
+        )
+        lines.append("")
+
+    # Paragraph 4: Cross-domain fusion
+    if len(top_directions) >= 2:
+        cats = "、".join(d[0] for d in top_directions[:3])
+        lines.append(
+            f"**跨领域融合：** 当前 Trending 涵盖 {cats} 等方向，"
+            f"反映出技术生态日益交叉融合的趋势。"
+            f"AI 能力正加速渗透到 DevOps、安全、数据库等各基础设施层面。"
+        )
+        lines.append("")
+
+    lines.append("</div>")
+    lines.append("")
+    return "\n".join(lines)
+
+
+def generate_direction_summary(category, repos):
+    """Generate a brief blockquote summary for a category section."""
+    # Deduplicate
+    seen = set()
+    unique = []
+    for r in repos:
+        if r["full_name"] not in seen:
+            seen.add(r["full_name"])
+            unique.append(r)
+
+    lang_counter = {}
+    for r in unique:
+        lang = r["language"] if r["language"] != "Unknown" else "Other"
+        lang_counter[lang] = lang_counter.get(lang, 0) + 1
+    top_lang = sorted(lang_counter.items(), key=lambda x: x[1], reverse=True)
+    lang_str = "、".join(l for l, _ in top_lang[:3])
+
+    total_today = sum(_parse_star_count(r["today_stars"]) for r in unique)
+
+    return (
+        f'<div class="direction-summary">'
+        f"该方向共 <strong>{len(unique)}</strong> 个项目上榜，"
+        f"主要使用 <strong>{lang_str}</strong>，"
+        f"今日合计新增 <strong>{total_today:,}</strong> Stars。"
+        f"</div>"
+    )
+
+
+def generate_markdown(repos, top_directions, date_str):
+    """Generate an enriched Jekyll blog post with pyramid-principle structure."""
     direction_names = [d[0] for d in top_directions]
     tags_str = ", ".join(["GitHub Trending", "开源"] + direction_names)
+
+    stats = compute_stats(repos, top_directions)
 
     lines = [
         "---",
@@ -197,38 +453,52 @@ def generate_markdown(top_directions, date_str):
         f"tags: [{tags_str}]",
         "---",
         "",
-        "## Executive Summary",
-        "",
-        "### 核心观点",
-        f"> 今日 GitHub Trending 热门项目覆盖以下 {len(direction_names)} 大技术方向：",
-        ">",
     ]
-    for i, name in enumerate(direction_names, 1):
-        count = len(top_directions[i - 1][1])
-        lines.append(f"> {i}. **{name}** ({count} 个项目)")
-    lines.append("")
 
-    for category, repos in top_directions:
+    # Executive Summary (pyramid principle + stat cards + charts)
+    lines.append(generate_executive_summary(stats, top_directions, date_str))
+
+    # AI Trend Analysis
+    lines.append(generate_trend_analysis(stats, top_directions))
+
+    # Per-direction sections with repo cards
+    for category, cat_repos in top_directions:
         lines.append(f"## {category}")
         lines.append("")
+        lines.append(generate_direction_summary(category, cat_repos))
+        lines.append("")
+
         # Deduplicate repos within this category
         seen = set()
-        for repo in repos:
+        for repo in cat_repos:
             if repo["full_name"] in seen:
                 continue
             seen.add(repo["full_name"])
-            lines.append(f"### [{repo['full_name']}]({repo['url']})")
-            lines.append(f"> {repo['description']}")
-            lines.append("")
-            meta_parts = [f"**语言**: {repo['language']}"]
+
+            # Repo card HTML
+            lines.append('<div class="trending-repo-card">')
+            lines.append(
+                f'  <h4><a href="{repo["url"]}">{repo["full_name"]}</a></h4>'
+            )
+            lines.append(
+                f'  <p class="repo-desc">{repo["description"]}</p>'
+            )
+            lines.append('  <div class="repo-meta">')
+            lines.append(
+                f'    <span class="repo-lang">{repo["language"]}</span>'
+            )
             if repo["stars"]:
-                meta_parts.append(f"**Stars**: {repo['stars']}")
+                lines.append(f"    <span>Stars: {repo['stars']}</span>")
             if repo["forks"]:
-                meta_parts.append(f"**Forks**: {repo['forks']}")
+                lines.append(f"    <span>Forks: {repo['forks']}</span>")
             if repo["today_stars"]:
-                meta_parts.append(f"**今日**: {repo['today_stars']}")
-            lines.append(" | ".join(meta_parts))
+                lines.append(
+                    f'    <span class="repo-today">{repo["today_stars"]}</span>'
+                )
+            lines.append("  </div>")
+            lines.append("</div>")
             lines.append("")
+
         lines.append("---")
         lines.append("")
 
@@ -261,7 +531,7 @@ def main():
     top_directions = select_top_directions(repos, top_n=5)
 
     print("Generating blog post...")
-    markdown = generate_markdown(top_directions, date_str)
+    markdown = generate_markdown(repos, top_directions, date_str)
 
     os.makedirs(posts_dir, exist_ok=True)
     with open(output_file, "w", encoding="utf-8") as f:
