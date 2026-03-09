@@ -1,0 +1,251 @@
+# AI 每日技术博文话题计划
+# 面向有 5-7 年经验的 Java/后端工程师，系统学习 AI 技术栈
+
+topics:
+  # ========== 第一阶段：AI 基础与核心概念 ==========
+  - id: 1
+    title: "大语言模型（LLM）原理与架构解析"
+    slug: llm-architecture
+    phase: "AI 基础与核心概念"
+    tags: [AI, LLM, Transformer]
+    key_areas:
+      - Transformer 架构核心机制（Self-Attention、Multi-Head Attention）
+      - GPT 与 BERT 的架构差异与适用场景
+      - Tokenization 与词嵌入（Word Embedding）原理
+      - 模型参数量、显存占用与推理性能的关系
+
+  - id: 2
+    title: "Prompt Engineering 从入门到生产实践"
+    slug: prompt-engineering
+    phase: "AI 基础与核心概念"
+    tags: [AI, Prompt, LLM]
+    key_areas:
+      - Zero-shot、Few-shot、Chain-of-Thought 提示策略
+      - 结构化 Prompt 模板设计与版本管理
+      - Prompt 注入攻击与防御策略
+      - 生产环境中 Prompt 的 A/B 测试与迭代优化
+
+  - id: 3
+    title: "Embedding 与向量数据库实战指南"
+    slug: embedding-vector-db
+    phase: "AI 基础与核心概念"
+    tags: [AI, Embedding, VectorDB]
+    key_areas:
+      - 文本 Embedding 模型选型（OpenAI、BGE、E5）
+      - 向量数据库对比（Milvus、Pinecone、Weaviate、Chroma）
+      - 向量索引算法（HNSW、IVF、PQ）原理与调优
+      - 从 Java 后端视角看向量数据库的集成与运维
+
+  - id: 4
+    title: "AI 应用中的 Token 经济学与成本优化"
+    slug: token-economics
+    phase: "AI 基础与核心概念"
+    tags: [AI, LLM, 成本优化]
+    key_areas:
+      - Token 计算方式与各模型定价对比
+      - Prompt 压缩与上下文窗口管理策略
+      - 缓存机制（Semantic Cache）降本实践
+      - 模型路由策略：按任务复杂度分流大小模型
+
+  # ========== 第二阶段：RAG 与知识增强 ==========
+  - id: 5
+    title: "RAG（检索增强生成）架构设计与实现"
+    slug: rag-architecture
+    phase: "RAG 与知识增强"
+    tags: [AI, RAG, LLM]
+    key_areas:
+      - RAG 端到端流程：文档解析 → 分块 → 嵌入 → 检索 → 生成
+      - 文档分块策略（固定长度、语义分块、递归分块）
+      - 检索策略：稠密检索 vs 稀疏检索 vs 混合检索
+      - RAG 与微调的选型决策框架
+
+  - id: 6
+    title: "高级 RAG 优化：从 Naive RAG 到 Advanced RAG"
+    slug: advanced-rag
+    phase: "RAG 与知识增强"
+    tags: [AI, RAG, 优化]
+    key_areas:
+      - Query 改写与扩展（HyDE、Multi-Query）
+      - Re-ranking 重排序模型集成
+      - 自适应检索与迭代检索策略
+      - RAG 评估框架（Faithfulness、Relevancy、Context Recall）
+
+  - id: 7
+    title: "知识图谱与 GraphRAG 技术实践"
+    slug: knowledge-graph-rag
+    phase: "RAG 与知识增强"
+    tags: [AI, KnowledgeGraph, RAG]
+    key_areas:
+      - 知识图谱基础：实体、关系、本体建模
+      - GraphRAG 架构：图检索 + LLM 生成
+      - Neo4j 与 LLM 集成实战
+      - 传统 RAG vs GraphRAG 的适用场景分析
+
+  # ========== 第三阶段：AI Agent 与工具链 ==========
+  - id: 8
+    title: "AI Agent 架构设计：从 ReAct 到多智能体"
+    slug: ai-agent-architecture
+    phase: "AI Agent 与工具链"
+    tags: [AI, Agent, 架构]
+    key_areas:
+      - ReAct（Reasoning + Acting）范式详解
+      - 工具调用（Function Calling / Tool Use）机制
+      - 单 Agent vs 多 Agent 架构对比
+      - Agent 的记忆系统设计（短期记忆、长期记忆、工作记忆）
+
+  - id: 9
+    title: "LangChain 核心架构与生产实践"
+    slug: langchain-in-production
+    phase: "AI Agent 与工具链"
+    tags: [AI, LangChain, 框架]
+    key_areas:
+      - LangChain 核心抽象（Chain、Agent、Tool、Memory）
+      - LCEL（LangChain Expression Language）管道设计
+      - LangSmith 可观测性与调试
+      - LangChain vs LlamaIndex vs 自研框架的选型
+
+  - id: 10
+    title: "Function Calling 与工具集成实战"
+    slug: function-calling
+    phase: "AI Agent 与工具链"
+    tags: [AI, FunctionCalling, API]
+    key_areas:
+      - OpenAI / Claude / DeepSeek 的 Function Calling 协议对比
+      - 工具描述（Tool Schema）设计最佳实践
+      - 并行工具调用与工具链编排
+      - 安全性考量：权限控制与沙箱执行
+
+  - id: 11
+    title: "多智能体系统（Multi-Agent）设计模式"
+    slug: multi-agent-patterns
+    phase: "AI Agent 与工具链"
+    tags: [AI, MultiAgent, 架构]
+    key_areas:
+      - 多智能体通信模式（协作、竞争、监督）
+      - CrewAI、AutoGen、LangGraph 框架对比
+      - 任务分解与智能体编排策略
+      - 多智能体系统的容错与可观测性
+
+  # ========== 第四阶段：模型微调与训练 ==========
+  - id: 12
+    title: "大模型微调（Fine-tuning）全流程实战"
+    slug: llm-fine-tuning
+    phase: "模型微调与训练"
+    tags: [AI, FineTuning, LLM]
+    key_areas:
+      - 全量微调 vs LoRA vs QLoRA 原理与对比
+      - 训练数据准备：格式、清洗、数据增强
+      - Hugging Face Transformers + PEFT 实战
+      - 微调效果评估与过拟合应对策略
+
+  - id: 13
+    title: "RLHF 与偏好对齐技术解析"
+    slug: rlhf-alignment
+    phase: "模型微调与训练"
+    tags: [AI, RLHF, Alignment]
+    key_areas:
+      - RLHF 三阶段流程（SFT → Reward Model → PPO）
+      - DPO（Direct Preference Optimization）原理与优势
+      - 人类偏好数据的采集与标注策略
+      - 对齐税（Alignment Tax）与安全性平衡
+
+  - id: 14
+    title: "模型量化与推理优化实战"
+    slug: model-quantization
+    phase: "模型微调与训练"
+    tags: [AI, 量化, 推理优化]
+    key_areas:
+      - 量化基础（INT8、INT4、GPTQ、AWQ、GGUF）
+      - vLLM、TGI、Ollama 推理引擎对比
+      - KV Cache 优化与 PagedAttention
+      - 从 Java 工程师视角部署本地模型服务
+
+  # ========== 第五阶段：AI 工程化与生产部署 ==========
+  - id: 15
+    title: "AI 应用的可观测性与监控体系"
+    slug: ai-observability
+    phase: "AI 工程化与生产部署"
+    tags: [AI, 可观测性, MLOps]
+    key_areas:
+      - LLM 应用的核心监控指标（延迟、Token 用量、质量评分）
+      - Trace 链路追踪：从用户请求到模型调用
+      - LangFuse、Phoenix、Helicone 等平台对比
+      - 异常检测与自动告警策略
+
+  - id: 16
+    title: "AI 应用的评估体系设计"
+    slug: ai-evaluation
+    phase: "AI 工程化与生产部署"
+    tags: [AI, 评估, 质量]
+    key_areas:
+      - LLM 输出评估维度（准确性、相关性、安全性、流畅性）
+      - 自动评估（LLM-as-Judge）vs 人工评估
+      - 评估数据集构建与基准测试
+      - 持续评估与回归测试流水线
+
+  - id: 17
+    title: "AI 应用安全：攻击、防御与合规"
+    slug: ai-security
+    phase: "AI 工程化与生产部署"
+    tags: [AI, 安全, 合规]
+    key_areas:
+      - Prompt 注入攻击分类与防御方案
+      - 数据隐私保护（PII 检测、数据脱敏）
+      - 模型幻觉（Hallucination）检测与缓解
+      - AI 合规框架与企业落地实践
+
+  - id: 18
+    title: "AI 网关与模型服务治理架构"
+    slug: ai-gateway
+    phase: "AI 工程化与生产部署"
+    tags: [AI, 网关, 微服务]
+    key_areas:
+      - AI 网关核心功能（路由、限流、鉴权、缓存）
+      - 多模型负载均衡与故障切换
+      - 从 Java 微服务网关到 AI 网关的架构演进
+      - 开源方案对比（LiteLLM Proxy、Kong AI Gateway）
+
+  # ========== 第六阶段：前沿技术与实战项目 ==========
+  - id: 19
+    title: "多模态大模型（Vision-Language Model）技术解析"
+    slug: multimodal-llm
+    phase: "前沿技术与实战项目"
+    tags: [AI, 多模态, VLM]
+    key_areas:
+      - 多模态模型架构（CLIP、LLaVA、GPT-4V）
+      - 图像理解与 OCR 集成实践
+      - 视频理解与多模态 RAG
+      - 多模态应用场景与成本分析
+
+  - id: 20
+    title: "AI 编程助手原理：从 Copilot 到 Agent Coding"
+    slug: ai-coding-assistant
+    phase: "前沿技术与实战项目"
+    tags: [AI, 编程助手, DevTools]
+    key_areas:
+      - 代码补全模型的训练与推理流程
+      - 上下文工程：如何让 AI 理解你的代码库
+      - AI Agent 驱动的自动化开发工作流
+      - AI 编程工具在团队中的落地策略
+
+  - id: 21
+    title: "从零构建企业级 RAG 知识库系统"
+    slug: enterprise-rag-project
+    phase: "前沿技术与实战项目"
+    tags: [AI, RAG, 项目实战]
+    key_areas:
+      - 系统架构设计（文档管道 + 检索服务 + 生成服务）
+      - 多格式文档解析（PDF、Word、HTML、表格）
+      - 权限控制与多租户隔离
+      - 性能优化与生产部署清单
+
+  - id: 22
+    title: "AI 技术选型决策框架：后端工程师视角"
+    slug: ai-tech-decision-framework
+    phase: "前沿技术与实战项目"
+    tags: [AI, 架构决策, 技术选型]
+    key_areas:
+      - 模型选型决策树（开源 vs 闭源、大模型 vs 小模型）
+      - 框架选型矩阵（LangChain vs LlamaIndex vs 自研）
+      - 基础设施选型（GPU 云 vs Serverless vs 本地部署）
+      - 从 Java 技术栈到 AI 技术栈的团队转型路径
