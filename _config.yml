@@ -87,3 +87,6 @@ exclude:
   - scripts
 
 # paginate: 10
+
+# Allow future-dated posts (needed for auto-generated daily articles across timezones)
+future: true
