@@ -6,6 +6,25 @@ category: AI
 tags: [Prompt Engineering, LLM, AI, CoT, RAG, Agent]
 ---
 
+<div style="background: linear-gradient(135deg, #e8f4f8 0%, #f0e6ff 100%); border-left: 4px solid #7c3aed; border-radius: 8px; padding: 20px 24px; margin: 20px 0;">
+<div style="display: flex; align-items: center; margin-bottom: 12px;">
+<span style="background: #7c3aed; color: white; font-size: 12px; font-weight: bold; padding: 2px 8px; border-radius: 4px; margin-right: 8px;">AI Summary</span>
+<span style="font-size: 18px; font-weight: bold;">核心观点总结</span>
+</div>
+
+<p style="margin: 8px 0;"><strong>结论先行：</strong>Prompt Engineering 的本质是用结构化语言将人类意图精确传递给模型。它正在从"手工技巧"演变为"工程学科"，核心在于<strong>清晰表达 + 系统化评估</strong>。</p>
+
+<p style="margin: 8px 0;"><strong>六大核心原则：</strong>① 清晰明确，消除歧义 ② 结构化组织，善用分隔符（XML 标签） ③ 提供 3-5 个 Few-Shot 示例 ④ Chain-of-Thought 给模型思考时间 ⑤ 拆解复杂任务为流水线 ⑥ 用参考文本减少幻觉</p>
+
+<p style="margin: 8px 0;"><strong>进阶框架：</strong>Tree-of-Thought（多路径探索）、ReAct（推理+行动循环，Agent 基础范式）、Self-Consistency（多路径投票）、Reflexion（自我反思迭代）</p>
+
+<p style="margin: 8px 0;"><strong>工程化关键：</strong>建立 50+ 样本的评估集做回归测试，用 DSPy 等框架实现程序化优化，切换模型时重新编译而非手动重写</p>
+
+<p style="margin: 8px 0;"><strong>安全底线：</strong>五层防御体系（输入校验 → Prompt 加固 → 独立判断模型 → 输出过滤 → 最小权限），用户输入必须用标签隔离</p>
+
+<p style="margin: 8px 0; color: #666; font-size: 13px;">信息来源：OpenAI、Anthropic、Google 官方指南 + DSPy/ReAct 等前沿研究 | 本摘要由 AI 自动生成</p>
+</div>
+
 ## 一、为什么需要 Prompt Engineering
 
 大语言模型（LLM）的能力边界很大程度上取决于输入的质量。同一个模型，不同的 Prompt 可以产生从"完全不可用"到"专家级水准"的巨大差异。Prompt Engineering 的本质是**用结构化的语言将人类意图精确传递给模型**，它既是工程实践，也是与 AI 协作的核心技能。
