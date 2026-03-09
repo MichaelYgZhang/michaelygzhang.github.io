@@ -251,50 +251,43 @@ def generate_executive_summary(stats, top_directions, date_str):
     hottest_today = hottest["today_stars"]
     lines = []
 
-    # --- Opening div ---
-    lines.append('<div class="executive-summary">')
-    lines.append("")
-    lines.append("## Executive Summary")
-    lines.append("")
-
-    # 1. 结论先行
-    lines.append("### 结论先行")
+    # --- Opening div (all content must be pure HTML inside div) ---
     top_cat = top_directions[0][0] if top_directions else "开源"
     top_pct = stats["direction_stats"][0][2] if stats["direction_stats"] else 0
-    lines.append(
-        f"> {date_str}，**{top_cat}** 方向以 **{top_pct}%** 的占比主导今日 GitHub Trending，"
-        f"**{hottest['full_name']}** 以 {hottest_today} 领跑热度榜。"
-    )
-    lines.append("")
 
-    # 2. 支撑论点
-    lines.append("### 支撑论点")
-    points = []
-    # Point 1: dominant category
-    points.append(
-        f"**{top_cat}** 共收录 {stats['direction_stats'][0][1]} 个项目，"
-        f"占全部 {stats['total_repos']} 个趋势项目的 {top_pct}%，"
-        f"{'AI 技术持续引领开源创新' if top_cat == 'AI/ML' else '该方向热度居首'}。"
+    ai_label = (
+        "AI 技术持续引领开源创新"
+        if top_cat == "AI/ML"
+        else "该方向热度居首"
     )
-    # Point 2: language
     lang_parts = "、".join(f"{l}({c})" for l, c in stats["top_langs"])
-    points.append(
-        f"编程语言 Top 3 为 {lang_parts}，"
-        f"反映出当前主流技术栈偏好。"
-    )
-    # Point 3: total activity
-    points.append(
-        f"今日共计 **{stats['total_today']:,}** 新增 Stars，"
-        f"总 Stars 累计 **{stats['total_stars']:,}**，"
-        f"开源社区活跃度强劲。"
-    )
 
-    lines.append(">")
-    for i, pt in enumerate(points, 1):
-        lines.append(f"> {i}. {pt}")
-    lines.append("")
-
-    # Close executive-summary div
+    lines.append('<div class="executive-summary">')
+    lines.append(f"  <h2>Executive Summary</h2>")
+    lines.append(f"  <h3>结论先行</h3>")
+    lines.append(f"  <blockquote>")
+    lines.append(
+        f"    {date_str}，<strong>{top_cat}</strong> 方向以 <strong>{top_pct}%</strong> "
+        f"的占比主导今日 GitHub Trending，"
+        f"<strong>{hottest['full_name']}</strong> 以 {hottest_today} 领跑热度榜。"
+    )
+    lines.append(f"  </blockquote>")
+    lines.append(f"  <h3>支撑论点</h3>")
+    lines.append(f"  <blockquote>")
+    lines.append(f"    <ol>")
+    lines.append(
+        f"      <li><strong>{top_cat}</strong> 共收录 {stats['direction_stats'][0][1]} 个项目，"
+        f"占全部 {stats['total_repos']} 个趋势项目的 {top_pct}%，{ai_label}。</li>"
+    )
+    lines.append(
+        f"      <li>编程语言 Top 3 为 {lang_parts}，反映出当前主流技术栈偏好。</li>"
+    )
+    lines.append(
+        f"      <li>今日共计 <strong>{stats['total_today']:,}</strong> 新增 Stars，"
+        f"总 Stars 累计 <strong>{stats['total_stars']:,}</strong>，开源社区活跃度强劲。</li>"
+    )
+    lines.append(f"    </ol>")
+    lines.append(f"  </blockquote>")
     lines.append("</div>")
     lines.append("")
 
@@ -354,55 +347,53 @@ def generate_trend_analysis(stats, top_directions):
     lines.append("## AI 发展趋势洞察")
     lines.append("")
     lines.append('<div class="trend-insight">')
-    lines.append("")
 
     # Paragraph 1: Dominant direction
     top_cat, top_repos = top_directions[0]
-    lines.append(
-        f"**主导方向与驱动力：** 今日 Trending 以 **{top_cat}** 方向最为突出，"
-        f"共 {len(top_repos)} 个项目上榜。"
-    )
     hottest = stats["hottest"]
     lines.append(
-        f"其中 [{hottest['full_name']}]({hottest['url']}) 热度最高"
+        f"  <p><strong>主导方向与驱动力：</strong> 今日 Trending 以 <strong>{top_cat}</strong> 方向最为突出，"
+        f"共 {len(top_repos)} 个项目上榜。"
+        f"其中 <a href=\"{hottest['url']}\">{hottest['full_name']}</a> 热度最高"
         f"（{hottest['today_stars']}），"
-        f"体现出社区对该领域的持续关注。"
+        f"体现出社区对该领域的持续关注。</p>"
     )
-    lines.append("")
 
     # Paragraph 2: Language preferences
-    lang_parts = "、".join(f"**{l}**({c} 项目)" for l, c in stats["top_langs"])
-    lines.append(
-        f"**编程语言偏好：** 今日热门项目中，{lang_parts} 位列前三。"
+    lang_parts = "、".join(
+        f"<strong>{l}</strong>({c} 项目)" for l, c in stats["top_langs"]
     )
+    lang_extra = ""
     if stats["top_langs"] and stats["top_langs"][0][0] == "Python":
-        lines.append(
+        lang_extra = (
             "Python 继续巩固其在 AI/数据领域的统治地位，"
             "同时 Rust/Go 等系统级语言在基础设施方向保持增长。"
         )
-    lines.append("")
+    lines.append(
+        f"  <p><strong>编程语言偏好：</strong> 今日热门项目中，{lang_parts} 位列前三。"
+        f"{lang_extra}</p>"
+    )
 
     # Paragraph 3: Emerging projects
     top5 = stats["top5_today"]
     if len(top5) >= 3:
         names = "、".join(
-            f"[{r['full_name'].split('/')[-1]}]({r['url']})" for r in top5[:3]
+            f"<a href=\"{r['url']}\">{r['full_name'].split('/')[-1]}</a>"
+            for r in top5[:3]
         )
         lines.append(
-            f"**值得关注的项目：** {names} 等项目今日增长迅猛，"
-            f"建议开发者持续跟踪其发展动态。"
+            f"  <p><strong>值得关注的项目：</strong> {names} 等项目今日增长迅猛，"
+            f"建议开发者持续跟踪其发展动态。</p>"
         )
-        lines.append("")
 
     # Paragraph 4: Cross-domain fusion
     if len(top_directions) >= 2:
         cats = "、".join(d[0] for d in top_directions[:3])
         lines.append(
-            f"**跨领域融合：** 当前 Trending 涵盖 {cats} 等方向，"
+            f"  <p><strong>跨领域融合：</strong> 当前 Trending 涵盖 {cats} 等方向，"
             f"反映出技术生态日益交叉融合的趋势。"
-            f"AI 能力正加速渗透到 DevOps、安全、数据库等各基础设施层面。"
+            f"AI 能力正加速渗透到 DevOps、安全、数据库等各基础设施层面。</p>"
         )
-        lines.append("")
 
     lines.append("</div>")
     lines.append("")
