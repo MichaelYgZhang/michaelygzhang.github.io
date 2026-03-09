@@ -84,5 +84,6 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+  - scripts
 
 # paginate: 10
