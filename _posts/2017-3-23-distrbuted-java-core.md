@@ -2,7 +2,7 @@
 layout: post
 title: 分布式Java应用基础与实践：从JVM到高可用系统设计
 excerpt: 全面解析分布式Java应用的通信方式、JVM原理、并发工具、性能调优及高可用架构设计
-category: Destributed
+category: Distributed
 tags: [分布式系统, Java, JVM, 性能调优, 高可用, SOA, 并发编程]
 ---
 

@@ -2,7 +2,7 @@
 layout: post
 title: 从Paxos到Zookeeper：分布式一致性原理与实践详解
 excerpt: 深入解析分布式一致性协议演进，从2PC/3PC到Paxos再到ZAB协议的核心原理与工程实践
-category: Destributed
+category: Distributed
 tags: [分布式系统, Paxos, Zookeeper, ZAB协议, 一致性, CAP理论]
 ---
 

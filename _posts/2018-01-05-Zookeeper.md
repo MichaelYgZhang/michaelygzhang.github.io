@@ -2,7 +2,7 @@
 layout: post
 title: ZooKeeper 分布式协调服务原理与实践
 excerpt: 深入解析 ZooKeeper V3.4.11 的核心架构设计，包括数据模型、Watcher 机制、一致性保证及高可用部署方案
-category: Destributed
+category: Distributed
 tags: [ZooKeeper, 分布式, 服务发现, 配置管理, 高可用]
 published: true
 author: michael
@@ -143,8 +143,6 @@ ZooKeeper host:port cmd args
 ```
 - Test: `ls /` `create /zk_test my_data` `get /zk_test` `set /zk_test junk` `delete /zk_test`
 
-###### TODO Zookeeper 源码分析
-
 ##### Zookeeper 服务注册与发现的问题
 
 - [zookeeper作为服务注册与发现的问题](http://dockone.io/article/78)
@@ -159,4 +157,3 @@ ZooKeeper host:port cmd args
 
 ##### 总结
 
-- TODO

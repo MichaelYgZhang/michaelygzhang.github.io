@@ -925,7 +925,13 @@ category: Interview
 
 ### Ribbon 负载均衡
 - `负载均衡策略`
-    - 轮训，随机。。TODO
+    - RoundRobinRule：轮询，依次将请求分配给每个服务实例
+    - RandomRule：随机选择一个可用实例
+    - WeightedResponseTimeRule：根据平均响应时间加权，响应越快权重越大
+    - BestAvailableRule：选择并发请求数最少的实例
+    - RetryRule：在指定时间内对选定策略进行重试
+    - ZoneAvoidanceRule（默认）：综合判断 Zone 的性能和可用性，在同 Zone 内轮询选择
+    - 自定义策略：实现 IRule 接口，通过 `@Bean` 注入或配置文件指定
 
 
 ## Mybatis
@@ -955,7 +961,14 @@ category: Interview
 - [资料](https://michaelygzhang.github.io/destributed/2017/01/18/paxos-to-zookeeper.html)
 
 ## Eureka
-- TODO
+- Eureka 是 Netflix 开源的服务注册与发现组件，采用 AP 模型（优先保证可用性）
+- **架构**：Eureka Server（注册中心）+ Eureka Client（服务提供者/消费者）
+- **核心机制**：
+    - 服务注册：Client 启动时向 Server 发送注册请求，包含 IP、端口、健康检查 URL 等元数据
+    - 心跳续约：默认每 30 秒发送一次心跳，Server 在 90 秒内未收到则剔除实例
+    - 自我保护模式：当 15 分钟内心跳失败比例 > 85% 时触发，不再剔除实例，防止网络分区导致的误删
+    - 服务拉取：Client 默认每 30 秒从 Server 拉取注册表缓存到本地
+- **与 ZK 的对比**：Eureka 保证 AP（高可用），ZK 保证 CP（强一致），微服务场景下通常优先选择 AP
 
 ## Nacos
 
@@ -1337,7 +1350,14 @@ bool idempotent_withdraw(ticket_id, account_id, amount);
 - 布隆过滤器
 
 ### 多级缓存
-- TODO
+- **L1 本地缓存**（Caffeine/Guava Cache）：进程内缓存，访问延迟 ~ns 级别，容量有限，适合热点数据
+- **L2 分布式缓存**（Redis/Memcached）：跨进程共享，访问延迟 ~ms 级别，容量大，支持集群扩展
+- **L3 持久化存储**（MySQL/HBase）：最终数据源，访问延迟 ~10ms 级别
+- **查询路径**：L1 → L2 → L3，逐级穿透，命中后回填上层缓存
+- **一致性策略**：
+    - 更新 DB 后删除缓存（Cache Aside 模式），通过消息队列或 binlog 监听异步更新 L1/L2
+    - L1 设置较短过期时间（秒级），L2 设置较长过期时间（分钟级），通过 TTL 实现最终一致
+    - 对于强一致场景，使用分布式锁控制并发更新
 
 
 ### `压测`

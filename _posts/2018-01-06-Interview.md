@@ -113,7 +113,11 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 - 偏向锁，轻量锁，重量锁，锁升级过程
 - 锁粗化？锁消除？
 - 可重入锁
-- TODO
+- Java 锁机制总结：
+  - synchronized：JVM 内置锁，支持偏向锁→轻量级锁→重量级锁的升级过程，不可中断，非公平
+  - ReentrantLock：基于 AQS 实现，支持公平/非公平、可中断、可超时、可绑定多个 Condition
+  - ReadWriteLock：读写分离锁，读读共享、读写/写写互斥，适用于读多写少场景
+  - StampedLock：JDK 8 引入，支持乐观读，性能优于 ReadWriteLock，但不可重入
 - AQS框架
 - 并发
 - 单机
@@ -473,7 +477,8 @@ volatile类型的变量baseCount计算size值，因为元素个数保存baseCoun
 - [JCF-github](https://github.com/CarpenterLee/JCFInternals/blob/master/markdown/0-Introduction.md)
 - [集合-](https://www.cnblogs.com/jing99/p/7057245.html)
 
-- final／static？TODO
+- final：修饰类不可继承，修饰方法不可重写，修饰变量不可修改（引用不可变，内容可变）。并发场景下 final 域的重排序规则保证了对象构造完成后 final 域对其他线程可见
+- static：类级别的成员，不依赖对象实例。加载顺序：静态代码块 → 成员变量初始化 → 构造方法。static + final 组合用于定义编译期常量
 
 ##### AQS (AbstractQueuedSynchronizer) 
 队列同步器AQS是用来构建锁或其他同步组件的基础框架，内部使用一个int成员变量表示同步状态，
@@ -641,7 +646,8 @@ volatile类型的变量baseCount计算size值，因为元素个数保存baseCoun
 - [资料-Java优化](https://michaelygzhang.github.io/java/2018/02/09/java-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.html)
 
 ###### Tomcat/Netty Server相关
-- TODO
+- Tomcat：基于 NIO 的 Servlet 容器，Connector（Endpoint+Processor）+ Container（Engine/Host/Context/Wrapper）架构
+- Netty：基于 NIO 的异步事件驱动网络框架，Reactor 线程模型，零拷贝，适用于高并发低延迟场景
 
 
 #### 中间件
@@ -746,7 +752,7 @@ bool idempotent_withdraw(ticket_id, account_id, amount);
 
 
 #### CS
-###### TODO 复习数据结构
+###### 数据结构基础
 ###### B树与B+树区别？
 ###### 跳表?
 
@@ -767,7 +773,6 @@ bool idempotent_withdraw(ticket_id, account_id, amount);
 ....
 
 输入: ACD -> true; ACEF -> true; 任意命中一个规则返回true/false;
-TODO
 ```
 
 

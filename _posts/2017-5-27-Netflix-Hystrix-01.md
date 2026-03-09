@@ -2,7 +2,7 @@
 layout: post
 title: Netflix---Hystrix文档翻译--01
 excerpt: Netflix---Hystrix文档翻译--01
-category: Destributed
+category: Distributed
 ---
 
 ## Executive Summary

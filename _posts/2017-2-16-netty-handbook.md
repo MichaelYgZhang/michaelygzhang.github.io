@@ -87,7 +87,6 @@ category: Java
   13. 异步写ByteBuffer到SocketChannel
 
 - AIO编程
- - TODO
 
 - 选择Netty而直接使用JDK的NIO类库开发的理由
   1. NIO的类库和API繁杂，使用麻烦，需要熟练掌握Selector,ServerSocketChannel,SocketChannel,ByteBuffer等
@@ -218,7 +217,6 @@ os.close;
   2. 简单--客户向服务器请求服务时，只需指定服务URL，携带必要的请求参数或者消息体
   3. 灵活--HTTP允许传输任意类型的数据对象，传输的内容类型由HTTP消息头中的Content-Type加以标记
   4. 无状态--HTTP协议是无状态协议。
-- P232  TODO   
 
 ##### 第11章 WebSocket协议开发
 

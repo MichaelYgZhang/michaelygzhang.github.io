@@ -2,7 +2,7 @@
 layout: post
 title: RabbitMQ实战---读书笔记
 excerpt: RabbitMQ实战---读书笔记
-category: Destributed
+category: Distributed
 ---
 
 ## Executive Summary

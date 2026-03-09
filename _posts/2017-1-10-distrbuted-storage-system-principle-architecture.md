@@ -2,7 +2,7 @@
 layout: post
 title: 大规模分布式存储系统原理解析与架构实战
 excerpt: 深入剖析分布式存储系统的核心原理，涵盖单机存储引擎、分布式协议、GFS/TFS架构设计
-category: Destributed
+category: Distributed
 tags: [分布式存储, GFS, Paxos, 2PC, 存储引擎, 分布式系统]
 ---
 

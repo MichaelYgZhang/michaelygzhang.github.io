@@ -2,7 +2,7 @@
 layout: post
 title: RESTful 架构风格：设计原则与最佳实践
 excerpt: 深入理解REST架构的核心概念，掌握用URI定位资源、用HTTP方法描述操作的设计范式
-category: Destributed
+category: Distributed
 tags: [REST, API设计, HTTP, 架构风格, Web服务]
 ---
 

@@ -94,7 +94,9 @@ run level 0|关机
 run level 3|纯命令行模式
 run level 5|含有图形界面模式
 run level 6|重启
-....TODO|
+run level 1|单用户模式（维护模式，仅 root 登录）
+run level 2|多用户模式（无 NFS 网络文件系统）
+run level 4|保留未使用（可自定义）
 
 ###### 开机过程中的问题
 - `fsck` 文件系统检查命令
