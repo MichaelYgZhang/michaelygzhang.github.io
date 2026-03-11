@@ -17,7 +17,7 @@ tags: [GitHub Trending, 开源, AI/ML, 编程语言/工具, Web开发, DevOps/�
     <ol>
       <li><strong>AI/ML</strong> 共收录 7 个项目，占全部 9 个趋势项目的 78%，AI 技术持续引领开源创新。</li>
       <li>编程语言 Top 3 为 Python(5)、Shell(2)、TypeScript(2)，反映出当前主流技术栈偏好。</li>
-      <li>今日共计 <strong>14,976</strong> 新增 Stars，总 Stars 累计 <strong>237,067</strong>，开源社区活跃度强劲。</li>
+      <li>今日共计 <strong>14,976</strong> 新增 Stars，总 Stars 累计 <strong>237,099</strong>，开源社区活跃度强劲。</li>
     </ol>
   </blockquote>
 </div>
@@ -30,7 +30,7 @@ tags: [GitHub Trending, 开源, AI/ML, 编程语言/工具, Web开发, DevOps/�
     <span class="stat-label">趋势项目</span>
   </div>
   <div class="stat-card">
-    <span class="stat-number">237,067</span>
+    <span class="stat-number">237,099</span>
     <span class="stat-label">总 Stars</span>
   </div>
   <div class="stat-card">
@@ -82,7 +82,7 @@ pie title 技术方向占比
   <p class="repo-desc">A complete AI agency at your fingertips - From frontend wizards to Reddit community ninjas, from whimsy injectors to reality checkers. Each agent is a specialized expert with personality, processes, and proven deliverables.</p>
   <div class="repo-meta">
     <span class="repo-lang">Shell</span>
-    <span>Stars: 28,127</span>
+    <span>Stars: 28,143</span>
     <span>Forks: 4,406</span>
     <span class="repo-today">6,205 stars today</span>
   </div>
@@ -104,7 +104,7 @@ pie title 技术方向占比
   <p class="repo-desc">An agentic skills framework & software development methodology that works.</p>
   <div class="repo-meta">
     <span class="repo-lang">Shell</span>
-    <span>Stars: 77,440</span>
+    <span>Stars: 77,443</span>
     <span>Forks: 5,992</span>
     <span class="repo-today">1,477 stars today</span>
   </div>
@@ -115,7 +115,7 @@ pie title 技术方向占比
   <p class="repo-desc">An AI Hedge Fund Team</p>
   <div class="repo-meta">
     <span class="repo-lang">Python</span>
-    <span>Stars: 47,916</span>
+    <span>Stars: 47,917</span>
     <span>Forks: 8,341</span>
     <span class="repo-today">633 stars today</span>
   </div>
@@ -126,7 +126,7 @@ pie title 技术方向占比
   <p class="repo-desc">JavaScript in-page GUI agent. Control web interfaces with natural language.</p>
   <div class="repo-meta">
     <span class="repo-lang">TypeScript</span>
-    <span>Stars: 4,299</span>
+    <span>Stars: 4,300</span>
     <span>Forks: 339</span>
     <span class="repo-today">1,206 stars today</span>
   </div>
@@ -137,8 +137,8 @@ pie title 技术方向占比
   <p class="repo-desc">The agent that grows with you</p>
   <div class="repo-meta">
     <span class="repo-lang">Python</span>
-    <span>Stars: 4,626</span>
-    <span>Forks: 556</span>
+    <span>Stars: 4,631</span>
+    <span>Forks: 557</span>
     <span class="repo-today">1,204 stars today</span>
   </div>
 </div>
@@ -148,7 +148,7 @@ pie title 技术方向占比
   <p class="repo-desc">Agentic IM Chatbot infrastructure that integrates lots of IM platforms, LLMs, plugins and AI feature, and can be your openclaw alternative. ✨</p>
   <div class="repo-meta">
     <span class="repo-lang">Python</span>
-    <span>Stars: 20,791</span>
+    <span>Stars: 20,794</span>
     <span>Forks: 1,500</span>
     <span class="repo-today">337 stars today</span>
   </div>
@@ -165,7 +165,7 @@ pie title 技术方向占比
   <p class="repo-desc">A complete AI agency at your fingertips - From frontend wizards to Reddit community ninjas, from whimsy injectors to reality checkers. Each agent is a specialized expert with personality, processes, and proven deliverables.</p>
   <div class="repo-meta">
     <span class="repo-lang">Shell</span>
-    <span>Stars: 28,127</span>
+    <span>Stars: 28,143</span>
     <span>Forks: 4,406</span>
     <span class="repo-today">6,205 stars today</span>
   </div>
@@ -176,8 +176,8 @@ pie title 技术方向占比
   <p class="repo-desc">A Simple and Universal Swarm Intelligence Engine, Predicting Anything. 简洁通用的群体智能引擎，预测万物</p>
   <div class="repo-meta">
     <span class="repo-lang">Python</span>
-    <span>Stars: 16,037</span>
-    <span>Forks: 1,693</span>
+    <span>Stars: 16,039</span>
+    <span>Forks: 1,694</span>
     <span class="repo-today">2,909 stars today</span>
   </div>
 </div>
@@ -187,7 +187,7 @@ pie title 技术方向占比
   <p class="repo-desc">An agentic skills framework & software development methodology that works.</p>
   <div class="repo-meta">
     <span class="repo-lang">Shell</span>
-    <span>Stars: 77,440</span>
+    <span>Stars: 77,443</span>
     <span>Forks: 5,992</span>
     <span class="repo-today">1,477 stars today</span>
   </div>
@@ -198,7 +198,7 @@ pie title 技术方向占比
   <p class="repo-desc">SOTA Open Source TTS</p>
   <div class="repo-meta">
     <span class="repo-lang">Python</span>
-    <span>Stars: 25,527</span>
+    <span>Stars: 25,528</span>
     <span>Forks: 2,152</span>
     <span class="repo-today">277 stars today</span>
   </div>
@@ -209,7 +209,7 @@ pie title 技术方向占比
   <p class="repo-desc">JavaScript in-page GUI agent. Control web interfaces with natural language.</p>
   <div class="repo-meta">
     <span class="repo-lang">TypeScript</span>
-    <span>Stars: 4,299</span>
+    <span>Stars: 4,300</span>
     <span>Forks: 339</span>
     <span class="repo-today">1,206 stars today</span>
   </div>
@@ -226,7 +226,7 @@ pie title 技术方向占比
   <p class="repo-desc">A complete AI agency at your fingertips - From frontend wizards to Reddit community ninjas, from whimsy injectors to reality checkers. Each agent is a specialized expert with personality, processes, and proven deliverables.</p>
   <div class="repo-meta">
     <span class="repo-lang">Shell</span>
-    <span>Stars: 28,127</span>
+    <span>Stars: 28,143</span>
     <span>Forks: 4,406</span>
     <span class="repo-today">6,205 stars today</span>
   </div>
@@ -248,7 +248,7 @@ pie title 技术方向占比
   <p class="repo-desc">JavaScript in-page GUI agent. Control web interfaces with natural language.</p>
   <div class="repo-meta">
     <span class="repo-lang">TypeScript</span>
-    <span>Stars: 4,299</span>
+    <span>Stars: 4,300</span>
     <span>Forks: 339</span>
     <span class="repo-today">1,206 stars today</span>
   </div>
@@ -265,7 +265,7 @@ pie title 技术方向占比
   <p class="repo-desc">A complete AI agency at your fingertips - From frontend wizards to Reddit community ninjas, from whimsy injectors to reality checkers. Each agent is a specialized expert with personality, processes, and proven deliverables.</p>
   <div class="repo-meta">
     <span class="repo-lang">Shell</span>
-    <span>Stars: 28,127</span>
+    <span>Stars: 28,143</span>
     <span>Forks: 4,406</span>
     <span class="repo-today">6,205 stars today</span>
   </div>
@@ -287,7 +287,7 @@ pie title 技术方向占比
   <p class="repo-desc">Agentic IM Chatbot infrastructure that integrates lots of IM platforms, LLMs, plugins and AI feature, and can be your openclaw alternative. ✨</p>
   <div class="repo-meta">
     <span class="repo-lang">Python</span>
-    <span>Stars: 20,791</span>
+    <span>Stars: 20,794</span>
     <span>Forks: 1,500</span>
     <span class="repo-today">337 stars today</span>
   </div>
