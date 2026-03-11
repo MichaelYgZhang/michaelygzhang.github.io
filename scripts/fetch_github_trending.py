@@ -203,6 +203,15 @@ def save_daily_snapshot(repos, date_str, repo_root):
     """Save today's trending data as a JSON snapshot in _data/trending/."""
     snapshot_dir = os.path.join(repo_root, "_data", "trending")
     os.makedirs(snapshot_dir, exist_ok=True)
+
+    # Sort by today_stars descending to assign rank
+    sorted_repos = sorted(
+        repos,
+        key=lambda r: _parse_star_count(r["today_stars"]),
+        reverse=True,
+    )
+    rank_map = {r["full_name"]: i + 1 for i, r in enumerate(sorted_repos)}
+
     snapshot = []
     for r in repos:
         snapshot.append({
@@ -215,6 +224,8 @@ def save_daily_snapshot(repos, date_str, repo_root):
             "today_stars": r["today_stars"],
             "stars_numeric": _parse_star_count(r["stars"]),
             "today_stars_numeric": _parse_star_count(r["today_stars"]),
+            "forks_numeric": _parse_star_count(r["forks"]),
+            "rank": rank_map[r["full_name"]],
         })
     filepath = os.path.join(snapshot_dir, f"{date_str}.json")
     with open(filepath, "w", encoding="utf-8") as f:
@@ -236,7 +247,27 @@ def load_previous_snapshot(date_str, repo_root):
         return None
 
 
-def compute_comparison(today_repos, previous_snapshot):
+def load_recent_snapshots(date_str, repo_root, days=7):
+    """Load recent N days of snapshots (excluding today).
+
+    Returns {date_str: [repos]} dict for each day that has a snapshot file.
+    """
+    today = datetime.strptime(date_str, "%Y-%m-%d")
+    snapshots = {}
+    for i in range(1, days + 1):
+        d = (today - timedelta(days=i)).strftime("%Y-%m-%d")
+        filepath = os.path.join(repo_root, "_data", "trending", f"{d}.json")
+        if not os.path.exists(filepath):
+            continue
+        try:
+            with open(filepath, "r", encoding="utf-8") as f:
+                snapshots[d] = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            continue
+    return snapshots
+
+
+def compute_comparison(today_repos, previous_snapshot, recent_snapshots=None, date_str=None):
     """Compare today's repos with yesterday's snapshot.
 
     Returns a dict with:
@@ -247,6 +278,9 @@ def compute_comparison(today_repos, previous_snapshot):
       - repo_badges: dict mapping full_name -> badge info
       - stats: summary counts
       - top5_chart: top 5 repos by today_stars with yesterday comparison
+      - aggregate_metrics: growth total, growth rate, avg heat, retention/turnover
+      - repo_deltas: per-repo star/fork/heat/rank changes
+      - consecutive_days: per-repo consecutive days on trending
     """
     if previous_snapshot is None:
         return None
@@ -289,10 +323,103 @@ def compute_comparison(today_repos, previous_snapshot):
                 "today_growth_pct": round(today_growth_pct),
             })
 
+    # Compute consecutive days on trending using recent_snapshots
+    consecutive_days = {}
+    if recent_snapshots and date_str:
+        today_dt = datetime.strptime(date_str, "%Y-%m-%d")
+        for name in today_names:
+            streak = 1  # today counts as day 1
+            for i in range(1, 8):
+                d = (today_dt - timedelta(days=i)).strftime("%Y-%m-%d")
+                if d not in recent_snapshots:
+                    break
+                snap_names = {r["full_name"] for r in recent_snapshots[d]}
+                if name in snap_names:
+                    streak += 1
+                else:
+                    break
+            consecutive_days[name] = streak
+    else:
+        for name in today_names:
+            consecutive_days[name] = 2 if name in retained_names else 1
+
+    # Compute rank for today's repos (by today_stars descending)
+    sorted_today_by_heat = sorted(
+        today_repos,
+        key=lambda r: r.get("today_stars_numeric", 0),
+        reverse=True,
+    )
+    today_rank_map = {r["full_name"]: i + 1 for i, r in enumerate(sorted_today_by_heat)}
+
+    # Build previous rank map (use stored rank or compute from today_stars)
+    prev_rank_map = {}
+    if previous_snapshot:
+        # Check if rank field exists in snapshot
+        has_rank = any(r.get("rank") is not None for r in previous_snapshot)
+        if has_rank:
+            for r in previous_snapshot:
+                prev_rank_map[r["full_name"]] = r.get("rank", 0)
+        else:
+            sorted_prev = sorted(
+                previous_snapshot,
+                key=lambda r: r.get("today_stars_numeric", 0),
+                reverse=True,
+            )
+            prev_rank_map = {r["full_name"]: i + 1 for i, r in enumerate(sorted_prev)}
+
+    # Compute repo_deltas for retained repos
+    repo_deltas = {}
+    for name in retained_names:
+        t = today_map[name]
+        p = prev_map[name]
+        t_stars = t.get("stars_numeric", 0)
+        p_stars = p.get("stars_numeric", 0)
+        t_forks = _parse_star_count(t.get("forks", ""))
+        p_forks = p.get("forks_numeric", _parse_star_count(p.get("forks", "")))
+        t_heat = t.get("today_stars_numeric", 0)
+        p_heat = p.get("today_stars_numeric", 0)
+        t_rank = today_rank_map.get(name, 0)
+        p_rank = prev_rank_map.get(name, 0)
+
+        repo_deltas[name] = {
+            "star_change": t_stars - p_stars,
+            "fork_change": t_forks - p_forks,
+            "heat_change": t_heat - p_heat,
+            "rank_change": p_rank - t_rank,  # positive = moved up
+            "today_rank": t_rank,
+            "prev_rank": p_rank,
+        }
+
+    # Compute aggregate metrics
+    today_total_heat = sum(r.get("today_stars_numeric", 0) for r in today_repos)
+    prev_total_heat = sum(r.get("today_stars_numeric", 0) for r in previous_snapshot)
+    total_star_growth = sum(
+        today_map[n].get("stars_numeric", 0) - prev_map[n].get("stars_numeric", 0)
+        for n in retained_names
+    )
+    avg_heat = round(today_total_heat / len(today_repos)) if today_repos else 0
+    retention_rate = round(len(retained_names) / len(prev_names) * 100) if prev_names else 0
+    turnover_rate = 100 - retention_rate
+    heat_growth_rate = (
+        round((today_total_heat - prev_total_heat) / prev_total_heat * 100)
+        if prev_total_heat > 0 else 0
+    )
+
+    aggregate_metrics = {
+        "total_star_growth": total_star_growth,
+        "heat_growth_rate": heat_growth_rate,
+        "avg_heat": avg_heat,
+        "retention_rate": retention_rate,
+        "turnover_rate": turnover_rate,
+        "today_total_heat": today_total_heat,
+        "prev_total_heat": prev_total_heat,
+    }
+
     # Assign badges to each today repo
     rising_names = {r["full_name"] for r in rising_repos}
     repo_badges = {}
     for name in today_names:
+        days = consecutive_days.get(name, 1)
         if name in new_names:
             repo_badges[name] = {"type": "new", "label": "NEW"}
         elif name in rising_names:
@@ -305,15 +432,16 @@ def compute_comparison(today_repos, previous_snapshot):
             p = prev_map[name]
             t = today_map[name]
             gain = t.get("stars_numeric", 0) - p.get("stars_numeric", 0)
+            day_label = f"Day {days} on trending" if days >= 2 else "Day 2 on trending"
             if gain > 0:
                 repo_badges[name] = {
                     "type": "retained",
-                    "label": f"Day 2 on trending | +{gain:,} stars",
+                    "label": f"{day_label} | +{gain:,} stars",
                 }
             else:
                 repo_badges[name] = {
                     "type": "retained",
-                    "label": "Day 2 on trending",
+                    "label": day_label,
                 }
 
     # Top 5 chart data: today repos sorted by today_stars, with yesterday values
@@ -350,6 +478,9 @@ def compute_comparison(today_repos, previous_snapshot):
             "rising_count": len(rising_repos),
         },
         "top5_chart": top5_chart,
+        "aggregate_metrics": aggregate_metrics,
+        "repo_deltas": repo_deltas,
+        "consecutive_days": consecutive_days,
     }
 
 
@@ -502,6 +633,9 @@ def generate_comparison_section(comparison):
         return ""
 
     cs = comparison["stats"]
+    agg = comparison.get("aggregate_metrics", {})
+    repo_deltas = comparison.get("repo_deltas", {})
+    consecutive_days = comparison.get("consecutive_days", {})
     lines = []
 
     # Section heading
@@ -523,6 +657,33 @@ def generate_comparison_section(comparison):
         lines.append(f'  </div>')
     lines.append('</div>')
     lines.append("")
+
+    # 1b. Aggregate metrics dashboard
+    if agg:
+        growth_total = agg.get("total_star_growth", 0)
+        growth_sign = "+" if growth_total >= 0 else ""
+        growth_rate = agg.get("heat_growth_rate", 0)
+        rate_sign = "+" if growth_rate >= 0 else ""
+        rate_arrow = "▲" if growth_rate >= 0 else "▼"
+        avg_heat = agg.get("avg_heat", 0)
+        retention = agg.get("retention_rate", 0)
+
+        lines.append('<div class="metrics-dashboard">')
+        metric_cards = [
+            (f"{growth_sign}{growth_total:,}", "今日增长总量",
+             "▲" if growth_total >= 0 else "▼"),
+            (f"{avg_heat:,}", "平均热度", ""),
+            (f"{retention}%", "留存率", ""),
+            (f"{rate_sign}{growth_rate}%", "增长率", rate_arrow),
+        ]
+        for value, label, arrow in metric_cards:
+            arrow_html = f' <span class="metric-arrow">{arrow}</span>' if arrow else ""
+            lines.append(f'  <div class="metric-card">')
+            lines.append(f'    <span class="metric-value">{value}{arrow_html}</span>')
+            lines.append(f'    <span class="metric-label">{label}</span>')
+            lines.append(f'  </div>')
+        lines.append('</div>')
+        lines.append("")
 
     # 2. New repos list
     if comparison["new_repos"]:
@@ -556,7 +717,59 @@ def generate_comparison_section(comparison):
             )
         lines.append("")
 
-    # 4. Top 5 comparison chart
+    # 4. Consecutive streak repos
+    streak_repos = [
+        (name, consecutive_days.get(name, 1))
+        for name in consecutive_days
+        if consecutive_days.get(name, 1) >= 2
+    ]
+    if streak_repos:
+        # Sort by streak descending, then by rank
+        streak_repos.sort(key=lambda x: (-x[1], repo_deltas.get(x[0], {}).get("today_rank", 99)))
+        lines.append("### 连续上榜项目")
+        lines.append("")
+        today_map = {r["full_name"]: r for r in comparison.get("retained_repos", [])}
+        for name, days in streak_repos:
+            delta = repo_deltas.get(name, {})
+            rank_change = delta.get("rank_change", 0)
+            star_change = delta.get("star_change", 0)
+            heat_change = delta.get("heat_change", 0)
+            today_rank = delta.get("today_rank", 0)
+
+            # Rank indicator
+            if rank_change > 0:
+                rank_html = f'<span class="rank-change rank-up">▲{rank_change}</span>'
+            elif rank_change < 0:
+                rank_html = f'<span class="rank-change rank-down">▼{abs(rank_change)}</span>'
+            else:
+                rank_html = '<span class="rank-change rank-same">→</span>'
+
+            # Star change
+            star_sign = "+" if star_change >= 0 else ""
+            star_cls = "delta-up" if star_change >= 0 else "delta-down"
+
+            # Heat acceleration
+            if heat_change > 0:
+                heat_html = f'<span class="delta-up">热度 +{heat_change:,}</span>'
+            elif heat_change < 0:
+                heat_html = f'<span class="delta-down">热度 {heat_change:,}</span>'
+            else:
+                heat_html = '<span>热度持平</span>'
+
+            repo = today_map.get(name)
+            url = repo["url"] if repo else f"https://github.com/{name}"
+
+            lines.append(f'<div class="comparison-item streak-item">')
+            lines.append(f'  {rank_html}')
+            lines.append(f'  <span class="streak-rank">#{today_rank}</span>')
+            lines.append(f'  <a href="{url}">{name}</a>')
+            lines.append(f'  <span class="{star_cls}">Stars {star_sign}{star_change:,}</span>')
+            lines.append(f'  {heat_html}')
+            lines.append(f'  <span class="badge-streak">Day {days}</span>')
+            lines.append(f'</div>')
+        lines.append("")
+
+    # 5. Top 5 comparison chart
     if comparison["top5_chart"]:
         lines.append("### 热度变化 Top 5")
         lines.append("")
@@ -589,6 +802,54 @@ def generate_comparison_section(comparison):
             )
             lines.append(f'  </div>')
         lines.append('</div>')
+        lines.append("")
+
+    # 6. Growth detail table (collapsible)
+    if repo_deltas:
+        lines.append("### 增长明细")
+        lines.append("")
+        lines.append("<details>")
+        lines.append("<summary>点击展开增长明细表</summary>")
+        lines.append("")
+        lines.append('<div class="growth-table-wrapper">')
+        lines.append('<table class="growth-table">')
+        lines.append("  <thead><tr>")
+        lines.append("    <th>项目</th><th>排名</th><th>Star 变化</th>")
+        lines.append("    <th>Fork 变化</th><th>热度变化</th><th>连续天数</th>")
+        lines.append("  </tr></thead>")
+        lines.append("  <tbody>")
+
+        # Sort by today_rank
+        sorted_deltas = sorted(
+            repo_deltas.items(),
+            key=lambda x: x[1].get("today_rank", 99),
+        )
+        for name, delta in sorted_deltas:
+            days = consecutive_days.get(name, 1)
+            rank_change = delta.get("rank_change", 0)
+            if rank_change > 0:
+                rank_indicator = f'▲{rank_change}'
+            elif rank_change < 0:
+                rank_indicator = f'▼{abs(rank_change)}'
+            else:
+                rank_indicator = '→'
+            star_sign = "+" if delta["star_change"] >= 0 else ""
+            fork_sign = "+" if delta["fork_change"] >= 0 else ""
+            heat_sign = "+" if delta["heat_change"] >= 0 else ""
+            short_name = name.split("/")[-1][:20]
+            lines.append(f"  <tr>")
+            lines.append(f"    <td>{short_name}</td>")
+            lines.append(f"    <td>#{delta['today_rank']} {rank_indicator}</td>")
+            lines.append(f"    <td>{star_sign}{delta['star_change']:,}</td>")
+            lines.append(f"    <td>{fork_sign}{delta['fork_change']:,}</td>")
+            lines.append(f"    <td>{heat_sign}{delta['heat_change']:,}</td>")
+            lines.append(f"    <td>Day {days}</td>")
+            lines.append(f"  </tr>")
+        lines.append("  </tbody>")
+        lines.append("</table>")
+        lines.append("</div>")
+        lines.append("")
+        lines.append("</details>")
         lines.append("")
 
     return "\n".join(lines)
@@ -688,8 +949,10 @@ def generate_markdown(repos, top_directions, date_str, comparison=None):
 
     stats = compute_stats(repos, top_directions)
 
-    # Get badge map from comparison data
+    # Get badge map and delta data from comparison
     repo_badges = comparison["repo_badges"] if comparison else {}
+    repo_deltas = comparison.get("repo_deltas", {}) if comparison else {}
+    consecutive_days = comparison.get("consecutive_days", {}) if comparison else {}
 
     lines = [
         "---",
@@ -757,6 +1020,37 @@ def generate_markdown(repos, top_directions, date_str, comparison=None):
                     f'    <span class="repo-today">{repo["today_stars"]}</span>'
                 )
             lines.append("  </div>")
+
+            # Delta tags for repos with comparison data
+            name = repo["full_name"]
+            delta = repo_deltas.get(name)
+            days = consecutive_days.get(name, 0)
+            if delta or days >= 2:
+                lines.append('  <div class="repo-deltas">')
+                if delta:
+                    sc = delta.get("star_change", 0)
+                    if sc != 0:
+                        sc_sign = "+" if sc >= 0 else ""
+                        sc_cls = "delta-up" if sc >= 0 else "delta-down"
+                        lines.append(
+                            f'    <span class="delta-tag {sc_cls}">Stars {sc_sign}{sc:,}</span>'
+                        )
+                    rc = delta.get("rank_change", 0)
+                    if rc != 0:
+                        if rc > 0:
+                            lines.append(
+                                f'    <span class="delta-tag rank-up">Rank ▲{rc}</span>'
+                            )
+                        else:
+                            lines.append(
+                                f'    <span class="delta-tag rank-down">Rank ▼{abs(rc)}</span>'
+                            )
+                if days >= 2:
+                    lines.append(
+                        f'    <span class="streak-tag">Trending {days} days</span>'
+                    )
+                lines.append("  </div>")
+
             lines.append("</div>")
             lines.append("")
 
@@ -791,13 +1085,19 @@ def main():
     print("Classifying and selecting top directions...")
     top_directions = select_top_directions(repos, top_n=5)
 
-    # Load yesterday's snapshot and compute comparison
+    # Load yesterday's snapshot and recent snapshots for comparison
     print("Loading previous snapshot for comparison...")
     previous_snapshot = load_previous_snapshot(date_str, repo_root)
     comparison = None
     if previous_snapshot:
         print(f"Found yesterday's snapshot ({len(previous_snapshot)} repos), computing comparison...")
-        comparison = compute_comparison(repos, previous_snapshot)
+        recent_snapshots = load_recent_snapshots(date_str, repo_root, days=7)
+        print(f"Loaded {len(recent_snapshots)} recent snapshots for streak calculation")
+        comparison = compute_comparison(
+            repos, previous_snapshot,
+            recent_snapshots=recent_snapshots,
+            date_str=date_str,
+        )
     else:
         print("No previous snapshot found, skipping comparison.")
 
