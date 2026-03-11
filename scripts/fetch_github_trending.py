@@ -6,6 +6,7 @@ Scrapes github.com/trending, classifies repos into tech categories,
 picks top 5 directions, and outputs a Markdown post to _posts/.
 """
 
+import json
 import os
 import re
 import sys
@@ -198,6 +199,160 @@ def _parse_star_count(text):
         return 0
 
 
+def save_daily_snapshot(repos, date_str, repo_root):
+    """Save today's trending data as a JSON snapshot in _data/trending/."""
+    snapshot_dir = os.path.join(repo_root, "_data", "trending")
+    os.makedirs(snapshot_dir, exist_ok=True)
+    snapshot = []
+    for r in repos:
+        snapshot.append({
+            "full_name": r["full_name"],
+            "url": r["url"],
+            "description": r["description"],
+            "language": r["language"],
+            "stars": r["stars"],
+            "forks": r["forks"],
+            "today_stars": r["today_stars"],
+            "stars_numeric": _parse_star_count(r["stars"]),
+            "today_stars_numeric": _parse_star_count(r["today_stars"]),
+        })
+    filepath = os.path.join(snapshot_dir, f"{date_str}.json")
+    with open(filepath, "w", encoding="utf-8") as f:
+        json.dump(snapshot, f, ensure_ascii=False, indent=2)
+    print(f"Saved snapshot: {filepath}")
+
+
+def load_previous_snapshot(date_str, repo_root):
+    """Load yesterday's snapshot. Returns list of repo dicts or None."""
+    today = datetime.strptime(date_str, "%Y-%m-%d")
+    yesterday_str = (today - timedelta(days=1)).strftime("%Y-%m-%d")
+    filepath = os.path.join(repo_root, "_data", "trending", f"{yesterday_str}.json")
+    if not os.path.exists(filepath):
+        return None
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
+def compute_comparison(today_repos, previous_snapshot):
+    """Compare today's repos with yesterday's snapshot.
+
+    Returns a dict with:
+      - new_repos: list of repos new to trending today
+      - removed_repos: list of repos that left trending
+      - retained_repos: list of repos on both days
+      - rising_repos: list of retained repos with strong star growth
+      - repo_badges: dict mapping full_name -> badge info
+      - stats: summary counts
+      - top5_chart: top 5 repos by today_stars with yesterday comparison
+    """
+    if previous_snapshot is None:
+        return None
+
+    today_map = {r["full_name"]: r for r in today_repos}
+    prev_map = {r["full_name"]: r for r in previous_snapshot}
+
+    today_names = set(today_map.keys())
+    prev_names = set(prev_map.keys())
+
+    new_names = today_names - prev_names
+    removed_names = prev_names - today_names
+    retained_names = today_names & prev_names
+
+    # Enrich today repos with numeric fields for comparison
+    for r in today_repos:
+        r.setdefault("stars_numeric", _parse_star_count(r["stars"]))
+        r.setdefault("today_stars_numeric", _parse_star_count(r["today_stars"]))
+
+    new_repos = [today_map[n] for n in new_names]
+    removed_repos = [prev_map[n] for n in removed_names]
+    retained_repos = [today_map[n] for n in retained_names]
+
+    # Identify rising repos: stars_numeric gained >= 1000 OR today_stars grew >= 50%
+    rising_repos = []
+    for name in retained_names:
+        t = today_map[name]
+        p = prev_map[name]
+        star_gain = t.get("stars_numeric", 0) - p.get("stars_numeric", 0)
+        prev_today = p.get("today_stars_numeric", 0)
+        curr_today = t.get("today_stars_numeric", 0)
+        today_growth_pct = (
+            (curr_today - prev_today) / prev_today * 100
+            if prev_today > 0 else 0
+        )
+        if star_gain >= 1000 or today_growth_pct >= 50:
+            rising_repos.append({
+                **t,
+                "star_gain": star_gain,
+                "today_growth_pct": round(today_growth_pct),
+            })
+
+    # Assign badges to each today repo
+    rising_names = {r["full_name"] for r in rising_repos}
+    repo_badges = {}
+    for name in today_names:
+        if name in new_names:
+            repo_badges[name] = {"type": "new", "label": "NEW"}
+        elif name in rising_names:
+            gain = next(r["star_gain"] for r in rising_repos if r["full_name"] == name)
+            repo_badges[name] = {
+                "type": "rising",
+                "label": f"RISING +{gain:,} stars",
+            }
+        elif name in retained_names:
+            p = prev_map[name]
+            t = today_map[name]
+            gain = t.get("stars_numeric", 0) - p.get("stars_numeric", 0)
+            if gain > 0:
+                repo_badges[name] = {
+                    "type": "retained",
+                    "label": f"Day 2 on trending | +{gain:,} stars",
+                }
+            else:
+                repo_badges[name] = {
+                    "type": "retained",
+                    "label": "Day 2 on trending",
+                }
+
+    # Top 5 chart data: today repos sorted by today_stars, with yesterday values
+    sorted_today = sorted(
+        today_repos,
+        key=lambda r: r.get("today_stars_numeric", 0),
+        reverse=True,
+    )[:5]
+    top5_chart = []
+    for r in sorted_today:
+        name = r["full_name"]
+        prev = prev_map.get(name)
+        prev_today_stars = prev.get("today_stars_numeric", 0) if prev else 0
+        curr_today_stars = r.get("today_stars_numeric", 0)
+        delta = curr_today_stars - prev_today_stars
+        top5_chart.append({
+            "full_name": name,
+            "url": r["url"],
+            "today_stars": curr_today_stars,
+            "yesterday_stars": prev_today_stars,
+            "delta": delta,
+        })
+
+    return {
+        "new_repos": sorted(new_repos, key=lambda r: r.get("today_stars_numeric", 0), reverse=True),
+        "removed_repos": removed_repos,
+        "retained_repos": retained_repos,
+        "rising_repos": sorted(rising_repos, key=lambda r: r.get("star_gain", 0), reverse=True),
+        "repo_badges": repo_badges,
+        "stats": {
+            "new_count": len(new_names),
+            "removed_count": len(removed_names),
+            "retained_count": len(retained_names),
+            "rising_count": len(rising_repos),
+        },
+        "top5_chart": top5_chart,
+    }
+
+
 def compute_stats(repos, top_directions):
     """Compute aggregate statistics from scraped repos and classified directions."""
     total_repos = len(repos)
@@ -341,6 +496,104 @@ def generate_executive_summary(stats, top_directions, date_str):
     return "\n".join(lines)
 
 
+def generate_comparison_section(comparison):
+    """Generate the 'Yesterday Comparison' HTML section."""
+    if comparison is None:
+        return ""
+
+    cs = comparison["stats"]
+    lines = []
+
+    # Section heading
+    lines.append("## 昨日对比")
+    lines.append("")
+
+    # 1. Summary stat cards
+    lines.append('<div class="comparison-summary">')
+    cards = [
+        (cs["new_count"], "新上榜", "stat-card-new"),
+        (cs["removed_count"], "已退出", "stat-card-removed"),
+        (cs["retained_count"], "连续上榜", "stat-card-retained"),
+        (cs["rising_count"], "热度飙升", "stat-card-rising"),
+    ]
+    for value, label, cls in cards:
+        lines.append(f'  <div class="stat-card {cls}">')
+        lines.append(f'    <span class="stat-number">{value}</span>')
+        lines.append(f'    <span class="stat-label">{label}</span>')
+        lines.append(f'  </div>')
+    lines.append('</div>')
+    lines.append("")
+
+    # 2. New repos list
+    if comparison["new_repos"]:
+        lines.append("### 新上榜项目")
+        lines.append("")
+        for r in comparison["new_repos"]:
+            today_val = r.get("today_stars_numeric", _parse_star_count(r["today_stars"]))
+            lines.append(
+                f'<div class="comparison-item comparison-new">'
+                f'<span class="comparison-badge badge-new">NEW</span>'
+                f'<a href="{r["url"]}">{r["full_name"]}</a>'
+                f'<span class="repo-lang">{r["language"]}</span>'
+                f'<span class="repo-today">+{today_val:,} stars today</span>'
+                f'</div>'
+            )
+        lines.append("")
+
+    # 3. Removed repos list
+    if comparison["removed_repos"]:
+        lines.append("### 退出趋势项目")
+        lines.append("")
+        for r in comparison["removed_repos"]:
+            stars_val = r.get("stars_numeric", _parse_star_count(r.get("stars", "")))
+            lines.append(
+                f'<div class="comparison-item comparison-removed">'
+                f'<span class="comparison-badge badge-removed">OFF</span>'
+                f'<a href="{r["url"]}">{r["full_name"]}</a>'
+                f'<span class="repo-lang">{r.get("language", "Unknown")}</span>'
+                f'<span>{stars_val:,} stars</span>'
+                f'</div>'
+            )
+        lines.append("")
+
+    # 4. Top 5 comparison chart
+    if comparison["top5_chart"]:
+        lines.append("### 热度变化 Top 5")
+        lines.append("")
+        max_val = max(
+            max(c["today_stars"], c["yesterday_stars"])
+            for c in comparison["top5_chart"]
+        ) or 1
+        lines.append('<div class="comparison-chart">')
+        for c in comparison["top5_chart"]:
+            today_pct = round(c["today_stars"] / max_val * 100)
+            yest_pct = round(c["yesterday_stars"] / max_val * 100)
+            short_name = c["full_name"].split("/")[-1][:16]
+            delta = c["delta"]
+            delta_cls = "delta-up" if delta >= 0 else "delta-down"
+            delta_sign = "+" if delta >= 0 else ""
+            lines.append(f'  <div class="chart-row">')
+            lines.append(f'    <span class="chart-label">{short_name}</span>')
+            lines.append(f'    <div class="chart-bars">')
+            lines.append(
+                f'      <div class="bar-today" style="width:{today_pct}%">'
+                f'<span>{c["today_stars"]:,}</span></div>'
+            )
+            lines.append(
+                f'      <div class="bar-yesterday" style="width:{yest_pct}%">'
+                f'<span>{c["yesterday_stars"]:,}</span></div>'
+            )
+            lines.append(f'    </div>')
+            lines.append(
+                f'    <span class="{delta_cls}">{delta_sign}{delta:,}</span>'
+            )
+            lines.append(f'  </div>')
+        lines.append('</div>')
+        lines.append("")
+
+    return "\n".join(lines)
+
+
 def generate_trend_analysis(stats, top_directions):
     """Generate macro trend analysis paragraphs based on today's data."""
     lines = []
@@ -428,12 +681,15 @@ def generate_direction_summary(category, repos):
     )
 
 
-def generate_markdown(repos, top_directions, date_str):
+def generate_markdown(repos, top_directions, date_str, comparison=None):
     """Generate an enriched Jekyll blog post with pyramid-principle structure."""
     direction_names = [d[0] for d in top_directions]
     tags_str = ", ".join(["GitHub Trending", "开源"] + direction_names)
 
     stats = compute_stats(repos, top_directions)
+
+    # Get badge map from comparison data
+    repo_badges = comparison["repo_badges"] if comparison else {}
 
     lines = [
         "---",
@@ -448,6 +704,11 @@ def generate_markdown(repos, top_directions, date_str):
 
     # Executive Summary (pyramid principle + stat cards + charts)
     lines.append(generate_executive_summary(stats, top_directions, date_str))
+
+    # Comparison section (between Executive Summary and Trend Analysis)
+    comparison_html = generate_comparison_section(comparison)
+    if comparison_html:
+        lines.append(comparison_html)
 
     # AI Trend Analysis
     lines.append(generate_trend_analysis(stats, top_directions))
@@ -468,6 +729,15 @@ def generate_markdown(repos, top_directions, date_str):
 
             # Repo card HTML
             lines.append('<div class="trending-repo-card">')
+
+            # Inject comparison badge if available
+            badge = repo_badges.get(repo["full_name"])
+            if badge:
+                badge_cls = f'badge-{badge["type"]}'
+                lines.append(
+                    f'  <span class="repo-badge {badge_cls}">{badge["label"]}</span>'
+                )
+
             lines.append(
                 f'  <h4><a href="{repo["url"]}">{repo["full_name"]}</a></h4>'
             )
@@ -521,8 +791,21 @@ def main():
     print("Classifying and selecting top directions...")
     top_directions = select_top_directions(repos, top_n=5)
 
+    # Load yesterday's snapshot and compute comparison
+    print("Loading previous snapshot for comparison...")
+    previous_snapshot = load_previous_snapshot(date_str, repo_root)
+    comparison = None
+    if previous_snapshot:
+        print(f"Found yesterday's snapshot ({len(previous_snapshot)} repos), computing comparison...")
+        comparison = compute_comparison(repos, previous_snapshot)
+    else:
+        print("No previous snapshot found, skipping comparison.")
+
+    # Save today's snapshot (always, even if post already existed — overwrite is fine)
+    save_daily_snapshot(repos, date_str, repo_root)
+
     print("Generating blog post...")
-    markdown = generate_markdown(repos, top_directions, date_str)
+    markdown = generate_markdown(repos, top_directions, date_str, comparison)
 
     os.makedirs(posts_dir, exist_ok=True)
     with open(output_file, "w", encoding="utf-8") as f:
