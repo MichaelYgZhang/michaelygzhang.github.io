@@ -17,6 +17,7 @@ tags: [Java, final, static, JVM, 类加载]
 > 3. static final组合表示不可修改的类级别常量，兼具共享性和不变性
 
 ### SWOT 分析
+
 | 维度 | 分析 |
 |------|------|
 | **S** 优势 | 系统梳理了final/static的各种修饰场景及其与JVM加载机制的关系 |

@@ -17,6 +17,7 @@ tags: [Java, 并发编程, ConcurrentHashMap, 源码分析, 线程安全]
 > 3. 通过volatile修饰数组引用和Node的val/next属性，保证多线程读取时的可见性
 
 ### SWOT 分析
+
 | 维度 | 分析 |
 |------|------|
 | **S** 优势 | CAS无锁插入空bin性能高；以node为粒度的锁减少竞争；红黑树优化长链表查询；volatile保证读操作无需加锁 |

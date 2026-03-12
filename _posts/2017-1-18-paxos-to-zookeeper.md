@@ -17,6 +17,7 @@ tags: [分布式系统, Paxos, Zookeeper, ZAB协议, 一致性, CAP理论]
 > 3. Zookeeper采用ZAB协议（崩溃恢复+消息广播），通过Leader选举和过半投票机制实现高可用分布式协调
 
 ### SWOT 分析
+
 | 维度 | 分析 |
 |------|------|
 | **S** 优势 | ZAB协议结合了Paxos的一致性优点，增加同步阶段保证事务完整性；Leader/Follower/Observer架构灵活扩展读性能 |

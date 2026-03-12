@@ -16,6 +16,7 @@ category: Distributed
 > 3. 线程隔离：通过HystrixCommandGroupKey进行命令分组，实现资源隔离和监控
 
 ### SWOT 分析
+
 | 维度 | 分析 |
 |------|------|
 | **S** 优势 | Netflix大规模生产验证；API设计简洁优雅；支持多种执行模式；与RxJava深度集成 |

@@ -16,6 +16,7 @@ category: Distributed
 > 3. 可靠性保障：采用消息确认机制和confirm模式，提供轻量级事务控制
 
 ### SWOT 分析
+
 | 维度 | 分析 |
 |------|------|
 | **S** 优势 | 支持多种交换器类型(direct/fanout/topic)；消息确认机制保障可靠性；confirm模式轻量级高性能 |

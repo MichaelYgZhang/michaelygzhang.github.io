@@ -16,6 +16,7 @@ category: Go
 > 3. Channel通信机制：通过channel安全传递数据，发送方负责close操作
 
 ### SWOT 分析
+
 | 维度 | 分析 |
 |------|------|
 | **S** 优势 | 协程轻量级资源消耗低、Channel提供安全通信、-race可检测数据竞争 |

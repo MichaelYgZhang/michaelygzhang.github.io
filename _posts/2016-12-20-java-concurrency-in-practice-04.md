@@ -17,6 +17,7 @@ tags: [Java, 并发编程, ReentrantLock, CAS, JMM, Happens-Before]
 > 3. Happens-Before规则定义了操作间的可见性保证，是理解并发程序正确性的理论基础
 
 ### SWOT 分析
+
 | 维度 | 分析 |
 |------|------|
 | **S** 优势 | 显式锁提供更灵活的锁控制；非阻塞算法具有更高可伸缩性；Happens-Before提供清晰的内存可见性保证 |

@@ -17,6 +17,7 @@ tags: [Clojure, Macro, Metaprogramming, Lisp, FunctionalProgramming]
 > 3. 宏在编译时运行一次后，返回值会替换到代码相应位置，实现真正的元编程
 
 ### SWOT 分析
+
 | 维度 | 分析 |
 |------|------|
 | **S** 优势 | 实现延迟求值，避免不必要的函数执行；编译期代码生成，运行时零开销 |

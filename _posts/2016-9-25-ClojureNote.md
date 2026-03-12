@@ -17,6 +17,7 @@ tags: [Clojure, FunctionalProgramming, Recursion, Destructuring, Lisp]
 > 3. `var`和`#'`提供了对变量本身（而非其值）的引用能力
 
 ### SWOT 分析
+
 | 维度 | 分析 |
 |------|------|
 | **S** 优势 | 精确的nil/false处理避免常见bug；recur防止栈溢出；var支持动态绑定 |

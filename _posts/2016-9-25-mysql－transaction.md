@@ -17,6 +17,7 @@ tags: [MySQL, Transaction, ACID, MVCC, 数据库, 并发控制]
 > 3. MVCC多版本并发控制实现"写不阻塞读、读不阻塞写"，显著提升系统并发能力
 
 ### SWOT 分析
+
 | 维度 | 分析 |
 |------|------|
 | **S** 优势 | InnoDB通过MVCC解决幻读问题；MySQL默认REPEATABLE_READ级别兼顾安全与性能；意向锁减少锁检查开销 |

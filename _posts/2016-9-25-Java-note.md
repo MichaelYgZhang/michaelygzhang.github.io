@@ -17,6 +17,7 @@ tags: [Java, 单元测试, Spring, 事务, Transactional]
 > 3. Spring @Transactional失效的根本原因是内部方法调用绕过了AOP代理
 
 ### SWOT 分析
+
 | 维度 | 分析 |
 |------|------|
 | **S** 优势 | 通过具体代码示例揭示了三个容易被忽视的Java陷阱，实战性强 |
