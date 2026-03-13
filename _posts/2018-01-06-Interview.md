@@ -74,7 +74,14 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 
 ### 计算机基础
 #### HTTP
+- HTTP/1.1 vs HTTP/2：HTTP/2 引入了多路复用（Multiplexing，单连接并行多请求）、头部压缩（HPACK算法减少冗余头部传输）、服务端推送（Server Push，主动推送资源到客户端），相比 HTTP/1.1 的队头阻塞（Head-of-Line Blocking）性能大幅提升
+- HTTP 常用方法与语义：GET（幂等，获取资源）、POST（非幂等，创建资源）、PUT（幂等，全量更新）、DELETE（幂等，删除资源）；状态码分类：2xx 成功（200 OK、201 Created）、3xx 重定向（301 永久、302 临时、304 未修改）、4xx 客户端错误（400 参数错误、401 未认证、403 无权限、404 未找到）、5xx 服务端错误（500 内部错误、502 网关错误、503 服务不可用）
+- HTTPS 握手过程：客户端发送 ClientHello（支持的TLS版本、加密套件列表、随机数）→ 服务端返回 ServerHello（选定加密套件、证书、随机数）→ 客户端验证证书合法性并生成预主密钥（Pre-Master Secret），用服务端公钥加密发送 → 双方基于三个随机数生成对称会话密钥，后续通信使用对称加密
+
 #### TCP/IP
+- TCP 三次握手与四次挥手：三次握手（SYN → SYN+ACK → ACK）确保双方收发能力正常；四次挥手（FIN → ACK → FIN → ACK）因为 TCP 是全双工，每个方向需单独关闭；TIME_WAIT 状态持续 2MSL，目的是确保最后一个 ACK 到达对方以及防止旧连接的延迟报文干扰新连接
+- TCP vs UDP：TCP 面向连接、可靠传输（确认重传机制）、有序交付、流量控制和拥塞控制，适用于 HTTP、FTP 等；UDP 无连接、不可靠、无序、开销小延迟低，适用于 DNS、视频直播、游戏等实时场景
+- TCP 拥塞控制四大机制：慢启动（Slow Start，指数增长 cwnd 直到 ssthresh）、拥塞避免（Congestion Avoidance，线性增长 cwnd）、快重传（收到3个重复ACK立即重传）、快恢复（Fast Recovery，将 ssthresh 设为 cwnd/2 并进入拥塞避免阶段，避免回到慢启动）
 
 ### Java
 #### Java语言基础类原理
@@ -314,7 +321,9 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 - 怎么改造的？
 - Zebra
 #### Zookeeper
-
+- ZNode 节点类型与 Watcher 机制：持久节点（Persistent，客户端断开后保留）、临时节点（Ephemeral，会话结束自动删除，不可有子节点）、顺序节点（Sequential，自动追加递增序号）；Watcher 是一次性触发的监听机制，客户端注册 Watcher 后，节点数据变更或子节点变化时 ZK 服务端会向客户端发送通知，注意 Watcher 触发后需重新注册
+- Leader 选举与 ZAB 协议：ZAB（Zookeeper Atomic Broadcast）协议分为选举阶段和广播阶段；选举时每个节点投票（myid + zxid），优先比较 zxid（事务ID越大数据越新），zxid 相同则比较 myid，超过半数节点同意即当选 Leader；广播阶段 Leader 负责处理写请求并通过两阶段提交（Proposal → ACK → Commit）同步到 Follower，保证数据一致性
+- 典型使用场景：分布式锁（利用临时顺序节点实现，创建最小序号节点获得锁，其余节点 Watch 前一个节点，避免惊群效应）、配置中心（将配置存储在 ZNode，客户端 Watch 节点变化实现动态配置更新）、服务注册与发现（服务提供者创建临时节点注册，消费者 Watch 父节点感知服务上下线）、分布式协调（如 Kafka 的 Broker 注册、分区 Leader 选举等）
 
 ### 分布式
 - 架构能力，分布式

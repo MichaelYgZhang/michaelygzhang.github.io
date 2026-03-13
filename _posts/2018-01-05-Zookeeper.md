@@ -98,8 +98,16 @@ sync
 复制的数据库是一个包含整个数据树的内存数据库。更新记录写到磁盘便于恢复数据，写之前将被序列化在内存数据库中。client的读将直接读取最近的service而客户端的所有写操作将被转发给`Leader`,而其他的称为`followers`
 
 ##### Performance
+- ZooKeeper 设计目标是读多写少的工作负载，最佳读写比例为 10:1
+- 吞吐量方面：读操作随 server 数量线性扩展（就近读取本地副本），写操作在 Leader 处形成瓶颈（所有写请求必须经由 Leader 串行处理）
+- 延迟方面：读操作从本地 replica 读取，延迟在亚毫秒级别；写操作需要 quorum 多数确认，延迟相对较高
+- 随着写比例增大，整体性能下降明显，因为所有写操作都必须通过 Leader 并同步到多数节点
 
 ##### Reliability
+- 基于 Quorum 多数派机制：只要集群中大多数节点（N/2+1）存活，服务就保持可用
+- Leader 故障时通过 ZAB（ZooKeeper Atomic Broadcast）协议自动进行 Leader 选举，恢复服务
+- 数据持久性通过事务日志（transaction log）和快照（snapshot）写入磁盘来保证
+- Session 自动迁移：当前连接的 server 宕机时，client 会自动重连到集群中其他可用节点
 
 #### ZooKeeper Getting Started Guide
 
@@ -157,4 +165,8 @@ ZooKeeper host:port cmd args
 
 
 ##### 总结
-
+- ZooKeeper 擅长分布式协调类任务：配置管理、服务发现、分布式锁、Leader 选举等
+- 树形数据模型（znodes）结合临时节点（ephemeral nodes）可实现很多强大的分布式模式
+- Watcher 机制提供事件驱动的协调能力，但需注意 watch 是一次性触发的（one-time trigger），触发后需重新注册
+- 适合读多写少、小数据量的协调场景，不适合作为大数据存储使用（每个 znode 数据建议在 KB 级别以内）
+- CAP 权衡：ZooKeeper 属于 CP 系统（强一致性 + 分区容错），在网络分区时会牺牲部分可用性（minority 分区不可用）

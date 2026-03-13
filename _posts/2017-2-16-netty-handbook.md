@@ -221,11 +221,33 @@ os.close;
 
 ##### 第11章 WebSocket协议开发
 
+- WebSocket与HTTP的区别：WebSocket是全双工通信协议，建立连接后客户端和服务端可以同时主动发送数据，而HTTP是半双工的请求-响应模式。WebSocket连接一旦建立就会保持持久连接，避免了HTTP频繁建立和断开连接的开销。
+- WebSocket握手过程：客户端通过HTTP Upgrade请求发起握手，服务端返回101 Switching Protocols响应完成协议升级，之后双方通过WebSocket帧进行通信。
+- Netty提供了WebSocketServerHandshaker来处理服务端握手逻辑，WebSocketServerHandshakerFactory根据WebSocket版本自动选择合适的握手处理器，简化了WebSocket服务端的开发。
+- WebSocketFrame类型：TextWebSocketFrame（文本帧）、BinaryWebSocketFrame（二进制帧）、PingWebSocketFrame/PongWebSocketFrame（心跳检测帧）、CloseWebSocketFrame（关闭帧），Netty为每种帧类型都提供了对应的编解码支持。
+- 典型应用场景：实时聊天系统、服务端消息推送通知、股票行情等实时数据展示、在线协同编辑、多人在线游戏等需要低延迟双向通信的场景。
+
 ##### 第12章 UDP协议开发
+
+- UDP协议特点：UDP是无连接的传输协议，不保证数据的可靠性和顺序性，但协议开销小、传输效率高。与TCP相比，UDP没有握手、重传、流控等机制，适合对实时性要求高而对丢包不敏感的场景。
+- Netty通过DatagramPacket封装UDP数据报，使用NioDatagramChannel作为UDP通道实现，DatagramPacket包含了数据内容（ByteBuf）以及发送方和接收方的InetSocketAddress地址信息。
+- UDP编程模型与TCP不同：由于UDP是无连接的，服务端和客户端都使用Bootstrap而非ServerBootstrap进行引导配置，Channel类型指定为NioDatagramChannel，不需要建立连接即可直接收发数据报。
+- 典型应用场景：DNS域名解析、视频直播和流媒体传输、在线游戏服务器、物联网设备数据采集、日志收集系统等对传输速度和低延迟要求较高的场景。
 
 ##### 第13章 文件传输
 
+- Netty提供了ChunkedWriteHandler用于大文件传输，它支持将大文件分块（Chunk）写入通道，避免一次性将整个文件加载到内存中导致内存溢出。配合ChunkedFile或ChunkedNioFile使用，可以高效地完成大文件的异步传输。
+- Netty通过FileRegion接口封装了零拷贝的文件传输能力，底层调用Java NIO的FileChannel.transferTo()方法，将文件内容直接从文件系统缓冲区传输到目标Channel，避免了用户空间与内核空间之间的数据拷贝，显著提升传输性能。
+- 分块传输（Chunked Transfer）适合需要对文件内容进行加密、压缩等处理的场景；而基于FileRegion的零拷贝方式适合直接传输原始文件的场景。内存映射文件（MappedByteBuffer）适合需要随机访问文件内容的场景，应根据业务需求选择合适的传输方式。
+- 文件传输过程中需要注意流控（Flow Control）：写入速度过快可能导致发送缓冲区满，进而引发OOM。应通过监听ChannelFuture的完成事件控制写入节奏，或者通过设置WriteBufferWaterMark高低水位线来实现背压（Back Pressure）控制。
+
 ##### 第14章 私有协议栈开发
+
+- 私有协议消息设计要素：通常包含魔数（Magic Number）用于快速识别协议报文、消息长度字段（Length）标识消息总长、消息头（Header）包含会话ID、消息类型、优先级、附件等元数据、消息体（Body）承载业务数据。合理的协议设计需要兼顾扩展性和解析效率。
+- Netty提供了LengthFieldBasedFrameDecoder和LengthFieldPrepender用于基于长度字段的消息编解码。LengthFieldBasedFrameDecoder通过配置lengthFieldOffset（长度字段偏移量）、lengthFieldLength（长度字段字节数）、lengthAdjustment（长度调整值）、initialBytesToStrip（跳过字节数）四个参数，可以灵活适配各种私有协议的帧结构。
+- 心跳机制：通过Netty的IdleStateHandler检测读写空闲超时，当链路空闲时发送心跳（Ping）消息，对端收到后回复心跳应答（Pong）消息。连续N次未收到心跳应答则判定链路已断开，主动关闭连接并触发重连。心跳机制是保证长连接可用性的关键。
+- 握手与安全认证：客户端与服务端建立TCP连接后，需要进行握手和身份认证（如基于IP白名单或Token验证）。认证通过后链路才可用于业务消息传输，认证失败则服务端主动关闭连接。握手过程可通过自定义ChannelHandler实现。
+- 断线重连策略：客户端检测到连接断开后应自动发起重连，通常采用退避重连策略（如首次立即重连，后续间隔逐步增大至上限值），避免大量客户端同时重连导致服务端瞬间过载。可通过监听ChannelInactive事件触发重连定时任务，结合ChannelFutureListener判断重连结果。
 
 #### Netty高性能之道
 
