@@ -108,7 +108,7 @@ HashMap 和 HashSet 是 Java Collection Framework 的两个重要成员，其中
 
 ##### 存储示意图
 
-![](https://raw.githubusercontent.com/MichaelYgZhang/home/gh-pages/images/hash.jpg)
+![HashMap存储结构示意图](https://raw.githubusercontent.com/MichaelYgZhang/home/gh-pages/images/hash.jpg)
 
 ##### HashMap的读取实现
 

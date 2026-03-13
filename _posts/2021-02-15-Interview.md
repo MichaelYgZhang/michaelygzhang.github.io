@@ -1519,10 +1519,10 @@ JOB,ThreadPoll, HttpClient, ESB, 分布式锁,线程池子隔离措施.灵活配
 1, A,B,C
 2, C,D
 3, E,F
-....
+... (更多规则)
 
 输入: ACD -> true; ACEF -> true; 任意命中一个规则返回true/false;
-TODO
+思路: 将每条规则的元素存入Set，遍历规则集合，检查输入是否包含某条规则的所有元素。
 ```
 
 
