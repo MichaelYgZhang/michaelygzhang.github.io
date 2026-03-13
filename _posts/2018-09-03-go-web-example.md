@@ -377,4 +377,20 @@ func main()  {
 
 ##### step2 结合Gin完成权限管理,文本上传等
 
-###### TODO
+###### Gin 框架简介
+- Gin 是基于 httprouter 的高性能 Go Web 框架，支持中间件、路由分组、JSON 验证等特性，适合快速构建 RESTful API。
+
+###### 路由分组与中间件
+- 使用 `r.Group("/api/v1")` 实现版本化路由管理，便于 API 迭代升级；`gin.Logger()` 和 `gin.Recovery()` 作为默认中间件，分别提供请求日志记录和 panic 恢复能力。
+
+###### 权限管理实现思路
+- 通过 JWT 中间件拦截请求，验证 Token 合法性并将用户信息注入上下文 `c.Set("userId", id)`，后续 Handler 可通过 `c.Get("userId")` 获取；RBAC 权限模型可借助 Casbin 库实现，灵活定义角色与资源的访问策略。
+
+###### 文件上传
+- 使用 `c.FormFile("file")` 获取客户端上传的文件，`c.SaveUploadedFile(file, dst)` 将文件保存到指定路径；支持多文件上传场景，通过 `c.MultipartForm()` 批量处理。
+
+###### 参数绑定与验证
+- `c.ShouldBindJSON(&req)` 可自动将请求体绑定到结构体，配合 `binding:"required,min=1"` 等 struct tag 实现参数校验，减少手动解析和验证的样板代码。
+
+###### 统一响应格式
+- 封装 `Response(c, code, data, msg)` 工具函数，统一 JSON 返回结构 `{"code": 0, "data": {}, "message": "success"}`，保证接口风格一致，方便前端对接与错误处理。

@@ -45,6 +45,11 @@ category: Linux
 
 #### 第4章 安装CentOS 5.X与多重引导小技巧
 
+- 安装前准备：确认硬件兼容性，规划分区方案（/, /boot, /home, swap），选择安装方式（光盘/网络/USB）
+- 多重引导（Multi-boot）：利用 GRUB 引导加载器管理多个操作系统，先装 Windows 再装 Linux 以避免 MBR 被覆盖
+- 安装过程关键步骤：选择语言和时区、磁盘分区（建议手动分区）、选择软件包组（最小安装 vs 桌面环境）
+- 安装后首次配置：设置 root 密码、创建普通用户、配置网络（DHCP/静态IP）、关闭不必要的服务
+
 #### 第5章 首次登陆与在线求助man page
 
 - Ctrl + Alt + [F1~F6] 切换不同的用户
@@ -199,7 +204,6 @@ cat (concatenate)
 
 #### 第8章 Linux磁盘与文件系统管理
 
-- TODO 未完成
 - 基本上Linux的主要的文件系统为Ext2,该文件系统的信息主要有:
   - superblock:记录此文件系统的整体信息，包括inode/block的总量，使用量，剩余量，以及文件系统的格式与相关信息等
   - inode：记录文件的属性，一个文件占用一个inode，同时记录此文件的数据所在的block号码。
@@ -225,4 +229,6 @@ cat (concatenate)
 - 打包目录但不包含某些文件: `tar -jcv -f /xxx/xx.tar.bz2 --exclude=filepath`
 - tarfile, tarball区别就是是否压缩
 - `tar -cv -f /dev/st0 /home/xxx` 将`/home/xx`备份到`/dev/st0`磁带机上
-- TODO 259
+- dump 和 restore 命令：用于完整的文件系统备份和恢复，支持增量备份（level 0-9）
+- 光盘刻录工具：mkisofs 创建 ISO 镜像文件，cdrecord 刻录光盘
+- 备份策略建议：重要数据定期备份（/etc, /home, /var），使用 crontab 自动化备份任务

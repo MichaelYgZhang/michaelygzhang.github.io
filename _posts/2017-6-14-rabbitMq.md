@@ -32,6 +32,12 @@ category: Distributed
 ---
 
 #### 第1章 天将奇兵
+
+- RabbitMQ 基于 AMQP（Advanced Message Queuing Protocol）协议，使用 Erlang 语言编写，天然支持高并发和分布式
+- 消息队列的核心价值：异步处理（提升响应速度）、应用解耦（降低系统间依赖）、流量削峰（保护后端服务）
+- RabbitMQ 与其他消息中间件对比：相比 Kafka 更注重消息可靠性和灵活路由；相比 ActiveMQ 性能更好、社区更活跃
+- 适用场景：订单处理、邮件/短信通知、日志收集、微服务间通信
+
 #### 第2章 理解消息通信
 
 - 信道跟TCP连接。
@@ -56,5 +62,3 @@ category: Distributed
   5. 发布消息
   6. 关闭信道
   7. 关闭连接
-
--

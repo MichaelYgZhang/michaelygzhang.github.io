@@ -41,4 +41,12 @@ tags: [Java, 并发编程, ConcurrentHashMap, 源码分析, 线程安全]
 - ForwardingNode
 - ConcurrentHashMap对数据的读写都是原子操作。虽然ConcurrentHashMap的读不需要锁，但是需要保证能读到最新数据，所以必须加volatile。即数组的引用需要加volatile，同时一个Node节点中的val和next属性也必须要加volatile。
 
-##### TODO 关键源码分析
+##### 关键源码分析
+
+- **put 方法核心流程**：计算 hash -> 如果 table 未初始化则 initTable() -> 如果对应 bin 为空则 CAS 插入 -> 否则 synchronized 锁住首节点 -> 链表遍历插入或红黑树插入 -> 检查是否需要 treeifyBin
+- **initTable()**：使用 sizeCtl 作为 CAS 标志位控制并发初始化，只有一个线程能成功执行初始化，其他线程 yield 等待
+- **transfer() 扩容**：创建 2 倍大小的新数组，多线程协助迁移（stride 分段），已迁移的 bin 放置 ForwardingNode 标记，其他线程遇到 ForwardingNode 会协助扩容
+- **get 方法**：无锁读取，通过 volatile 保证可见性。计算 hash -> 定位 bin -> 遍历链表或红黑树查找匹配节点，全程不需要加锁
+- **size() 与计数**：使用 baseCount + CounterCell[] 分段计数（借鉴 LongAdder 思想），减少 CAS 竞争
+- **红黑树转换**：链表长度 >= 8 且数组长度 >= 64 时转为红黑树（TreeBin + TreeNode）；扩容后链表长度 <= 6 时退化为链表
+- **与 JDK 7 的区别**：JDK 7 使用 Segment 分段锁（ReentrantLock），JDK 8 改为 CAS + synchronized(node)，锁粒度从 Segment 细化到 bin 级别

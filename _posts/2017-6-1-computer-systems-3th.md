@@ -54,3 +54,8 @@ tags: [CSAPP, 计算机系统, 存储器层次, 操作系统, 汇编]
 #### 第3章 程序的机器级表示
 
 - gcc - S hello.c //产生汇编文件hello.s   gcc -C hello.c //产生目标代码文件，hello.o   objdump -d hello.o //反汇编
+- 数据格式：x86-64 使用 b(byte=1字节), w(word=2), l(long/double word=4), q(quad word=8) 后缀区分操作数大小
+- 寄存器：16个通用寄存器（%rax~%r15），%rsp 栈指针；函数前6个整型参数通过 %rdi, %rsi, %rdx, %rcx, %r8, %r9 传递
+- 控制流：条件码（CF/ZF/SF/OF）由 `cmp`/`test` 指令设置，`je`/`jne`/`jg`/`jl` 根据条件码跳转
+- 过程（函数调用）：`call` 压入返回地址并跳转，`ret` 弹出返回地址返回；栈帧保存局部变量和被调用者保存寄存器
+- 数组与结构体：数组通过基址+偏移量访问 `(%rdi, %rsi, 4)`；结构体成员按声明顺序排列，需考虑内存对齐（alignment）

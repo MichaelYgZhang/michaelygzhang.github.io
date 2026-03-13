@@ -126,11 +126,18 @@ tags: [分布式系统, Paxos, Zookeeper, ZAB协议, 一致性, CAP理论]
 
 - Paxos算法  莱斯利-兰伯特 LeslieLamport
   - "拜占庭将军问题", 为解决这个问题提出了 Paxos理论。核心算法是一致性算法。
-  - TODO Paxos
+  - Paxos算法中有三种角色：**Proposer**（提案者，负责提出提案）、**Acceptor**（接受者，负责对提案进行投票表决）、**Learner**（学习者，不参与投票，只学习已达成一致的提案结果）
+  - Paxos算法分为两个阶段：**Prepare阶段**，Proposer选择一个提案编号n并向超过半数的Acceptor发送Prepare(n)请求，Acceptor收到后如果n大于其已响应的所有提案编号，则承诺（Promise）不再接受编号小于n的提案，并返回已接受过的编号最大的提案；**Accept阶段**，Proposer收到超过半数Acceptor的Promise响应后，向这些Acceptor发送Accept(n, v)请求（v为响应中编号最大的提案值，若无则可自由提议），Acceptor收到后如未违反承诺则接受该提案
+  - **过半机制（Majority）**：一个提案只有被超过半数的Acceptor接受后才被视为被选定（Chosen），这保证了在任意时刻最多只有一个提案值被选定，从而实现一致性
+  - **Multi-Paxos优化**：在工程实践中，当Leader稳定时可以跳过Prepare阶段，直接进入Accept阶段，将消息轮次从两轮减少到一轮，大幅提升性能
+  - Paxos算法保证了**Safety**（安全性，即一致性不被破坏），但**Liveness**（活性）需要通过Leader选举机制来保证——若多个Proposer交替提案可能形成活锁（live-lock），因此实践中通常选举一个Leader来统一发起提案
 
 ##### 第3章 Paxos的工程实践
 
-- Google Chubby P52 TODO
+- Google Chubby是一个基于Paxos算法的分布式锁服务，提供粗粒度的分布式锁和小文件存储功能，是Google基础设施的核心组件之一
+- **架构设计**：Chubby集群由5个副本（Replica）组成一个Chubby Cell，通过Paxos协议在副本间选举一个Master，所有的读写请求都由Master处理，其他副本作为热备进行数据复制，Master通过租约（Lease）机制维持其Leader身份
+- **核心功能**：提供Advisory Lock（建议性锁）用于分布式协调；提供小文件存储（文件大小不超过256KB）用于元数据管理；提供Event Notification（事件通知）机制，客户端可以注册监听锁状态和文件内容的变化
+- **设计理念**：Chubby的设计优先保证可靠性和可用性，而非高吞吐量。典型应用场景包括GFS中Master的选举、BigTable中元数据（Tablet Location）的管理、以及Google内部各种分布式系统的命名服务和配置管理
 
 ##### 第4章 ZooKeeper与Paxos
 
@@ -213,8 +220,19 @@ server.id=host:port:port //id标识集群机器序号,范围1~255
 - 分布式队列
 - 分布式屏障
 
-#### TODO 198
-
 
 ##### 第7章 Zookeeper技术内幕
+
+- **系统模型**：ZK的数据模型是一棵树（ZNode Tree），类似文件系统的层级结构。节点类型分为持久节点（Persistent）、临时节点（Ephemeral）、持久顺序节点（Persistent Sequential）和临时顺序节点（Ephemeral Sequential）。每个节点维护一个Stat结构，包含version（数据版本）、cversion（子节点版本）和aversion（ACL版本）用于乐观锁控制
+- **序列化**：ZK使用Jute作为序列化/反序列化框架，通过Record接口的serialize和deserialize方法实现节点数据的编解码，所有协议通信和数据持久化都依赖Jute进行数据序列化
+- **会话管理**：客户端与服务端之间通过TCP长连接维持会话（Session）。会话状态机包含CONNECTING（连接中）、CONNECTED（已连接）、RECONNECTING（重连中）、CLOSE（已关闭）等状态。服务端通过分桶策略（ExpirationInterval）管理会话超时检测，将会话按过期时间归入不同的桶中批量检查
+- **Leader选举算法**：ZK默认使用FastLeaderElection算法，每个服务器启动时处于LOOKING状态。选举基于两个核心指标：ZXID（事务ID，越大说明数据越新）和myid（服务器ID）。优先选择ZXID最大的服务器，ZXID相同则选择myid最大的。当某个服务器获得超过半数投票后成为Leader
+- **请求处理链**：ZK采用责任链模式处理请求。Leader服务器的处理链为：PrepRequestProcessor（请求预处理、创建事务）-> ProposalRequestProcessor（事务投票）-> CommitProcessor（等待过半确认）-> FinalRequestProcessor（应用到内存数据树并返回响应）。Follower的处理链有所不同，通过FollowerRequestProcessor将写请求转发给Leader
+- **数据存储**：ZK数据存储分为内存数据和磁盘数据两部分。内存中使用DataTree维护完整的ZNode树结构，保证高性能读取；磁盘上通过事务日志（Transaction Log）记录每一次事务操作，通过快照（Snapshot）定期对内存数据做全量持久化。恢复时先加载最新快照再重放事务日志，确保数据不丢失
+
 ##### 第8章 Zookeeper运维
+
+- **配置管理**：zoo.cfg是ZK的核心配置文件，关键参数包括：`tickTime`（心跳间隔，默认2000ms）、`dataDir`（内存快照存储路径）、`dataLogDir`（事务日志存储路径，建议与dataDir分开配置以提升IO性能）、`clientPort`（客户端连接端口，默认2181）、`initLimit`（Follower初次同步Leader的超时tickTime倍数）、`syncLimit`（Follower与Leader之间心跳超时的tickTime倍数）
+- **四字命令（Four Letter Words）**：ZK提供一系列四字命令用于监控和管理集群，包括：`stat`（查看服务器状态和连接信息）、`ruok`（检查服务器是否正常运行，返回imok表示健康）、`dump`（列出未完成的会话和临时节点信息）、`conf`（输出服务器配置详情）、`cons`（列出所有客户端连接的详细信息）、`envi`（输出服务器运行环境信息）
+- **最佳实践**：将dataDir和dataLogDir配置在不同的磁盘设备上，避免事务日志写入与快照IO竞争；通过`autopurge.snapRetainCount`配置保留的快照数量（默认3个），`autopurge.purgeInterval`配置自动清理间隔（单位小时，设为0则不开启），防止磁盘被历史日志和快照文件占满
+- **监控运维**：ZK支持JMX（Java Management Extensions）集成，可通过JMX暴露的MBean监控关键指标，如节点数量（znode count）、Watch数量、延迟统计、Leader/Follower角色状态等。生产环境建议结合监控系统（如Prometheus + Grafana）对集群健康状态进行持续监控和告警
