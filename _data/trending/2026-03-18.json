@@ -1,0 +1,80 @@
+[
+  {
+    "full_name": "obra/superpowers",
+    "url": "https://github.com/obra/superpowers",
+    "description": "An agentic skills framework & software development methodology that works.",
+    "language": "Shell",
+    "stars": "92,159",
+    "forks": "7,297",
+    "today_stars": "3,050 stars today",
+    "stars_numeric": 92159,
+    "today_stars_numeric": 3050,
+    "forks_numeric": 7297,
+    "rank": 1
+  },
+  {
+    "full_name": "codecrafters-io/build-your-own-x",
+    "url": "https://github.com/codecrafters-io/build-your-own-x",
+    "description": "Master programming by recreating your favorite technologies from scratch.",
+    "language": "Markdown",
+    "stars": "479,708",
+    "forks": "45,135",
+    "today_stars": "2,011 stars today",
+    "stars_numeric": 479708,
+    "today_stars_numeric": 2011,
+    "forks_numeric": 45135,
+    "rank": 2
+  },
+  {
+    "full_name": "abhigyanpatwari/GitNexus",
+    "url": "https://github.com/abhigyanpatwari/GitNexus",
+    "description": "GitNexus: The Zero-Server Code Intelligence Engine - GitNexus is a client-side knowledge graph creator that runs entirely in your browser. Drop in a GitHub repo or ZIP file, and get an interactive knowledge graph wit a built in Graph RAG Agent. Perfect for code exploration",
+    "language": "TypeScript",
+    "stars": "16,661",
+    "forks": "1,892",
+    "today_stars": "1,117 stars today",
+    "stars_numeric": 16661,
+    "today_stars_numeric": 1117,
+    "forks_numeric": 1892,
+    "rank": 4
+  },
+  {
+    "full_name": "langchain-ai/deepagents",
+    "url": "https://github.com/langchain-ai/deepagents",
+    "description": "Agent harness built with LangChain and LangGraph. Equipped with a planning tool, a filesystem backend, and the ability to spawn subagents - well-equipped to handle complex agentic tasks.",
+    "language": "Python",
+    "stars": "14,055",
+    "forks": "2,119",
+    "today_stars": "1,418 stars today",
+    "stars_numeric": 14055,
+    "today_stars_numeric": 1418,
+    "forks_numeric": 2119,
+    "rank": 3
+  },
+  {
+    "full_name": "jarrodwatts/claude-hud",
+    "url": "https://github.com/jarrodwatts/claude-hud",
+    "description": "A Claude Code plugin that shows what's happening - context usage, active tools, running agents, and todo progress",
+    "language": "JavaScript",
+    "stars": "5,549",
+    "forks": "244",
+    "today_stars": "454 stars today",
+    "stars_numeric": 5549,
+    "today_stars_numeric": 454,
+    "forks_numeric": 244,
+    "rank": 5
+  },
+  {
+    "full_name": "cloudflare/workerd",
+    "url": "https://github.com/cloudflare/workerd",
+    "description": "The JavaScript / Wasm runtime that powers Cloudflare Workers",
+    "language": "C++",
+    "stars": "7,813",
+    "forks": "573",
+    "today_stars": "21 stars today",
+    "stars_numeric": 7813,
+    "today_stars_numeric": 21,
+    "forks_numeric": 573,
+    "rank": 6
+  }
+]
