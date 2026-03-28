@@ -1,0 +1,616 @@
+---
+layout: post
+title: GitHub Trending 技术趋势 (2026-03-29)
+excerpt: 每日GitHub热门项目精选，覆盖AI/ML、编程语言/工具、Web开发、DevOps/云原生、移动开发等方向
+category: AI
+tags: [GitHub Trending, 开源, AI/ML, 编程语言/工具, Web开发, DevOps/云原生, 移动开发]
+---
+
+<div class="executive-summary">
+  <h2>Executive Summary</h2>
+  <h3>结论先行</h3>
+  <blockquote>
+    2026-03-29，<strong>AI/ML</strong> 方向以 <strong>78%</strong> 的占比主导今日 GitHub Trending，<strong>obra/superpowers</strong> 以 2,293 stars today 领跑热度榜。
+  </blockquote>
+  <h3>支撑论点</h3>
+  <blockquote>
+    <ol>
+      <li><strong>AI/ML</strong> 共收录 7 个项目，占全部 9 个趋势项目的 78%，AI 技术持续引领开源创新。</li>
+      <li>编程语言 Top 3 为 Python(5)、TypeScript(3)、Shell(1)，反映出当前主流技术栈偏好。</li>
+      <li>今日共计 <strong>7,729</strong> 新增 Stars，总 Stars 累计 <strong>391,277</strong>，开源社区活跃度强劲。</li>
+    </ol>
+  </blockquote>
+</div>
+
+### 数据概览
+
+<div class="stats-container">
+  <div class="stat-card">
+    <span class="stat-number">9</span>
+    <span class="stat-label">趋势项目</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">391,277</span>
+    <span class="stat-label">总 Stars</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">7,729</span>
+    <span class="stat-label">今日新增 Stars</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">5</span>
+    <span class="stat-label">技术方向</span>
+  </div>
+</div>
+
+### 技术方向分布
+
+<div class="mermaid">
+pie title 技术方向占比
+    "AI/ML" : 7
+    "编程语言/工具" : 4
+    "Web开发" : 4
+    "DevOps/云原生" : 2
+    "移动开发" : 1
+</div>
+
+### 热度排行 Top 5
+
+<div class="timeline-chart">
+  <div class="timeline-bar" style="height:100%"><span class="timeline-value">2293</span><span class="timeline-label">superpowers</span></div>
+  <div class="timeline-bar" style="height:78%"><span class="timeline-value">1789</span><span class="timeline-label">Deep-Live-Ca</span></div>
+  <div class="timeline-bar" style="height:38%"><span class="timeline-value">870</span><span class="timeline-label">onyx</span></div>
+  <div class="timeline-bar" style="height:30%"><span class="timeline-value">679</span><span class="timeline-label">chandra</span></div>
+  <div class="timeline-bar" style="height:25%"><span class="timeline-value">583</span><span class="timeline-label">dexter</span></div>
+</div>
+
+## 昨日对比
+
+<div class="comparison-summary">
+  <div class="stat-card stat-card-new">
+    <span class="stat-number">2</span>
+    <span class="stat-label">新上榜</span>
+  </div>
+  <div class="stat-card stat-card-removed">
+    <span class="stat-number">5</span>
+    <span class="stat-label">已退出</span>
+  </div>
+  <div class="stat-card stat-card-retained">
+    <span class="stat-number">7</span>
+    <span class="stat-label">连续上榜</span>
+  </div>
+  <div class="stat-card stat-card-rising">
+    <span class="stat-number">4</span>
+    <span class="stat-label">热度飙升</span>
+  </div>
+</div>
+
+<div class="metrics-dashboard">
+  <div class="metric-card">
+    <span class="metric-value">+6,269 <span class="metric-arrow">▲</span></span>
+    <span class="metric-label">今日增长总量</span>
+  </div>
+  <div class="metric-card">
+    <span class="metric-value">859</span>
+    <span class="metric-label">平均热度</span>
+  </div>
+  <div class="metric-card">
+    <span class="metric-value">58%</span>
+    <span class="metric-label">留存率</span>
+  </div>
+  <div class="metric-card">
+    <span class="metric-value">-41% <span class="metric-arrow">▼</span></span>
+    <span class="metric-label">增长率</span>
+  </div>
+</div>
+
+### 新上榜项目
+
+<div class="comparison-item comparison-new"><span class="comparison-badge badge-new">NEW</span><a href="https://github.com/agentscope-ai/agentscope">agentscope-ai/agentscope</a><span class="repo-lang">Python</span><span class="repo-today">+379 stars today</span></div>
+<div class="comparison-item comparison-new"><span class="comparison-badge badge-new">NEW</span><a href="https://github.com/apache/superset">apache/superset</a><span class="repo-lang">TypeScript</span><span class="repo-today">+67 stars today</span></div>
+
+### 退出趋势项目
+
+<div class="comparison-item comparison-removed"><span class="comparison-badge badge-removed">OFF</span><a href="https://github.com/FreeCAD/FreeCAD">FreeCAD/FreeCAD</a><span class="repo-lang">C++</span><span>29,636 stars</span></div>
+<div class="comparison-item comparison-removed"><span class="comparison-badge badge-removed">OFF</span><a href="https://github.com/Vaibhavs10/insanely-fast-whisper">Vaibhavs10/insanely-fast-whisper</a><span class="repo-lang">Jupyter Notebook</span><span>11,849 stars</span></div>
+<div class="comparison-item comparison-removed"><span class="comparison-badge badge-removed">OFF</span><a href="https://github.com/microsoft/VibeVoice">microsoft/VibeVoice</a><span class="repo-lang">Python</span><span>24,665 stars</span></div>
+<div class="comparison-item comparison-removed"><span class="comparison-badge badge-removed">OFF</span><a href="https://github.com/mvanhorn/last30days-skill">mvanhorn/last30days-skill</a><span class="repo-lang">Python</span><span>12,543 stars</span></div>
+<div class="comparison-item comparison-removed"><span class="comparison-badge badge-removed">OFF</span><a href="https://github.com/Yeachan-Heo/oh-my-claudecode">Yeachan-Heo/oh-my-claudecode</a><span class="repo-lang">TypeScript</span><span>13,911 stars</span></div>
+
+### 连续上榜项目
+
+<div class="comparison-item streak-item">
+  <span class="rank-change rank-up">▲2</span>
+  <span class="streak-rank">#4</span>
+  <a href="https://github.com/datalab-to/chandra">datalab-to/chandra</a>
+  <span class="delta-up">Stars +580</span>
+  <span class="delta-down">热度 -234</span>
+  <span class="badge-streak">Day 3</span>
+</div>
+<div class="comparison-item streak-item">
+  <span class="rank-change rank-up">▲2</span>
+  <span class="streak-rank">#5</span>
+  <a href="https://github.com/virattt/dexter">virattt/dexter</a>
+  <span class="delta-up">Stars +516</span>
+  <span class="delta-down">热度 -90</span>
+  <span class="badge-streak">Day 3</span>
+</div>
+<div class="comparison-item streak-item">
+  <span class="rank-change rank-up">▲2</span>
+  <span class="streak-rank">#6</span>
+  <a href="https://github.com/twentyhq/twenty">twentyhq/twenty</a>
+  <span class="delta-up">Stars +421</span>
+  <span class="delta-down">热度 -99</span>
+  <span class="badge-streak">Day 3</span>
+</div>
+<div class="comparison-item streak-item">
+  <span class="rank-change rank-up">▲1</span>
+  <span class="streak-rank">#1</span>
+  <a href="https://github.com/obra/superpowers">obra/superpowers</a>
+  <span class="delta-up">Stars +2,239</span>
+  <span class="delta-down">热度 -504</span>
+  <span class="badge-streak">Day 2</span>
+</div>
+<div class="comparison-item streak-item">
+  <span class="rank-change rank-up">▲1</span>
+  <span class="streak-rank">#2</span>
+  <a href="https://github.com/hacksider/Deep-Live-Cam">hacksider/Deep-Live-Cam</a>
+  <span class="delta-up">Stars +1,300</span>
+  <span class="delta-up">热度 +243</span>
+  <span class="badge-streak">Day 2</span>
+</div>
+<div class="comparison-item streak-item">
+  <span class="rank-change rank-up">▲6</span>
+  <span class="streak-rank">#3</span>
+  <a href="https://github.com/onyx-dot-app/onyx">onyx-dot-app/onyx</a>
+  <span class="delta-up">Stars +629</span>
+  <span class="delta-up">热度 +358</span>
+  <span class="badge-streak">Day 2</span>
+</div>
+<div class="comparison-item streak-item">
+  <span class="rank-change rank-up">▲5</span>
+  <span class="streak-rank">#7</span>
+  <a href="https://github.com/SakanaAI/AI-Scientist-v2">SakanaAI/AI-Scientist-v2</a>
+  <span class="delta-up">Stars +584</span>
+  <span class="delta-up">热度 +382</span>
+  <span class="badge-streak">Day 2</span>
+</div>
+
+### 热度变化 Top 5
+
+<div class="comparison-chart">
+  <div class="chart-row">
+    <span class="chart-label">superpowers</span>
+    <div class="chart-bars">
+      <div class="bar-today" style="width:82%"><span>2,293</span></div>
+      <div class="bar-yesterday" style="width:100%"><span>2,797</span></div>
+    </div>
+    <span class="delta-down">-504</span>
+  </div>
+  <div class="chart-row">
+    <span class="chart-label">Deep-Live-Cam</span>
+    <div class="chart-bars">
+      <div class="bar-today" style="width:64%"><span>1,789</span></div>
+      <div class="bar-yesterday" style="width:55%"><span>1,546</span></div>
+    </div>
+    <span class="delta-up">+243</span>
+  </div>
+  <div class="chart-row">
+    <span class="chart-label">onyx</span>
+    <div class="chart-bars">
+      <div class="bar-today" style="width:31%"><span>870</span></div>
+      <div class="bar-yesterday" style="width:18%"><span>512</span></div>
+    </div>
+    <span class="delta-up">+358</span>
+  </div>
+  <div class="chart-row">
+    <span class="chart-label">chandra</span>
+    <div class="chart-bars">
+      <div class="bar-today" style="width:24%"><span>679</span></div>
+      <div class="bar-yesterday" style="width:33%"><span>913</span></div>
+    </div>
+    <span class="delta-down">-234</span>
+  </div>
+  <div class="chart-row">
+    <span class="chart-label">dexter</span>
+    <div class="chart-bars">
+      <div class="bar-today" style="width:21%"><span>583</span></div>
+      <div class="bar-yesterday" style="width:24%"><span>673</span></div>
+    </div>
+    <span class="delta-down">-90</span>
+  </div>
+</div>
+
+### 增长明细
+
+<details>
+<summary>点击展开增长明细表</summary>
+
+<div class="growth-table-wrapper">
+<table class="growth-table">
+  <thead><tr>
+    <th>项目</th><th>排名</th><th>Star 变化</th>
+    <th>Fork 变化</th><th>热度变化</th><th>连续天数</th>
+  </tr></thead>
+  <tbody>
+  <tr>
+    <td>superpowers</td>
+    <td>#1 ▲1</td>
+    <td>+2,239</td>
+    <td>+241</td>
+    <td>-504</td>
+    <td>Day 2</td>
+  </tr>
+  <tr>
+    <td>Deep-Live-Cam</td>
+    <td>#2 ▲1</td>
+    <td>+1,300</td>
+    <td>+191</td>
+    <td>+243</td>
+    <td>Day 2</td>
+  </tr>
+  <tr>
+    <td>onyx</td>
+    <td>#3 ▲6</td>
+    <td>+629</td>
+    <td>+65</td>
+    <td>+358</td>
+    <td>Day 2</td>
+  </tr>
+  <tr>
+    <td>chandra</td>
+    <td>#4 ▲2</td>
+    <td>+580</td>
+    <td>+27</td>
+    <td>-234</td>
+    <td>Day 3</td>
+  </tr>
+  <tr>
+    <td>dexter</td>
+    <td>#5 ▲2</td>
+    <td>+516</td>
+    <td>+39</td>
+    <td>-90</td>
+    <td>Day 3</td>
+  </tr>
+  <tr>
+    <td>twenty</td>
+    <td>#6 ▲2</td>
+    <td>+421</td>
+    <td>+58</td>
+    <td>-99</td>
+    <td>Day 3</td>
+  </tr>
+  <tr>
+    <td>AI-Scientist-v2</td>
+    <td>#7 ▲5</td>
+    <td>+584</td>
+    <td>+44</td>
+    <td>+382</td>
+    <td>Day 2</td>
+  </tr>
+  </tbody>
+</table>
+</div>
+
+</details>
+
+## AI 发展趋势洞察
+
+<div class="trend-insight">
+  <p><strong>主导方向与驱动力：</strong> 今日 Trending 以 <strong>AI/ML</strong> 方向最为突出，共 7 个项目上榜。其中 <a href="https://github.com/obra/superpowers">obra/superpowers</a> 热度最高（2,293 stars today），体现出社区对该领域的持续关注。</p>
+  <p><strong>编程语言偏好：</strong> 今日热门项目中，<strong>Python</strong>(5 项目)、<strong>TypeScript</strong>(3 项目)、<strong>Shell</strong>(1 项目) 位列前三。Python 继续巩固其在 AI/数据领域的统治地位，同时 Rust/Go 等系统级语言在基础设施方向保持增长。</p>
+  <p><strong>值得关注的项目：</strong> <a href="https://github.com/obra/superpowers">superpowers</a>、<a href="https://github.com/hacksider/Deep-Live-Cam">Deep-Live-Cam</a>、<a href="https://github.com/onyx-dot-app/onyx">onyx</a> 等项目今日增长迅猛，建议开发者持续跟踪其发展动态。</p>
+  <p><strong>跨领域融合：</strong> 当前 Trending 涵盖 AI/ML、编程语言/工具、Web开发 等方向，反映出技术生态日益交叉融合的趋势。AI 能力正加速渗透到 DevOps、安全、数据库等各基础设施层面。</p>
+</div>
+
+## AI/ML
+
+<div class="direction-summary">该方向共 <strong>7</strong> 个项目上榜，主要使用 <strong>Python、TypeScript、Shell</strong>，今日合计新增 <strong>5,378</strong> Stars。</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-rising">RISING +2,239 stars</span>
+  <h4><a href="https://github.com/obra/superpowers">obra/superpowers</a></h4>
+  <p class="repo-desc">An agentic skills framework & software development methodology that works.</p>
+  <div class="repo-meta">
+    <span class="repo-lang">Shell</span>
+    <span>Stars: 120,670</span>
+    <span>Forks: 9,795</span>
+    <span class="repo-today">2,293 stars today</span>
+  </div>
+  <div class="repo-deltas">
+    <span class="delta-tag delta-up">Stars +2,239</span>
+    <span class="delta-tag rank-up">Rank ▲1</span>
+    <span class="streak-tag">Trending 2 days</span>
+  </div>
+</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-rising">RISING +584 stars</span>
+  <h4><a href="https://github.com/SakanaAI/AI-Scientist-v2">SakanaAI/AI-Scientist-v2</a></h4>
+  <p class="repo-desc">The AI Scientist-v2: Workshop-Level Automated Scientific Discovery via Agentic Tree Search</p>
+  <div class="repo-meta">
+    <span class="repo-lang">Python</span>
+    <span>Stars: 3,420</span>
+    <span>Forks: 520</span>
+    <span class="repo-today">507 stars today</span>
+  </div>
+  <div class="repo-deltas">
+    <span class="delta-tag delta-up">Stars +584</span>
+    <span class="delta-tag rank-up">Rank ▲5</span>
+    <span class="streak-tag">Trending 2 days</span>
+  </div>
+</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-retained">Day 3 on trending | +516 stars</span>
+  <h4><a href="https://github.com/virattt/dexter">virattt/dexter</a></h4>
+  <p class="repo-desc">An autonomous agent for deep financial research</p>
+  <div class="repo-meta">
+    <span class="repo-lang">TypeScript</span>
+    <span>Stars: 20,169</span>
+    <span>Forks: 2,424</span>
+    <span class="repo-today">583 stars today</span>
+  </div>
+  <div class="repo-deltas">
+    <span class="delta-tag delta-up">Stars +516</span>
+    <span class="delta-tag rank-up">Rank ▲2</span>
+    <span class="streak-tag">Trending 3 days</span>
+  </div>
+</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-rising">RISING +629 stars</span>
+  <h4><a href="https://github.com/onyx-dot-app/onyx">onyx-dot-app/onyx</a></h4>
+  <p class="repo-desc">Open Source AI Platform - AI Chat with advanced features that works with every LLM</p>
+  <div class="repo-meta">
+    <span class="repo-lang">Python</span>
+    <span>Stars: 19,729</span>
+    <span>Forks: 2,654</span>
+    <span class="repo-today">870 stars today</span>
+  </div>
+  <div class="repo-deltas">
+    <span class="delta-tag delta-up">Stars +629</span>
+    <span class="delta-tag rank-up">Rank ▲6</span>
+    <span class="streak-tag">Trending 2 days</span>
+  </div>
+</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-retained">Day 3 on trending | +580 stars</span>
+  <h4><a href="https://github.com/datalab-to/chandra">datalab-to/chandra</a></h4>
+  <p class="repo-desc">OCR model that handles complex tables, forms, handwriting with full layout.</p>
+  <div class="repo-meta">
+    <span class="repo-lang">Python</span>
+    <span>Stars: 7,568</span>
+    <span>Forks: 759</span>
+    <span class="repo-today">679 stars today</span>
+  </div>
+  <div class="repo-deltas">
+    <span class="delta-tag delta-up">Stars +580</span>
+    <span class="delta-tag rank-up">Rank ▲2</span>
+    <span class="streak-tag">Trending 3 days</span>
+  </div>
+</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-new">NEW</span>
+  <h4><a href="https://github.com/agentscope-ai/agentscope">agentscope-ai/agentscope</a></h4>
+  <p class="repo-desc">Build and run agents you can see, understand and trust.</p>
+  <div class="repo-meta">
+    <span class="repo-lang">Python</span>
+    <span>Stars: 21,590</span>
+    <span>Forks: 2,133</span>
+    <span class="repo-today">379 stars today</span>
+  </div>
+</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-new">NEW</span>
+  <h4><a href="https://github.com/apache/superset">apache/superset</a></h4>
+  <p class="repo-desc">Apache Superset is a Data Visualization and Data Exploration Platform</p>
+  <div class="repo-meta">
+    <span class="repo-lang">TypeScript</span>
+    <span>Stars: 71,444</span>
+    <span>Forks: 16,889</span>
+    <span class="repo-today">67 stars today</span>
+  </div>
+</div>
+
+---
+
+## 编程语言/工具
+
+<div class="direction-summary">该方向共 <strong>4</strong> 个项目上榜，主要使用 <strong>Python、Shell、TypeScript</strong>，今日合计新增 <strong>5,023</strong> Stars。</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-rising">RISING +1,300 stars</span>
+  <h4><a href="https://github.com/hacksider/Deep-Live-Cam">hacksider/Deep-Live-Cam</a></h4>
+  <p class="repo-desc">real time face swap and one-click video deepfake with only a single image</p>
+  <div class="repo-meta">
+    <span class="repo-lang">Python</span>
+    <span>Stars: 84,278</span>
+    <span>Forks: 12,311</span>
+    <span class="repo-today">1,789 stars today</span>
+  </div>
+  <div class="repo-deltas">
+    <span class="delta-tag delta-up">Stars +1,300</span>
+    <span class="delta-tag rank-up">Rank ▲1</span>
+    <span class="streak-tag">Trending 2 days</span>
+  </div>
+</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-rising">RISING +2,239 stars</span>
+  <h4><a href="https://github.com/obra/superpowers">obra/superpowers</a></h4>
+  <p class="repo-desc">An agentic skills framework & software development methodology that works.</p>
+  <div class="repo-meta">
+    <span class="repo-lang">Shell</span>
+    <span>Stars: 120,670</span>
+    <span>Forks: 9,795</span>
+    <span class="repo-today">2,293 stars today</span>
+  </div>
+  <div class="repo-deltas">
+    <span class="delta-tag delta-up">Stars +2,239</span>
+    <span class="delta-tag rank-up">Rank ▲1</span>
+    <span class="streak-tag">Trending 2 days</span>
+  </div>
+</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-retained">Day 3 on trending | +421 stars</span>
+  <h4><a href="https://github.com/twentyhq/twenty">twentyhq/twenty</a></h4>
+  <p class="repo-desc">Building a modern alternative to Salesforce, powered by the community.</p>
+  <div class="repo-meta">
+    <span class="repo-lang">TypeScript</span>
+    <span>Stars: 42,409</span>
+    <span>Forks: 5,628</span>
+    <span class="repo-today">562 stars today</span>
+  </div>
+  <div class="repo-deltas">
+    <span class="delta-tag delta-up">Stars +421</span>
+    <span class="delta-tag rank-up">Rank ▲2</span>
+    <span class="streak-tag">Trending 3 days</span>
+  </div>
+</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-new">NEW</span>
+  <h4><a href="https://github.com/agentscope-ai/agentscope">agentscope-ai/agentscope</a></h4>
+  <p class="repo-desc">Build and run agents you can see, understand and trust.</p>
+  <div class="repo-meta">
+    <span class="repo-lang">Python</span>
+    <span>Stars: 21,590</span>
+    <span>Forks: 2,133</span>
+    <span class="repo-today">379 stars today</span>
+  </div>
+</div>
+
+---
+
+## Web开发
+
+<div class="direction-summary">该方向共 <strong>4</strong> 个项目上榜，主要使用 <strong>TypeScript、Python</strong>，今日合计新增 <strong>1,591</strong> Stars。</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-retained">Day 3 on trending | +516 stars</span>
+  <h4><a href="https://github.com/virattt/dexter">virattt/dexter</a></h4>
+  <p class="repo-desc">An autonomous agent for deep financial research</p>
+  <div class="repo-meta">
+    <span class="repo-lang">TypeScript</span>
+    <span>Stars: 20,169</span>
+    <span>Forks: 2,424</span>
+    <span class="repo-today">583 stars today</span>
+  </div>
+  <div class="repo-deltas">
+    <span class="delta-tag delta-up">Stars +516</span>
+    <span class="delta-tag rank-up">Rank ▲2</span>
+    <span class="streak-tag">Trending 3 days</span>
+  </div>
+</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-retained">Day 3 on trending | +421 stars</span>
+  <h4><a href="https://github.com/twentyhq/twenty">twentyhq/twenty</a></h4>
+  <p class="repo-desc">Building a modern alternative to Salesforce, powered by the community.</p>
+  <div class="repo-meta">
+    <span class="repo-lang">TypeScript</span>
+    <span>Stars: 42,409</span>
+    <span>Forks: 5,628</span>
+    <span class="repo-today">562 stars today</span>
+  </div>
+  <div class="repo-deltas">
+    <span class="delta-tag delta-up">Stars +421</span>
+    <span class="delta-tag rank-up">Rank ▲2</span>
+    <span class="streak-tag">Trending 3 days</span>
+  </div>
+</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-new">NEW</span>
+  <h4><a href="https://github.com/agentscope-ai/agentscope">agentscope-ai/agentscope</a></h4>
+  <p class="repo-desc">Build and run agents you can see, understand and trust.</p>
+  <div class="repo-meta">
+    <span class="repo-lang">Python</span>
+    <span>Stars: 21,590</span>
+    <span>Forks: 2,133</span>
+    <span class="repo-today">379 stars today</span>
+  </div>
+</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-new">NEW</span>
+  <h4><a href="https://github.com/apache/superset">apache/superset</a></h4>
+  <p class="repo-desc">Apache Superset is a Data Visualization and Data Exploration Platform</p>
+  <div class="repo-meta">
+    <span class="repo-lang">TypeScript</span>
+    <span>Stars: 71,444</span>
+    <span>Forks: 16,889</span>
+    <span class="repo-today">67 stars today</span>
+  </div>
+</div>
+
+---
+
+## DevOps/云原生
+
+<div class="direction-summary">该方向共 <strong>2</strong> 个项目上榜，主要使用 <strong>Python、TypeScript</strong>，今日合计新增 <strong>1,090</strong> Stars。</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-rising">RISING +584 stars</span>
+  <h4><a href="https://github.com/SakanaAI/AI-Scientist-v2">SakanaAI/AI-Scientist-v2</a></h4>
+  <p class="repo-desc">The AI Scientist-v2: Workshop-Level Automated Scientific Discovery via Agentic Tree Search</p>
+  <div class="repo-meta">
+    <span class="repo-lang">Python</span>
+    <span>Stars: 3,420</span>
+    <span>Forks: 520</span>
+    <span class="repo-today">507 stars today</span>
+  </div>
+  <div class="repo-deltas">
+    <span class="delta-tag delta-up">Stars +584</span>
+    <span class="delta-tag rank-up">Rank ▲5</span>
+    <span class="streak-tag">Trending 2 days</span>
+  </div>
+</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-retained">Day 3 on trending | +516 stars</span>
+  <h4><a href="https://github.com/virattt/dexter">virattt/dexter</a></h4>
+  <p class="repo-desc">An autonomous agent for deep financial research</p>
+  <div class="repo-meta">
+    <span class="repo-lang">TypeScript</span>
+    <span>Stars: 20,169</span>
+    <span>Forks: 2,424</span>
+    <span class="repo-today">583 stars today</span>
+  </div>
+  <div class="repo-deltas">
+    <span class="delta-tag delta-up">Stars +516</span>
+    <span class="delta-tag rank-up">Rank ▲2</span>
+    <span class="streak-tag">Trending 3 days</span>
+  </div>
+</div>
+
+---
+
+## 移动开发
+
+<div class="direction-summary">该方向共 <strong>1</strong> 个项目上榜，主要使用 <strong>Python</strong>，今日合计新增 <strong>870</strong> Stars。</div>
+
+<div class="trending-repo-card">
+  <span class="repo-badge badge-rising">RISING +629 stars</span>
+  <h4><a href="https://github.com/onyx-dot-app/onyx">onyx-dot-app/onyx</a></h4>
+  <p class="repo-desc">Open Source AI Platform - AI Chat with advanced features that works with every LLM</p>
+  <div class="repo-meta">
+    <span class="repo-lang">Python</span>
+    <span>Stars: 19,729</span>
+    <span>Forks: 2,654</span>
+    <span class="repo-today">870 stars today</span>
+  </div>
+  <div class="repo-deltas">
+    <span class="delta-tag delta-up">Stars +629</span>
+    <span class="delta-tag rank-up">Rank ▲6</span>
+    <span class="streak-tag">Trending 2 days</span>
+  </div>
+</div>
+
+---
