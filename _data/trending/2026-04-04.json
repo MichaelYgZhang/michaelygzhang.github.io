@@ -1,0 +1,93 @@
+[
+  {
+    "full_name": "Yeachan-Heo/oh-my-codex",
+    "url": "https://github.com/Yeachan-Heo/oh-my-codex",
+    "description": "OmX - Oh My codeX: Your codex is not alone. Add hooks, agent teams, HUDs, and so much more.",
+    "language": "TypeScript",
+    "stars": "14,055",
+    "forks": "1,293",
+    "today_stars": "2,984 stars today",
+    "stars_numeric": 14055,
+    "today_stars_numeric": 2984,
+    "forks_numeric": 1293,
+    "rank": 1
+  },
+  {
+    "full_name": "onyx-dot-app/onyx",
+    "url": "https://github.com/onyx-dot-app/onyx",
+    "description": "Open Source AI Platform - AI Chat with advanced features that works with every LLM",
+    "language": "Python",
+    "stars": "23,215",
+    "forks": "3,120",
+    "today_stars": "1,872 stars today",
+    "stars_numeric": 23215,
+    "today_stars_numeric": 1872,
+    "forks_numeric": 3120,
+    "rank": 3
+  },
+  {
+    "full_name": "google-research/timesfm",
+    "url": "https://github.com/google-research/timesfm",
+    "description": "TimesFM (Time Series Foundation Model) is a pretrained time-series foundation model developed by Google Research for time-series forecasting.",
+    "language": "Python",
+    "stars": "14,098",
+    "forks": "1,219",
+    "today_stars": "912 stars today",
+    "stars_numeric": 14098,
+    "today_stars_numeric": 912,
+    "forks_numeric": 1219,
+    "rank": 5
+  },
+  {
+    "full_name": "siddharthvaddem/openscreen",
+    "url": "https://github.com/siddharthvaddem/openscreen",
+    "description": "Create stunning demos for free. Open-source, no subscriptions, no watermarks, and free for commercial use. An alternative to Screen Studio.",
+    "language": "TypeScript",
+    "stars": "18,117",
+    "forks": "1,233",
+    "today_stars": "2,855 stars today",
+    "stars_numeric": 18117,
+    "today_stars_numeric": 2855,
+    "forks_numeric": 1233,
+    "rank": 2
+  },
+  {
+    "full_name": "dmtrKovalenko/fff.nvim",
+    "url": "https://github.com/dmtrKovalenko/fff.nvim",
+    "description": "The fastest and the most accurate file search toolkit for AI agents, Neovim, Rust, C, and NodeJS",
+    "language": "Rust",
+    "stars": "3,238",
+    "forks": "128",
+    "today_stars": "767 stars today",
+    "stars_numeric": 3238,
+    "today_stars_numeric": 767,
+    "forks_numeric": 128,
+    "rank": 6
+  },
+  {
+    "full_name": "f/prompts.chat",
+    "url": "https://github.com/f/prompts.chat",
+    "description": "f.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community. Free and open source — self-host for your organization with complete privacy.",
+    "language": "HTML",
+    "stars": "157,162",
+    "forks": "20,603",
+    "today_stars": "369 stars today",
+    "stars_numeric": 157162,
+    "today_stars_numeric": 369,
+    "forks_numeric": 20603,
+    "rank": 7
+  },
+  {
+    "full_name": "sherlock-project/sherlock",
+    "url": "https://github.com/sherlock-project/sherlock",
+    "description": "Hunt down social media accounts by username across social networks",
+    "language": "Python",
+    "stars": "78,472",
+    "forks": "9,167",
+    "today_stars": "1,230 stars today",
+    "stars_numeric": 78472,
+    "today_stars_numeric": 1230,
+    "forks_numeric": 9167,
+    "rank": 4
+  }
+]
